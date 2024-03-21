@@ -1,0 +1,13 @@
+.venv/
+.env/
+__pycharm__/
+.env
+.env-sample
+dockerfile
+docker-compose.yaml
+.dockerignore
+.gitignore
+README.md
+requirements.txt
+media/
+media/*
