@@ -8,6 +8,6 @@ docker-compose.yaml
 .dockerignore
 .gitignore
 README.md
-requirements.txt
 media/
 media/*
+LICENSE
