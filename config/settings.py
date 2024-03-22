@@ -26,7 +26,7 @@ SECRET_KEY = environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(environ.get("DEBUG"))
 
-ALLOWED_HOSTS = ["0.0.0.0", "172.0.0.1", "localhost", ]
+ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "localhost", ]
 
 
 # Application definition
@@ -48,6 +48,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    "django.middleware.locale.LocaleMiddleware",
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -115,6 +116,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
 LANGUAGE_CODE = 'fa-ir'
+
+LANGUAGES = (
+    ("fa", "fa-ir", ), 
+    ("en", "en-us", ), 
+)
 
 TIME_ZONE = 'Asia/Tehran'
 
