@@ -23,7 +23,7 @@ RUN pip install wheel
 # Install Python dependencies
 RUN pip install -r /code/requirements.txt
 
-# Expose port 8000 to the outside world
+# Expose port 8000 to the outside world (:
 EXPOSE 8000
 
 # Run the application
