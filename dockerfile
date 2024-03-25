@@ -9,7 +9,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 WORKDIR /code
 
 # Copy the current directory contents into the container at /code
-COPY . /code
+ADD . /code
 
 # Install system dependencies
 RUN apt-get -y update && apt-get -y upgrade
