@@ -28,6 +28,8 @@ DEBUG = bool(environ.get("DEBUG"))
 
 ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "localhost", ]
 
+SITE_ID = 1
+
 
 # Application definition
 
@@ -129,6 +131,10 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+LOCALE_PATHS = [
+    BASE_DIR / "locale/",
+]
 
 
 # Static files (CSS, JavaScript, Images)
