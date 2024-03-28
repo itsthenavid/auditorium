@@ -40,9 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Third-Party installed apps
-
     # Developer installed apps
+    "accounts.apps.AccountsConfig",
     "extensions",
 ]
 
@@ -156,3 +155,8 @@ MEDIA_ROOT = BASE_DIR / "media/"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Authentication system (Sign-in, Login/Logout and more)
+# https://docs.djangoproject.com/en/5.0/topics/auth/
+
+AUTH_USER_MODEL = "accounts.CustomUser"
