@@ -23,7 +23,6 @@ __pycache__/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
-media/
 .env
 
 ### Database ###
@@ -1048,11 +1047,6 @@ pyrightconfig.json
 ### VisualStudioCode ###
 .vscode/
 .vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-!.vscode/*.code-snippets
 
 # Local History for Visual Studio Code
 .history/
