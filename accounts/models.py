@@ -1,8 +1,9 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from random import choice
 
+from random import choice
 from django.contrib.auth.models import AbstractUser
+from django.utils.html import format_html
 
 # Create your models here.
 
@@ -63,6 +64,13 @@ class CustomUser(AbstractUser):
             return str(f"{self.first_name}")
         else:
             return str(f"{self.username}")
+    
+    def set_thumbnail_avatar(self):
+        return format_html(
+            f"""
+            <img src="{self.avatar.url}" height="75px" width="60px" />
+            """
+        )
     
     def __str__(self):
         return str(self.get_user_suggested_name)
