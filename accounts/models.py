@@ -37,7 +37,7 @@ class CustomUser(AbstractUser):
     avatar = models.ImageField(
         _("Avatars"),
         upload_to="accounts/avatars/",
-        default=f"defaults/{set_random_user_avatar}.webp"
+        default=f"constants/{set_random_user_avatar}.webp"
     )
     bio = models.CharField(
         _("Biography"),
@@ -53,3 +53,22 @@ class CustomUser(AbstractUser):
         # Translation system
         verbose_name = _("User")
         verbose_name_plural = _("Users")
+    
+    def get_user_suggested_name(self):
+        if self.first_name and self.last_name:
+            return str(f"{self.first_name} {self.last_name}")
+        elif self.last_name:
+            return str(f"{self.last_name}")
+        elif self.first_name:
+            return str(f"{self.first_name}")
+        else:
+            return str(f"{self.username}")
+    
+    def __str__(self):
+        return str(self.get_user_suggested_name)
+    
+    def __repr__(self):
+        return str(self.get_user_suggested_name)
+    
+    def __retr__(self):
+        return str(self.get_user_suggested_name)
