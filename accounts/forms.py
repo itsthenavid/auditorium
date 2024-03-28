@@ -9,9 +9,9 @@ from .models import CustomUser
 
 class CustomUserCreationForm(UserCreationForm):
 
-    class Meta:
+    class Meta(UserCreationForm):
         model = CustomUser
-        fields = (
+        fields = UserCreationForm.Meta.fields + (
             "avatar",
             "email",
             "username",
@@ -23,6 +23,6 @@ class CustomUserCreationForm(UserCreationForm):
 
 class CustomUserChangeForm(UserChangeForm):
 
-    class Meta:
+    class Meta(UserChangeForm):
         model = CustomUser
         fields = UserChangeForm.Meta.fields

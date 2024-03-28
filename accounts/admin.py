@@ -1,6 +1,7 @@
 from django.contrib import admin
-
 from django.contrib.auth.admin import UserAdmin
+
+from django.utils.translation import gettext_lazy as _
 
 from .models import CustomUser
 from .forms import CustomUserCreationForm, CustomUserChangeForm
@@ -31,9 +32,7 @@ class CustomUserAdmin(UserAdmin):
         "is_superuser",
         "date_joined",
     )
-    list_per_page = (
-        "35",
-    )
+    list_per_page = 35
     search_fields = (
         "first_name",
         "last_name",
@@ -41,28 +40,36 @@ class CustomUserAdmin(UserAdmin):
         "username",
     )
 
-    add_fieldsets = (
+    UserAdmin.add_fieldsets = (
         (
             None,
             {
                 "fields": (
-                    "email",
-                    "first_name",
-                    "last_name",
-                    "avatar",
-                    "bio",
-                ),
-            },
-        ), 
-    )
-    fieldsets = (
-        (
-            None,
-            {
-                "fields": (
-                    "avatar",
-                    "bio",
+                    "avatar", 
+                    "email", 
+                    "username", 
+                    "password1", 
+                    "password2",
                 ),
             },
         ),
+        (_("Personal Info"), {"fields": ("first_name", "last_name", "bio", )}),
+    )
+
+    UserAdmin.fieldsets = (
+        (None, {"fields": ("avatar", "email", "username", "password")}),
+        (_("Personal info"), {"fields": ("first_name", "last_name", "bio", )}),
+        (
+            _("Permissions"),
+            {
+                "fields": (
+                    "is_active",
+                    "is_staff",
+                    "is_superuser",
+                    "groups",
+                    "user_permissions",
+                ),
+            },
+        ),
+        (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )

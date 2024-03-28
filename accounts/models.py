@@ -35,10 +35,12 @@ def set_random_user_avatar():
 
 
 class CustomUser(AbstractUser):
+    email = models.EmailField(_("Email Address"), unique=True)
     avatar = models.ImageField(
-        _("Avatars"),
+        _("Avatar"),
         upload_to="accounts/avatars/",
-        default=f"constants/{set_random_user_avatar}.webp"
+        default=f"constants/{set_random_user_avatar()}.webp",
+        blank=True
     )
     bio = models.CharField(
         _("Biography"),
@@ -49,7 +51,7 @@ class CustomUser(AbstractUser):
 
     class Meta:
         # Ordering system
-        ordering = ("is_active", "date_joined", )
+        ordering = ("is_active", "-date_joined", )
 
         # Translation system
         verbose_name = _("User")
@@ -57,26 +59,26 @@ class CustomUser(AbstractUser):
     
     def get_user_suggested_name(self):
         if self.first_name and self.last_name:
-            return str(f"{self.first_name} {self.last_name}")
+            return f"{self.first_name} {self.last_name}"
         elif self.last_name:
-            return str(f"{self.last_name}")
+            return f"{self.last_name}"
         elif self.first_name:
-            return str(f"{self.first_name}")
+            return f"{self.first_name}"
         else:
-            return str(f"{self.username}")
+            return f"{self.username}"
+    get_user_suggested_name.short_description = _("User Name")
     
     def set_thumbnail_avatar(self):
         return format_html(
             f"""
-            <img src="{self.avatar.url}" height="75px" width="60px" />
+            <img src="{self.avatar.url}" 
+            style="height: 50px; width: 50px; border-radius: 50%;" />
             """
         )
+    set_thumbnail_avatar.short_description = _("Avatar")
     
     def __str__(self):
-        return str(self.get_user_suggested_name)
+        return self.get_user_suggested_name()
     
     def __repr__(self):
-        return str(self.get_user_suggested_name)
-    
-    def __retr__(self):
-        return str(self.get_user_suggested_name)
+        return self.get_user_suggested_name()
