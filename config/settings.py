@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # Developer installed apps
     "accounts.apps.AccountsConfig",
     "pages.apps.PagesConfig",
+    "articles.apps.ArticlesConfig",
     "extensions",
 ]
 
