@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Developer installed apps
     "accounts.apps.AccountsConfig",
+    "pages.apps.PagesConfig",
     "extensions",
 ]
 
