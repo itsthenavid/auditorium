@@ -1,21 +1,25 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.utils.timezone import now
+from django.contrib.auth import get_user_model as _user_model
+
+from ckeditor_uploader.fields import RichTextUploadingField
 
 # Create your models here.
 
 
 class Category(models.Model):
     name = models.CharField(
-        _("Category Name"),
+        _("Name"),
         max_length=125
     )
     slug = models.SlugField(
-        _("Category Slug"),
+        _("Slug"),
         max_length=55,
         unique=True
     )
     description = models.CharField(
-        _("Category Description"),
+        _("Description"),
         max_length=255,
         blank=True
     )
