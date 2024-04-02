@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.utils.timezone import now
 from django.contrib.auth import get_user_model as _user_model
+from django.utils.html import format_html
 
 from django_ckeditor_5.fields import CKEditor5Field
 
@@ -155,6 +156,14 @@ class Article(models.Model):
                 "is_active",
             ], ), 
         )
+
+    def set_artwork_thumbnail(self):
+        return format_html(
+            f"""
+            <img src={self.artwork.url} style="width: 85px; height: 55px; border-radius: 5%;" />
+            """
+        )
+    set_artwork_thumbnail.short_description = _("Artwork")
 
     def __str__(self) -> str:
         return self.title
