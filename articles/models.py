@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.timezone import now
 from django.contrib.auth import get_user_model as _user_model
 
-from ckeditor_uploader.fields import RichTextUploadingField
+from django_ckeditor_5.fields import CKEditor5Field
 
 # Create your models here.
 
@@ -116,8 +116,9 @@ class Article(models.Model):
         related_name="category_articles",
         db_index=True
     )
-    content = RichTextUploadingField(
+    content = CKEditor5Field(
         _("Content"),
+        config_name="extends",
         blank=True
     )
     status = models.CharField(
