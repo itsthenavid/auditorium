@@ -11,6 +11,16 @@ class CategoryAdmin(admin.ModelAdmin):
         "name",
         "is_active",
     )
+    list_editable = (
+        "is_active",
+    )
+    list_filter = (
+        "is_active",
+    )
+    search_fields = (
+        "name",
+    )
+    list_per_page = 35
 
 
 @admin.register(Article)
@@ -38,5 +48,4 @@ class ArticleAdmin(admin.ModelAdmin):
     search_fields = (
         "title",
         "description",
-        "category__title",
     )
