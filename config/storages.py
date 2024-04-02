@@ -8,7 +8,7 @@ from urllib.parse import urljoin
 # Create your custom project storages here.
 
 
-class CustomStorage(FileSystemStorage):
+class CKEditorFileSystemStorage(FileSystemStorage):
     """Custom storage for django_ckeditor_5 images."""
 
     location = os.path.join(settings.MEDIA_ROOT, "django_ckeditor_5")
