@@ -194,7 +194,8 @@ customColorPalette = [
         },
     ]
 
-CKEDITOR_5_FILE_STORAGE = "CustomStorage" # optional
+CKEDITOR_5_FILE_STORAGE = "config.storages.CKEditorFileSystemStorage"
+
 CKEDITOR_5_CONFIGS = {
     'default': {
         'toolbar': ['heading', '|', 'bold', 'italic', 'link',
