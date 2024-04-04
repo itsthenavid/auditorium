@@ -4,6 +4,8 @@ from django.utils.timezone import now
 from django.contrib.auth import get_user_model as _user_model
 from django.utils.html import format_html
 
+from .managers import ActiveArticleManager
+
 from django_ckeditor_5.fields import CKEditor5Field
 
 # Create your models here.
@@ -134,6 +136,9 @@ class Article(models.Model):
         default=True,
         db_index=True
     )
+
+    objects = models.Manager()
+    actives = ActiveArticleManager()
 
     class Meta:
         # Ordering system
