@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "extensions",
     # Third-party installed apps
     "django_ckeditor_5",
+    "taggit",
 ]
 
 MIDDLEWARE = [
