@@ -7,6 +7,7 @@ from django.utils.html import format_html
 from .managers import ActiveArticleManager
 
 from django_ckeditor_5.fields import CKEditor5Field
+from taggit.managers import TaggableManager
 
 # Create your models here.
 
@@ -123,6 +124,9 @@ class Article(models.Model):
         _("Content"),
         config_name="extends",
         blank=True
+    )
+    tags = TaggableManager(
+        _("Tags"),
     )
     status = models.CharField(
         _("Status"),
