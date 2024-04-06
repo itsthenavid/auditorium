@@ -31,7 +31,7 @@ urlpatterns = [
 
 urlpatterns += i18n_patterns(
     path('admin/', admin.site.urls),
-    path("", include("articles.urls")),
+    path("", include("clusters.urls")),
 
     # Needed for translations in Javascript
     path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),

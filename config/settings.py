@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     # Developer installed apps
     "accounts.apps.AccountsConfig",
     "pages.apps.PagesConfig",
-    "articles.apps.ArticlesConfig",
+    "clusters.apps.ClustersConfig",
     "extensions",
     # Third-party installed apps
     "django_ckeditor_5",
