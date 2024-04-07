@@ -6,8 +6,7 @@ from django.utils.html import format_html
 
 from .managers import ActiveArticleManager
 
-from django_ckeditor_5.fields import CKEditor5Field
-from tinymce import models as t_models
+from tinymce.models import HTMLField
 from taggit.managers import TaggableManager
 
 # Create your models here.
@@ -121,7 +120,7 @@ class Article(models.Model):
         related_name="category_articles",
         db_index=True
     )
-    content = t_models.HTMLField(
+    content = HTMLField(
         _("Content"),
         blank=True
     )
