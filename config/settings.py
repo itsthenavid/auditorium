@@ -46,8 +46,8 @@ INSTALLED_APPS = [
     "clusters.apps.ClustersConfig",
     "extensions",
     # Third-party installed apps
-    "django_ckeditor_5",
     "taggit",
+    "tinymce",
 ]
 
 MIDDLEWARE = [
@@ -166,195 +166,41 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "accounts.CustomUser"
 
-# CKEditor settings
-# https://django-ckeditor.readthedocs.io/en/latest/#installation
+# TinyMCE editor settings
+# https://django-tinymce.readthedocs.io/en/latest/
 
-customColorPalette = [
-        {
-            'color': 'hsl(4, 90%, 58%)',
-            'label': 'Red'
-        },
-        {
-            'color': 'hsl(340, 82%, 52%)',
-            'label': 'Pink'
-        },
-        {
-            'color': 'hsl(291, 64%, 42%)',
-            'label': 'Purple'
-        },
-        {
-            'color': 'hsl(262, 52%, 47%)',
-            'label': 'Deep Purple'
-        },
-        {
-            'color': 'hsl(231, 48%, 48%)',
-            'label': 'Indigo'
-        },
-        {
-            'color': 'hsl(207, 90%, 54%)',
-            'label': 'Blue'
-        },
-    ]
+TINYMCE_DEFAULT_CONFIG = {
+    "entity_encoding": "raw",
+    "menubar": "file edit view insert format tools table help",
+    "plugins": 'print preview paste importcss searchreplace autolink autosave save code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap emoticons quickbars',
+    "toolbar": "fullscreen preview | undo redo | bold italic forecolor backcolor | formatselect | image link | "
+    "alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | fontsizeselect "
+    "emoticons | ",
+    "custom_undo_redo_levels": 50,
+    "quickbars_insert_toolbar": False,
+    "file_picker_callback": """function (cb, value, meta) {
+        var input = document.createElement("input");
+        input.setAttribute("type", "file");
+        if (meta.filetype == "image") {
+            input.setAttribute("accept", "image/*");
+        }
+        if (meta.filetype == "media") {
+            input.setAttribute("accept", "video/*");
+        }
 
-CKEDITOR_5_FILE_STORAGE = "config.storages.CKEditorFileSystemStorage"
-
-customColorPalette = [
-    {"color": "hsl(4, 90%, 58%)", "label": "Red"},
-    {"color": "hsl(340, 82%, 52%)", "label": "Pink"},
-    {"color": "hsl(291, 64%, 42%)", "label": "Purple"},
-    {"color": "hsl(262, 52%, 47%)", "label": "Deep Purple"},
-    {"color": "hsl(231, 48%, 48%)", "label": "Indigo"},
-    {"color": "hsl(207, 90%, 54%)", "label": "Blue"},
-]
-
-CKEDITOR_5_CONFIGS = {
-    "default": {
-        "toolbar": [
-            "heading",
-            "|",
-            "bold",
-            "italic",
-            "link",
-            "bulletedList",
-            "numberedList",
-            "blockQuote",
-            "imageUpload"
-        ],
-    },
-    "comment": {
-        "language": {"ui": "en", "content": "en"},
-        "toolbar": [
-            "heading",
-            "|",
-            "bold",
-            "italic",
-            "link",
-            "bulletedList",
-            "numberedList",
-            "blockQuote",
-        ],
-    },
-    "extends": {
-        "language": "en",
-        "blockToolbar": [
-            "paragraph",
-            "heading1",
-            "heading2",
-            "heading3",
-            "|",
-            "bulletedList",
-            "numberedList",
-            "|",
-            "blockQuote",
-        ],
-        "toolbar": [
-            "heading",
-            "codeBlock",
-            "|",
-            "outdent",
-            "indent",
-            "|",
-            "bold",
-            "italic",
-            "link",
-            "underline",
-            "strikethrough",
-            "code",
-            "subscript",
-            "superscript",
-            "highlight",
-            "|",
-            "bulletedList",
-            "numberedList",
-            "todoList",
-            "|",
-            "blockQuote",
-            "insertImage",
-            "|",
-            "fontSize",
-            "fontFamily",
-            "fontColor",
-            "fontBackgroundColor",
-            "mediaEmbed",
-            "removeFormat",
-            "insertTable",
-            "sourceEditing",
-        ],
-        "image": {
-            "toolbar": [
-                "imageTextAlternative",
-                "|",
-                "imageStyle:alignLeft",
-                "imageStyle:alignRight",
-                "imageStyle:alignCenter",
-                "imageStyle:side",
-                "|",
-                "toggleImageCaption",
-                "|"
-            ],
-            "styles": [
-                "full",
-                "side",
-                "alignLeft",
-                "alignRight",
-                "alignCenter",
-            ],
-        },
-        "table": {
-            "contentToolbar": [
-                "tableColumn",
-                "tableRow",
-                "mergeTableCells",
-                "tableProperties",
-                "tableCellProperties",
-            ],
-            "tableProperties": {
-                "borderColors": customColorPalette,
-                "backgroundColors": customColorPalette,
-            },
-            "tableCellProperties": {
-                "borderColors": customColorPalette,
-                "backgroundColors": customColorPalette,
-            },
-        },
-        "heading": {
-            "options": [
-                {
-                    "model": "paragraph",
-                    "title": "Paragraph",
-                    "class": "ck-heading_paragraph",
-                },
-                {
-                    "model": "heading1",
-                    "view": "h1",
-                    "title": "Heading 1",
-                    "class": "ck-heading_heading1",
-                },
-                {
-                    "model": "heading2",
-                    "view": "h2",
-                    "title": "Heading 2",
-                    "class": "ck-heading_heading2",
-                },
-                {
-                    "model": "heading3",
-                    "view": "h3",
-                    "title": "Heading 3",
-                    "class": "ck-heading_heading3",
-                },
-            ]
-        },
-        "list": {
-            "properties": {
-                "styles": True,
-                "startIndex": True,
-                "reversed": True,
-            }
-        },
-        "htmlSupport": {
-            "allow": [
-                {"name": "/.*/", "attributes": True, "classes": True, "styles": True}
-            ]
-        },
-    },
+        input.onchange = function () {
+            var file = this.files[0];
+            var reader = new FileReader();
+            reader.onload = function () {
+                var id = "blobid" + (new Date()).getTime();
+                var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+                var base64 = reader.result.split(",")[1];
+                var blobInfo = blobCache.create(id, file, base64);
+                blobCache.add(blobInfo);
+                cb(blobInfo.blobUri(), { title: file.name });
+            };
+            reader.readAsDataURL(file);
+        };
+        input.click();
+    }""",
 }

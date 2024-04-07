@@ -27,6 +27,7 @@ urlpatterns = [
         "ckeditor5/",
         include('django_ckeditor_5.urls'), name="ck_editor_5_upload_file"
     ),
+    path('tinymce/', include('tinymce.urls')),
 ]
 
 urlpatterns += i18n_patterns(
