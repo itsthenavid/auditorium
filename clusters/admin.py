@@ -1,12 +1,15 @@
 from django.contrib import admin
 
 from .models import Category, Article
+from .forms import CategoryForm, ArticleForm
 
 # Register your models here.
 
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
+    form = CategoryForm
+
     list_display = (
         "name",
         "is_active",
@@ -25,6 +28,8 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
+    form = ArticleForm
+
     list_display = (
         "set_artwork_thumbnail",
         "title",
