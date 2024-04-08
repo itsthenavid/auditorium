@@ -24,7 +24,7 @@ class Category(models.Model):
     )
     description = models.CharField(
         _("Description"),
-        max_length=255,
+        max_length=525,
         blank=True
     )
     datetime_created = models.DateTimeField(
@@ -82,7 +82,7 @@ class Article(models.Model):
     )
     description = models.CharField(
         _("Description"),
-        max_length=355,
+        max_length=525,
         blank=True
     )
     datetime_created = models.DateTimeField(
