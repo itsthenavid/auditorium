@@ -12,9 +12,11 @@ class CategoryAdmin(admin.ModelAdmin):
 
     list_display = (
         "name",
+        "sub_category",
         "is_active",
     )
     list_editable = (
+        "sub_category",
         "is_active",
     )
     list_filter = (
