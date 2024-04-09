@@ -37,6 +37,14 @@ class Category(models.Model):
         auto_now=True,
         db_index=True
     )
+    sub_category = models.ForeignKey(
+        verbose_name=_("Sub-Category"),
+        to="self",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="sub_categories"
+    )
     is_active = models.BooleanField(
         _("Active"),
         default=False
