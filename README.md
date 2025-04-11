@@ -52,6 +52,8 @@ Stage: Early Development
 
 ### Setup
 
+To setup the project, first of all you need to create the .env file based on .env.example file. 
+
 ```bash
 # Clone the project
 git clone https://github.com/your-username/auditorium.git
