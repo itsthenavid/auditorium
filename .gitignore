@@ -42,6 +42,10 @@ boot_out.txt
 *.sqlite3
 *.db-shm
 *.db-wal
+database/
+db/
+database/*
+db/*
 
 ### DataRecovery ###
 
