@@ -17,9 +17,10 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-
 from django.urls import include
 from django.conf.urls.i18n import i18n_patterns
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     # i18n path for internationalization
@@ -38,3 +39,9 @@ urlpatterns += i18n_patterns(
     
     path("", include("pages.urls")),
 )
+
+# Serve media files in development
+# This is only for development purposes and should not be used in production.
+# This tells Django to serve media files from the MEDIA_URL to the MEDIA_ROOT
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
