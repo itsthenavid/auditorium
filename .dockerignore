@@ -29,8 +29,6 @@ var/
 local_settings.py
 db.sqlite3
 *.sqlite3
-media/
-!media/defaults/
 database/
 LICENSE
 README.md
