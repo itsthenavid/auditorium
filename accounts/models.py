@@ -15,16 +15,16 @@ def _set_random_avatar():
     """
 
     choices = (
-        "defaults/accounts/avatars/avatar1.webp",
-        "defaults/accounts/avatars/avatar2.webp",
-        "defaults/accounts/avatars/avatar3.webp",
-        "defaults/accounts/avatars/avatar4.webp",
-        "defaults/accounts/avatars/avatar5.webp",
-        "defaults/accounts/avatars/avatar6.webp",
-        "defaults/accounts/avatars/avatar7.webp",
-        "defaults/accounts/avatars/avatar8.webp",
-        "defaults/accounts/avatars/avatar9.webp",
-        "defaults/accounts/avatars/avatar10.webp",
+        "defaults/accounts/avatars/avatar_1.webp",
+        "defaults/accounts/avatars/avatar_2.webp",
+        "defaults/accounts/avatars/avatar_3.webp",
+        "defaults/accounts/avatars/avatar_4.webp",
+        "defaults/accounts/avatars/avatar_5.webp",
+        "defaults/accounts/avatars/avatar_6.webp",
+        "defaults/accounts/avatars/avatar_7.webp",
+        "defaults/accounts/avatars/avatar_8.webp",
+        "defaults/accounts/avatars/avatar_9.webp",
+        "defaults/accounts/avatars/avatar_10.webp",
     )
     
     # Example logic: return a default avatar URL
@@ -45,8 +45,8 @@ class UserModel(AbstractUser):
     # Overriding needed fields
     email = models.EmailField(
         unique=True,
-        blank=False,
-        null=False,
+        blank=True,
+        null=True,
         verbose_name=_("Email"),
         help_text=_("Enter your email address."),
     )
