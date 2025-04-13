@@ -1,20 +1,22 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView
+
+from .models import Page
 
 # Create your views here.
 
-
-class IndexPageTemplateView(TemplateView):
+def index(request):
     """
-    A view that renders the index page.
+    Index page view.
     """
+    
+    # Get the index page object
+    index_page = Page.objects.get(is_active=True)
 
-    template_name = "pages/index.html"
-
-    def get_context_data(self, **kwargs):
-        """
-        Add additional context data to the template.
-        """
-        context = super().get_context_data(**kwargs)
-        context["title"] = "Index Page"
-        return context
+    # Render the index page template with the context
+    return render(
+        request,
+        "pages/index.html",
+        {
+            "index_page": index_page,
+        },
+    )

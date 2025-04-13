@@ -1,10 +1,9 @@
 from django.urls import path
 
-from .views import IndexPageTemplateView
+from .views import index
 
 # Set your URL paths for the app views' here.
 
 urlpatterns = [
-    path("", IndexPageTemplateView.as_view(), name="index"),
+    path("", index, name="index"),
 ]
-
