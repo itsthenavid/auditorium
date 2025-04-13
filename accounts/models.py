@@ -83,6 +83,6 @@ class UserModel(AbstractUser):
     
     def __repr__(self):
         return self.username
-    
-    def __repr__(self):
-        return super().__repr__()
+
+    def __unicode__(self):
+        return self.username
