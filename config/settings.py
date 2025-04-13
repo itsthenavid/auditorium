@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     # Third-party installed apps
     "allauth",
     "allauth.account",
-    "modeltranslation",
+    "parler",
     "ckeditor",
     "django_tiptap",
     "django_quill",
@@ -131,7 +131,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'Asia/Tehran'
 
@@ -266,5 +266,20 @@ CKEDITOR_CONFIGS = {
             'dialogui',
             'elementspath',
         ]),
+    }
+}
+
+# Parler settings 
+# https://django-parler.readthedocs.io/en/stable/
+
+PARLER_LANGUAGES = {
+    None: (
+        {'code': 'en'},
+        {'code': 'fa'},
+        {'code': 'ckb'},
+    ),
+    'default': {
+        'fallbacks': ['en'],
+        'hide_untranslated': False,
     }
 }
