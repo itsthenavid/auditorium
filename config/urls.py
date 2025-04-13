@@ -28,6 +28,12 @@ urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
 ]
 
+# Serve media files in development
+# This is only for development purposes and should not be used in production.
+# This tells Django to serve media files from the MEDIA_URL to the MEDIA_ROOT
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 # The i18n_patterns function is used to add language prefix to the URLs
 # based on the user's language preference.
 urlpatterns += i18n_patterns(
@@ -39,9 +45,3 @@ urlpatterns += i18n_patterns(
     
     path("", include("pages.urls")),
 )
-
-# Serve media files in development
-# This is only for development purposes and should not be used in production.
-# This tells Django to serve media files from the MEDIA_URL to the MEDIA_ROOT
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
