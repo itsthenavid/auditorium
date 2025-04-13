@@ -42,6 +42,9 @@ urlpatterns += i18n_patterns(
 
     # 'allauth' URLs
     path("allauth/", include("allauth.urls")),
+    # 'ckeditor' URLs
+    path('ckeditor/', include('ckeditor.urls')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     
     path("", include("pages.urls")),
 )
