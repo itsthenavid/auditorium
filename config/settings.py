@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Third-party installed apps
-
+    "allauth",
+    "allauth.account",
     # Developed installed apps
     "pages.apps.PagesConfig",
 ]
@@ -57,6 +58,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+    # 'allauth' needed middleware
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -73,6 +77,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                # 'allauth' context processors
+                'django.template.context_processors.request',
             ],
         },
     },
@@ -158,3 +165,15 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Authentication settings
+# https://docs.djangoproject.com/en/5.2/topics/auth/
+# https://docs.djangoproject.com/en/5.2/ref/settings/#authentication
+
+AUTHENTICATION_BACKENDS = [
+    # Default model backend
+    'django.contrib.auth.backends.ModelBackend',
+
+    # 'allauth' authentication backend
+    'allauth.account.auth_backends.AuthenticationBackend',
+]

@@ -22,13 +22,19 @@ from django.urls import include
 from django.conf.urls.i18n import i18n_patterns
 
 urlpatterns = [
+    # i18n path for internationalization
+    # This is the path that will be used for language switching (Prefixes)
     path('i18n/', include('django.conf.urls.i18n')),
 ]
 
 # The i18n_patterns function is used to add language prefix to the URLs
 # based on the user's language preference.
 urlpatterns += i18n_patterns(
+    # Django default URLs
     path('admin/', admin.site.urls),
+
+    # 'allauth' URLs
+    path("allauth/", include("allauth.urls")),
     
     path("", include("pages.urls")),
 )
