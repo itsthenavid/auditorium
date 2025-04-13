@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # Third-party installed apps
     "allauth",
     "allauth.account",
+    "modeltranslation",
     "ckeditor",
     "django_tiptap",
     "django_quill",
