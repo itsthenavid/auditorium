@@ -1,0 +1,745 @@
+{% load static %}
+{% load i18n %}
+
+{% get_current_language as lang %}
+
+{% if lang == "en" %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Title -->
+        <title>
+            {% block title_en %}
+            
+            {% endblock title_en %}
+        </title>
+    
+        <!-- Meta -->
+        {% include "includes/base/_meta.html" %}
+    
+        <!-- Favicon (http://www.favicon-generator.org/) -->
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+        {% include "includes/base/_fonts.html" %}
+    
+        <!-- Libs and Plugins CSS -->
+        {% block styles_en %}
+        
+        {% endblock styles_en %}
+    
+        {% include "includes/base/_styles.html" %}
+    </head>
+
+    <!-- ===========
+	///// Body /////
+	================
+	* Use class "tt-boxed" to enable page boxed layout globally (affects all elements containing class "tt-wrap").
+	* Use class "tt-smooth-scroll" to enable page smooth scrolling.
+	* Use class "tt-transition" to enable page transitions.
+	* Use class "tt-magic-cursor" to enable magic cursor.
+	-->
+    <body id="body" class="tt-transition tt-boxed tt-smooth-scroll tt-magic-cursor">
+        <!-- *************************************
+		*********** Begin body inner ************* 
+		************************************** -->
+        <main id="body-inner">
+            <!-- Begin page transition (do not remove!!!) 
+			=========================== -->
+            <div id="page-transition">
+                <div class="ptr-overlay"></div>
+                <div class="ptr-preloader">
+                    <div class="ptr-prel-content">
+                        <!-- Hint: You may need to change the img height and opacity to match your logo type. You can do this from the "theme.css" file (find: ".ptr-prel-image"). -->
+                        <img src="{% static "en/img/logo-light.png" %}" class="ptr-prel-image tt-logo-light" alt="Logo" />
+                    </div>
+                    <!-- /.ptr-prel-content -->
+                </div>
+                <!-- /.ptr-preloader -->
+            </div>
+            <!-- End page transition -->
+
+            {% include "includes/base/_magic_cursor.html" %}
+
+            {% include "includes/base/_big_noise.html" %}
+
+            <!-- *****************************************
+			*********** Begin scroll container *********** 
+			****************************************** -->
+            <div id="scroll-container">
+                <!-- ===================
+				///// Begin header /////
+				========================
+				* Use class "tt-header-fixed" to set header to fixed position.
+				-->
+                {% include "includes/base/_header.html" %}
+                <!-- End header -->
+
+                {% block content_en %}
+                
+                {% endblock content_en %}
+                
+            </div>
+            <!-- End scroll container -->
+        </main>
+        <!-- End body inner -->
+
+        <!-- ====================
+		///// Scripts below /////
+		===================== -->
+
+        {% include "includes/base/_scripts.html" %}
+
+    </body>
+</html>
+{% elif lang == "fa" %}
+<!DOCTYPE html>
+<html lang="fa">
+    <head>
+        <!-- Title -->
+        <title>
+            {% block title_fa %}
+            
+            {% endblock title_fa %}
+        </title>
+    
+        <!-- Meta -->
+        {% include "includes/base/_meta.html" %}
+    
+        <!-- Favicon (http://www.favicon-generator.org/) -->
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+        {% include "includes/base/_fonts.html" %}
+    
+        <!-- Libs and Plugins CSS -->
+        {% block styles_fa %}
+        
+        {% endblock styles_fa %}
+    
+        {% include "includes/base/_styles.html" %}
+    </head>
+
+    <!-- ===========
+	///// Body /////
+	================
+	* Use class "tt-boxed" to enable page boxed layout globally (affects all elements containing class "tt-wrap").
+	* Use class "tt-smooth-scroll" to enable page smooth scrolling.
+	* Use class "tt-transition" to enable page transitions.
+	* Use class "tt-magic-cursor" to enable magic cursor.
+	-->
+    <body id="body" class="tt-transition tt-boxed tt-smooth-scroll tt-magic-cursor">
+        <!-- *************************************
+		*********** Begin body inner ************* 
+		************************************** -->
+        <main id="body-inner">
+            <!-- Begin page transition (do not remove!!!) 
+			=========================== -->
+            <div id="page-transition">
+                <div class="ptr-overlay"></div>
+                <div class="ptr-preloader">
+                    <div class="ptr-prel-content">
+                        <!-- Hint: You may need to change the img height and opacity to match your logo type. You can do this from the "theme.css" file (find: ".ptr-prel-image"). -->
+                        <img src="{% static "fa-ku/img/logo-light.png" %}" class="ptr-prel-image tt-logo-light" alt="لوگو" />
+                    </div>
+                    <!-- /.ptr-prel-content -->
+                </div>
+                <!-- /.ptr-preloader -->
+            </div>
+            <!-- End page transition -->
+
+            <!-- Begin magic cursor 
+			======================== -->
+            {% include "includes/base/_magic_cursor.html" %}
+            <!-- End magic cursor -->
+
+            <!-- Begin noise background -->
+            {% include "includes/base/_big_noise.html" %}
+            <!-- End noise background -->
+
+            <!-- *****************************************
+			*********** Begin scroll container *********** 
+			****************************************** -->
+            <div id="scroll-container">
+                <!-- ===================
+				///// Begin header /////
+				========================
+				* Use class "tt-header-fixed" to set header to fixed position.
+				-->
+                <header id="tt-header" class="tt-header-fixed">
+                    <div class="tt-header-inner">
+                        <!-- add/remove class "tt-wrap" to enable/disable element boxed layout (class "tt-boxed" is required in <body> tag!). Note: additionally you can use prepared helper class "max-width-*" to add custom width to "tt-wrap". Example: "max-width-1500" (class "tt-wrap" is still required!). More info about helper classes can be found in the file "helper.css". -->
+
+                        <div class="tt-header-col">
+                            <!-- Begin logo 
+							================ -->
+                            <div class="tt-logo">
+                                <a href="index.html">
+                                    <!-- Hint: You may need to change the img height to match your logo type. You can do this from the "theme.css" file (find: ".tt-logo img"). -->
+                                    <img src="{% static "fa-ku/img/logo-light.png" %}" class="tt-logo-light magnetic-item" alt="لوگو" />
+                                    <!-- logo light -->
+                                    <img src="{% static "fa-ku/img/logo-dark.png" %}" class="tt-logo-dark magnetic-item" alt="لوگو" />
+                                    <!-- logo dark -->
+                                </a>
+                            </div>
+                            <!-- End logo -->
+                        </div>
+                        <!-- /.tt-header-col -->
+
+                        {% include "includes/base/fa-ku/_menu.html" %}
+                        <!-- /.header-col -->
+                    </div>
+                    <!-- /.header-inner -->
+                </header>
+                <!-- End header -->
+
+                <!-- *************************************
+				*********** Begin content wrap *********** 
+				************************************** -->
+                {% block content_fa %}
+                
+                {% endblock content_fa %}
+                <!-- End content wrap -->
+            </div>
+            <!-- End scroll container -->
+        </main>
+        <!-- End body inner -->
+
+        <!-- ====================
+		///// Scripts below /////
+		===================== -->
+
+        <!-- Core JS -->
+        <script src="{% static "fa-ku/vendor/jquery/jquery.min.js" %}"></script>
+        <!-- jquery JS (https://jquery.com) -->
+
+        <!-- Libs and Plugins JS -->
+        <script src="{% static "fa-ku/vendor/gsap/gsap.min.js" %}"></script>
+        <!-- GSAP JS (https://greensock.com/gsap/) -->
+        <script src="{% static "fa-ku/vendor/gsap/ScrollToPlugin.min.js" %}"></script>
+        <!-- GSAP ScrollToPlugin JS (https://greensock.com/scrolltoplugin/) -->
+        <script src="{% static "fa-ku/vendor/gsap/ScrollTrigger.min.js" %}"></script>
+        <!-- GSAP ScrollTrigger JS (https://greensock.com/scrolltrigger/) -->
+
+        <script src="{% static "fa-ku/vendor/smooth-scrollbar.js" %}"></script>
+        <!-- Smooth Scrollbar JS (https://github.com/idiotWu/smooth-scrollbar/) -->
+        <script src="{% static "fa-ku/vendor/swiper/js/swiper-bundle.min.js" %}"></script>
+        <!-- Swiper JS (https://swiperjs.com/) -->
+        <script src="{% static "fa-ku/vendor/isotope/imagesloaded.pkgd.min.js" %}"></script>
+        <!-- imagesloaded JS (more info: https://imagesloaded.desandro.com/) -->
+        <script src="{% static "fa-ku/vendor/isotope/isotope.pkgd.min.js" %}"></script>
+        <!-- Isotope JS (http://isotope.metafizzy.co) -->
+        <script src="{% static "fa-ku/vendor/isotope/packery-mode.pkgd.min.js" %}"></script>
+        <!-- Isotope Packery Mode JS (https://isotope.metafizzy.co/layout-modes/packery.html) -->
+        <script src="{% static "fa-ku/vendor/lightgallery/js/lightgallery-all.min.js" %}"></script>
+        <!-- lightGallery Plugins JS (http://sachinchoolur.github.io/lightGallery) -->
+        <script src="{% static "fa-ku/vendor/jquery.mousewheel.min.js" %}"></script>
+        <!-- A jQuery plugin that adds cross browser mouse wheel support (https://github.com/jquery/jquery-mousewheel) -->
+
+        <!-- Theme master JS -->
+        <script src="{% static "fa-ku/js/theme.js" %}"></script>
+    </body>
+</html>
+{% elif lang == "ckb" %}
+<!DOCTYPE html>
+<html lang="ckb">
+    <head>
+        <!-- Title -->
+        <title>{% block title_ckb %}{% endblock title_ckb %}</title>
+
+        <!-- Meta -->
+         {% include "includes/base/_meta.html" %}
+
+        <!-- Favicon (http://www.favicon-generator.org/) -->
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+		<link rel="icon" href="favicon.ico" type="image/x-icon">
+
+        <!-- Libs and Plugins CSS -->
+        {% block styles_ckb %}
+        
+        {% endblock styles_ckb %}
+
+        <!-- Template master CSS -->
+        {% include "includes/base/_styles.html" %}
+    </head>
+
+    <!-- ===========
+	///// Body /////
+	================
+	* Use class "tt-boxed" to enable page boxed layout globally (affects all elements containing class "tt-wrap").
+	* Use class "tt-smooth-scroll" to enable page smooth scrolling.
+	* Use class "tt-transition" to enable page transitions.
+	* Use class "tt-magic-cursor" to enable magic cursor.
+	-->
+    <body id="body" class="tt-transition tt-boxed tt-smooth-scroll tt-magic-cursor">
+        <!-- *************************************
+		*********** Begin body inner ************* 
+		************************************** -->
+        <main id="body-inner">
+            <!-- Begin page transition (do not remove!!!) 
+			=========================== -->
+            <div id="page-transition">
+                <div class="ptr-overlay"></div>
+                <div class="ptr-preloader">
+                    <div class="ptr-prel-content">
+                        <!-- Hint: You may need to change the img height and opacity to match your logo type. You can do this from the "theme.css" file (find: ".ptr-prel-image"). -->
+                        <img src="{% static "fa-ku/img/logo-light.png" %}" class="ptr-prel-image tt-logo-light" alt="لوگو" />
+                    </div>
+                    <!-- /.ptr-prel-content -->
+                </div>
+                <!-- /.ptr-preloader -->
+            </div>
+            <!-- End page transition -->
+
+            <!-- Begin magic cursor 
+			======================== -->
+            <div id="magic-cursor">
+                <div id="ball"></div>
+            </div>
+            <!-- End magic cursor -->
+
+            <!-- Begin noise background -->
+            <div class="bg-noise"></div>
+            <!-- End noise background -->
+
+            <!-- *****************************************
+			*********** Begin scroll container *********** 
+			****************************************** -->
+            <div id="scroll-container">
+                <!-- ===================
+				///// Begin header /////
+				========================
+				* Use class "tt-header-fixed" to set header to fixed position.
+				-->
+                <header id="tt-header" class="tt-header-fixed">
+                    <div class="tt-header-inner">
+                        <!-- add/remove class "tt-wrap" to enable/disable element boxed layout (class "tt-boxed" is required in <body> tag!). Note: additionally you can use prepared helper class "max-width-*" to add custom width to "tt-wrap". Example: "max-width-1500" (class "tt-wrap" is still required!). More info about helper classes can be found in the file "helper.css". -->
+
+                        <div class="tt-header-col">
+                            <!-- Begin logo 
+							================ -->
+                            <div class="tt-logo">
+                                <a href="index.html">
+                                    <!-- Hint: You may need to change the img height to match your logo type. You can do this from the "theme.css" file (find: ".tt-logo img"). -->
+                                    <img src="{% static "fa-ku/img/logo-light.png" %}" class="tt-logo-light magnetic-item" alt="لوگو" />
+                                    <!-- logo light -->
+                                    <img src="{% static "fa-ku/img/logo-dark.png" %}" class="tt-logo-dark magnetic-item" alt="لوگو" />
+                                    <!-- logo dark -->
+                                </a>
+                            </div>
+                            <!-- End logo -->
+                        </div>
+                        <!-- /.tt-header-col -->
+
+                        <div class="tt-header-col">
+                            <!-- Begin overlay menu toggle button -->
+                            <div id="tt-ol-menu-toggle-btn-wrap">
+                                <div class="tt-ol-menu-toggle-btn-text">
+                                    <span class="text-menu" data-hover="گشودن">منو</span>
+                                    <span class="text-close">بستن</span>
+                                </div>
+                                <div class="tt-ol-menu-toggle-btn-holder">
+                                    <a href="#" class="tt-ol-menu-toggle-btn magnetic-item"><span></span></a>
+                                </div>
+                            </div>
+                            <!-- End overlay menu toggle button -->
+
+                            <!-- Begin overlay menu 
+							======================== 
+							* Use class "tt-ol-menu-center" to align menu to center.
+							* Use class "tt-ol-menu-count" to enable menu counter.
+							-->
+                            <nav class="tt-overlay-menu tt-ol-menu-center tt-ol-menu-count">
+                                <div class="tt-ol-menu-holder">
+                                    <div class="tt-ol-menu-inner tt-wrap">
+                                        <div class="tt-ol-menu-content">
+                                            <!-- Begin menu list -->
+                                            <ul class="tt-ol-menu-list">
+                                                <!-- <li><a href="">لینک تکی</a></li> -->
+
+                                                <!-- Begin submenu (submenu master)
+												==================================== -->
+                                                <li class="tt-ol-submenu-wrap active">
+                                                    <div class="tt-ol-submenu-trigger">
+                                                        <a href="#">صفحه اصلی</a>
+                                                        <div class="tt-ol-submenu-caret-wrap">
+                                                            <div class="tt-ol-submenu-caret magnetic-item"></div>
+                                                        </div>
+                                                        <!-- /.tt-ol-submenu-caret-wrap -->
+                                                    </div>
+                                                    <!-- /.tt-ol-submenu-trigger -->
+                                                    <div class="tt-ol-submenu">
+                                                        <ul class="tt-ol-submenu-list">
+                                                            <li class="active"><a href="index.html">صفحه فرود نسخه 1</a></li>
+                                                            <li><a href="landing-page-2.html">صفحه فرود نسخه 2</a></li>
+                                                        </ul>
+                                                        <!-- /.tt-ol-submenu-list -->
+                                                    </div>
+                                                    <!-- /.tt-ol-submenu -->
+                                                </li>
+                                                <!-- End submenu (sub-master) -->
+
+                                                <!-- Begin submenu (submenu master)
+												==================================== -->
+                                                <li class="tt-ol-submenu-wrap">
+                                                    <div class="tt-ol-submenu-trigger">
+                                                        <a href="#">نمونه کارها</a>
+                                                        <div class="tt-ol-submenu-caret-wrap">
+                                                            <div class="tt-ol-submenu-caret magnetic-item"></div>
+                                                        </div>
+                                                        <!-- /.tt-ol-submenu-caret-wrap -->
+                                                    </div>
+                                                    <!-- /.tt-ol-submenu-trigger -->
+                                                    <div class="tt-ol-submenu">
+                                                        <ul class="tt-ol-submenu-list">
+                                                            <!-- Begin submenu
+															=================== -->
+                                                            <li class="tt-ol-submenu-wrap">
+                                                                <div class="tt-ol-submenu-trigger">
+                                                                    <a href="#" class="tt-ol-submenu-link">نمونه کارها لیست</a>
+                                                                    <div class="tt-ol-submenu-caret-wrap">
+                                                                        <div class="tt-ol-submenu-caret magnetic-item"></div>
+                                                                    </div>
+                                                                    <!-- /.tt-ol-submenu-caret-wrap -->
+                                                                </div>
+                                                                <!-- /.tt-ol-submenu-trigger -->
+                                                                <div class="tt-ol-submenu">
+                                                                    <ul class="tt-ol-submenu-list">
+                                                                        <li><a href="portfolio-list-classic.html">لیست کلاسیک</a></li>
+                                                                        <li><a href="portfolio-list-overlay.html">لیست روکش دار</a></li>
+                                                                        <li><a href="portfolio-list-compact.html">لیست فشرده</a></li>
+                                                                    </ul>
+                                                                    <!-- /.tt-ol-submenu-list -->
+                                                                </div>
+                                                                <!-- /.tt-ol-submenu -->
+                                                            </li>
+                                                            <!-- End submenu -->
+
+                                                            <!-- Begin submenu
+															=================== -->
+                                                            <li class="tt-ol-submenu-wrap">
+                                                                <div class="tt-ol-submenu-trigger">
+                                                                    <a href="#" class="tt-ol-submenu-link">نمونه کارها شبکه ای</a>
+                                                                    <div class="tt-ol-submenu-caret-wrap">
+                                                                        <div class="tt-ol-submenu-caret magnetic-item"></div>
+                                                                    </div>
+                                                                    <!-- /.tt-ol-submenu-caret-wrap -->
+                                                                </div>
+                                                                <!-- /.tt-ol-submenu-trigger -->
+                                                                <div class="tt-ol-submenu">
+                                                                    <ul class="tt-ol-submenu-list">
+                                                                        <li><a href="portfolio-grid-creative-1.html">شبکه ای خلاقانه نسخه 1</a></li>
+                                                                        <li><a href="portfolio-grid-creative-2.html">شبکه ای خلاقانه نسخه 2</a></li>
+                                                                        <li><a href="portfolio-grid-modern.html">شبکه ای مدرن</a></li>
+                                                                        <li><a href="portfolio-grid-classic.html">شبکه ای کلاسیک</a></li>
+                                                                        <li><a href="portfolio-grid-portrait-mode.html">حالت پرتره</a></li>
+                                                                        <li><a href="portfolio-one-column.html">تک ستون</a></li>
+                                                                    </ul>
+                                                                    <!-- /.tt-ol-submenu-list -->
+                                                                </div>
+                                                                <!-- /.tt-ol-submenu -->
+                                                            </li>
+                                                            <!-- End submenu -->
+
+                                                            <!-- Begin submenu
+															=================== -->
+                                                            <li class="tt-ol-submenu-wrap">
+                                                                <div class="tt-ol-submenu-trigger">
+                                                                    <a href="#" class="tt-ol-submenu-link">اسلایدر و کاروسل</a>
+                                                                    <div class="tt-ol-submenu-caret-wrap">
+                                                                        <div class="tt-ol-submenu-caret magnetic-item"></div>
+                                                                    </div>
+                                                                    <!-- /.tt-ol-submenu-caret-wrap -->
+                                                                </div>
+                                                                <!-- /.tt-ol-submenu-trigger -->
+                                                                <div class="tt-ol-submenu">
+                                                                    <ul class="tt-ol-submenu-list">
+                                                                        <li><a href="portfolio-fullscreen-slider.html">اسلایدر تمام صفحه</a></li>
+                                                                        <li><a href="portfolio-carousel-overlay.html">کاروسل روکش دار</a></li>
+                                                                        <li><a href="portfolio-carousel-center.html">کاروسل مرکز</a></li>
+                                                                        <li><a href="portfolio-hover-carousel.html">کاروسل حالت شناور</a></li>
+                                                                    </ul>
+                                                                    <!-- /.tt-ol-submenu-list -->
+                                                                </div>
+                                                                <!-- /.tt-ol-submenu -->
+                                                            </li>
+                                                            <!-- End submenu -->
+
+                                                            <li><a href="portfolio-interactive.html">تعاملی</a></li>
+                                                            <li><a href="portfolio-interactive-compact.html">تعاملی فشرده</a></li>
+                                                            <li><a href="elements-classic-menu.html">منوی کلاسیک</a></li>
+                                                            <li><a href="elements-classic-filter.html">فیلتر کلاسیک</a></li>
+                                                        </ul>
+                                                        <!-- /.tt-ol-submenu-list -->
+                                                    </div>
+                                                    <!-- /.tt-ol-submenu -->
+                                                </li>
+                                                <!-- End submenu (sub-master) -->
+
+                                                <!-- Begin submenu (submenu master)
+												==================================== -->
+                                                <li class="tt-ol-submenu-wrap">
+                                                    <div class="tt-ol-submenu-trigger">
+                                                        <a href="#">درباره</a>
+                                                        <div class="tt-ol-submenu-caret-wrap">
+                                                            <div class="tt-ol-submenu-caret magnetic-item"></div>
+                                                        </div>
+                                                        <!-- /.tt-ol-submenu-caret-wrap -->
+                                                    </div>
+                                                    <!-- /.tt-ol-submenu-trigger -->
+                                                    <div class="tt-ol-submenu">
+                                                        <ul class="tt-ol-submenu-list">
+                                                            <li><a href="about-us.html">درباره ما</a></li>
+                                                            <li><a href="about-me.html">درباره من</a></li>
+                                                        </ul>
+                                                        <!-- /.tt-ol-submenu-list -->
+                                                    </div>
+                                                    <!-- /.tt-ol-submenu -->
+                                                </li>
+                                                <!-- End submenu (sub-master) -->
+
+                                                <!-- Begin submenu (submenu master)
+												==================================== -->
+                                                <li class="tt-ol-submenu-wrap">
+                                                    <div class="tt-ol-submenu-trigger">
+                                                        <a href="#">وبلاگ</a>
+                                                        <div class="tt-ol-submenu-caret-wrap">
+                                                            <div class="tt-ol-submenu-caret magnetic-item"></div>
+                                                        </div>
+                                                        <!-- /.tt-ol-submenu-caret-wrap -->
+                                                    </div>
+                                                    <!-- /.tt-ol-submenu-trigger -->
+                                                    <div class="tt-ol-submenu">
+                                                        <ul class="tt-ol-submenu-list">
+                                                            <!-- Begin submenu
+															=================== -->
+                                                            <li class="tt-ol-submenu-wrap">
+                                                                <div class="tt-ol-submenu-trigger">
+                                                                    <a href="#" class="tt-ol-submenu-link">وبلاگ لیست</a>
+                                                                    <div class="tt-ol-submenu-caret-wrap">
+                                                                        <div class="tt-ol-submenu-caret magnetic-item"></div>
+                                                                    </div>
+                                                                    <!-- /.tt-ol-submenu-caret-wrap -->
+                                                                </div>
+                                                                <!-- /.tt-ol-submenu-trigger -->
+                                                                <div class="tt-ol-submenu">
+                                                                    <ul class="tt-ol-submenu-list">
+                                                                        <li><a href="blog-interactive.html">لیست تعاملی</a></li>
+                                                                        <li><a href="blog-list.html">لیست فشرده</a></li>
+                                                                        <li><a href="blog-classic.html">لیست کلاسیک</a></li>
+                                                                        <li><a href="blog-classic-sidebar.html">نوار کناری کلاسیک</a></li>
+                                                                    </ul>
+                                                                    <!-- /.tt-ol-submenu-list -->
+                                                                </div>
+                                                                <!-- /.tt-ol-submenu -->
+                                                            </li>
+                                                            <!-- End submenu -->
+
+                                                            <!-- Begin submenu
+															=================== -->
+                                                            <li class="tt-ol-submenu-wrap">
+                                                                <div class="tt-ol-submenu-trigger">
+                                                                    <a href="#" class="tt-ol-submenu-link">پست وبلاگ</a>
+                                                                    <div class="tt-ol-submenu-caret-wrap">
+                                                                        <div class="tt-ol-submenu-caret magnetic-item"></div>
+                                                                    </div>
+                                                                    <!-- /.tt-ol-submenu-caret-wrap -->
+                                                                </div>
+                                                                <!-- /.tt-ol-submenu-trigger -->
+                                                                <div class="tt-ol-submenu">
+                                                                    <ul class="tt-ol-submenu-list">
+                                                                        <li><a href="blog-post.html">پست تکی</a></li>
+                                                                        <li><a href="blog-post-classic-sidebar.html">نوار کناری کلاسیک</a></li>
+                                                                    </ul>
+                                                                    <!-- /.tt-ol-submenu-list -->
+                                                                </div>
+                                                                <!-- /.tt-ol-submenu -->
+                                                            </li>
+                                                            <!-- End submenu -->
+                                                        </ul>
+                                                        <!-- /.tt-ol-submenu-list -->
+                                                    </div>
+                                                    <!-- /.tt-ol-submenu -->
+                                                </li>
+                                                <!-- End submenu (sub-master) -->
+
+                                                <!-- Begin submenu (submenu master)
+												==================================== -->
+                                                <li class="tt-ol-submenu-wrap">
+                                                    <div class="tt-ol-submenu-trigger">
+                                                        <a href="#">فروشگاه</a>
+                                                        <div class="tt-ol-submenu-caret-wrap">
+                                                            <div class="tt-ol-submenu-caret magnetic-item"></div>
+                                                        </div>
+                                                        <!-- /.tt-ol-submenu-caret-wrap -->
+                                                    </div>
+                                                    <!-- /.tt-ol-submenu-trigger -->
+                                                    <div class="tt-ol-submenu">
+                                                        <ul class="tt-ol-submenu-list">
+                                                            <!-- Begin submenu
+															=================== -->
+                                                            <li class="tt-ol-submenu-wrap">
+                                                                <div class="tt-ol-submenu-trigger">
+                                                                    <a href="#" class="tt-ol-submenu-link">لیست محصولات</a>
+                                                                    <div class="tt-ol-submenu-caret-wrap">
+                                                                        <div class="tt-ol-submenu-caret magnetic-item"></div>
+                                                                    </div>
+                                                                    <!-- /.tt-ol-submenu-caret-wrap -->
+                                                                </div>
+                                                                <!-- /.tt-ol-submenu-trigger -->
+                                                                <div class="tt-ol-submenu">
+                                                                    <ul class="tt-ol-submenu-list">
+                                                                        <li><a href="shop-list.html">نوار کناری کشویی</a></li>
+                                                                        <li><a href="shop-list-classic.html">نوار کناری کلاسیک</a></li>
+                                                                    </ul>
+                                                                    <!-- /.tt-ol-submenu-list -->
+                                                                </div>
+                                                                <!-- /.tt-ol-submenu -->
+                                                            </li>
+                                                            <!-- End submenu -->
+
+                                                            <!-- Begin submenu
+															=================== -->
+                                                            <li class="tt-ol-submenu-wrap">
+                                                                <div class="tt-ol-submenu-trigger">
+                                                                    <a href="#" class="tt-ol-submenu-link">صفحه های محصول</a>
+                                                                    <div class="tt-ol-submenu-caret-wrap">
+                                                                        <div class="tt-ol-submenu-caret magnetic-item"></div>
+                                                                    </div>
+                                                                    <!-- /.tt-ol-submenu-caret-wrap -->
+                                                                </div>
+                                                                <!-- /.tt-ol-submenu-trigger -->
+                                                                <div class="tt-ol-submenu">
+                                                                    <ul class="tt-ol-submenu-list">
+                                                                        <li><a href="shop-single.html">صفحه محصول</a></li>
+                                                                        <li><a href="shop-single-simple.html">صفحه محصول ساده</a></li>
+                                                                    </ul>
+                                                                    <!-- /.tt-ol-submenu-list -->
+                                                                </div>
+                                                                <!-- /.tt-ol-submenu -->
+                                                            </li>
+                                                            <!-- End submenu -->
+
+                                                            <!-- Begin submenu
+															=================== -->
+                                                            <li class="tt-ol-submenu-wrap">
+                                                                <div class="tt-ol-submenu-trigger">
+                                                                    <a href="#" class="tt-ol-submenu-link">ترتیب محصولات</a>
+                                                                    <div class="tt-ol-submenu-caret-wrap">
+                                                                        <div class="tt-ol-submenu-caret magnetic-item"></div>
+                                                                    </div>
+                                                                    <!-- /.tt-ol-submenu-caret-wrap -->
+                                                                </div>
+                                                                <!-- /.tt-ol-submenu-trigger -->
+                                                                <div class="tt-ol-submenu">
+                                                                    <ul class="tt-ol-submenu-list">
+                                                                        <li><a href="shop-cart.html">سبد خرید</a></li>
+                                                                        <li><a href="shop-checkout.html">پرداخت</a></li>
+                                                                        <li><a href="shop-order-details.html">جزئیات سفارش</a></li>
+                                                                    </ul>
+                                                                    <!-- /.tt-ol-submenu-list -->
+                                                                </div>
+                                                                <!-- /.tt-ol-submenu -->
+                                                            </li>
+                                                            <!-- End submenu -->
+
+                                                            <!-- Begin submenu
+															=================== -->
+                                                            <li class="tt-ol-submenu-wrap">
+                                                                <div class="tt-ol-submenu-trigger">
+                                                                    <a href="#" class="tt-ol-submenu-link">صفحه های بیشتر</a>
+                                                                    <div class="tt-ol-submenu-caret-wrap">
+                                                                        <div class="tt-ol-submenu-caret magnetic-item"></div>
+                                                                    </div>
+                                                                    <!-- /.tt-ol-submenu-caret-wrap -->
+                                                                </div>
+                                                                <!-- /.tt-ol-submenu-trigger -->
+                                                                <div class="tt-ol-submenu">
+                                                                    <ul class="tt-ol-submenu-list">
+                                                                        <li><a href="shop-wishlist.html">لیست علاقه مندی ها</a></li>
+                                                                        <li><a href="shop-login.html">صفحه ورود</a></li>
+                                                                        <li><a href="shop-register.html">ثبت نام حساب کاربری</a></li>
+                                                                        <li><a href="shop-reset-password.html">بازنشانی رمز عبور</a></li>
+                                                                    </ul>
+                                                                    <!-- /.tt-ol-submenu-list -->
+                                                                </div>
+                                                                <!-- /.tt-ol-submenu -->
+                                                            </li>
+                                                            <!-- End submenu -->
+                                                        </ul>
+                                                        <!-- /.tt-ol-submenu-list -->
+                                                    </div>
+                                                    <!-- /.tt-ol-submenu -->
+                                                </li>
+                                                <!-- End submenu (sub-master) -->
+
+                                                <li><a href="contact.html">تماس</a></li>
+                                            </ul>
+                                            <!-- End menu list -->
+                                        </div>
+                                        <!-- /.tt-ol-menu-content -->
+                                    </div>
+                                    <!-- /.tt-ol-menu-inner -->
+                                </div>
+                                <!-- /.tt-ol-menu-holder -->
+
+                                <!-- Begin noise background -->
+                                <div class="bg-noise"></div>
+                                <!-- End noise background -->
+                            </nav>
+                            <!-- End overlay menu -->
+                        </div>
+                        <!-- /.header-col -->
+                    </div>
+                    <!-- /.header-inner -->
+                </header>
+                <!-- End header -->
+
+                <!-- *************************************
+				*********** Begin content wrap *********** 
+				************************************** -->
+                {% block content_ckb %}
+                
+                {% endblock content_ckb %}
+                <!-- End content wrap -->
+            </div>
+            <!-- End scroll container -->
+        </main>
+        <!-- End body inner -->
+
+        <!-- ====================
+		///// Scripts below /////
+		===================== -->
+
+        <!-- Core JS -->
+        <script src="{% static "fa-ku/vendor/jquery/jquery.min.js" %}"></script>
+        <!-- jquery JS (https://jquery.com) -->
+
+        <!-- Libs and Plugins JS -->
+        <script src="{% static "fa-ku/vendor/gsap/gsap.min.js" %}"></script>
+        <!-- GSAP JS (https://greensock.com/gsap/) -->
+        <script src="{% static "fa-ku/vendor/gsap/ScrollToPlugin.min.js" %}"></script>
+        <!-- GSAP ScrollToPlugin JS (https://greensock.com/scrolltoplugin/) -->
+        <script src="{% static "fa-ku/vendor/gsap/ScrollTrigger.min.js" %}"></script>
+        <!-- GSAP ScrollTrigger JS (https://greensock.com/scrolltrigger/) -->
+
+        <script src="{% static "fa-ku/vendor/smooth-scrollbar.js" %}"></script>
+        <!-- Smooth Scrollbar JS (https://github.com/idiotWu/smooth-scrollbar/) -->
+        <script src="{% static "fa-ku/vendor/swiper/js/swiper-bundle.min.js" %}"></script>
+        <!-- Swiper JS (https://swiperjs.com/) -->
+        <script src="{% static "fa-ku/vendor/isotope/imagesloaded.pkgd.min.js" %}"></script>
+        <!-- imagesloaded JS (more info: https://imagesloaded.desandro.com/) -->
+        <script src="{% static "fa-ku/vendor/isotope/isotope.pkgd.min.js" %}"></script>
+        <!-- Isotope JS (http://isotope.metafizzy.co) -->
+        <script src="{% static "fa-ku/vendor/isotope/packery-mode.pkgd.min.js" %}"></script>
+        <!-- Isotope Packery Mode JS (https://isotope.metafizzy.co/layout-modes/packery.html) -->
+        <script src="{% static "fa-ku/vendor/lightgallery/js/lightgallery-all.min.js" %}"></script>
+        <!-- lightGallery Plugins JS (http://sachinchoolur.github.io/lightGallery) -->
+        <script src="{% static "fa-ku/vendor/jquery.mousewheel.min.js" %}"></script>
+        <!-- A jQuery plugin that adds cross browser mouse wheel support (https://github.com/jquery/jquery-mousewheel) -->
+
+        <!-- Theme master JS -->
+        <script src="{% static "fa-ku/js/theme.js" %}"></script>
+    </body>
+</html>
+{% endif %}

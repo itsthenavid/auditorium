@@ -1,0 +1,15 @@
+{% load static %}
+
+{% if lang == "en" %}
+<!-- Template master CSS -->
+<link rel="stylesheet" href="{% static "en/css/helper.css" %}" />
+<link rel="stylesheet" href="{% static "en/css/theme.css" %}" />
+{% elif lang == "fa" %}
+<!-- Template master CSS -->
+<link rel="stylesheet" href="{% static "fa-ku/css/helper.css" %}" />
+<link rel="stylesheet" href="{% static "fa-ku/css/theme.css" %}" />
+{% elif lang == "ckb" %}
+<!-- Template master CSS -->
+<link rel="stylesheet" href="{% static "fa-ku/css/helper.css" %}" />
+<link rel="stylesheet" href="{% static "fa-ku/css/theme.css" %}" />
+{% endif %}

@@ -879,21 +879,6 @@ pyrightconfig.json
 .history
 .ionide
 
-### Web ###
-*.asp
-*.cer
-*.csr
-*.css
-*.htm
-*.html
-*.js
-*.jsp
-*.php
-*.rss
-*.wasm
-*.wat
-*.xhtml
-
 ### WebMethods ###
 **/IntegrationServer/datastore/
 **/IntegrationServer/db/

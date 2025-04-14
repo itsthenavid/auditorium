@@ -1,0 +1,24 @@
+<head>
+    <!-- Title -->
+    <title>
+        {% block title %}
+        
+        {% endblock title %}
+    </title>
+
+    <!-- Meta -->
+    {% include "includes/base/_meta.html" %}
+
+    <!-- Favicon (http://www.favicon-generator.org/) -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    {% include "includes/base/_fonts.html" %}
+
+    <!-- Libs and Plugins CSS -->
+    {% block styles %}
+    
+    {% endblock styles %}
+
+    {% include "includes/base/_styles.html" %}
+</head>
