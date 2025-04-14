@@ -36,11 +36,33 @@ class Page(TranslatableModel):
             max_length=255,
             default=_("Index: Auditorium")
         ),
-        index_page_moving_slogan_text=models.CharField(
+        index_page_introduction_title = models.CharField(
+            verbose_name=_("'Index/Home' Page Introduction Title"),
+            max_length=255,
+            default=_("HELLO TO THE 'BIG STEPPER.'")
+        ),
+        index_page_introduction_subtitle = models.CharField(
+            verbose_name=_("'Index/Home' Page Introduction Subtitle"),
+            max_length=1024,
+            default=_("Welcome to AUDITORIUM — a sanctuary, a safe house for thoughts, articles, reflections, and everything your mind dares to put to the paper of this project."),
+        ),
+        index_page_background_title = models.CharField(
+            verbose_name=_("Background Title"),
+            max_length=255,
+            default=_("GRIEVE & GRIEF"),
+            help_text=_("This text will be displayed as a background title."),
+        ),
+        index_page_moving_slogan_text_1=models.CharField(
             verbose_name=_("Moving Slogan Text"),
             max_length=255,
             default=_("Welcome to Auditorium: The Opinions & Ideas Open Source project."),
-            help_text=_("This text will be displayed as a moving slogan."),
+            help_text=_("This text will be displayed as a moving slogan. (it's the first one)"),
+        ),
+        index_page_moving_slogan_text_2=models.CharField(
+            verbose_name=_("Moving Slogan Text"),
+            max_length=255,
+            default=_("Hello to the big stepper, never losing count."),
+            help_text=_("This text will be displayed as a moving slogan (it's the second one)."),
         ),
         about_us_page_title=models.CharField(
             verbose_name=_("'About Us' Page Title"),
