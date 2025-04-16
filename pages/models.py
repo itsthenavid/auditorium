@@ -16,7 +16,7 @@ class Page(TranslatableModel):
     index_page_header_image = models.ImageField(
         verbose_name=_("Main Header Image"),
         upload_to="pages/headers/",
-        default="defaults/pages/headers/index_default_header.webp",
+        default="defaults/pages/headers/index_default_header_image.webp",
         blank=True,
         null=True,
         help_text=_("Upload a header image for the index/home page."),
@@ -24,7 +24,7 @@ class Page(TranslatableModel):
     about_page_header_image = models.ImageField(
         verbose_name=_("About Header Image"),
         upload_to="pages/headers/",
-        default="defaults/pages/headers/about_us_default_header.webp",
+        default="defaults/pages/headers/about_default_header_image.webp",
         blank=True,
         null=True,
         help_text=_("Upload a header image for the 'About' page."),
