@@ -1,0 +1,2134 @@
+{% extends "_base.html" %}
+
+{% load static %}
+{% load i18n %}
+
+{% get_current_language as lang %}
+
+{% if lang == "en" %}
+{% block title_en %}{{ about_page.about_page_title }}{% endblock title_en %}
+{% block styles_en %}
+{% include "includes/pages/_styles_about.html" %}
+{% endblock styles_en %}
+{% block content_en %}
+                <!-- *************************************
+				*********** Begin content wrap *********** 
+				************************************** -->
+                <div id="content-wrap">
+                    <!-- ========================
+					///// Begin page header /////
+					============================= 
+					* Use class "ph-full" to enable fullscreen size.
+					* Use class "ph-cap-sm", "ph-cap-lg", "ph-cap-xlg" or "ph-cap-xxlg" to set caption size (no class = default size).
+					* Use class "ph-center" to enable content center position.
+					* Use class "ph-bg-image" to enable page header background image (required for a portfolio single project!).
+					* Use class "ph-bg-image-is-light" if needed, it makes the elements dark and more visible if you use a very light image (effect only with class "ph-bg-image").
+					* Use class "ph-image-shadow" to enable page header background image (effect only with class "ph-bg-image").
+					* Use class "ph-image-cropped" to crop image. It fixes image dimensions (no effect for "ph-bg-image"!).
+					* Use class "ph-image-cover-*" to set image overlay opacity. For example "ph-image-cover-2" or "ph-image-cover-2-5" (up to "ph-image-cover-9-5").
+					* Use class "ph-content-parallax" to enable content parallax.
+					* Use class "ph-stroke" to enable caption title stroke style.
+					-->
+                    <div id="page-header" class="ph-full ph-cap-xxlg ph-center ph-image-cropped ph-image-cover-4 ph-content-parallax">
+                        <div class="page-header-inner tt-wrap">
+                            <!-- Begin page header image 
+							============================= -->
+                            <div class="ph-image">
+                                <div class="ph-image-inner">
+                                    <img src="{{ about_page.about_page_header_image.url }}" alt="{% translate "Image" %}" />
+                                </div>
+                            </div>
+                            <!-- End page header image -->
+
+                            <!-- Begin page header caption
+							=============================== 
+							Use class "max-width-*" to set caption max width if needed. For example "max-width-1000". More info about helper classes can be found in the file "helper.css".
+							-->
+                            <div class="ph-caption">
+                                <h1 class="ph-caption-title ph-appear">{{ about_page.about_page_introduction_title }}</h1>
+                                <div class="ph-caption-title-ghost ph-appear">{{ about_page.about_page_introduction_background_title }}</div>
+                                <div class="ph-caption-subtitle ph-appear">{% translate "Auditorium" %}</div>
+                            </div>
+                            <!-- End page header caption -->
+                        </div>
+                        <!-- /.page-header-inner -->
+
+                        <!-- Begin scroll down circle (you can change "data-offset" to set scroll top offset) 
+						============================== -->
+                        <a href="#page-content" class="scroll-down-circle" data-offset="30">
+                            <div class="sdc-inner ph-appear">
+                                <div class="sdc-icon"><i class="fas fa-chevron-down"></i></div>
+                                <svg viewBox="0 0 500 500">
+                                    <defs>
+                                        <path d="M50,250c0-110.5,89.5-200,200-200s200,89.5,200,200s-89.5,200-200,200S50,360.5,50,250" id="textcircle"></path>
+                                    </defs>
+                                    <text dy="30">
+                                        <textPath xlink:href="#textcircle">Scroll down - Scroll down -</textPath>
+                                    </text>
+                                </svg>
+                            </div>
+                            <!-- /.sdc-inner -->
+                        </a>
+                        <!-- End scroll down circle -->
+
+                        <!-- Begin made with love 
+						========================== -->
+                        <div class="made-with-love ph-appear">
+                            <div class="mwl-inner">
+                                <div class="mwl-text">Made with</div>
+                                <div class="mwl-icon"><i class="far fa-heart"></i></div>
+                            </div>
+                        </div>
+                        <!-- End made with love -->
+                    </div>
+                    <!-- End page header -->
+
+                    <!-- *************************************
+					*********** Begin page content *********** 
+					************************************** -->
+                    <div id="page-content">
+                        <!-- =======================
+						///// Begin tt-section /////
+						============================ 
+						* You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
+						-->
+                        <div class="tt-section">
+                            <div class="tt-section-inner tt-wrap">
+                                <div class="tt-row">
+                                    <div class="tt-col-lg-4 padding-right-lg-5-p">
+                                        <!-- Begin tt-Heading 
+										====================== 
+										* Use class "tt-heading-xsm", "tt-heading-sm", "tt-heading-lg", "tt-heading-xlg" or "tt-heading-xxlg" to set caption size (no class = default size).
+										* Use class "tt-heading-stroke" to enable stroke style.
+										* Use class "tt-heading-center" to align tt-Heading to center.
+										* Use prepared helper class "max-width-*" to add custom width if needed. Example: "max-width-800". More info about helper classes can be found in the file "helper.css".
+										-->
+                                        <div class="tt-heading tt-heading-sm margin-bottom-60 anim-fadeinup">
+                                            <h2 class="tt-heading-title text-gray">
+                                                The<br class="hide-from-md" />
+                                                Story
+                                            </h2>
+                                            <!-- <h3 class="tt-heading-subtitle text-gray">Subtitle</h3> -->
+                                        </div>
+                                        <!-- End tt-Heading -->
+                                    </div>
+                                    <!-- /.tt-col -->
+
+                                    <div class="tt-col-lg-8">
+                                        <div class="text-xxlg font-alter">
+                                            <p class="anim-fadeinup">
+                                                Hello, we going manor who did. Do ye is considered occasion directly that. May ecstatic did surprise elegance the ignorant age. Own her miss cold. It so numerous if outlived possession.
+                                            </p>
+
+                                            <p class="anim-fadeinup">
+                                                Fat new smallness few supposing suspicion two. Course sir awesome <a href="https://1.envato.market/tank" target="_blank" rel="noopener">website teplates</a> add entire design. How one dull get
+                                                busy dare far. At principle perfectly by sweetness do. As mr started arrival.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- /.tt-col -->
+                                </div>
+                                <!-- /.tt-row -->
+                            </div>
+                            <!-- /.tt-section-inner -->
+                        </div>
+                        <!-- End tt-section -->
+
+                        <!-- =======================
+						///// Begin tt-section /////
+						============================ 
+						* You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
+						-->
+                        <div class="tt-section">
+                            <div class="tt-section-inner">
+                                <!-- =============================
+								///// Begin content carousel /////
+								==================================
+								* Use class "cc-shifted" to enable shifted style (no effect on small screens!).
+								* Use class "cursor-drag" to enable cursor drag on carousel hover ("data-simulate-touch" attribute must be enabled!).
+								* Use class "cc-scale-down" to enable scale down animation on carousel click.
+								* Use class "cc-pagination-outside" to bring pagination outside.
+								* Use class "cc-hide-pagination" to hide pagination (for desktop only!).
+								* Use class "cc-hide-navigation" to hide navigation arrows.
+								* Available data attributes:
+										data-speed="900"......................(milliseconds)
+										data-autoplay="5000"..................(milliseconds. Note: disabled after user first interactions)
+										data-simulate-touch="true"............(true/false)
+										data-loop="true"......................(true/false)
+										data-pagination-type="bullets"........(bullets/fraction/progressbar)
+								-->
+                                <div class="tt-content-carousel cc-shifted cursor-drag cc-scale-down cc-hide-pagination cc-hide-navigation" data-simulate-touch="true" data-speed="900">
+                                    <!-- Begin swiper container -->
+                                    <div class="swiper">
+                                        <!-- Begin swiper wrapper (required) -->
+                                        <div class="swiper-wrapper">
+                                            <!-- Begin swiper slide 
+											======================== -->
+                                            <div class="swiper-slide">
+                                                <div class="tt-content-carousel-item">
+                                                    <figure class="cover-opacity-1">
+                                                        <img class="tt-cc-image anim-image-parallax swiper-lazy" src="{% static "en/img/low-qlt-thumb.jpg" %}" data-src="{% static "en/img/misc/misc-1.jpg" %}" alt="Image" />
+                                                        <!-- <figcaption>Image Caption</figcaption> -->
+                                                    </figure>
+                                                </div>
+                                                <!-- /.tt-content-carousel-item -->
+                                            </div>
+                                            <!-- End swiper slide -->
+
+                                            <!-- Begin swiper slide 
+											======================== -->
+                                            <div class="swiper-slide">
+                                                <div class="tt-content-carousel-item">
+                                                    <figure class="cover-opacity-1">
+                                                        <img class="tt-cc-image anim-image-parallax swiper-lazy" src="{% static "en/img/low-qlt-thumb.jpg" %}" data-src="{% static "en/img/misc/misc-2.jpg" %}" alt="Image" />
+                                                        <!-- <figcaption>Image Caption</figcaption> -->
+                                                    </figure>
+                                                </div>
+                                                <!-- /.tt-content-carousel-item -->
+                                            </div>
+                                            <!-- End swiper slide -->
+
+                                            <!-- Begin swiper slide 
+											======================== -->
+                                            <div class="swiper-slide">
+                                                <div class="tt-content-carousel-item">
+                                                    <figure class="cover-opacity-1">
+                                                        <video class="tt-cc-video" loop muted preload="metadata" poster="{% static "en/vids/office-team.jpg" %}">
+                                                            <source src="{% static "en/vids/office-team.mp4" %}" type="video/mp4" />
+                                                            <source src="{% static "en/vids/office-team.webm" %}" type="video/webm" />
+                                                        </video>
+                                                    </figure>
+                                                </div>
+                                                <!-- /.tt-content-carousel-item -->
+                                            </div>
+                                            <!-- End swiper slide -->
+
+                                            <!-- Begin swiper slide 
+											======================== -->
+                                            <div class="swiper-slide">
+                                                <div class="tt-content-carousel-item">
+                                                    <figure class="cover-opacity-1">
+                                                        <img class="tt-cc-image anim-image-parallax swiper-lazy" src="{% static "en/img/low-qlt-thumb.jpg" %}" data-src="{% static "en/img/misc/misc-3.jpg" %}" alt="Image" />
+                                                        <!-- <figcaption>Image Caption</figcaption> -->
+                                                    </figure>
+                                                </div>
+                                                <!-- /.tt-content-carousel-item -->
+                                            </div>
+                                            <!-- End swiper slide -->
+
+                                            <!-- Begin swiper slide 
+											======================== -->
+                                            <div class="swiper-slide">
+                                                <div class="tt-content-carousel-item">
+                                                    <figure class="cover-opacity-1">
+                                                        <img class="tt-cc-image anim-image-parallax swiper-lazy" src="{% static "en/img/low-qlt-thumb.jpg" %}" data-src="{% static "en/img/misc/misc-4.jpg" %}" alt="Image" />
+                                                        <!-- <figcaption>Image Caption</figcaption> -->
+                                                    </figure>
+                                                </div>
+                                                <!-- /.tt-content-carousel-item -->
+                                            </div>
+                                            <!-- End swiper slide -->
+
+                                            <!-- Begin swiper slide 
+											======================== -->
+                                            <div class="swiper-slide">
+                                                <div class="tt-content-carousel-item">
+                                                    <figure class="cover-opacity-1">
+                                                        <img class="tt-cc-image anim-image-parallax swiper-lazy" src="{% static "en/img/low-qlt-thumb.jpg" %}" data-src="{% static "en/img/misc/misc-5.jpg" %}" alt="Image" />
+                                                        <!-- <figcaption>Image Caption</figcaption> -->
+                                                    </figure>
+                                                </div>
+                                                <!-- /.tt-content-carousel-item -->
+                                            </div>
+                                            <!-- End swiper slide -->
+                                        </div>
+                                        <!-- End swiper wrapper -->
+                                    </div>
+                                    <!-- End swiper container -->
+
+                                    <!-- Begin content carousel navigation -->
+                                    <div class="tt-cc-nav-prev">
+                                        <div class="tt-cc-nav-arrow magnetic-item"></div>
+                                    </div>
+                                    <div class="tt-cc-nav-next">
+                                        <div class="tt-cc-nav-arrow magnetic-item"></div>
+                                    </div>
+                                    <!-- End content carousel navigation -->
+
+                                    <!-- Content carousel pagination -->
+                                    <div class="tt-cc-pagination hide-cursor"></div>
+                                </div>
+                                <!-- End content carousel -->
+                            </div>
+                            <!-- /.tt-section-inner -->
+                        </div>
+                        <!-- End tt-section -->
+
+                        <!-- =======================
+						///// Begin tt-section /////
+						============================ 
+						* You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
+						-->
+                        <div class="tt-section padding-top-xlg-150 padding-bottom-xlg-200">
+                            <div class="tt-section-inner tt-wrap">
+                                <!-- Begin tt-Heading 
+								====================== 
+								* Use class "tt-heading-xsm", "tt-heading-sm", "tt-heading-lg", "tt-heading-xlg" or "tt-heading-xxlg" to set caption size (no class = default size).
+								* Use class "tt-heading-stroke" to enable stroke style.
+								* Use class "tt-heading-center" to align tt-Heading to center.
+								* Use prepared helper class "max-width-*" to add custom width if needed. Example: "max-width-800". More info about helper classes can be found in the file "helper.css".
+								-->
+                                <div class="tt-heading tt-heading-xxlg tt-heading-stroke tt-heading-center margin-bottom-10-p anim-fadeinup">
+                                    <h3 class="tt-heading-subtitle text-gray">What We Do</h3>
+                                    <h2 class="tt-heading-title">Services</h2>
+                                </div>
+                                <!-- End tt-Heading -->
+
+                                <!-- Begin accordion 
+								===================== 
+								* Use class "tt-ac-sm", "tt-ac-lg", "tt-ac-xlg" or "tt-ac-xxlg" to set accordion size.
+								* Use class "tt-ac-borders" to enable borders.
+								* Add class "is-open" to the "tt-accordion-content" to make this content open by default.
+								-->
+                                <div class="tt-accordion tt-ac-xlg tt-ac-borders">
+                                    <div class="tt-accordion-item anim-fadeinup">
+                                        <div class="tt-accordion-heading">
+                                            <h3 class="tt-ac-head-title">UX / Research</h3>
+                                            <div class="tt-accordion-subtext">Mauris mauris ante</div>
+                                            <div class="tt-accordion-caret-wrap">
+                                                <div class="tt-accordion-caret magnetic-item"></div>
+                                            </div>
+                                        </div>
+                                        <!-- /.tt-accordion-heading -->
+                                        <div class="tt-accordion-content max-width-800">
+                                            <p>
+                                                Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit amet, nunc. Nam a nibh. Donec suscipit eros.
+                                                Nam mi. Proin viverra leo ut odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
+                                            </p>
+                                        </div>
+                                        <!-- /.tt-accordion-content -->
+                                    </div>
+                                    <!-- /.tt-accordion-item -->
+
+                                    <div class="tt-accordion-item anim-fadeinup">
+                                        <div class="tt-accordion-heading">
+                                            <h3 class="tt-ac-head-title">Digital Strategy</h3>
+                                            <div class="tt-accordion-subtext">Vivamus nisi</div>
+                                            <div class="tt-accordion-caret-wrap">
+                                                <div class="tt-accordion-caret magnetic-item"></div>
+                                            </div>
+                                        </div>
+                                        <!-- /.tt-accordion-heading -->
+                                        <div class="tt-accordion-content max-width-800">
+                                            <p>
+                                                Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit amet, nunc. Nam a nibh. Donec suscipit eros.
+                                                Nam mi. Proin viverra leo ut odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
+                                            </p>
+                                        </div>
+                                        <!-- /.tt-accordion-content -->
+                                    </div>
+                                    <!-- /.tt-accordion-item -->
+
+                                    <div class="tt-accordion-item anim-fadeinup">
+                                        <div class="tt-accordion-heading">
+                                            <h3 class="tt-ac-head-title">Branding</h3>
+                                            <div class="tt-accordion-subtext">Nam min proin eget</div>
+                                            <div class="tt-accordion-caret-wrap">
+                                                <div class="tt-accordion-caret magnetic-item"></div>
+                                            </div>
+                                        </div>
+                                        <!-- /.tt-accordion-heading -->
+                                        <div class="tt-accordion-content max-width-800">
+                                            <p>
+                                                Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit amet, nunc. Nam a nibh. Donec suscipit eros.
+                                                Nam mi. Proin viverra leo ut odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
+                                            </p>
+                                        </div>
+                                        <!-- /.tt-accordion-content -->
+                                    </div>
+                                    <!-- /.tt-accordion-item -->
+
+                                    <div class="tt-accordion-item anim-fadeinup">
+                                        <div class="tt-accordion-heading">
+                                            <h3 class="tt-ac-head-title">Marketing</h3>
+                                            <div class="tt-accordion-subtext">Condimentum sit amet</div>
+                                            <div class="tt-accordion-caret-wrap">
+                                                <div class="tt-accordion-caret magnetic-item"></div>
+                                            </div>
+                                        </div>
+                                        <!-- /.tt-accordion-heading -->
+                                        <div class="tt-accordion-content max-width-800">
+                                            <p>
+                                                Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit amet, nunc. Nam a nibh. Donec suscipit eros.
+                                                Nam mi. Proin viverra leo ut odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
+                                            </p>
+                                        </div>
+                                        <!-- /.tt-accordion-content -->
+                                    </div>
+                                    <!-- /.tt-accordion-item -->
+                                </div>
+                                <!-- End accordion -->
+                            </div>
+                            <!-- /.tt-section-inner -->
+                        </div>
+                        <!-- End tt-section -->
+
+                        <!-- =======================
+						///// Begin tt-section /////
+						============================ 
+						* You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
+						-->
+                        <div class="tt-section padding-top-xlg-150 padding-bottom-xlg-150 padding-left-sm-3-p padding-right-sm-3-p bg-white-accent-2">
+                            <div class="tt-section-inner tt-wrapp">
+                                <!-- Begin testimonials slider 
+								===============================
+								* Use class "text-center" to align text to the center.
+								* Use class "cursor-drag" to enable cursor drag on carousel hover ("data-simulate-touch" attribute must be enabled!).
+								* Use class "ts-hide-pagination" to hide pagination (for desktop only!).
+								* Use class "ts-hide-navigation" to hide navigation arrows.
+								* Use class "ts-full-width" to enable full width slider.
+								* Available data attributes:
+										data-speed="900"......................(milliseconds)
+										data-autoplay="5000"..................(milliseconds. Note: disabled after user first interactions)
+										data-simulate-touch="true"............(true/false)
+										data-loop="true"......................(true/false)
+								-->
+                                <div class="tt-testimonials-slider text-center cursor-drag ts-scale-down ts-hide-navigation anim-fadeinup" data-loop="true" data-simulate-touch="true" data-speed="900">
+                                    <!-- Begin swiper container -->
+                                    <div class="swiper">
+                                        <!-- Begin swiper wrapper (required) -->
+                                        <div class="swiper-wrapper">
+                                            <!-- Begin swiper slide 
+											======================== -->
+                                            <div class="swiper-slide font-alter">
+                                                <div class="tt-ts-item">
+                                                    <div class="tt-ts-text">
+                                                        "One of the best template I've ever had. I love it! It's fully customizable, well coded, fast and responsive - fitting for all kind of devices."
+                                                    </div>
+                                                    <div class="tt-ts-subtext">- Wironimo</div>
+                                                </div>
+                                            </div>
+                                            <!-- End swiper slide -->
+
+                                            <!-- Begin swiper slide 
+											======================== -->
+                                            <div class="swiper-slide font-alter">
+                                                <div class="tt-ts-item">
+                                                    <div class="tt-ts-text">
+                                                        "Brilliant template. Tons of options, many concepts, design flexibility, code quality, explanatory comments in each section for easy styling."
+                                                    </div>
+                                                    <div class="tt-ts-subtext">- Gneto</div>
+                                                </div>
+                                            </div>
+                                            <!-- End swiper slide -->
+
+                                            <!-- Begin swiper slide 
+											======================== -->
+                                            <div class="swiper-slide font-alter">
+                                                <div class="tt-ts-item">
+                                                    <div class="tt-ts-text">
+                                                        "Easy to customize, plenty of choices to display your portfolio, fast loading times. Excellent support."
+                                                    </div>
+                                                    <div class="tt-ts-subtext">- Brendak</div>
+                                                </div>
+                                            </div>
+                                            <!-- End swiper slide -->
+
+                                            <!-- Begin swiper slide 
+											======================== -->
+                                            <div class="swiper-slide font-alter">
+                                                <div class="tt-ts-item">
+                                                    <div class="tt-ts-text">
+                                                        "Very nice design and well organised and commented code. Also good customer service."
+                                                    </div>
+                                                    <div class="tt-ts-subtext">- Gazzzzz</div>
+                                                </div>
+                                            </div>
+                                            <!-- End swiper slide -->
+
+                                            <!-- Begin swiper slide 
+											======================== -->
+                                            <div class="swiper-slide font-alter">
+                                                <div class="tt-ts-item">
+                                                    <div class="tt-ts-text">
+                                                        "I founded a bug on Iphone and Ipad and the author fixed very quickly. I appreciated his efforts and his quickness in solving the problem."
+                                                    </div>
+                                                    <div class="tt-ts-subtext">- Admanente</div>
+                                                </div>
+                                            </div>
+                                            <!-- End swiper slide -->
+                                        </div>
+                                        <!-- End swiper wrapper -->
+                                    </div>
+                                    <!-- End swiper container -->
+
+                                    <!-- Testimonials slider navigation (arrows) -->
+                                    <div class="tt-ts-nav-prev">
+                                        <div class="tt-ts-nav-arrow magnetic-item"></div>
+                                    </div>
+                                    <div class="tt-ts-nav-next">
+                                        <div class="tt-ts-nav-arrow magnetic-item"></div>
+                                    </div>
+
+                                    <!-- Testimonials slider pagination -->
+                                    <div class="tt-ts-pagination hide-cursor"></div>
+                                </div>
+                                <!-- End testimonials slider -->
+                            </div>
+                            <!-- /.tt-section-inner -->
+                        </div>
+                        <!-- End tt-section -->
+
+                        <!-- =======================
+						///// Begin tt-section /////
+						============================ 
+						* You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
+						-->
+                        <div class="tt-section padding-top-xlg-150 padding-bottom-xlg-150">
+                            <div class="tt-section-inner tt-wrap">
+                                <div class="tt-row">
+                                    <div class="tt-col-lg-4 padding-right-md-5-p">
+                                        <!-- Begin tt-Heading 
+											====================== 
+											* Use class "tt-heading-xsm", "tt-heading-sm", "tt-heading-lg", "tt-heading-xlg" or "tt-heading-xxlg" to set caption size (no class = default size).
+											* Use class "tt-heading-stroke" to enable stroke style.
+											* Use class "tt-heading-center" to align tt-Heading to center.
+											* Use prepared helper class "max-width-*" to add custom width if needed. Example: "max-width-800". More info about helper classes can be found in the file "helper.css".
+											-->
+                                        <div class="tt-heading tt-heading-sm margin-bottom-60 anim-fadeinup">
+                                            <h2 class="tt-heading-title text-gray">
+                                                Honors &amp;<br class="hide-from-md" />
+                                                Mentions
+                                            </h2>
+                                            <!-- <h3 class="tt-heading-subtitle text-gray">Subtitle</h3> -->
+                                        </div>
+                                        <!-- End tt-Heading -->
+                                    </div>
+                                    <!-- /.tt-col -->
+
+                                    <div class="tt-col-lg-4">
+                                        <ul class="list-styled">
+                                            <li class="anim-fadeinup">
+                                                <h5 class="no-margin"><a href="https://1.envato.market/tank" class="tt-link" target="_blank" rel="noopener">World Brand Design Awards</a></h5>
+                                                <p class="text-gray">Donec fringilla tortor at eros.</p>
+                                            </li>
+                                            <li class="anim-fadeinup">
+                                                <h5 class="no-margin"><a href="https://1.envato.market/tank" class="tt-link" target="_blank" rel="noopener">World Design Awards</a></h5>
+                                                <p class="text-gray">Cras quis hendrerit nulla.</p>
+                                            </li>
+                                            <li class="anim-fadeinup">
+                                                <h5 class="no-margin"><a href="https://1.envato.market/tank" class="tt-link" target="_blank" rel="noopener">Product Design Awards</a></h5>
+                                                <p class="text-gray">Pellentesque et fermentum.</p>
+                                            </li>
+                                            <li class="anim-fadeinup">
+                                                <h5 class="no-margin"><a href="https://1.envato.market/tank" class="tt-link" target="_blank" rel="noopener">Lighting Design Awards</a></h5>
+                                                <p class="text-gray">In non leo quis risus blandit.</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- /.tt-col -->
+
+                                    <div class="tt-col-lg-4">
+                                        <ul class="list-styled">
+                                            <li class="anim-fadeinup">
+                                                <h5 class="no-margin"><a href="https://1.envato.market/tank" class="tt-link" target="_blank" rel="noopener">Red Dot Award Design Concept</a></h5>
+                                                <p class="text-gray">Curabitur rhoncus ligula.</p>
+                                            </li>
+                                            <li class="anim-fadeinup">
+                                                <h5 class="no-margin"><a href="https://1.envato.market/tank" class="tt-link" target="_blank" rel="noopener">One Color Award</a></h5>
+                                                <p class="text-gray">Orci varius natoque penatibus.</p>
+                                            </li>
+                                            <li class="anim-fadeinup">
+                                                <h5 class="no-margin"><a href="https://1.envato.market/tank" class="tt-link" target="_blank" rel="noopener">London International Creative Competition</a></h5>
+                                                <p class="text-gray">Aliquam tellus leone.</p>
+                                            </li>
+                                            <li class="anim-fadeinup">
+                                                <h5 class="no-margin"><a href="https://1.envato.market/tank" class="tt-link" target="_blank" rel="noopener">Green Concept Award</a></h5>
+                                                <p class="text-gray">Phasellus a interdum tellus.</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- /.tt-col -->
+                                </div>
+                                <!-- /.tt-row -->
+                            </div>
+                            <!-- /.tt-section-inner -->
+                        </div>
+                        <!-- End tt-section -->
+
+                        <!-- =======================
+						///// Begin tt-section /////
+						============================ 
+						* You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
+						-->
+                        <div class="tt-section padding-top-xlg-150 padding-bottom-xlg-150 bg-white-accent-2">
+                            <div class="tt-section-inner tt-wrap">
+                                <!-- Begin tt-Heading 
+								====================== 
+								* Use class "tt-heading-xsm", "tt-heading-sm", "tt-heading-lg", "tt-heading-xlg" or "tt-heading-xxlg" to set caption size (no class = default size).
+								* Use class "tt-heading-stroke" to enable stroke style.
+								* Use class "tt-heading-center" to align tt-Heading to center.
+								* Use prepared helper class "max-width-*" to add custom width if needed. Example: "max-width-800". More info about helper classes can be found in the file "helper.css".
+								-->
+                                <div class="tt-heading tt-heading-xxlg tt-heading-stroke tt-heading-center margin-bottom-10-p anim-fadeinup">
+                                    <h3 class="tt-heading-subtitle text-gray">Proudly Served</h3>
+                                    <h2 class="tt-heading-title">Brands</h2>
+                                    <!-- <h3 class="tt-heading-subtitle text-gray">Subtitle</h3> -->
+                                </div>
+                                <!-- End tt-Heading -->
+
+                                <!-- Begin logo wall 
+								=====================
+								* Use class "cl-col-2", "cl-col-3" or "cl-col-4" to change columns.
+								* Hint: for better results make sure all your images are in the same dimensions!
+								-->
+                                <ul class="tt-logo-wall cl-col-44 anim-fadeinup">
+                                    <li>
+                                        <a href="https://1.envato.market/tank" class="cursor-alter" target="_blank" rel="noopener"><img src="{% static "en/img/clients/client-1.png" %}" alt="Client" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="https://1.envato.market/tank" class="cursor-alter" target="_blank" rel="noopener"><img src="{% static "en/img/clients/client-2.pngs" %}" alt="Client" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="https://1.envato.market/tank" class="cursor-alter" target="_blank" rel="noopener"><img src="{% static "en/img/clients/client-3.png" %}" alt="Client" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="https://1.envato.market/tank" class="cursor-alter" target="_blank" rel="noopener"><img src="{% static "en/img/clients/client-4.png" %}" alt="Client" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="https://1.envato.market/tank" class="cursor-alter" target="_blank" rel="noopener"><img src="{% static "en/img/clients/client-6.png" %}" alt="Client" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="https://1.envato.market/tank" class="cursor-alter" target="_blank" rel="noopener"><img src="{% static "en/img/clients/client-6.png" %}" alt="Client" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="https://1.envato.market/tank" class="cursor-alter" target="_blank" rel="noopener"><img src="{% static "en/img/clients/client-7.png" %}" alt="Client" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="https://1.envato.market/tank" class="cursor-alter" target="_blank" rel="noopener"><img src="{% static "en/img/clients/client-8.png" %}" alt="Client" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="https://1.envato.market/tank" class="cursor-alter" target="_blank" rel="noopener"><img src="{% static "en/img/clients/client-9.png" %}" alt="Client" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="https://1.envato.market/tank" class="cursor-alter" target="_blank" rel="noopener"><img src="{% static "en/img/clients/client-10.png" %}" alt="Client" /></a>
+                                    </li>
+
+                                    <!-- Use the below example if you want a list without links -->
+                                    <!-- <li><img src="assets/img/clients/client-1.png" alt="Client"></li> -->
+                                </ul>
+                                <!-- End logo wall -->
+                            </div>
+                            <!-- /.tt-section-inner -->
+                        </div>
+                        <!-- End tt-section -->
+
+                        <!-- =======================
+						///// Begin tt-section /////
+						============================ 
+						* You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
+						-->
+                        <div class="tt-section padding-top-xlg-150 padding-bottom-xlg-150">
+                            <div class="tt-section-inner tt-wrap">
+                                <!-- Begin page nav 
+								==================== 
+								* Use class "tt-pn-stroke" to enable title stroke style.
+								* Use class "tt-pn-scroll" to enable hover title scroll. Note: If "tt-pn-hover-title" text is wider than "tt-pn-link" then it scrolls by default. The longer the text, the faster it scrolls.
+								-->
+                                <div class="tt-page-nav tt-pn-scroll">
+                                    <a href="portfolio-grid-modern.html" class="tt-pn-link anim-fadeinup">
+                                        <div class="tt-pn-title">Portfolio</div>
+                                        <div class="tt-pn-hover-title">Portfolio</div>
+                                    </a>
+                                    <!-- /.tt-pn-link -->
+
+                                    <div class="tt-pn-subtitle anim-fadeinup">Selected Works</div>
+
+                                    <!-- Use if destination page contains page header image -->
+                                    <div class="tt-pn-image">
+                                        <img src="{% static "en/img/page-header/ph-1.jpg" %}" alt="image" />
+                                    </div>
+                                </div>
+                                <!-- End page nav -->
+                            </div>
+                            <!-- /.tt-section-inner -->
+                        </div>
+                        <!-- End tt-section -->
+                    </div>
+                    <!-- End page content -->
+
+                    <!-- ======================
+					///// Begin tt-footer /////
+					=========================== -->
+                    <footer id="tt-footer">
+                        <div class="tt-footer-inner">
+                            <!-- Begin footer column 
+							========================= -->
+                            <div class="footer-col tt-align-center-left">
+                                <div class="footer-col-inner">
+                                    <!-- You can use whatever button or link here -->
+                                    <div class="tt-btn tt-btn-link">
+                                        <a href="#" class="scroll-to-top" data-hover="Back to top">Back to top</a>
+                                    </div>
+                                </div>
+                                <!-- /.footer-col-inner -->
+                            </div>
+                            <!-- Begin footer column -->
+
+                            <!-- Begin footer column 
+							========================= -->
+                            <div class="footer-col tt-align-center order-m-last">
+                                <div class="footer-col-inner">
+                                    <div class="tt-copyright">© Copyright - <a href="https://themetorium.net/" target="_blank" rel="noopener" class="tt-link">Themetorium.net</a></div>
+                                </div>
+                                <!-- /.footer-col-inner -->
+                            </div>
+                            <!-- Begin footer column -->
+
+                            <!-- Begin footer column 
+							========================= -->
+                            <div class="footer-col tt-align-center-right">
+                                <div class="footer-col-inner">
+                                    <div class="footer-social">
+                                        <div class="footer-social-text"><span>Follow</span><i class="fas fa-share-alt"></i></div>
+                                        <div class="social-buttons">
+                                            <ul>
+                                                <li><a href="https://www.facebook.com/themetorium" class="magnetic-item" target="_blank" rel="noopener">Fb.</a></li>
+                                                <li><a href="https://twitter.com/Themetorium" class="magnetic-item" target="_blank" rel="noopener">Tw.</a></li>
+                                                <li><a href="https://www.youtube.com/" class="magnetic-item" target="_blank" rel="noopener">Yt.</a></li>
+                                                <li><a href="https://dribbble.com/Themetorium" class="magnetic-item" target="_blank" rel="noopener">Dr.</a></li>
+                                                <li><a href="https://www.behance.net/Themetorium" class="magnetic-item" target="_blank" rel="noopener">Be.</a></li>
+                                            </ul>
+                                        </div>
+                                        <!-- /.social-buttons -->
+                                    </div>
+                                    <!-- /.footer-social -->
+                                </div>
+                                <!-- /.footer-col-inner -->
+                            </div>
+                            <!-- Begin footer column -->
+                        </div>
+                        <!-- /.tt-section-inner -->
+                    </footer>
+                    <!-- End tt-footer -->
+                </div>
+                <!-- End content wrap -->
+{% endblock content_en %}
+
+{% elif lang == "fa" %}
+{% block title_fa %}{{ about_page.about_page_title }}{% endblock title_fa %}
+{% block styles_fa %}
+{% include "includes/pages/_styles_about.html" %}
+{% endblock styles_fa %}
+{% block content_fa %}
+
+                <!-- *************************************
+				*********** Begin content wrap *********** 
+				************************************** -->
+                <div id="content-wrap">
+                    <!-- ========================
+					///// Begin page header /////
+					============================= 
+					* Use class "ph-full" to enable fullscreen size.
+					* Use class "ph-cap-sm", "ph-cap-lg", "ph-cap-xlg" or "ph-cap-xxlg" to set caption size (no class = default size).
+					* Use class "ph-center" to enable content center position.
+					* Use class "ph-bg-image" to enable page header background image (required for a portfolio single project!).
+					* Use class "ph-bg-image-is-light" if needed, it makes the elements dark and more visible if you use a very light image (effect only with class "ph-bg-image").
+					* Use class "ph-image-shadow" to enable page header background image (effect only with class "ph-bg-image").
+					* Use class "ph-image-cropped" to crop image. It fixes image dimensions (no effect for "ph-bg-image"!).
+					* Use class "ph-image-cover-*" to set image overlay opacity. For example "ph-image-cover-2" or "ph-image-cover-2-5" (up to "ph-image-cover-9-5").
+					* Use class "ph-content-parallax" to enable content parallax.
+					* Use class "ph-stroke" to enable caption title stroke style.
+					-->
+                    <div id="page-header" class="ph-full ph-cap-xxlg ph-center ph-image-cropped ph-image-cover-4 ph-content-parallax">
+                        <div class="page-header-inner tt-wrap">
+                            <!-- Begin page header image 
+							============================= -->
+                            <div class="ph-image">
+                                <div class="ph-image-inner">
+                                    <img src="{{ about_page.about_page_header_image.url }}" alt="{% translate "Image" %}" />
+                                </div>
+                            </div>
+                            <!-- End page header image -->
+
+                            <!-- Begin page header caption
+							=============================== 
+							Use class "max-width-*" to set caption max width if needed. For example "max-width-1000". More info about helper classes can be found in the file "helper.css".
+							-->
+                            <div class="ph-caption">
+                                <h1 class="ph-caption-title ph-appear">{{ about_page.about_page_introduction_title }}</h1>
+                                <div class="ph-caption-title-ghost ph-appear">{{ about_page.about_page_introduction_background_title }}</div>
+                                <div class="ph-caption-subtitle ph-appear">{% translate "Auditorium" %}</div>
+                            </div>
+                            <!-- End page header caption -->
+                        </div>
+                        <!-- /.page-header-inner -->
+
+                        <!-- Begin scroll down circle (you can change "data-offset" to set scroll top offset) 
+						============================== -->
+                        <a href="#page-content" class="scroll-down-circle" data-offset="30">
+                            <div class="sdc-inner ph-appear">
+                                <div class="sdc-icon"><i class="fas fa-chevron-down"></i></div>
+                                <svg viewBox="0 0 500 500">
+                                    <defs>
+                                        <path d="M50,250c0-110.5,89.5-200,200-200s200,89.5,200,200s-89.5,200-200,200S50,360.5,50,250" id="textcircle"></path>
+                                    </defs>
+                                    <text dy="30">
+                                        <textPath xlink:href="#textcircle">اسکـــــرول بـــــه پـــــایـیـن ـــ اسکـــــرول بـــــه پـــــایـیـن ـــ اسکـــــرول بـــــه پـــــایـیـن ـــ اسکـــــرول بـــــه پـــــایـیـن ـــ </textPath>
+                                    </text>
+                                </svg>
+                            </div>
+                            <!-- /.sdc-inner -->
+                        </a>
+                        <!-- End scroll down circle -->
+
+                        <!-- Begin phone
+						========================== -->
+                        <div class="phone ph-appear">
+                            <div class="mwl-inner">
+                                <a href="tel:09123456789">
+                                    <div class="mwl-text">09123456789</div>
+                                    <div class="mwl-icon"><i class="fa fa-phone"></i></div>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- End phone-->
+                    </div>
+                    <!-- End page header -->
+
+                    <!-- *************************************
+					*********** Begin page content *********** 
+					************************************** -->
+                    <div id="page-content">
+                        <!-- =======================
+						///// Begin tt-section /////
+						============================ 
+						* You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
+						-->
+                        <div class="tt-section">
+                            <div class="tt-section-inner tt-wrap">
+                                <div class="tt-row">
+                                    <div class="tt-col-lg-4 padding-left-lg-5-p">
+                                        <!-- Begin tt-Heading 
+										====================== 
+										* Use class "tt-heading-xsm", "tt-heading-sm", "tt-heading-lg", "tt-heading-xlg" or "tt-heading-xxlg" to set caption size (no class = default size).
+										* Use class "tt-heading-stroke" to enable stroke style.
+										* Use class "tt-heading-center" to align tt-Heading to center.
+										* Use prepared helper class "max-width-*" to add custom width if needed. Example: "max-width-800". More info about helper classes can be found in the file "helper.css".
+										-->
+                                        <div class="tt-heading tt-heading-sm margin-bottom-60 anim-fadeinup">
+                                            <h2 class="tt-heading-title text-gray">
+                                                داستان<br class="hide-from-md" />
+                                                ما
+                                            </h2>
+                                            <!-- <h3 class="tt-heading-subtitle text-gray">زیرعنوان</h3> -->
+                                        </div>
+                                        <!-- End tt-Heading -->
+                                    </div>
+                                    <!-- /.tt-col -->
+
+                                    <div class="tt-col-lg-8">
+                                        <div class="text-xxlg font-alter">
+                                            <p class="anim-fadeinup">
+                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.
+                                            </p>
+
+                                            <p class="anim-fadeinup">
+                                                لورم ایپسوم متن ساختگی با <a href="#" target="_blank" rel="noopener">تولید سادگی نامفهوم</a> از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- /.tt-col -->
+                                </div>
+                                <!-- /.tt-row -->
+                            </div>
+                            <!-- /.tt-section-inner -->
+                        </div>
+                        <!-- End tt-section -->
+
+                        <!-- =======================
+						///// Begin tt-section /////
+						============================ 
+						* You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
+						-->
+                        <div class="tt-section">
+                            <div class="tt-section-inner">
+                                <!-- =============================
+								///// Begin content carousel /////
+								==================================
+								* Use class "cc-shifted" to enable shifted style (no effect on small screens!).
+								* Use class "cursor-drag" to enable cursor drag on carousel hover ("data-simulate-touch" attribute must be enabled!).
+								* Use class "cc-scale-down" to enable scale down animation on carousel click.
+								* Use class "cc-pagination-outside" to bring pagination outside.
+								* Use class "cc-hide-pagination" to hide pagination (for desktop only!).
+								* Use class "cc-hide-navigation" to hide navigation arrows.
+								* Available data attributes:
+										data-speed="900"......................(milliseconds)
+										data-autoplay="5000"..................(milliseconds. Note: disabled after user first interactions)
+										data-simulate-touch="true"............(true/false)
+										data-loop="true"......................(true/false)
+										data-pagination-type="bullets"........(bullets/fraction/progressbar)
+								-->
+                                <div class="tt-content-carousel cc-shifted cursor-drag cc-scale-down cc-hide-pagination cc-hide-navigation" data-simulate-touch="true" data-speed="900">
+                                    <!-- Begin swiper container -->
+                                    <div class="swiper">
+                                        <!-- Begin swiper wrapper (required) -->
+                                        <div class="swiper-wrapper">
+                                            <!-- Begin swiper slide 
+											======================== -->
+                                            <div class="swiper-slide">
+                                                <div class="tt-content-carousel-item">
+                                                    <figure class="cover-opacity-1">
+                                                        <img class="tt-cc-image anim-image-parallax swiper-lazy" src="{% static "fa/img/low-qlt-thumb.jpg" %}" data-src="{% static "fa/img/misc/misc-1.jpg" %}" alt="{% translate "Image" %}" />
+                                                        <!-- <figcaption>عنوان تصویر</figcaption> -->
+                                                    </figure>
+                                                </div>
+                                                <!-- /.tt-content-carousel-item -->
+                                            </div>
+                                            <!-- End swiper slide -->
+
+                                            <!-- Begin swiper slide 
+											======================== -->
+                                            <div class="swiper-slide">
+                                                <div class="tt-content-carousel-item">
+                                                    <figure class="cover-opacity-1">
+                                                        <img class="tt-cc-image anim-image-parallax swiper-lazy" src="{% static "fa/img/low-qlt-thumb.jpg" %}" data-src="{% static "fa/img/misc/misc-2.jpg" %}" alt="{% translate "Image" %}" />
+                                                        <!-- <figcaption>عنوان تصویر</figcaption> -->
+                                                    </figure>
+                                                </div>
+                                                <!-- /.tt-content-carousel-item -->
+                                            </div>
+                                            <!-- End swiper slide -->
+
+                                            <!-- Begin swiper slide 
+											======================== -->
+                                            <div class="swiper-slide">
+                                                <div class="tt-content-carousel-item">
+                                                    <figure class="cover-opacity-1">
+                                                        <video class="tt-cc-video" loop muted preload="metadata" poster="{% static "fa/vids/office-team.jpg" %}">
+                                                            <source src="{% static "fa/vids/office-team.mp4" %}" type="video/mp4" />
+                                                            <source src="{% static "fa/vids/office-team.webm" %}" type="video/webm" />
+                                                        </video>
+                                                    </figure>
+                                                </div>
+                                                <!-- /.tt-content-carousel-item -->
+                                            </div>
+                                            <!-- End swiper slide -->
+
+                                            <!-- Begin swiper slide 
+											======================== -->
+                                            <div class="swiper-slide">
+                                                <div class="tt-content-carousel-item">
+                                                    <figure class="cover-opacity-1">
+                                                        <img class="tt-cc-image anim-image-parallax swiper-lazy" src="{% static "fa/img/low-qlt-thumb.jpg" %}" data-src="{% static "fa/img/misc/misc-3.jpg" %}" alt="{% translate "Image" %}" />
+                                                        <!-- <figcaption>عنوان تصویر</figcaption> -->
+                                                    </figure>
+                                                </div>
+                                                <!-- /.tt-content-carousel-item -->
+                                            </div>
+                                            <!-- End swiper slide -->
+
+                                            <!-- Begin swiper slide 
+											======================== -->
+                                            <div class="swiper-slide">
+                                                <div class="tt-content-carousel-item">
+                                                    <figure class="cover-opacity-1">
+                                                        <img class="tt-cc-image anim-image-parallax swiper-lazy" src="{% static "fa/img/low-qlt-thumb.jpg" %}" data-src="{% static "fa/img/misc/misc-4.jpg" %}" alt="{% translate "Image" %}" />
+                                                        <!-- <figcaption>عنوان تصویر</figcaption> -->
+                                                    </figure>
+                                                </div>
+                                                <!-- /.tt-content-carousel-item -->
+                                            </div>
+                                            <!-- End swiper slide -->
+
+                                            <!-- Begin swiper slide 
+											======================== -->
+                                            <div class="swiper-slide">
+                                                <div class="tt-content-carousel-item">
+                                                    <figure class="cover-opacity-1">
+                                                        <img class="tt-cc-image anim-image-parallax swiper-lazy" src="{% static "fa/img/low-qlt-thumb.jpg" %}" data-src="{% static "fa/img/misc/misc-5.jpg" %}" alt="{% translate "Image" %}" />
+                                                        <!-- <figcaption>عنوان تصویر</figcaption> -->
+                                                    </figure>
+                                                </div>
+                                                <!-- /.tt-content-carousel-item -->
+                                            </div>
+                                            <!-- End swiper slide -->
+                                        </div>
+                                        <!-- End swiper wrapper -->
+                                    </div>
+                                    <!-- End swiper container -->
+
+                                    <!-- Begin content carousel navigation -->
+                                    <div class="tt-cc-nav-prev">
+                                        <div class="tt-cc-nav-arrow magnetic-item"></div>
+                                    </div>
+                                    <div class="tt-cc-nav-next">
+                                        <div class="tt-cc-nav-arrow magnetic-item"></div>
+                                    </div>
+                                    <!-- End content carousel navigation -->
+
+                                    <!-- Content carousel pagination -->
+                                    <div class="tt-cc-pagination hide-cursor"></div>
+                                </div>
+                                <!-- End content carousel -->
+                            </div>
+                            <!-- /.tt-section-inner -->
+                        </div>
+                        <!-- End tt-section -->
+
+                        <!-- =======================
+						///// Begin tt-section /////
+						============================ 
+						* You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
+						-->
+                        <div class="tt-section padding-top-xlg-150 padding-bottom-xlg-200">
+                            <div class="tt-section-inner tt-wrap">
+                                <!-- Begin tt-Heading 
+								====================== 
+								* Use class "tt-heading-xsm", "tt-heading-sm", "tt-heading-lg", "tt-heading-xlg" or "tt-heading-xxlg" to set caption size (no class = default size).
+								* Use class "tt-heading-stroke" to enable stroke style.
+								* Use class "tt-heading-center" to align tt-Heading to center.
+								* Use prepared helper class "max-width-*" to add custom width if needed. Example: "max-width-800". More info about helper classes can be found in the file "helper.css".
+								-->
+                                <div class="tt-heading tt-heading-xxlg tt-heading-stroke tt-heading-center margin-bottom-10-p anim-fadeinup">
+                                    <h3 class="tt-heading-subtitle text-gray">آنچه ما انجام می دهیم</h3>
+                                    <h2 class="tt-heading-title">خدمات</h2>
+                                </div>
+                                <!-- End tt-Heading -->
+
+                                <!-- Begin accordion 
+								===================== 
+								* Use class "tt-ac-sm", "tt-ac-lg", "tt-ac-xlg" or "tt-ac-xxlg" to set accordion size.
+								* Use class "tt-ac-borders" to enable borders.
+								* Add class "is-open" to the "tt-accordion-content" to make this content open by default.
+								-->
+                                <div class="tt-accordion tt-ac-xlg tt-ac-borders">
+                                    <div class="tt-accordion-item anim-fadeinup">
+                                        <div class="tt-accordion-heading">
+                                            <h3 class="tt-ac-head-title">تجربه کاربری / تحقیق</h3>
+                                            <div class="tt-accordion-subtext">لورم ایپسوم متن</div>
+                                            <div class="tt-accordion-caret-wrap">
+                                                <div class="tt-accordion-caret magnetic-item"></div>
+                                            </div>
+                                        </div>
+                                        <!-- /.tt-accordion-heading -->
+                                        <div class="tt-accordion-content max-width-800">
+                                            <p>
+                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد کتابهای زیادی در شصت و سه درصد گذشته حال و آینده.
+                                            </p>
+                                        </div>
+                                        <!-- /.tt-accordion-content -->
+                                    </div>
+                                    <!-- /.tt-accordion-item -->
+
+                                    <div class="tt-accordion-item anim-fadeinup">
+                                        <div class="tt-accordion-heading">
+                                            <h3 class="tt-ac-head-title">استراتژی دیجیتال</h3>
+                                            <div class="tt-accordion-subtext">لورم ایپسوم</div>
+                                            <div class="tt-accordion-caret-wrap">
+                                                <div class="tt-accordion-caret magnetic-item"></div>
+                                            </div>
+                                        </div>
+                                        <!-- /.tt-accordion-heading -->
+                                        <div class="tt-accordion-content max-width-800">
+                                            <p>
+                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد کتابهای زیادی در شصت و سه درصد گذشته حال و آینده.
+                                            </p>
+                                        </div>
+                                        <!-- /.tt-accordion-content -->
+                                    </div>
+                                    <!-- /.tt-accordion-item -->
+
+                                    <div class="tt-accordion-item anim-fadeinup">
+                                        <div class="tt-accordion-heading">
+                                            <h3 class="tt-ac-head-title">برندسازی</h3>
+                                            <div class="tt-accordion-subtext">لورم ایپسوم متن ساختگی</div>
+                                            <div class="tt-accordion-caret-wrap">
+                                                <div class="tt-accordion-caret magnetic-item"></div>
+                                            </div>
+                                        </div>
+                                        <!-- /.tt-accordion-heading -->
+                                        <div class="tt-accordion-content max-width-800">
+                                            <p>
+                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد کتابهای زیادی در شصت و سه درصد گذشته حال و آینده.
+                                            </p>
+                                        </div>
+                                        <!-- /.tt-accordion-content -->
+                                    </div>
+                                    <!-- /.tt-accordion-item -->
+
+                                    <div class="tt-accordion-item anim-fadeinup">
+                                        <div class="tt-accordion-heading">
+                                            <h3 class="tt-ac-head-title">بازاریابی</h3>
+                                            <div class="tt-accordion-subtext">لورم ایپسوم متن</div>
+                                            <div class="tt-accordion-caret-wrap">
+                                                <div class="tt-accordion-caret magnetic-item"></div>
+                                            </div>
+                                        </div>
+                                        <!-- /.tt-accordion-heading -->
+                                        <div class="tt-accordion-content max-width-800">
+                                            <p>
+                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد کتابهای زیادی در شصت و سه درصد گذشته حال و آینده.
+                                            </p>
+                                        </div>
+                                        <!-- /.tt-accordion-content -->
+                                    </div>
+                                    <!-- /.tt-accordion-item -->
+                                </div>
+                                <!-- End accordion -->
+                            </div>
+                            <!-- /.tt-section-inner -->
+                        </div>
+                        <!-- End tt-section -->
+
+                        <!-- =======================
+						///// Begin tt-section /////
+						============================ 
+						* You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
+						-->
+                        <div class="tt-section padding-top-xlg-150 padding-bottom-xlg-150 padding-right-sm-3-p padding-left-sm-3-p bg-white-accent-2">
+                            <div class="tt-section-inner tt-wrapp">
+                                <!-- Begin testimonials slider 
+								===============================
+								* Use class "text-center" to align text to the center.
+								* Use class "cursor-drag" to enable cursor drag on carousel hover ("data-simulate-touch" attribute must be enabled!).
+								* Use class "ts-hide-pagination" to hide pagination (for desktop only!).
+								* Use class "ts-hide-navigation" to hide navigation arrows.
+								* Use class "ts-full-width" to enable full width slider.
+								* Available data attributes:
+										data-speed="900"......................(milliseconds)
+										data-autoplay="5000"..................(milliseconds. Note: disabled after user first interactions)
+										data-simulate-touch="true"............(true/false)
+										data-loop="true"......................(true/false)
+								-->
+                                <div class="tt-testimonials-slider text-center cursor-drag ts-scale-down ts-hide-navigation anim-fadeinup" data-loop="true" data-simulate-touch="true" data-speed="900">
+                                    <!-- Begin swiper container -->
+                                    <div class="swiper">
+                                        <!-- Begin swiper wrapper (required) -->
+                                        <div class="swiper-wrapper">
+                                            <!-- Begin swiper slide 
+											======================== -->
+                                            <div class="swiper-slide font-alter">
+                                                <div class="tt-ts-item">
+                                                    <div class="tt-ts-text">
+                                                        "یکی از بهترین قالب هایی که تا به حال داشته ام. من آن را دوست دارم! کاملا قابل تنظیم است، به خوبی کدگذاری شده، سریع و واکنشگرا است - برای همه نوع دستگاه ها مناسب است."
+                                                    </div>
+                                                    <div class="tt-ts-subtext">- لورم ایپسوم</div>
+                                                </div>
+                                            </div>
+                                            <!-- End swiper slide -->
+
+                                            <!-- Begin swiper slide 
+											======================== -->
+                                            <div class="swiper-slide font-alter">
+                                                <div class="tt-ts-item">
+                                                    <div class="tt-ts-text">
+                                                        "قالب درخشان. هزاران گزینه، مفاهیم بسیار، انعطاف پذیری در طراحی، کیفیت کد، کامنت های توضیح داده شده در هر بخش برای یک ظاهر طراحی آسان."
+                                                    </div>
+                                                    <div class="tt-ts-subtext">- لورم</div>
+                                                </div>
+                                            </div>
+                                            <!-- End swiper slide -->
+
+                                            <!-- Begin swiper slide 
+											======================== -->
+                                            <div class="swiper-slide font-alter">
+                                                <div class="tt-ts-item">
+                                                    <div class="tt-ts-text">
+                                                        "سفارشی سازی آسان، انتخاب های فراوان برای نمایش نمونه کارها، زمان بارگذاری سریع. پشتیبانی عالی."
+                                                    </div>
+                                                    <div class="tt-ts-subtext">- لورم</div>
+                                                </div>
+                                            </div>
+                                            <!-- End swiper slide -->
+
+                                            <!-- Begin swiper slide 
+											======================== -->
+                                            <div class="swiper-slide font-alter">
+                                                <div class="tt-ts-item">
+                                                    <div class="tt-ts-text">
+                                                        "طراحی بسیار زیبا و به خوبی سازماندهی شده و کد کامنت گذاری شده. همچنین خدمات مشتری خوب."
+                                                    </div>
+                                                    <div class="tt-ts-subtext">- لورم ایپسوم</div>
+                                                </div>
+                                            </div>
+                                            <!-- End swiper slide -->
+
+                                            <!-- Begin swiper slide 
+											======================== -->
+                                            <div class="swiper-slide font-alter">
+                                                <div class="tt-ts-item">
+                                                    <div class="tt-ts-text">
+                                                        "من یک اشکال را در آیفون و آیپد پیدا کردم و نویسنده خیلی سریع آن را برطرف کرد. از تلاش و سرعت او در حل این مشکل قدردانی می کنم."
+                                                    </div>
+                                                    <div class="tt-ts-subtext">- لورم ایپسوم</div>
+                                                </div>
+                                            </div>
+                                            <!-- End swiper slide -->
+                                        </div>
+                                        <!-- End swiper wrapper -->
+                                    </div>
+                                    <!-- End swiper container -->
+
+                                    <!-- Testimonials slider navigation (arrows) -->
+                                    <div class="tt-ts-nav-prev">
+                                        <div class="tt-ts-nav-arrow magnetic-item"></div>
+                                    </div>
+                                    <div class="tt-ts-nav-next">
+                                        <div class="tt-ts-nav-arrow magnetic-item"></div>
+                                    </div>
+
+                                    <!-- Testimonials slider pagination -->
+                                    <div class="tt-ts-pagination hide-cursor"></div>
+                                </div>
+                                <!-- End testimonials slider -->
+                            </div>
+                            <!-- /.tt-section-inner -->
+                        </div>
+                        <!-- End tt-section -->
+
+                        <!-- =======================
+						///// Begin tt-section /////
+						============================ 
+						* You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
+						-->
+                        <div class="tt-section padding-top-xlg-150 padding-bottom-xlg-150">
+                            <div class="tt-section-inner tt-wrap">
+                                <div class="tt-row">
+                                    <div class="tt-col-lg-4 padding-left-md-5-p">
+                                        <!-- Begin tt-Heading 
+											====================== 
+											* Use class "tt-heading-xsm", "tt-heading-sm", "tt-heading-lg", "tt-heading-xlg" or "tt-heading-xxlg" to set caption size (no class = default size).
+											* Use class "tt-heading-stroke" to enable stroke style.
+											* Use class "tt-heading-center" to align tt-Heading to center.
+											* Use prepared helper class "max-width-*" to add custom width if needed. Example: "max-width-800". More info about helper classes can be found in the file "helper.css".
+											-->
+                                        <div class="tt-heading tt-heading-sm margin-bottom-60 anim-fadeinup">
+                                            <h2 class="tt-heading-title text-gray">
+                                                افتخارات و<br class="hide-from-md" />
+                                                نام بری ها
+                                            </h2>
+                                            <!-- <h3 class="tt-heading-subtitle text-gray">زیرعنوان</h3> -->
+                                        </div>
+                                        <!-- End tt-Heading -->
+                                    </div>
+                                    <!-- /.tt-col -->
+
+                                    <div class="tt-col-lg-4">
+                                        <ul class="list-styled">
+                                            <li class="anim-fadeinup">
+                                                <h5 class="no-margin"><a href="#" class="tt-link" target="_blank" rel="noopener">جوایز طراحی برند جهانی</a></h5>
+                                                <p class="text-gray">لورم ایپسوم متن ساختگی با.</p>
+                                            </li>
+                                            <li class="anim-fadeinup">
+                                                <h5 class="no-margin"><a href="#" class="tt-link" target="_blank" rel="noopener">جوایز طراحی جهانی</a></h5>
+                                                <p class="text-gray">لورم ایپسوم متن ساختگی.</p>
+                                            </li>
+                                            <li class="anim-fadeinup">
+                                                <h5 class="no-margin"><a href="#" class="tt-link" target="_blank" rel="noopener">جوایز طراحی محصول</a></h5>
+                                                <p class="text-gray">لورم ایپسوم متن ساختگی.</p>
+                                            </li>
+                                            <li class="anim-fadeinup">
+                                                <h5 class="no-margin"><a href="#" class="tt-link" target="_blank" rel="noopener">جوایز طراحی نورپردازی</a></h5>
+                                                <p class="text-gray">لورم ایپسوم متن ساختگی با.</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- /.tt-col -->
+
+                                    <div class="tt-col-lg-4">
+                                        <ul class="list-styled">
+                                            <li class="anim-fadeinup">
+                                                <h5 class="no-margin"><a href="#" class="tt-link" target="_blank" rel="noopener">مفهوم طراحی جایزه نقطه قرمز</a></h5>
+                                                <p class="text-gray">لورم ایپسوم متن.</p>
+                                            </li>
+                                            <li class="anim-fadeinup">
+                                                <h5 class="no-margin"><a href="#" class="tt-link" target="_blank" rel="noopener">جایزه تک رنگ</a></h5>
+                                                <p class="text-gray">لورم ایپسوم متن ساختگی با.</p>
+                                            </li>
+                                            <li class="anim-fadeinup">
+                                                <h5 class="no-margin"><a href="#" class="tt-link" target="_blank" rel="noopener">مسابقه بین المللی خلاقیت شیراز</a></h5>
+                                                <p class="text-gray">لورم ایپسوم متن.</p>
+                                            </li>
+                                            <li class="anim-fadeinup">
+                                                <h5 class="no-margin"><a href="#" class="tt-link" target="_blank" rel="noopener">جایزه مفهوم سبز</a></h5>
+                                                <p class="text-gray">لورم ایپسوم متن ساختگی با.</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- /.tt-col -->
+                                </div>
+                                <!-- /.tt-row -->
+                            </div>
+                            <!-- /.tt-section-inner -->
+                        </div>
+                        <!-- End tt-section -->
+
+                        <!-- =======================
+						///// Begin tt-section /////
+						============================ 
+						* You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
+						-->
+                        <div class="tt-section padding-top-xlg-150 padding-bottom-xlg-150 bg-white-accent-2">
+                            <div class="tt-section-inner tt-wrap">
+                                <!-- Begin tt-Heading 
+								====================== 
+								* Use class "tt-heading-xsm", "tt-heading-sm", "tt-heading-lg", "tt-heading-xlg" or "tt-heading-xxlg" to set caption size (no class = default size).
+								* Use class "tt-heading-stroke" to enable stroke style.
+								* Use class "tt-heading-center" to align tt-Heading to center.
+								* Use prepared helper class "max-width-*" to add custom width if needed. Example: "max-width-800". More info about helper classes can be found in the file "helper.css".
+								-->
+                                <div class="tt-heading tt-heading-xxlg tt-heading-stroke tt-heading-center margin-bottom-10-p anim-fadeinup">
+                                    <h3 class="tt-heading-subtitle text-gray">با افتخار خدمت کردیم</h3>
+                                    <h2 class="tt-heading-title">برندها</h2>
+                                    <!-- <h3 class="tt-heading-subtitle text-gray">زیرعنوان</h3> -->
+                                </div>
+                                <!-- End tt-Heading -->
+
+                                <!-- Begin logo wall 
+								=====================
+								* Use class "cl-col-2", "cl-col-3" or "cl-col-4" to change columns.
+								* Hint: for better results make sure all your images are in the same dimensions!
+								-->
+                                <ul class="tt-logo-wall cl-col-44 anim-fadeinup">
+                                    <li>
+                                        <a href="#" class="cursor-alter" target="_blank" rel="noopener"><img src="{% static "fa/img/clients/client-1.png" %}" alt="مشتری" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="cursor-alter" target="_blank" rel="noopener"><img src="{% static "fa/img/clients/client-2.png" %}" alt="مشتری" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="cursor-alter" target="_blank" rel="noopener"><img src="{% static "fa/img/clients/client-3.png" %}" alt="مشتری" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="cursor-alter" target="_blank" rel="noopener"><img src="{% static "fa/img/clients/client-4.png" %}" alt="مشتری" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="cursor-alter" target="_blank" rel="noopener"><img src="{% static "fa/img/clients/client-5.png" %}" alt="مشتری" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="cursor-alter" target="_blank" rel="noopener"><img src="{% static "fa/img/clients/client-6.png" %}" alt="مشتری" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="cursor-alter" target="_blank" rel="noopener"><img src="{% static "fa/img/clients/client-7.png" %}" alt="مشتری" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="cursor-alter" target="_blank" rel="noopener"><img src="{% static "fa/img/clients/client-8.png" %}" alt="مشتری" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="cursor-alter" target="_blank" rel="noopener"><img src="{% static "fa/img/clients/client-9.png" %}" alt="مشتری" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="cursor-alter" target="_blank" rel="noopener"><img src="{% static "fa/img/clients/client-10.png" %}" alt="مشتری" /></a>
+                                    </li>
+
+                                    <!-- Use the below example if you want a list without links -->
+                                    <!-- <li><img src="assets/img/clients/client-1.png" alt="مشتری"></li> -->
+                                </ul>
+                                <!-- End logo wall -->
+                            </div>
+                            <!-- /.tt-section-inner -->
+                        </div>
+                        <!-- End tt-section -->
+
+                        <!-- =======================
+						///// Begin tt-section /////
+						============================ 
+						* You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
+						-->
+                        <div class="tt-section padding-top-xlg-150 padding-bottom-xlg-150">
+                            <div class="tt-section-inner tt-wrap">
+                                <!-- Begin page nav 
+								==================== 
+								* Use class "tt-pn-stroke" to enable title stroke style.
+								* Use class "tt-pn-scroll" to enable hover title scroll. Note: If "tt-pn-hover-title" text is wider than "tt-pn-link" then it scrolls by default. The longer the text, the faster it scrolls.
+								-->
+                                <div class="tt-page-nav tt-pn-scroll">
+                                    <a href="portfolio-grid-modern.html" class="tt-pn-link anim-fadeinup">
+                                        <div class="tt-pn-title">نمونه کارها</div>
+                                        <div class="tt-pn-hover-title">نمونه کارها</div>
+                                    </a>
+                                    <!-- /.tt-pn-link -->
+
+                                    <div class="tt-pn-subtitle anim-fadeinup">کارهای منتخب</div>
+
+                                    <!-- Use if destination page contains page header image -->
+                                    <div class="tt-pn-image">
+                                        <img src="{% static "fa/img/page-header/ph-1.jpg" %}" alt="تصویر" />
+                                    </div>
+                                </div>
+                                <!-- End page nav -->
+                            </div>
+                            <!-- /.tt-section-inner -->
+                        </div>
+                        <!-- End tt-section -->
+                    </div>
+                    <!-- End page content -->
+
+                    <!-- ======================
+					///// Begin tt-footer /////
+					=========================== -->
+                    <footer id="tt-footer">
+                        <div class="tt-footer-inner">
+                            <!-- Begin footer column 
+							========================= -->
+                            <div class="footer-col tt-align-center-right">
+                                <div class="footer-col-inner">
+                                    <!-- You can use whatever button or link here -->
+                                    <div class="tt-btn tt-btn-link">
+                                        <a href="#" class="scroll-to-top" data-hover="بازگشت به بالا">بازگشت به بالا</a>
+                                    </div>
+                                </div>
+                                <!-- /.footer-col-inner -->
+                            </div>
+                            <!-- Begin footer column -->
+
+                            <!-- Begin footer column 
+							========================= -->
+                            <div class="footer-col tt-align-center order-m-last">
+                                <div class="footer-col-inner">
+                                    <div class="tt-copyright text-center">© تمام حقوق محفوظ است. فارسی و راستچین سازی شده توسط فرشید ترنیان</div>
+                                </div>
+                                <!-- /.footer-col-inner -->
+                            </div>
+                            <!-- Begin footer column -->
+
+                            <!-- Begin footer column 
+							========================= -->
+                            <div class="footer-col tt-align-center-left">
+                                <div class="footer-col-inner">
+                                    <div class="footer-social">
+                                        <div class="footer-social-text"><span>دنبال کنید</span><i class="fas fa-share-alt"></i></div>
+                                        <div class="social-buttons">
+                                            <ul>
+                                                <li><a href="https://www.facebook.com/" class="magnetic-item" target="_blank" rel="noopener">Fb.</a></li>
+                                                <li><a href="https://twitter.com/" class="magnetic-item" target="_blank" rel="noopener">Tw.</a></li>
+                                                <li><a href="https://www.youtube.com/" class="magnetic-item" target="_blank" rel="noopener">Yt.</a></li>
+                                                <li><a href="https://dribbble.com/" class="magnetic-item" target="_blank" rel="noopener">Dr.</a></li>
+                                                <li><a href="https://www.behance.net/" class="magnetic-item" target="_blank" rel="noopener">Be.</a></li>
+                                            </ul>
+                                        </div>
+                                        <!-- /.social-buttons -->
+                                    </div>
+                                    <!-- /.footer-social -->
+                                </div>
+                                <!-- /.footer-col-inner -->
+                            </div>
+                            <!-- Begin footer column -->
+                        </div>
+                        <!-- /.tt-section-inner -->
+                    </footer>
+                    <!-- End tt-footer -->
+                </div>
+                <!-- End content wrap -->
+{% endblock content_fa %}
+
+{% elif lang == "ckb" %}
+{% block title_ckb %}{{ about_page.about_page_title }}{% endblock title_ckb %}
+{% block styles_ckb %}
+{% include "includes/pages/_styles_about.html" %}
+{% endblock styles_ckb %}
+{% block content_ckb %}
+
+                <!-- *************************************
+				*********** Begin content wrap *********** 
+				************************************** -->
+                <div id="content-wrap">
+                    <!-- ========================
+					///// Begin page header /////
+					============================= 
+					* Use class "ph-full" to enable fullscreen size.
+					* Use class "ph-cap-sm", "ph-cap-lg", "ph-cap-xlg" or "ph-cap-xxlg" to set caption size (no class = default size).
+					* Use class "ph-center" to enable content center position.
+					* Use class "ph-bg-image" to enable page header background image (required for a portfolio single project!).
+					* Use class "ph-bg-image-is-light" if needed, it makes the elements dark and more visible if you use a very light image (effect only with class "ph-bg-image").
+					* Use class "ph-image-shadow" to enable page header background image (effect only with class "ph-bg-image").
+					* Use class "ph-image-cropped" to crop image. It fixes image dimensions (no effect for "ph-bg-image"!).
+					* Use class "ph-image-cover-*" to set image overlay opacity. For example "ph-image-cover-2" or "ph-image-cover-2-5" (up to "ph-image-cover-9-5").
+					* Use class "ph-content-parallax" to enable content parallax.
+					* Use class "ph-stroke" to enable caption title stroke style.
+					-->
+                    <div id="page-header" class="ph-full ph-cap-xxlg ph-center ph-image-cropped ph-image-cover-4 ph-content-parallax">
+                        <div class="page-header-inner tt-wrap">
+                            <!-- Begin page header image 
+							============================= -->
+                            <div class="ph-image">
+                                <div class="ph-image-inner">
+                                    <img src="{% static "fa/img/page-header/ph-4.jpg" %}" alt="{% translate "Image" %}" />
+                                </div>
+                            </div>
+                            <!-- End page header image -->
+
+                            <!-- Begin page header caption
+							=============================== 
+							Use class "max-width-*" to set caption max width if needed. For example "max-width-1000". More info about helper classes can be found in the file "helper.css".
+							-->
+                            <div class="ph-caption">
+                                <h1 class="ph-caption-title ph-appear">{{ about_page.about_page_introduction_title }}</h1>
+                                <div class="ph-caption-title-ghost ph-appear">{{ about_page.about_page_introduction_background_title }}</div>
+                                <div class="ph-caption-subtitle ph-appear">{% translate "Auditorium" %}</div>
+                            </div>
+                            <!-- End page header caption -->
+                        </div>
+                        <!-- /.page-header-inner -->
+
+                        <!-- Begin scroll down circle (you can change "data-offset" to set scroll top offset) 
+						============================== -->
+                        <a href="#page-content" class="scroll-down-circle" data-offset="30">
+                            <div class="sdc-inner ph-appear">
+                                <div class="sdc-icon"><i class="fas fa-chevron-down"></i></div>
+                                <svg viewBox="0 0 500 500">
+                                    <defs>
+                                        <path d="M50,250c0-110.5,89.5-200,200-200s200,89.5,200,200s-89.5,200-200,200S50,360.5,50,250" id="textcircle"></path>
+                                    </defs>
+                                    <text dy="30">
+                                        <textPath xlink:href="#textcircle">اسکـــــرول بـــــه پـــــایـیـن ـــ اسکـــــرول بـــــه پـــــایـیـن ـــ اسکـــــرول بـــــه پـــــایـیـن ـــ اسکـــــرول بـــــه پـــــایـیـن ـــ </textPath>
+                                    </text>
+                                </svg>
+                            </div>
+                            <!-- /.sdc-inner -->
+                        </a>
+                        <!-- End scroll down circle -->
+
+                        <!-- Begin phone
+						========================== -->
+                        <div class="phone ph-appear">
+                            <div class="mwl-inner">
+                                <a href="tel:09123456789">
+                                    <div class="mwl-text">09123456789</div>
+                                    <div class="mwl-icon"><i class="fa fa-phone"></i></div>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- End phone-->
+                    </div>
+                    <!-- End page header -->
+
+                    <!-- *************************************
+					*********** Begin page content *********** 
+					************************************** -->
+                    <div id="page-content">
+                        <!-- =======================
+						///// Begin tt-section /////
+						============================ 
+						* You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
+						-->
+                        <div class="tt-section">
+                            <div class="tt-section-inner tt-wrap">
+                                <div class="tt-row">
+                                    <div class="tt-col-lg-4 padding-left-lg-5-p">
+                                        <!-- Begin tt-Heading 
+										====================== 
+										* Use class "tt-heading-xsm", "tt-heading-sm", "tt-heading-lg", "tt-heading-xlg" or "tt-heading-xxlg" to set caption size (no class = default size).
+										* Use class "tt-heading-stroke" to enable stroke style.
+										* Use class "tt-heading-center" to align tt-Heading to center.
+										* Use prepared helper class "max-width-*" to add custom width if needed. Example: "max-width-800". More info about helper classes can be found in the file "helper.css".
+										-->
+                                        <div class="tt-heading tt-heading-sm margin-bottom-60 anim-fadeinup">
+                                            <h2 class="tt-heading-title text-gray">
+                                                داستان<br class="hide-from-md" />
+                                                ما
+                                            </h2>
+                                            <!-- <h3 class="tt-heading-subtitle text-gray">زیرعنوان</h3> -->
+                                        </div>
+                                        <!-- End tt-Heading -->
+                                    </div>
+                                    <!-- /.tt-col -->
+
+                                    <div class="tt-col-lg-8">
+                                        <div class="text-xxlg font-alter">
+                                            <p class="anim-fadeinup">
+                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.
+                                            </p>
+
+                                            <p class="anim-fadeinup">
+                                                لورم ایپسوم متن ساختگی با <a href="#" target="_blank" rel="noopener">تولید سادگی نامفهوم</a> از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- /.tt-col -->
+                                </div>
+                                <!-- /.tt-row -->
+                            </div>
+                            <!-- /.tt-section-inner -->
+                        </div>
+                        <!-- End tt-section -->
+
+                        <!-- =======================
+						///// Begin tt-section /////
+						============================ 
+						* You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
+						-->
+                        <div class="tt-section">
+                            <div class="tt-section-inner">
+                                <!-- =============================
+								///// Begin content carousel /////
+								==================================
+								* Use class "cc-shifted" to enable shifted style (no effect on small screens!).
+								* Use class "cursor-drag" to enable cursor drag on carousel hover ("data-simulate-touch" attribute must be enabled!).
+								* Use class "cc-scale-down" to enable scale down animation on carousel click.
+								* Use class "cc-pagination-outside" to bring pagination outside.
+								* Use class "cc-hide-pagination" to hide pagination (for desktop only!).
+								* Use class "cc-hide-navigation" to hide navigation arrows.
+								* Available data attributes:
+										data-speed="900"......................(milliseconds)
+										data-autoplay="5000"..................(milliseconds. Note: disabled after user first interactions)
+										data-simulate-touch="true"............(true/false)
+										data-loop="true"......................(true/false)
+										data-pagination-type="bullets"........(bullets/fraction/progressbar)
+								-->
+                                <div class="tt-content-carousel cc-shifted cursor-drag cc-scale-down cc-hide-pagination cc-hide-navigation" data-simulate-touch="true" data-speed="900">
+                                    <!-- Begin swiper container -->
+                                    <div class="swiper">
+                                        <!-- Begin swiper wrapper (required) -->
+                                        <div class="swiper-wrapper">
+                                            <!-- Begin swiper slide 
+											======================== -->
+                                            <div class="swiper-slide">
+                                                <div class="tt-content-carousel-item">
+                                                    <figure class="cover-opacity-1">
+                                                        <img class="tt-cc-image anim-image-parallax swiper-lazy" src="{% static "fa/img/low-qlt-thumb.jpg" %}" data-src="{% static "fa/img/misc/misc-1.jpg" %}" alt="{% translate "Image" %}" />
+                                                        <!-- <figcaption>عنوان تصویر</figcaption> -->
+                                                    </figure>
+                                                </div>
+                                                <!-- /.tt-content-carousel-item -->
+                                            </div>
+                                            <!-- End swiper slide -->
+
+                                            <!-- Begin swiper slide 
+											======================== -->
+                                            <div class="swiper-slide">
+                                                <div class="tt-content-carousel-item">
+                                                    <figure class="cover-opacity-1">
+                                                        <img class="tt-cc-image anim-image-parallax swiper-lazy" src="{% static "fa/img/low-qlt-thumb.jpg" %}" data-src="{% static "fa/img/misc/misc-2.jpg" %}" alt="{% translate "Image" %}" />
+                                                        <!-- <figcaption>عنوان تصویر</figcaption> -->
+                                                    </figure>
+                                                </div>
+                                                <!-- /.tt-content-carousel-item -->
+                                            </div>
+                                            <!-- End swiper slide -->
+
+                                            <!-- Begin swiper slide 
+											======================== -->
+                                            <div class="swiper-slide">
+                                                <div class="tt-content-carousel-item">
+                                                    <figure class="cover-opacity-1">
+                                                        <video class="tt-cc-video" loop muted preload="metadata" poster="{% static "fa/vids/office-team.jpg" %}">
+                                                            <source src="{% static "fa/vids/office-team.mp4" %}" type="video/mp4" />
+                                                            <source src="{% static "fa/vids/office-team.webm" %}" type="video/webm" />
+                                                        </video>
+                                                    </figure>
+                                                </div>
+                                                <!-- /.tt-content-carousel-item -->
+                                            </div>
+                                            <!-- End swiper slide -->
+
+                                            <!-- Begin swiper slide 
+											======================== -->
+                                            <div class="swiper-slide">
+                                                <div class="tt-content-carousel-item">
+                                                    <figure class="cover-opacity-1">
+                                                        <img class="tt-cc-image anim-image-parallax swiper-lazy" src="{% static "fa/img/low-qlt-thumb.jpg" %}" data-src="{% static "fa/img/misc/misc-3.jpg" %}" alt="{% translate "Image" %}" />
+                                                        <!-- <figcaption>عنوان تصویر</figcaption> -->
+                                                    </figure>
+                                                </div>
+                                                <!-- /.tt-content-carousel-item -->
+                                            </div>
+                                            <!-- End swiper slide -->
+
+                                            <!-- Begin swiper slide 
+											======================== -->
+                                            <div class="swiper-slide">
+                                                <div class="tt-content-carousel-item">
+                                                    <figure class="cover-opacity-1">
+                                                        <img class="tt-cc-image anim-image-parallax swiper-lazy" src="{% static "fa/img/low-qlt-thumb.jpg" %}" data-src="{% static "fa/img/misc/misc-4.jpg" %}" alt="{% translate "Image" %}" />
+                                                        <!-- <figcaption>عنوان تصویر</figcaption> -->
+                                                    </figure>
+                                                </div>
+                                                <!-- /.tt-content-carousel-item -->
+                                            </div>
+                                            <!-- End swiper slide -->
+
+                                            <!-- Begin swiper slide 
+											======================== -->
+                                            <div class="swiper-slide">
+                                                <div class="tt-content-carousel-item">
+                                                    <figure class="cover-opacity-1">
+                                                        <img class="tt-cc-image anim-image-parallax swiper-lazy" src="{% static "fa/img/low-qlt-thumb.jpg" %}" data-src="{% static "fa/img/misc/misc-5.jpg" %}" alt="{% translate "Image" %}" />
+                                                        <!-- <figcaption>عنوان تصویر</figcaption> -->
+                                                    </figure>
+                                                </div>
+                                                <!-- /.tt-content-carousel-item -->
+                                            </div>
+                                            <!-- End swiper slide -->
+                                        </div>
+                                        <!-- End swiper wrapper -->
+                                    </div>
+                                    <!-- End swiper container -->
+
+                                    <!-- Begin content carousel navigation -->
+                                    <div class="tt-cc-nav-prev">
+                                        <div class="tt-cc-nav-arrow magnetic-item"></div>
+                                    </div>
+                                    <div class="tt-cc-nav-next">
+                                        <div class="tt-cc-nav-arrow magnetic-item"></div>
+                                    </div>
+                                    <!-- End content carousel navigation -->
+
+                                    <!-- Content carousel pagination -->
+                                    <div class="tt-cc-pagination hide-cursor"></div>
+                                </div>
+                                <!-- End content carousel -->
+                            </div>
+                            <!-- /.tt-section-inner -->
+                        </div>
+                        <!-- End tt-section -->
+
+                        <!-- =======================
+						///// Begin tt-section /////
+						============================ 
+						* You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
+						-->
+                        <div class="tt-section padding-top-xlg-150 padding-bottom-xlg-200">
+                            <div class="tt-section-inner tt-wrap">
+                                <!-- Begin tt-Heading 
+								====================== 
+								* Use class "tt-heading-xsm", "tt-heading-sm", "tt-heading-lg", "tt-heading-xlg" or "tt-heading-xxlg" to set caption size (no class = default size).
+								* Use class "tt-heading-stroke" to enable stroke style.
+								* Use class "tt-heading-center" to align tt-Heading to center.
+								* Use prepared helper class "max-width-*" to add custom width if needed. Example: "max-width-800". More info about helper classes can be found in the file "helper.css".
+								-->
+                                <div class="tt-heading tt-heading-xxlg tt-heading-stroke tt-heading-center margin-bottom-10-p anim-fadeinup">
+                                    <h3 class="tt-heading-subtitle text-gray">آنچه ما انجام می دهیم</h3>
+                                    <h2 class="tt-heading-title">خدمات</h2>
+                                </div>
+                                <!-- End tt-Heading -->
+
+                                <!-- Begin accordion 
+								===================== 
+								* Use class "tt-ac-sm", "tt-ac-lg", "tt-ac-xlg" or "tt-ac-xxlg" to set accordion size.
+								* Use class "tt-ac-borders" to enable borders.
+								* Add class "is-open" to the "tt-accordion-content" to make this content open by default.
+								-->
+                                <div class="tt-accordion tt-ac-xlg tt-ac-borders">
+                                    <div class="tt-accordion-item anim-fadeinup">
+                                        <div class="tt-accordion-heading">
+                                            <h3 class="tt-ac-head-title">تجربه کاربری / تحقیق</h3>
+                                            <div class="tt-accordion-subtext">لورم ایپسوم متن</div>
+                                            <div class="tt-accordion-caret-wrap">
+                                                <div class="tt-accordion-caret magnetic-item"></div>
+                                            </div>
+                                        </div>
+                                        <!-- /.tt-accordion-heading -->
+                                        <div class="tt-accordion-content max-width-800">
+                                            <p>
+                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد کتابهای زیادی در شصت و سه درصد گذشته حال و آینده.
+                                            </p>
+                                        </div>
+                                        <!-- /.tt-accordion-content -->
+                                    </div>
+                                    <!-- /.tt-accordion-item -->
+
+                                    <div class="tt-accordion-item anim-fadeinup">
+                                        <div class="tt-accordion-heading">
+                                            <h3 class="tt-ac-head-title">استراتژی دیجیتال</h3>
+                                            <div class="tt-accordion-subtext">لورم ایپسوم</div>
+                                            <div class="tt-accordion-caret-wrap">
+                                                <div class="tt-accordion-caret magnetic-item"></div>
+                                            </div>
+                                        </div>
+                                        <!-- /.tt-accordion-heading -->
+                                        <div class="tt-accordion-content max-width-800">
+                                            <p>
+                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد کتابهای زیادی در شصت و سه درصد گذشته حال و آینده.
+                                            </p>
+                                        </div>
+                                        <!-- /.tt-accordion-content -->
+                                    </div>
+                                    <!-- /.tt-accordion-item -->
+
+                                    <div class="tt-accordion-item anim-fadeinup">
+                                        <div class="tt-accordion-heading">
+                                            <h3 class="tt-ac-head-title">برندسازی</h3>
+                                            <div class="tt-accordion-subtext">لورم ایپسوم متن ساختگی</div>
+                                            <div class="tt-accordion-caret-wrap">
+                                                <div class="tt-accordion-caret magnetic-item"></div>
+                                            </div>
+                                        </div>
+                                        <!-- /.tt-accordion-heading -->
+                                        <div class="tt-accordion-content max-width-800">
+                                            <p>
+                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد کتابهای زیادی در شصت و سه درصد گذشته حال و آینده.
+                                            </p>
+                                        </div>
+                                        <!-- /.tt-accordion-content -->
+                                    </div>
+                                    <!-- /.tt-accordion-item -->
+
+                                    <div class="tt-accordion-item anim-fadeinup">
+                                        <div class="tt-accordion-heading">
+                                            <h3 class="tt-ac-head-title">بازاریابی</h3>
+                                            <div class="tt-accordion-subtext">لورم ایپسوم متن</div>
+                                            <div class="tt-accordion-caret-wrap">
+                                                <div class="tt-accordion-caret magnetic-item"></div>
+                                            </div>
+                                        </div>
+                                        <!-- /.tt-accordion-heading -->
+                                        <div class="tt-accordion-content max-width-800">
+                                            <p>
+                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد کتابهای زیادی در شصت و سه درصد گذشته حال و آینده.
+                                            </p>
+                                        </div>
+                                        <!-- /.tt-accordion-content -->
+                                    </div>
+                                    <!-- /.tt-accordion-item -->
+                                </div>
+                                <!-- End accordion -->
+                            </div>
+                            <!-- /.tt-section-inner -->
+                        </div>
+                        <!-- End tt-section -->
+
+                        <!-- =======================
+						///// Begin tt-section /////
+						============================ 
+						* You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
+						-->
+                        <div class="tt-section padding-top-xlg-150 padding-bottom-xlg-150 padding-right-sm-3-p padding-left-sm-3-p bg-white-accent-2">
+                            <div class="tt-section-inner tt-wrapp">
+                                <!-- Begin testimonials slider 
+								===============================
+								* Use class "text-center" to align text to the center.
+								* Use class "cursor-drag" to enable cursor drag on carousel hover ("data-simulate-touch" attribute must be enabled!).
+								* Use class "ts-hide-pagination" to hide pagination (for desktop only!).
+								* Use class "ts-hide-navigation" to hide navigation arrows.
+								* Use class "ts-full-width" to enable full width slider.
+								* Available data attributes:
+										data-speed="900"......................(milliseconds)
+										data-autoplay="5000"..................(milliseconds. Note: disabled after user first interactions)
+										data-simulate-touch="true"............(true/false)
+										data-loop="true"......................(true/false)
+								-->
+                                <div class="tt-testimonials-slider text-center cursor-drag ts-scale-down ts-hide-navigation anim-fadeinup" data-loop="true" data-simulate-touch="true" data-speed="900">
+                                    <!-- Begin swiper container -->
+                                    <div class="swiper">
+                                        <!-- Begin swiper wrapper (required) -->
+                                        <div class="swiper-wrapper">
+                                            <!-- Begin swiper slide 
+											======================== -->
+                                            <div class="swiper-slide font-alter">
+                                                <div class="tt-ts-item">
+                                                    <div class="tt-ts-text">
+                                                        "یکی از بهترین قالب هایی که تا به حال داشته ام. من آن را دوست دارم! کاملا قابل تنظیم است، به خوبی کدگذاری شده، سریع و واکنشگرا است - برای همه نوع دستگاه ها مناسب است."
+                                                    </div>
+                                                    <div class="tt-ts-subtext">- لورم ایپسوم</div>
+                                                </div>
+                                            </div>
+                                            <!-- End swiper slide -->
+
+                                            <!-- Begin swiper slide 
+											======================== -->
+                                            <div class="swiper-slide font-alter">
+                                                <div class="tt-ts-item">
+                                                    <div class="tt-ts-text">
+                                                        "قالب درخشان. هزاران گزینه، مفاهیم بسیار، انعطاف پذیری در طراحی، کیفیت کد، کامنت های توضیح داده شده در هر بخش برای یک ظاهر طراحی آسان."
+                                                    </div>
+                                                    <div class="tt-ts-subtext">- لورم</div>
+                                                </div>
+                                            </div>
+                                            <!-- End swiper slide -->
+
+                                            <!-- Begin swiper slide 
+											======================== -->
+                                            <div class="swiper-slide font-alter">
+                                                <div class="tt-ts-item">
+                                                    <div class="tt-ts-text">
+                                                        "سفارشی سازی آسان، انتخاب های فراوان برای نمایش نمونه کارها، زمان بارگذاری سریع. پشتیبانی عالی."
+                                                    </div>
+                                                    <div class="tt-ts-subtext">- لورم</div>
+                                                </div>
+                                            </div>
+                                            <!-- End swiper slide -->
+
+                                            <!-- Begin swiper slide 
+											======================== -->
+                                            <div class="swiper-slide font-alter">
+                                                <div class="tt-ts-item">
+                                                    <div class="tt-ts-text">
+                                                        "طراحی بسیار زیبا و به خوبی سازماندهی شده و کد کامنت گذاری شده. همچنین خدمات مشتری خوب."
+                                                    </div>
+                                                    <div class="tt-ts-subtext">- لورم ایپسوم</div>
+                                                </div>
+                                            </div>
+                                            <!-- End swiper slide -->
+
+                                            <!-- Begin swiper slide 
+											======================== -->
+                                            <div class="swiper-slide font-alter">
+                                                <div class="tt-ts-item">
+                                                    <div class="tt-ts-text">
+                                                        "من یک اشکال را در آیفون و آیپد پیدا کردم و نویسنده خیلی سریع آن را برطرف کرد. از تلاش و سرعت او در حل این مشکل قدردانی می کنم."
+                                                    </div>
+                                                    <div class="tt-ts-subtext">- لورم ایپسوم</div>
+                                                </div>
+                                            </div>
+                                            <!-- End swiper slide -->
+                                        </div>
+                                        <!-- End swiper wrapper -->
+                                    </div>
+                                    <!-- End swiper container -->
+
+                                    <!-- Testimonials slider navigation (arrows) -->
+                                    <div class="tt-ts-nav-prev">
+                                        <div class="tt-ts-nav-arrow magnetic-item"></div>
+                                    </div>
+                                    <div class="tt-ts-nav-next">
+                                        <div class="tt-ts-nav-arrow magnetic-item"></div>
+                                    </div>
+
+                                    <!-- Testimonials slider pagination -->
+                                    <div class="tt-ts-pagination hide-cursor"></div>
+                                </div>
+                                <!-- End testimonials slider -->
+                            </div>
+                            <!-- /.tt-section-inner -->
+                        </div>
+                        <!-- End tt-section -->
+
+                        <!-- =======================
+						///// Begin tt-section /////
+						============================ 
+						* You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
+						-->
+                        <div class="tt-section padding-top-xlg-150 padding-bottom-xlg-150">
+                            <div class="tt-section-inner tt-wrap">
+                                <div class="tt-row">
+                                    <div class="tt-col-lg-4 padding-left-md-5-p">
+                                        <!-- Begin tt-Heading 
+											====================== 
+											* Use class "tt-heading-xsm", "tt-heading-sm", "tt-heading-lg", "tt-heading-xlg" or "tt-heading-xxlg" to set caption size (no class = default size).
+											* Use class "tt-heading-stroke" to enable stroke style.
+											* Use class "tt-heading-center" to align tt-Heading to center.
+											* Use prepared helper class "max-width-*" to add custom width if needed. Example: "max-width-800". More info about helper classes can be found in the file "helper.css".
+											-->
+                                        <div class="tt-heading tt-heading-sm margin-bottom-60 anim-fadeinup">
+                                            <h2 class="tt-heading-title text-gray">
+                                                افتخارات و<br class="hide-from-md" />
+                                                نام بری ها
+                                            </h2>
+                                            <!-- <h3 class="tt-heading-subtitle text-gray">زیرعنوان</h3> -->
+                                        </div>
+                                        <!-- End tt-Heading -->
+                                    </div>
+                                    <!-- /.tt-col -->
+
+                                    <div class="tt-col-lg-4">
+                                        <ul class="list-styled">
+                                            <li class="anim-fadeinup">
+                                                <h5 class="no-margin"><a href="#" class="tt-link" target="_blank" rel="noopener">جوایز طراحی برند جهانی</a></h5>
+                                                <p class="text-gray">لورم ایپسوم متن ساختگی با.</p>
+                                            </li>
+                                            <li class="anim-fadeinup">
+                                                <h5 class="no-margin"><a href="#" class="tt-link" target="_blank" rel="noopener">جوایز طراحی جهانی</a></h5>
+                                                <p class="text-gray">لورم ایپسوم متن ساختگی.</p>
+                                            </li>
+                                            <li class="anim-fadeinup">
+                                                <h5 class="no-margin"><a href="#" class="tt-link" target="_blank" rel="noopener">جوایز طراحی محصول</a></h5>
+                                                <p class="text-gray">لورم ایپسوم متن ساختگی.</p>
+                                            </li>
+                                            <li class="anim-fadeinup">
+                                                <h5 class="no-margin"><a href="#" class="tt-link" target="_blank" rel="noopener">جوایز طراحی نورپردازی</a></h5>
+                                                <p class="text-gray">لورم ایپسوم متن ساختگی با.</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- /.tt-col -->
+
+                                    <div class="tt-col-lg-4">
+                                        <ul class="list-styled">
+                                            <li class="anim-fadeinup">
+                                                <h5 class="no-margin"><a href="#" class="tt-link" target="_blank" rel="noopener">مفهوم طراحی جایزه نقطه قرمز</a></h5>
+                                                <p class="text-gray">لورم ایپسوم متن.</p>
+                                            </li>
+                                            <li class="anim-fadeinup">
+                                                <h5 class="no-margin"><a href="#" class="tt-link" target="_blank" rel="noopener">جایزه تک رنگ</a></h5>
+                                                <p class="text-gray">لورم ایپسوم متن ساختگی با.</p>
+                                            </li>
+                                            <li class="anim-fadeinup">
+                                                <h5 class="no-margin"><a href="#" class="tt-link" target="_blank" rel="noopener">مسابقه بین المللی خلاقیت شیراز</a></h5>
+                                                <p class="text-gray">لورم ایپسوم متن.</p>
+                                            </li>
+                                            <li class="anim-fadeinup">
+                                                <h5 class="no-margin"><a href="#" class="tt-link" target="_blank" rel="noopener">جایزه مفهوم سبز</a></h5>
+                                                <p class="text-gray">لورم ایپسوم متن ساختگی با.</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- /.tt-col -->
+                                </div>
+                                <!-- /.tt-row -->
+                            </div>
+                            <!-- /.tt-section-inner -->
+                        </div>
+                        <!-- End tt-section -->
+
+                        <!-- =======================
+						///// Begin tt-section /////
+						============================ 
+						* You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
+						-->
+                        <div class="tt-section padding-top-xlg-150 padding-bottom-xlg-150 bg-white-accent-2">
+                            <div class="tt-section-inner tt-wrap">
+                                <!-- Begin tt-Heading 
+								====================== 
+								* Use class "tt-heading-xsm", "tt-heading-sm", "tt-heading-lg", "tt-heading-xlg" or "tt-heading-xxlg" to set caption size (no class = default size).
+								* Use class "tt-heading-stroke" to enable stroke style.
+								* Use class "tt-heading-center" to align tt-Heading to center.
+								* Use prepared helper class "max-width-*" to add custom width if needed. Example: "max-width-800". More info about helper classes can be found in the file "helper.css".
+								-->
+                                <div class="tt-heading tt-heading-xxlg tt-heading-stroke tt-heading-center margin-bottom-10-p anim-fadeinup">
+                                    <h3 class="tt-heading-subtitle text-gray">با افتخار خدمت کردیم</h3>
+                                    <h2 class="tt-heading-title">برندها</h2>
+                                    <!-- <h3 class="tt-heading-subtitle text-gray">زیرعنوان</h3> -->
+                                </div>
+                                <!-- End tt-Heading -->
+
+                                <!-- Begin logo wall 
+								=====================
+								* Use class "cl-col-2", "cl-col-3" or "cl-col-4" to change columns.
+								* Hint: for better results make sure all your images are in the same dimensions!
+								-->
+                                <ul class="tt-logo-wall cl-col-44 anim-fadeinup">
+                                    <li>
+                                        <a href="#" class="cursor-alter" target="_blank" rel="noopener"><img src="{% static "fa/img/clients/client-1.png" %}" alt="مشتری" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="cursor-alter" target="_blank" rel="noopener"><img src="{% static "fa/img/clients/client-2.png" %}" alt="مشتری" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="cursor-alter" target="_blank" rel="noopener"><img src="{% static "fa/img/clients/client-3.png" %}" alt="مشتری" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="cursor-alter" target="_blank" rel="noopener"><img src="{% static "fa/img/clients/client-4.png" %}" alt="مشتری" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="cursor-alter" target="_blank" rel="noopener"><img src="{% static "fa/img/clients/client-5.png" %}" alt="مشتری" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="cursor-alter" target="_blank" rel="noopener"><img src="{% static "fa/img/clients/client-6.png" %}" alt="مشتری" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="cursor-alter" target="_blank" rel="noopener"><img src="{% static "fa/img/clients/client-7.png" %}" alt="مشتری" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="cursor-alter" target="_blank" rel="noopener"><img src="{% static "fa/img/clients/client-8.png" %}" alt="مشتری" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="cursor-alter" target="_blank" rel="noopener"><img src="{% static "fa/img/clients/client-9.png" %}" alt="مشتری" /></a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="cursor-alter" target="_blank" rel="noopener"><img src="{% static "fa/img/clients/client-10.png" %}" alt="مشتری" /></a>
+                                    </li>
+
+                                    <!-- Use the below example if you want a list without links -->
+                                    <!-- <li><img src="assets/img/clients/client-1.png" alt="مشتری"></li> -->
+                                </ul>
+                                <!-- End logo wall -->
+                            </div>
+                            <!-- /.tt-section-inner -->
+                        </div>
+                        <!-- End tt-section -->
+
+                        <!-- =======================
+						///// Begin tt-section /////
+						============================ 
+						* You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
+						-->
+                        <div class="tt-section padding-top-xlg-150 padding-bottom-xlg-150">
+                            <div class="tt-section-inner tt-wrap">
+                                <!-- Begin page nav 
+								==================== 
+								* Use class "tt-pn-stroke" to enable title stroke style.
+								* Use class "tt-pn-scroll" to enable hover title scroll. Note: If "tt-pn-hover-title" text is wider than "tt-pn-link" then it scrolls by default. The longer the text, the faster it scrolls.
+								-->
+                                <div class="tt-page-nav tt-pn-scroll">
+                                    <a href="portfolio-grid-modern.html" class="tt-pn-link anim-fadeinup">
+                                        <div class="tt-pn-title">نمونه کارها</div>
+                                        <div class="tt-pn-hover-title">نمونه کارها</div>
+                                    </a>
+                                    <!-- /.tt-pn-link -->
+
+                                    <div class="tt-pn-subtitle anim-fadeinup">کارهای منتخب</div>
+
+                                    <!-- Use if destination page contains page header image -->
+                                    <div class="tt-pn-image">
+                                        <img src="{% static "fa/img/page-header/ph-1.jpg" %}" alt="تصویر" />
+                                    </div>
+                                </div>
+                                <!-- End page nav -->
+                            </div>
+                            <!-- /.tt-section-inner -->
+                        </div>
+                        <!-- End tt-section -->
+                    </div>
+                    <!-- End page content -->
+
+                    <!-- ======================
+					///// Begin tt-footer /////
+					=========================== -->
+                    <footer id="tt-footer">
+                        <div class="tt-footer-inner">
+                            <!-- Begin footer column 
+							========================= -->
+                            <div class="footer-col tt-align-center-right">
+                                <div class="footer-col-inner">
+                                    <!-- You can use whatever button or link here -->
+                                    <div class="tt-btn tt-btn-link">
+                                        <a href="#" class="scroll-to-top" data-hover="بازگشت به بالا">بازگشت به بالا</a>
+                                    </div>
+                                </div>
+                                <!-- /.footer-col-inner -->
+                            </div>
+                            <!-- Begin footer column -->
+
+                            <!-- Begin footer column 
+							========================= -->
+                            <div class="footer-col tt-align-center order-m-last">
+                                <div class="footer-col-inner">
+                                    <div class="tt-copyright text-center">© تمام حقوق محفوظ است. فارسی و راستچین سازی شده توسط فرشید ترنیان</div>
+                                </div>
+                                <!-- /.footer-col-inner -->
+                            </div>
+                            <!-- Begin footer column -->
+
+                            <!-- Begin footer column 
+							========================= -->
+                            <div class="footer-col tt-align-center-left">
+                                <div class="footer-col-inner">
+                                    <div class="footer-social">
+                                        <div class="footer-social-text"><span>دنبال کنید</span><i class="fas fa-share-alt"></i></div>
+                                        <div class="social-buttons">
+                                            <ul>
+                                                <li><a href="https://www.facebook.com/" class="magnetic-item" target="_blank" rel="noopener">Fb.</a></li>
+                                                <li><a href="https://twitter.com/" class="magnetic-item" target="_blank" rel="noopener">Tw.</a></li>
+                                                <li><a href="https://www.youtube.com/" class="magnetic-item" target="_blank" rel="noopener">Yt.</a></li>
+                                                <li><a href="https://dribbble.com/" class="magnetic-item" target="_blank" rel="noopener">Dr.</a></li>
+                                                <li><a href="https://www.behance.net/" class="magnetic-item" target="_blank" rel="noopener">Be.</a></li>
+                                            </ul>
+                                        </div>
+                                        <!-- /.social-buttons -->
+                                    </div>
+                                    <!-- /.footer-social -->
+                                </div>
+                                <!-- /.footer-col-inner -->
+                            </div>
+                            <!-- Begin footer column -->
+                        </div>
+                        <!-- /.tt-section-inner -->
+                    </footer>
+                    <!-- End tt-footer -->
+                </div>
+                <!-- End content wrap -->
+{% endblock content_ckb %}
+
+{% endif %}

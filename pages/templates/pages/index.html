@@ -6,27 +6,31 @@
 {% get_current_language as lang %}
 
 {% if lang == "en" %}
-{% block title_en %}
-{{ index_page.index_page_title }}
-{% endblock title_en %}
+{% block title_en %}{{ index_page.index_page_title }}{% endblock title_en %}
+
 {% elif lang == "fa" %}
 {% block title_fa %}{{ index_page.index_page_title }}{% endblock title_fa %}
+
 {% elif lang == "ckb" %}
-{{ index_page.index_page_title }}
+{% block title_ckb %}{{ index_page.index_page_title }}{% endblock title_ckb %}
+
 {% endif %}
 
 {% if lang == "en" %}
 {% block styles_en %}
 {% include "includes/pages/_styles_index.html" %}
 {% endblock styles_en %}
+
 {% elif lang == "fa" %}
 {% block styles_fa %}
 {% include "includes/pages/_styles_index.html" %}
 {% endblock styles_fa %}
+
 {% elif lang == "ckb" %}
 {% block styles_ckb %}
 {% include "includes/pages/_styles_index.html" %}
 {% endblock styles_ckb %}
+
 {% endif %}
 
 {% if lang == "en" %}
@@ -356,8 +360,8 @@
 								* Use prepared helper class "max-width-*" to add custom width if needed. Example: "max-width-800". More info about helper classes can be found in the file "helper.css".
 								-->
                                 <div class="tt-heading tt-heading-lg tt-heading-center margin-bottom-15-p anim-fadeinup">
-                                    <h3 class="tt-heading-subtitle text-gray">What We Do</h3>
-                                    <h2 class="tt-heading-title">Services</h2>
+                                    <h3 class="tt-heading-subtitle text-gray">{% translate "What We Discuss About" %}</h3>
+                                    <h2 class="tt-heading-title">{% translate "Trending Discussion Halls (Topics)" %}</h2>
                                 </div>
                                 <!-- End tt-Heading -->
 
@@ -491,70 +495,25 @@
                                     <div class="swiper">
                                         <!-- Begin swiper wrapper (required) -->
                                         <div class="swiper-wrapper">
-                                            <!-- Begin swiper slide 
-											======================== -->
-                                            <div class="swiper-slide font-alter">
-                                                <div class="tt-ts-item">
-                                                    <div class="tt-ts-text">
-                                                        "One of the best template I've ever had. I love it! It's fully customizable, well coded, fast and responsive - fitting for all kind of devices."
-                                                    </div>
-                                                    <div class="tt-ts-subtext">- Wironimo</div>
-                                                </div>
-                                            </div>
-                                            <!-- End swiper slide -->
 
-                                            <!-- Begin swiper slide 
+                                        {% for sentence in index_page.index_page_sentences.all %}
+                                                                                    <!-- Begin swiper slide 
 											======================== -->
                                             <div class="swiper-slide font-alter">
                                                 <div class="tt-ts-item">
                                                     <div class="tt-ts-text">
-                                                        "Brilliant template. Tons of options, many concepts, design flexibility, code quality, explanatory comments in each section for easy styling."
+                                                        {{ sentence.sentence }}
                                                     </div>
-                                                    <div class="tt-ts-subtext">- Gneto</div>
+                                                    <div class="tt-ts-subtext">- {{ sentence.quote_by }}</div>
                                                 </div>
                                             </div>
                                             <!-- End swiper slide -->
+                                        {% endfor %}
 
-                                            <!-- Begin swiper slide 
-											======================== -->
-                                            <div class="swiper-slide font-alter">
-                                                <div class="tt-ts-item">
-                                                    <div class="tt-ts-text">
-                                                        "Easy to customize, plenty of choices to display your portfolio, fast loading times. Excellent support."
-                                                    </div>
-                                                    <div class="tt-ts-subtext">- Brendak</div>
-                                                </div>
-                                            </div>
-                                            <!-- End swiper slide -->
-
-                                            <!-- Begin swiper slide 
-											======================== -->
-                                            <div class="swiper-slide font-alter">
-                                                <div class="tt-ts-item">
-                                                    <div class="tt-ts-text">
-                                                        "Very nice design and well organised and commented code. Also good customer service."
-                                                    </div>
-                                                    <div class="tt-ts-subtext">- Gazzzzz</div>
-                                                </div>
-                                            </div>
-                                            <!-- End swiper slide -->
-
-                                            <!-- Begin swiper slide 
-											======================== -->
-                                            <div class="swiper-slide font-alter">
-                                                <div class="tt-ts-item">
-                                                    <div class="tt-ts-text">
-                                                        "I founded a bug on Iphone and Ipad and the author fixed very quickly. I appreciated his efforts and his quickness in solving the problem."
-                                                    </div>
-                                                    <div class="tt-ts-subtext">- Admanente</div>
-                                                </div>
-                                            </div>
-                                            <!-- End swiper slide -->
                                         </div>
                                         <!-- End swiper wrapper -->
                                     </div>
                                     <!-- End swiper container -->
-
                                     <!-- Testimonials slider navigation (arrows) -->
                                     <div class="tt-ts-nav-prev">
                                         <div class="tt-ts-nav-arrow magnetic-item"></div>
@@ -760,6 +719,7 @@
                 </div>
                 <!-- End content wrap -->
 {% endblock content_en %}
+
 {% elif lang == "fa" %}
 {% block content_fa %}
                 <!-- *************************************
@@ -1088,8 +1048,8 @@
 								* Use prepared helper class "max-width-*" to add custom width if needed. Example: "max-width-800". More info about helper classes can be found in the file "helper.css".
 								-->
                                 <div class="tt-heading tt-heading-lg tt-heading-center margin-bottom-15-p anim-fadeinup">
-                                    <h3 class="tt-heading-subtitle text-gray">آنچه ما انجام می دهیم</h3>
-                                    <h2 class="tt-heading-title">خدمات</h2>
+                                    <h3 class="tt-heading-subtitle text-gray">{% translate "What We Discuss About" %}</h3>
+                                    <h2 class="tt-heading-title">{% translate "Trending Discussion Halls (Topics" %}</h2>
                                 </div>
                                 <!-- End tt-Heading -->
 
@@ -1488,6 +1448,7 @@
                 </div>
                 <!-- End content wrap -->
 {% endblock content_fa %}
+
 {% elif lang == "ckb" %}
 {% block content_ckb %}
                 <!-- *************************************
@@ -1816,8 +1777,8 @@
 								* Use prepared helper class "max-width-*" to add custom width if needed. Example: "max-width-800". More info about helper classes can be found in the file "helper.css".
 								-->
                                 <div class="tt-heading tt-heading-lg tt-heading-center margin-bottom-15-p anim-fadeinup">
-                                    <h3 class="tt-heading-subtitle text-gray">آنچه ما انجام می دهیم</h3>
-                                    <h2 class="tt-heading-title">خدمات</h2>
+                                    <h3 class="tt-heading-subtitle text-gray">{% translate "What We Discuss About" %}</h3>
+                                    <h2 class="tt-heading-title">{% translate "Trending Discussion Halls (Topics)" %}</h2>
                                 </div>
                                 <!-- End tt-Heading -->
 
@@ -2216,4 +2177,5 @@
                 </div>
                 <!-- End content wrap -->
 {% endblock content_ckb %}
+
 {% endif %}
