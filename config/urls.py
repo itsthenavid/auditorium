@@ -41,9 +41,10 @@ urlpatterns += i18n_patterns(
     path('admin/', admin.site.urls),
 
     # 'allauth' URLs
-    path("allauth/", include("allauth.urls")),
+    path("accounts/", include("allauth.urls")),
     # 'ckeditor' URLs
     path('ckeditor/', include('ckeditor_uploader.urls')),
     
+    path("accounts/", include("accounts.urls")),
     path("", include("pages.urls")),
 )

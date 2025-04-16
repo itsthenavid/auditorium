@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.validators import UnicodeUsernameValidator
 
 from random import choice
 
@@ -41,15 +42,6 @@ class UserModel(AbstractUser):
     # Removing unnecessary fields
     first_name = None
     last_name = None
-
-    # Overriding needed fields
-    email = models.EmailField(
-        unique=True,
-        blank=True,
-        null=True,
-        verbose_name=_("Email"),
-        help_text=_("Enter your email address."),
-    )
     
     # Add any additional fields or methods here
     # For example, you can add a profile picture field:
@@ -66,7 +58,7 @@ class UserModel(AbstractUser):
         upload_to='avatars/',
         blank=True,
         null=True,
-        default=_set_random_avatar(),
+        default=_set_random_avatar,
         verbose_name=_("Avatar"),
         help_text=_("Select an avatar for your profile."),
     )
