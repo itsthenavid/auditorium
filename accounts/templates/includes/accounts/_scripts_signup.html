@@ -1,0 +1,78 @@
+{% load static %}
+{% load i18n %}
+
+{% get_current_language as lang %}
+
+{% if lang == "en" %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const avatarInput = document.getElementById('avatar-upload');
+        const avatarPreview = document.getElementById('avatar-preview');
+        const avatarPreviewWrap = document.querySelector('.tt-avatar-preview');
+    
+        avatarPreviewWrap.addEventListener('click', function () {
+            avatarInput.click();
+        });
+    
+        avatarInput.addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    avatarPreview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+</script>
+
+{% elif lang == "fa" %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const avatarInput = document.getElementById('avatar-upload');
+        const avatarPreview = document.getElementById('avatar-preview');
+        const avatarPreviewWrap = document.querySelector('.tt-avatar-preview');
+    
+        avatarPreviewWrap.addEventListener('click', function () {
+            avatarInput.click();
+        });
+    
+        avatarInput.addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    avatarPreview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+</script>
+
+{% elif lang == "ckb" %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const avatarInput = document.getElementById('avatar-upload');
+        const avatarPreview = document.getElementById('avatar-preview');
+        const avatarPreviewWrap = document.querySelector('.tt-avatar-preview');
+    
+        avatarPreviewWrap.addEventListener('click', function () {
+            avatarInput.click();
+        });
+    
+        avatarInput.addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    avatarPreview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+</script>
+
+{% endif %}

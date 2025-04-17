@@ -41,3 +41,22 @@ class CustomSignupForm(SignupForm):
         user.bio = self.cleaned_data.get('bio')
         user.save()
         return user
+    
+
+class UserProfileForm(forms.ModelForm):
+    """
+    Custom form for updating the UserModel profile.
+    This form is used in the ProfileView to allow users to update
+    their profile information, including avatar, banner, name,
+    username, email, and bio.
+    """
+
+    class Meta:
+        model = UserModel
+        fields = (
+            "avatar",
+            "name",
+            "username",
+            "email",
+            "bio",
+        )

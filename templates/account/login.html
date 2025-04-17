@@ -117,8 +117,27 @@
 											* Use class "tt-form-filled" or "tt-form-minimal" to change form style.
 											* Use class "tt-form-sm" or "tt-form-lg" to change form size (no class = default size).
 											-->
-                                            <form class="tt-login-form tt-form-minimal" method="post" action="/en/accounts/login/">
+                                            <form class="tt-login-form tt-form-minimal" method="post" action="{% url "account_login" %}">
                                                 {% csrf_token %}
+
+                                                {% if form.errors %}
+                                                <div style="color: red;">
+                                                  {% for field in form %}
+                                                  <ul>
+                                                    {% for error in field.errors %}
+                                                          <li>{{ error }}</li>
+                                                    {% endfor %}
+                                                  </ul>
+                                                  {% endfor %}
+                                                  <ul>
+                                                  {% for error in form.non_field_errors %}
+                                                      <li>{{ error }}</li>
+                                                  {% endfor %}
+                                                  </ul>
+                                                  <br />
+                                                  </div>
+                                                {% endif %}
+
                                                 <div class="tt-form-group">
                                                     <label>Username or email address <span class="required">*</span></label>
                                                     <input type="text" class="tt-form-control" id="login-name" name="login" required />
@@ -342,10 +361,30 @@
 											* Use class "tt-form-filled" or "tt-form-minimal" to change form style.
 											* Use class "tt-form-sm" or "tt-form-lg" to change form size (no class = default size).
 											-->
-                                            <form class="tt-login-form tt-form-minimal">
+                                            <form class="tt-login-form tt-form-minimal" method="post" action="{% url "account_login" %}">
+                                                {% csrf_token %}
+
+                                                {% if form.errors %}
+                                                <div style="color: red;">
+                                                  {% for field in form %}
+                                                  <ul>
+                                                    {% for error in field.errors %}
+                                                          <li>{{ error }}</li>
+                                                    {% endfor %}
+                                                  </ul>
+                                                  {% endfor %}
+                                                  <ul>
+                                                  {% for error in form.non_field_errors %}
+                                                      <li>{{ error }}</li>
+                                                  {% endfor %}
+                                                  </ul>
+                                                  <br />
+                                                  </div>
+                                                {% endif %}
+                                                
                                                 <div class="tt-form-group">
-                                                    <label>نام کاربری یا نشانی ایمیل <span class="required">*</span></label>
-                                                    <input type="text" class="tt-form-control" id="login-name" name="name" required />
+                                                    <label>نام کاربری<span class="required">*</span></label>
+                                                    <input type="text" class="tt-form-control" id="login-name" name="login" required />
                                                 </div>
 
                                                 <div class="tt-form-group">
@@ -354,7 +393,7 @@
                                                 </div>
 
                                                 <div class="tt-form-check">
-                                                    <input type="checkbox" id="login-remember" name="rememberme" />
+                                                    <input type="checkbox" id="login-remember" name="remember" />
                                                     <label for="login-remember">من را به خاطر بسپار</label>
                                                 </div>
 
@@ -490,11 +529,11 @@
                         <div class="page-header-inner tt-wrap">
                             <!-- Begin page header image 
 							============================= -->
-                            <!-- <div class="ph-image">
+                            <div class="ph-image">
 								<div class="ph-image-inner">
-									<img src="assets/img/page-header/ph-2.jpg" alt="تصویر">
+									<img src="{% static "ckb/img/page-header/ph-2.jpg" %}" alt="تصویر">
 								</div>
-							</div> -->
+							</div>
                             <!-- End page header image -->
 
                             <!-- Begin page header caption
@@ -565,10 +604,29 @@
 											* Use class "tt-form-filled" or "tt-form-minimal" to change form style.
 											* Use class "tt-form-sm" or "tt-form-lg" to change form size (no class = default size).
 											-->
-                                            <form class="tt-login-form tt-form-minimal">
+                                            <form class="tt-login-form tt-form-minimal" method="post" action="{% url "account_login" %}">
+                                                {% csrf_token %}
+                                                {% if form.errors %}
+                                                <div style="color: red;">
+                                                  {% for field in form %}
+                                                  <ul>
+                                                    {% for error in field.errors %}
+                                                          <li>{{ error }}</li>
+                                                    {% endfor %}
+                                                  </ul>
+                                                  {% endfor %}
+                                                  <ul>
+                                                  {% for error in form.non_field_errors %}
+                                                      <li>{{ error }}</li>
+                                                  {% endfor %}
+                                                  </ul>
+                                                  <br />
+                                                  </div>
+                                                {% endif %}
+
                                                 <div class="tt-form-group">
                                                     <label>نام کاربری یا نشانی ایمیل <span class="required">*</span></label>
-                                                    <input type="text" class="tt-form-control" id="login-name" name="name" required />
+                                                    <input type="text" class="tt-form-control" id="login-name" name="login" required />
                                                 </div>
 
                                                 <div class="tt-form-group">
