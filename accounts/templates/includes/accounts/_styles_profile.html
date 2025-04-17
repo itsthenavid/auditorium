@@ -1,0 +1,268 @@
+{% load static %}
+{% load i18n %}
+
+{% get_current_language as lang %}
+
+{% if lang == "en" %}
+<!-- Libs and Plugins CSS -->
+<link rel="stylesheet" href="{% static "en/vendor/normalize/normalize.min.css" %}" />
+<!-- Normalize CSS (https://necolas.github.io/normalize.css/) -->
+<link rel="stylesheet" href="{% static "en/vendor/fontawesome/css/fontawesome-all.min.css" %}" />
+<!-- Font Icons CSS (https://fontawesome.com) Free version! -->
+<link rel="stylesheet" href="{% static "en/vendor/swiper/css/swiper-bundle.min.css" %}" />
+<!-- Swiper CSS (https://swiperjs.com/) -->
+<link rel="stylesheet" href="{% static "en/vendor/lightgallery/css/lightgallery.min.css" %}" />
+<!-- lightGallery CSS (http://sachinchoolur.github.io/lightGallery) -->
+<link rel="stylesheet" href="{% static "en/css/shop.css" %}" />
+
+<!-- Inline CSS for banner and avatar styling -->
+<style>
+    .tt-avatar-box {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+}
+
+.tt-avatar-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.tt-avatar-preview-wrap {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.tt-avatar-preview {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.tt-avatar-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.tt-avatar-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    color: #fff;
+    font-size: 14px;
+}
+
+.tt-avatar-preview:hover .tt-avatar-overlay {
+    opacity: 1;
+}
+
+.tt-avatar-overlay i {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.tt-avatar-input {
+    display: none;
+}
+
+.tt-form-text {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-top: 10px;
+}
+</style>
+
+{% elif lang == "fa" %}
+<!-- Libs and Plugins CSS -->
+<link rel="stylesheet" href="{% static "fa/vendor/normalize/normalize.min.css" %}" />
+<!-- Normalize CSS (https://necolas.github.io/normalize.css/) -->
+<link rel="stylesheet" href="{% static "fa/vendor/fontawesome/css/fontawesome-all.min.css" %}" />
+<!-- Font Icons CSS (https://fontawesome.cxom) Free version! -->
+<link rel="stylesheet" href="{% static "fa/vendor/swiper/css/swiper-bundle.min.css" %}" />
+<!-- Swiper CSS (https://swiperjs.com/) -->
+<link rel="stylesheet" href="{% static "fa/vendor/lightgallery/css/lightgallery.min.css" %}" />
+<!-- lightGallery CSS (http://sachinchoolur.github.io/lightGallery) -->
+<link rel="stylesheet" href="{% static "fa/css/shop.css" %}" />
+
+<style>
+    .tt-avatar-box {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+}
+
+.tt-avatar-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.tt-avatar-preview-wrap {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.tt-avatar-preview {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.tt-avatar-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.tt-avatar-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    color: #fff;
+    font-size: 14px;
+}
+
+.tt-avatar-preview:hover .tt-avatar-overlay {
+    opacity: 1;
+}
+
+.tt-avatar-overlay i {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.tt-avatar-input {
+    display: none;
+}
+
+.tt-form-text {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-top: 10px;
+}
+</style>
+
+{% elif lang == "ckb" %}
+<!-- Libs and Plugins CSS -->
+<link rel="stylesheet" href="{% static "ckb/vendor/normalize/normalize.min.css" %}" />
+<!-- Normalize CSS (https://necolas.github.io/normalize.css/) -->
+<link rel="stylesheet" href="{% static "ckb/vendor/fontawesome/css/fontawesome-all.min.css" %}" />
+<!-- Font Icons CSS (https://fontawesome.cxom) Free version! -->
+<link rel="stylesheet" href="{% static "ckb/vendor/swiper/css/swiper-bundle.min.css" %}" />
+<!-- Swiper CSS (https://swiperjs.com/) -->
+<link rel="stylesheet" href="{% static "ckb/vendor/lightgallery/css/lightgallery.min.css" %}" />
+<!-- lightGallery CSS (http://sachinchoolur.github.io/lightGallery) -->
+<link rel="stylesheet" href="{% static "ckb/css/shop.css" %}" />
+
+<style>
+    .tt-avatar-box {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+}
+
+.tt-avatar-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.tt-avatar-preview-wrap {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.tt-avatar-preview {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.tt-avatar-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.tt-avatar-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    color: #fff;
+    font-size: 14px;
+}
+
+.tt-avatar-preview:hover .tt-avatar-overlay {
+    opacity: 1;
+}
+
+.tt-avatar-overlay i {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.tt-avatar-input {
+    display: none;
+}
+
+.tt-form-text {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-top: 10px;
+}
+</style>
+
+{% endif %}

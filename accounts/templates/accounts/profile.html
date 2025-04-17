@@ -6,15 +6,15 @@
 {% get_current_language as lang %}
 
 {% if lang == "en" %}
-{% block title_en %}{% translate "Auditorium: Registration" %}{% endblock title_en %}
+{% block title_en %}{% translate "Auditorium: Your Account." %}{% endblock title_en %}
 {% block styles_en %}
-{% include "includes/accounts/_styles_signup.html" %}
+{% include "includes/accounts/_styles_profile.html" %}
 {% endblock styles_en %}
 {% block scripts_en %}
-{% include "includes/accounts/_scripts_signup.html" %}
+{% include "includes/accounts/_scripts_profile.html" %}
 {% endblock scripts_en %}
 {% block content_en %}
-                <!-- *************************************
+                    <!-- *************************************
 				*********** Begin content wrap *********** 
 				************************************** -->
                 <div id="content-wrap">
@@ -36,11 +36,11 @@
                         <div class="page-header-inner tt-wrap">
                             <!-- Begin page header image 
 							============================= -->
-                            <!-- <div class="ph-image">
+                            <div class="ph-image">
 								<div class="ph-image-inner">
-									<img src="assets/img/page-header/ph-2.jpg" alt="Image">
+									<img src="{% static "en/img/page-header/ph-2.jpg" %}" alt="Image">
 								</div>
-							</div> -->
+							</div>
                             <!-- End page header image -->
 
                             <!-- Begin page header caption
@@ -102,14 +102,14 @@
                                         <!-- Begin shop register box 
 										============================= -->
                                         <div class="slr-box shop-register-box">
-                                            <h4 class="slr-heading"><i class="fas fa-plug"></i> Create an Account</h4>
+                                            <h4 class="slr-heading"><i class="fas fa-address-card"></i> {% translate "Manage Your Profile" %}</h4>
 
                                             <!-- Begin form (Note: for design purposes only!)
 											================ 
 											* Use class "tt-form-filled" or "tt-form-minimal" to change form style.
 											* Use class "tt-form-sm" or "tt-form-lg" to change form size (no class = default size).
 											-->
-                                            <form class="tt-register-form tt-form-minimal" method="post" enctype="multipart/form-data" action="/en/accounts/signup/">
+                                            <form class="tt-register-form tt-form-minimal" method="post" enctype="multipart/form-data" action="{% url 'profile' %}">
                                                 {% csrf_token %}
 
                                                 {% if form.errors %}
@@ -134,7 +134,7 @@
 <div class="tt-form-group tt-avatar-group">
     <div class="tt-avatar-preview-wrap">
         <div class="tt-avatar-preview magnetic-item">
-            <img src="assets/img/default-avatar.png" alt="User Avatar" id="avatar-preview" class="tt-avatar-image" />
+            <img src="{{ user.avatar.url }}" alt="User Avatar" id="avatar-preview" class="tt-avatar-image" />
             <div class="tt-avatar-overlay">
                 <i class="fas fa-camera"></i>
                 <span>Avatar</span>
@@ -150,26 +150,23 @@
 
                                                 <div class="tt-form-group">
                                                     <label>Name <span class="required">*</span></label>
-                                                    <input type="text" class="tt-form-control" id="reg-email" name="name" required />
+                                                    <input type="text" value="{{ user.name }}" class="tt-form-control" id="reg-email" name="name" required />
                                                 </div>
 
                                                 <div class="tt-form-group">
                                                     <label>Email address <span class="required">*</span></label>
-                                                    <input type="email" class="tt-form-control" id="reg-email" name="email" required />
+                                                    <input type="email" value="{{ user.email }}" class="tt-form-control" id="reg-email" name="email" required />
                                                 </div>
 
                                                 <div class="tt-form-group">
                                                     <label>Username <span class="required">*</span></label>
-                                                    <input type="text" class="tt-form-control" id="reg-username" name="username" required />
+                                                    <input type="text" value="{{ user.username }}" class="tt-form-control" id="reg-username" name="username" required />
                                                 </div>
 
                                                 <div class="tt-form-group">
-                                                    <label>Password <span class="required">*</span></label>
-                                                    <input type="password" class="tt-form-control" id="reg-password" name="password1" required />
-                                                </div>
-                                                <div class="tt-form-group">
-                                                    <label>Repeat Password <span class="required">*</span></label>
-                                                    <input type="password" class="tt-form-control" id="reg-password" name="password2" required />
+                                                    <label>Bio <span class="required">*</span></label>
+                                                    <input type="textera" class="tt-form-control" name="bio" 
+                                                    value="{% if user.bio == None %}{% else %}{{ user.bio }}{% endif %}" required />
                                                 </div>
 
                                                 <small class="tt-form-text">
@@ -187,7 +184,6 @@
                                         <!-- End shop register box -->
                                     </div>
                                     <!-- /.tt-col -->
-
                                     <div class="tt-col-lg-6">
                                         <!-- Begin shop go to login box 
 										================================ -->
@@ -203,7 +199,6 @@
                                         </div>
                                         <!-- End shop go to login box -->
                                     </div>
-                                    <!-- /.tt-col -->
                                 </div>
                                 <!-- /.tt-row -->
                             </div>
@@ -272,12 +267,12 @@
 {% endblock content_en %}
 
 {% elif lang == "fa" %}
-{% block title_fa %}{% translate "Auditorium: Registration" %}{% endblock title_fa %}
+{% block title_fa %}{% translate "Auditorium: Your Account." %}{% endblock title_fa %}
 {% block styles_fa %}
-{% include "includes/accounts/_styles_signup.html" %}
+{% include "includes/accounts/_styles_profile.html" %}
 {% endblock styles_fa %}
 {% block scripts_fa %}
-{% include "includes/accounts/_scripts_signup.html" %}
+{% include "includes/accounts/_scripts_profile.html" %}
 {% endblock scripts_fa %}
 {% block content_fa %}
                 <!-- *************************************
@@ -302,11 +297,11 @@
                         <div class="page-header-inner tt-wrap">
                             <!-- Begin page header image 
 							============================= -->
-                            <!-- <div class="ph-image">
+                            <div class="ph-image">
 								<div class="ph-image-inner">
-									<img src="assets/img/page-header/ph-2.jpg" alt="تصویر">
+									<img src="{% static "fa/img/page-header/ph-2.jpg" %}" alt="تصویر">
 								</div>
-							</div> -->
+							</div>
                             <!-- End page header image -->
 
                             <!-- Begin page header caption
@@ -377,7 +372,7 @@
 											* Use class "tt-form-filled" or "tt-form-minimal" to change form style.
 											* Use class "tt-form-sm" or "tt-form-lg" to change form size (no class = default size).
 											-->
-                                            <form class="tt-register-form tt-form-minimal" enctype="multipart/form-data" method="post" action="/fa/accounts/signup/">
+                                            <form class="tt-register-form tt-form-minimal" method="post" enctype="multipart/form-data" action="{% url 'profile' %}">
                                                 {% csrf_token %}
 
                                                 {% if form.errors %}
@@ -398,11 +393,11 @@
                                                   </div>
                                                 {% endif %}
 
-                                                <!-- Begin avatar input -->
+<!-- Begin avatar input -->
 <div class="tt-form-group tt-avatar-group">
     <div class="tt-avatar-preview-wrap">
         <div class="tt-avatar-preview magnetic-item">
-            <img src="assets/img/default-avatar.png" alt="User Avatar" id="avatar-preview" class="tt-avatar-image" />
+            <img src="{{ user.avatar.url }}" alt="User Avatar" id="avatar-preview" class="tt-avatar-image" />
             <div class="tt-avatar-overlay">
                 <i class="fas fa-camera"></i>
                 <span>Avatar</span>
@@ -417,33 +412,23 @@
 <!-- End avatar input -->
 
                                                 <div class="tt-form-group">
-                                                    <label>نام شما <span class="required">*</span></label>
-                                                    <input type="text" class="tt-form-control" id="reg-name" name="name" required />
+                                                    <label>نام شما</label>
+                                                    <input value="{{ user.name }}" type="text" class="tt-form-control" id="reg-name" name="name" />
                                                 </div>
 
                                                 <div class="tt-form-group">
-                                                    <label>نام کاربری <span class="required">*</span></label>
-                                                    <input type="text" class="tt-form-control" id="reg-name" name="username" required />
+                                                    <label>نام‌کاربری <span class="required">*</span></label>
+                                                    <input value="{{ user.username }}" type="text" class="tt-form-control" id="reg-name" name="username" required />
                                                 </div>
 
                                                 <div class="tt-form-group">
-                                                    <label>نشانی ایمیل <span class="required">*</span></label>
-                                                    <input type="email" class="tt-form-control" id="reg-email" name="email" required />
+                                                    <label>نشانی ایمیل</label>
+                                                    <input value="{{ user.email }}" type="email" class="tt-form-control" id="reg-email" name="email" />
                                                 </div>
 
                                                 <div class="tt-form-group">
-                                                    <label>رمز عبور <span class="required">*</span></label>
-                                                    <input type="password" class="tt-form-control" id="reg-password" name="password1" required />
-                                                </div>
-
-                                                <div class="tt-form-group">
-                                                    <label>تکرار رمز عبور <span class="required">*</span></label>
-                                                    <input type="password" class="tt-form-control" id="reg-password" name="password2" required />
-                                                </div>
-
-                                                <div class="tt-form-group">
-                                                    <label>بیوگرافی <span class="required">*</span></label>
-                                                    <input class="tt-form-control" type="textera" name="bio" />
+                                                    <label>بیو</label>
+                                                    <input value="{{ user.bio }}" type="textera" class="tt-form-control" id="reg-email" name="bio" />
                                                 </div>
 
                                                 <small class="tt-form-text">
@@ -542,17 +527,23 @@
                     <!-- End tt-footer -->
                 </div>
                 <!-- End content wrap -->
+                                </div>
+                                <!-- /.tt-row -->
+                            </div>
+                            <!-- /.tt-section-inner -->
+                        </div>
+                        <!-- End tt-section -->
+                    </div>
+                    <!-- End page content -->
 {% endblock content_fa %}
 
 {% elif lang == "ckb" %}
-{% block title_ckb %}
-{% translate "Auditorium: Registration" %}
-{% endblock title_ckb %}
+{% block title_ckb %}{% translate "Auditorium: Your Account." %}{% endblock title_ckb %}
 {% block styles_ckb %}
-{% include "includes/accounts/_styles_signup.html" %}
+{% include "includes/accounts/_styles_profile.html" %}
 {% endblock styles_ckb %}
 {% block scripts_ckb %}
-{% include "includes/accounts/_scripts_signup.html" %}
+{% include "includes/accounts/_scripts_profile.html" %}
 {% endblock scripts_ckb %}
 {% block content_ckb %}
                 <!-- *************************************
@@ -577,11 +568,11 @@
                         <div class="page-header-inner tt-wrap">
                             <!-- Begin page header image 
 							============================= -->
-                            <!-- <div class="ph-image">
+                            <div class="ph-image">
 								<div class="ph-image-inner">
-									<img src="assets/img/page-header/ph-2.jpg" alt="تصویر">
+									<img src="{% static "fa/img/page-header/ph-2.jpg" %}" alt="تصویر">
 								</div>
-							</div> -->
+							</div>
                             <!-- End page header image -->
 
                             <!-- Begin page header caption
@@ -652,7 +643,7 @@
 											* Use class "tt-form-filled" or "tt-form-minimal" to change form style.
 											* Use class "tt-form-sm" or "tt-form-lg" to change form size (no class = default size).
 											-->
-                                            <form class="tt-register-form tt-form-minimal" enctype="multipart/form-data" method="post" action="/fa/accounts/signup/">
+                                            <form class="tt-register-form tt-form-minimal" method="post" enctype="multipart/form-data" action="{% url 'profile' %}">
                                                 {% csrf_token %}
 
                                                 {% if form.errors %}
@@ -673,11 +664,11 @@
                                                   </div>
                                                 {% endif %}
 
-                                                <!-- Begin avatar input -->
+<!-- Begin avatar input -->
 <div class="tt-form-group tt-avatar-group">
     <div class="tt-avatar-preview-wrap">
         <div class="tt-avatar-preview magnetic-item">
-            <img src="assets/img/default-avatar.png" alt="User Avatar" id="avatar-preview" class="tt-avatar-image" />
+            <img src="{{ user.avatar.url }}" alt="User Avatar" id="avatar-preview" class="tt-avatar-image" />
             <div class="tt-avatar-overlay">
                 <i class="fas fa-camera"></i>
                 <span>Avatar</span>
@@ -692,33 +683,23 @@
 <!-- End avatar input -->
 
                                                 <div class="tt-form-group">
-                                                    <label>نام شما <span class="required">*</span></label>
-                                                    <input type="text" class="tt-form-control" id="reg-name" name="name" required />
+                                                    <label>نام شما</label>
+                                                    <input value="{{ user.name }}" type="text" class="tt-form-control" id="reg-name" name="name" />
                                                 </div>
 
                                                 <div class="tt-form-group">
-                                                    <label>نام کاربری <span class="required">*</span></label>
-                                                    <input type="text" class="tt-form-control" id="reg-name" name="username" required />
+                                                    <label>نام‌کاربری <span class="required">*</span></label>
+                                                    <input value="{{ user.username }}" type="text" class="tt-form-control" id="reg-name" name="username" required />
                                                 </div>
 
                                                 <div class="tt-form-group">
-                                                    <label>نشانی ایمیل <span class="required">*</span></label>
-                                                    <input type="email" class="tt-form-control" id="reg-email" name="email" required />
+                                                    <label>نشانی ایمیل</label>
+                                                    <input value="{{ user.email }}" type="email" class="tt-form-control" id="reg-email" name="email" />
                                                 </div>
 
                                                 <div class="tt-form-group">
-                                                    <label>رمز عبور <span class="required">*</span></label>
-                                                    <input type="password" class="tt-form-control" id="reg-password" name="password1" required />
-                                                </div>
-
-                                                <div class="tt-form-group">
-                                                    <label>تکرار رمز عبور <span class="required">*</span></label>
-                                                    <input type="password" class="tt-form-control" id="reg-password" name="password2" required />
-                                                </div>
-
-                                                <div class="tt-form-group">
-                                                    <label>بیوگرافی <span class="required">*</span></label>
-                                                    <input class="tt-form-control" type="textera" name="bio" />
+                                                    <label>بیو</label>
+                                                    <input value="{{ user.bio }}" type="textera" class="tt-form-control" id="reg-email" name="bio" />
                                                 </div>
 
                                                 <small class="tt-form-text">
@@ -817,6 +798,14 @@
                     <!-- End tt-footer -->
                 </div>
                 <!-- End content wrap -->
+                                </div>
+                                <!-- /.tt-row -->
+                            </div>
+                            <!-- /.tt-section-inner -->
+                        </div>
+                        <!-- End tt-section -->
+                    </div>
+                    <!-- End page content -->
 {% endblock content_ckb %}
 
 {% endif %}
