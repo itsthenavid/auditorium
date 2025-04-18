@@ -88,6 +88,11 @@ class Post(TranslatableModel):
         verbose_name=_("Activation Status"),
         help_text=_("Is the post active?"),
     )
+    explicit = models.BooleanField(
+        default=False,
+        verbose_name=_("Explicit Content"),
+        help_text=_("Is the post explicit? Is it has explicit content?"),
+    )
 
     def publish_if_time_passed(self):
         if self.status == str(0) and timezone.now() >= self.publish_datetime:
