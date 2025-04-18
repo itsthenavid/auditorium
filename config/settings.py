@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "django_tiptap",
     "django_quill",
     # Developed installed apps
+    "engine.apps.EngineConfig",
     "accounts.apps.AccountsConfig",
     "pages.apps.PagesConfig",
     "documents.apps.DocumentsConfig",
@@ -67,9 +68,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # Third-party apps middlewares
-
-    # 'allauth' needed middleware
     "allauth.account.middleware.AccountMiddleware",
+    # Developed apps middlewares
+    "engine.middleware.SaveIPAddressMiddleware",
 ]
 
 ROOT_URLCONF = 'config.urls'
