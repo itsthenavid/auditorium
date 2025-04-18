@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Third-party installed apps
+    "celery",
+    "django_celery_beat",
     "allauth",
     "allauth.account",
     "parler",
@@ -52,6 +54,7 @@ INSTALLED_APPS = [
     # Developed installed apps
     "accounts.apps.AccountsConfig",
     "pages.apps.PagesConfig",
+    "documents.apps.DocumentsConfig",
 ]
 
 MIDDLEWARE = [
@@ -295,3 +298,20 @@ PARLER_LANGUAGES = {
 # https://docs.djangoproject.com/en/5.2/topics/email/
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+# Celery settings
+# https://docs.celeryproject.org/en/stable/userguide/configuration.html
+
+CELERY_BROKER_URL = "redis://redis:6379/0"
+
+CELERY_RESULT_BACKEND = "redis://redis:6379/0"
+
+CELERY_ACCEPT_CONTENT = ["json"]
+
+CELERY_TASK_SERIALIZER = "json"
+
+CELERY_TIMEZONE = "Asia/Tehran"
+
+CELERY_IMPORTS = ('documents.tasks',)
+
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
