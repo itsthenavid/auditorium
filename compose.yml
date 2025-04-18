@@ -1,36 +1,78 @@
+version: "3.9"
+
 services:
- db:
-   image: postgres:latest
-   environment:
-     POSTGRES_DB: ${DATABASE_NAME}
-     POSTGRES_USER: ${DATABASE_USERNAME}
-     POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-   ports:
-     - "5432:5432"
-   volumes:
-     - ./database/:/var/lib/postgresql/data
-   env_file:
-     - .env
- 
- web:
-   image: auditorium-dev:latest
-   ports:
-     - "8000:8000"
-   depends_on:
-     - db
-   environment:
-     SECRET_KEY: ${SECRET_KEY}
-     DEBUG: ${DEBUG}
-     ALLOWED_HOSTS: ${ALLOWED_HOSTS}
-     DATABASE_ENGINE: ${DATABASE_ENGINE}
-     DATABASE_NAME: ${DATABASE_NAME}
-     DATABASE_USERNAME: ${DATABASE_USERNAME}
-     DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-     DATABASE_HOST: ${DATABASE_HOST}
-     DATABASE_PORT: ${DATABASE_PORT}
-   volumes:
-     - .:/app
-   env_file:
-     - .env
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./database/:/var/lib/postgresql/data
+    env_file:
+      - .env
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
+  web:
+    image: auditorium-dev:latest
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings
+      SECRET_KEY: ${SECRET_KEY}
+      DEBUG: ${DEBUG}
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS}
+      DATABASE_ENGINE: ${DATABASE_ENGINE}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_PORT: ${DATABASE_PORT}
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/0
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+
+  celery:
+    image: auditorium-dev:latest
+    command: celery -A config worker --loglevel=info
+    depends_on:
+      - redis
+      - db
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/0
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+
+  beat:
+    image: auditorium-dev:latest
+    command: celery -A config beat --loglevel=info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    depends_on:
+      - redis
+      - db
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/0
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+
 volumes:
-   database:
+  database:
