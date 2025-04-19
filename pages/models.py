@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from parler.models import TranslatableModel, TranslatedFields
-from ckeditor.fields import RichTextField
+from django_ckeditor_5.fields import CKEditor5Field
 
 # Create your models here.
 
@@ -84,7 +84,7 @@ class Page(TranslatableModel):
             blank=True,
             help_text=_("This text will be displayed as the background title of the 'About' page."),
         ),
-        about_page_content=RichTextField(
+        about_page_content=CKEditor5Field(
             blank=True,
             null=True,
             verbose_name=_("'About' Page Content"),

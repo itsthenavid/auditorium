@@ -42,8 +42,8 @@ urlpatterns += i18n_patterns(
 
     # 'allauth' URLs
     path("accounts/", include("allauth.urls")),
-    # 'ckeditor' URLs
-    path('ckeditor/', include('ckeditor_uploader.urls')),
+    # 'ckeditor_5' URLs
+    path('ckeditor5/', include('django_ckeditor_5.urls')),
     
     path("accounts/", include("accounts.urls")),
     path("", include("pages.urls")),
