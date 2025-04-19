@@ -73,26 +73,16 @@
 	// Info: https://developer.mozilla.org/en-US/docs/Web/HTTP/Browser_detection_using_the_user_agent#mobile_device_detection
 	// ==============================================
 
-	var isMobile = false;
-	if ("maxTouchPoints" in navigator) {
-		isMobile = navigator.maxTouchPoints > 0;
-	} else if ("msMaxTouchPoints" in navigator) {
-		isMobile = navigator.msMaxTouchPoints > 0;
-	} else {
-		const mQ = matchMedia?.("(pointer:coarse)");
-		if (mQ?.media === "(pointer:coarse)") {
-			isMobile = !!mQ.matches;
-		} else if ("orientation" in window) {
-			isMobile = true; // deprecated, but good fallback
-		} else {
-			// Only as a last resort, fall back to user agent sniffing
-			isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Nokia|Opera Mini|Tablet|Mobile/i.test(navigator.userAgent);
-		}
-	}
+	var isMobile =
+		/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Nokia|Opera Mini/i.test(
+			navigator.userAgent
+		)
+			? true
+			: false;
 
 	// Add class "is-mobile" to </body>
 	if (isMobile) {
-		$("body").addClass("is-mobile");
+		$('body').addClass('is-mobile');
 	}
 
 
@@ -1641,8 +1631,8 @@
 
 	// If "made with love" exist
 	// ==========================
-	if ($(".made-with-love").length) {
-		$("body").addClass("made-with-love-on");
+	if ($(".phone").length) {
+		$("body").addClass("phone-on");
 	}
 
 
@@ -1817,7 +1807,7 @@
 		// Page header scroll down circle
 		if ($(".scroll-down-circle").length) {
 			gsap.to(".scroll-down-circle", {
-				x: -100,
+				x: 100,
 				autoAlpha: 0,
 				ease: "none",
 				scrollTrigger: {
@@ -1830,7 +1820,7 @@
 			});
 		}
 
-		// Page header made-with-love
+		// Page header phone
 		if ($(".mwl-inner").length) {
 			gsap.to(".mwl-inner", {
 				yPercent: 250,
@@ -2695,17 +2685,18 @@
 	// ========================================
 
 	// E-mail Ajax Send
-	$("#tt-contact-form").submit(function () { // Change (your contact form ID)
+	$('#tt-contact-form').submit(function () {
+		// Change (your contact form ID)
 		var th = $(this);
 		$.ajax({
-			type: "POST",
-			url: "mail.php", // Change (mail.php path)
-			data: th.serialize()
+			type: 'POST',
+			url: 'mail.php', // Change (mail.php path)
+			data: th.serialize(),
 		}).done(function () {
-			alert("Thank you. Your message has been sent!");
+			alert('متشکریم. پیام شما ارسال شد!');
 			setTimeout(function () {
 				// Done Functions
-				th.trigger("reset");
+				th.trigger('reset');
 			}, 800);
 		});
 		return false;
@@ -2920,7 +2911,7 @@
 			$(".cursor-close").each(function () {
 				$(this).on("mouseenter", function () {
 					$ball.addClass("ball-close-enabled");
-					$ball.append('<div class="ball-close">Close</div>');
+					$ball.append('<div class="ball-close">بستن</div>');
 					gsap.to($ball, { duration: 0.3, yPercent: -75, width: 80, height: 80, opacity: 1 });
 					gsap.from(".ball-close", { duration: 0.3, scale: 0, autoAlpha: 0 });
 				}).on("mouseleave click", function () {
@@ -3083,7 +3074,7 @@
 	// ================================================================ 
 
 	// Append button
-	var $tt_demo_btn = '<a href="https://1.envato.market/tank" class="tt-demo-btn" target="_blank" rel="noopener"><div class="tt-demo-btn-img"><img src="https://stuff.themetorium.net/img/envato-logo-white.png" alt="Download!"></div><div class="tt-demo-btn-text">Buy This<br> Template!</div></a>';
+	var $tt_demo_btn = '<a href="#" class="tt-demo-btn" target="_blank" rel="noopener"><div class="tt-demo-btn-img"><img src="https://stuff.themetorium.net/img/envato-logo-white.png" alt="Download!"></div><div class="tt-demo-btn-text">Buy This<br> Template!</div></a>';
 
 	$("#body-inner").append($tt_demo_btn);
 
@@ -3097,64 +3088,5 @@
 			gsap.to(".tt-demo-btn", { duration: 0.3, scale: 0.9, autoAlpha: 0 });
 		}
 	});
-
-	// On menu link click (classic menu and overlay menu)
-	$(".tt-overlay-menu a, .tt-main-menu-list a, .tt-logo a")
-		.not('[target="_blank"]') // omit from selection
-		.not('[href^="#"]') // omit from selection
-		.not('[href^="mailto"]') // omit from selection
-		.not('[href^="tel"]') // omit from selection
-		.on('click', function () {
-			gsap.to(".tt-demo-btn", { duration: 0.3, scale: 0.9, autoAlpha: 0 });
-		});
-
-	// CSS
-	var $css_demo_btn = {
-		"position": "fixed",
-		"display": "flex",
-		"align-items": "center",
-		"right": "15px",
-		"bottom": "15px",
-		"background": "#6ca12b",
-		"color": "#fff",
-		"z-index": "99999",
-		"overflow": "hidden",
-		"opacity": "0",
-		"visibility": "hidden",
-		"transform": "scale(0.9)",
-		"border-radius": "100px",
-	}
-	var $css_demo_btn_img = {
-		"width": "60px",
-		"height": "60px",
-		"padding": "18px",
-	}
-	var $css_demo_btn_text = {
-		"width": "0",
-		"overflow": "hidden",
-		"white-space": "nowrap",
-		"font-size": "15px",
-		"line-height": "1.3",
-		"color": "#FFF",
-		"opacity": "0",
-		"visibility": "hidden",
-	}
-
-	$(".tt-demo-btn").css($css_demo_btn);
-	$(".tt-demo-btn-img").css($css_demo_btn_img);
-	$(".tt-demo-btn-text").css($css_demo_btn_text);
-
-	// Button hover
-	$(".tt-demo-btn").on("mouseenter", function () {
-		gsap.to(".tt-demo-btn-text", { duration: 0.3, width: "110px", autoAlpha: 1 });
-		gsap.to($ball, { duration: 0.3, scale: 0, opacity: 0 });
-	}).on("mouseleave", function () {
-		gsap.to(".tt-demo-btn-text", { duration: 0.3, width: "0", autoAlpha: 0, clearProps: "autoAlpha, width" });
-		gsap.to($ball, { duration: 0.3, scale: $ballScale, opacity: $ballOpacity });
-	});
-
-	// ================================================================
-	// End demo button (for DEMO SITE ONLY!!!)
-
 
 })(jQuery);

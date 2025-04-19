@@ -292,19 +292,22 @@
 	// Shop product (tt-product)
 	// ==================================
 
-	// Shop product add to wishlist/compare buttons
+	// Shop product افزودن به لیست علاقه مندی ها/compare buttons
 	$(".tt-add-to-wishlist-btn, .tt-add-to-compare-btn").on("click", function () {
 		$(this).parents(".tt-pr-addit-btn-wrap").toggleClass("active");
 		return false;
 	});
 
 	// Show loading spinner and open sliding cart on "Add to Cart" button click
-	$(".tt-product-adc-btn").on("click", function () {
+	$(".tt-product-adc-btn").on("click", function() {
 		var $this = $(this);
 		$this.addClass("loading");
-		setTimeout(function () {
+		setTimeout(function(){
 			$("body").addClass("tt-sliding-cart-open");
 			$this.removeClass("loading");
 		}, 400);
 		return false;
-	
+	});
+
+
+})(jQuery); 
