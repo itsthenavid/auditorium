@@ -1,0 +1,45 @@
+{% load static %}
+{% load i18n %}
+
+{% get_current_language as LANGUAGE_CODE %}
+
+{% if LANGUAGE_CODE == "en" %}
+<div id="page-transition">
+    <div class="ptr-overlay"></div>
+    <div class="ptr-preloader">
+        <div class="ptr-prel-content">
+            <!-- Hint: You may need to change the img height and opacity to match your logo type. You can do this from the "theme.css" file (find: ".ptr-prel-image"). -->
+            <img src="{% static 'en/img/logo-light.png' %}" class="ptr-prel-image tt-logo-light" alt="Logo" />
+        </div>
+        <!-- /.ptr-prel-content -->
+    </div>
+    <!-- /.ptr-preloader -->
+</div>
+
+{% elif LANGUAGE_CODE == "fa" %}
+<div id="page-transition">
+    <div class="ptr-overlay"></div>
+    <div class="ptr-preloader">
+        <div class="ptr-prel-content">
+            <!-- Hint: You may need to change the img height and opacity to match your logo type. You can do this from the "theme.css" file (find: ".ptr-prel-image"). -->
+            <img src="{% static 'fa/img/logo-light.png' %}" class="ptr-prel-image tt-logo-light" alt="لوگو" />
+        </div>
+        <!-- /.ptr-prel-content -->
+    </div>
+    <!-- /.ptr-preloader -->
+</div>
+
+{% elif LANGUAGE_CODE == "ckb" %}
+<div id="page-transition">
+    <div class="ptr-overlay"></div>
+    <div class="ptr-preloader">
+        <div class="ptr-prel-content">
+            <!-- Hint: You may need to change the img height and opacity to match your logo type. You can do this from the "theme.css" file (find: ".ptr-prel-image"). -->
+            <img src="{% static 'ckb/img/logo-light.png' %}" class="ptr-prel-image tt-logo-light" alt="لوگو" />
+        </div>
+        <!-- /.ptr-prel-content -->
+    </div>
+    <!-- /.ptr-preloader -->
+</div>
+
+{% endif %}

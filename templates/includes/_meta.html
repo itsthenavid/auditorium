@@ -1,0 +1,29 @@
+{% comment %} Include your HTML page meta tags here. {% endcomment %}
+{% load static %}
+{% load i18n %}
+
+{% get_current_language as LANGUAGE_CODE %}
+
+{% if LANGUAGE_CODE == "en" %}
+<meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<!-- Mobile Meta -->
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+{% elif LANGUAGE_CODE == "fa" %}
+<meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<!-- Mobile Meta -->
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+{% elif LANGUAGE_CODE == "ckb" %}
+<meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<!-- Mobile Meta -->
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+{% endif %}
+
