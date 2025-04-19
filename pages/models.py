@@ -104,6 +104,10 @@ class Page(TranslatableModel):
         default=False
     )
 
+    class Meta:
+        verbose_name = _("Page")
+        verbose_name_plural = _("Pages")
+
     def save(self, *args, **kwargs):
         if self.is_active:
             # Deactivate all other active ones
@@ -133,6 +137,10 @@ class Sentences(TranslatableModel):
             help_text=_("It shows who this passage was quoted from.")
         )
     )
+
+    class Meta:
+        verbose_name = _("Sentence")
+        verbose_name_plural = _("Sentences")
 
     def __str__(self):
         sentence = self.safe_translation_getter("sentence", any_language=True)

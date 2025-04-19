@@ -70,6 +70,10 @@ class UserModel(AbstractUser):
         help_text=_("Write a short bio about yourself."),
     )
 
+    class Meta:
+        verbose_name = _("User")
+        verbose_name_plural = _("Users")
+
     def __str__(self):
         return self.username
     

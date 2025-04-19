@@ -1,0 +1,471 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-19 19:21+0330\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: accounts/apps.py:12
+msgid "Accounts"
+msgstr "ئەکاونتەکان"
+
+#: accounts/models.py:54 documents/models.py:46
+msgid "Name"
+msgstr "ناو"
+
+#: accounts/models.py:55
+msgid "Enter your full name."
+msgstr "ناوی تەواوی خۆت بنووسە."
+
+#: accounts/models.py:62
+msgid "Avatar"
+msgstr "ئاڤاتا"
+
+#: accounts/models.py:63
+msgid "Select an avatar for your profile."
+msgstr "ئاڤاتارییەک بۆ پڕۆفایلی خۆت هەڵبژێرە."
+
+#: accounts/models.py:69
+msgid "Bio"
+msgstr "بیۆ"
+
+#: accounts/models.py:70
+msgid "Write a short bio about yourself."
+msgstr "کورتە بایۆیەک لەسەر خۆت بنووسە."
+
+#: accounts/models.py:74
+msgid "User"
+msgstr "بەکارهێنەر"
+
+#: accounts/models.py:75
+msgid "Users"
+msgstr "بەکارهێنەرەکان"
+
+#: config/settings.py:153
+msgid "English"
+msgstr "ئینگلیزی"
+
+#: config/settings.py:154
+msgid "Persian"
+msgstr "فارسی"
+
+#: config/settings.py:155
+msgid "Central Kurdish"
+msgstr "کوردی ناوەڕاست"
+
+#: documents/apps.py:12
+msgid "Documents"
+msgstr "بەڵگەنامەکان"
+
+#: documents/models.py:24
+msgid "Idea"
+msgstr "بیرۆکە"
+
+#: documents/models.py:25
+msgid "Activated"
+msgstr "چالاک کراوە"
+
+#: documents/models.py:31
+msgid "Parent"
+msgstr "باوک"
+
+#: documents/models.py:34
+msgid "Parent hall of the current hall."
+msgstr "هۆڵی دایکان و باوکانی هۆڵی ئێستا."
+
+#: documents/models.py:39 documents/models.py:135
+msgid "Artwork"
+msgstr "ئارتوۆرک"
+
+#: documents/models.py:47
+msgid "Name of the hall."
+msgstr "ناوی هۆڵەکە."
+
+#: documents/models.py:50
+msgid "Description"
+msgstr "وەسف"
+
+#: documents/models.py:51
+msgid "Description of the hall."
+msgstr "وەسفکردنی هۆڵەکە."
+
+#: documents/models.py:58 documents/models.py:168
+msgid "Slug"
+msgstr "سلۆگ"
+
+#: documents/models.py:59
+msgid "Slug for the hall. Used in the URL."
+msgstr "سلۆگ بۆ هۆڵەکە. لە URL بەکاردێت."
+
+#: documents/models.py:64
+msgid "Creator"
+msgstr "داهێنەر"
+
+#: documents/models.py:66
+msgid "Creator of the hall."
+msgstr "داهێنەری هۆڵەکە"
+
+#: documents/models.py:70 documents/models.py:180 engine/models.py:21
+msgid "Created At"
+msgstr "داهاتوو لە"
+
+#: documents/models.py:71
+msgid "Date and time when the hall was created."
+msgstr "بەروار و کاتی دروستبوونی هۆڵەکە."
+
+#: documents/models.py:75 documents/models.py:185
+msgid "Updated At"
+msgstr "نوێکراوەتەوە لە"
+
+#: documents/models.py:76
+msgid "Date and time when the hall was last updated."
+msgstr "بەروار و کاتی دوایین نوێکردنەوەی هۆڵەکە."
+
+#: documents/models.py:82 documents/models.py:197
+msgid "Status"
+msgstr "دۆخ"
+
+#: documents/models.py:83
+msgid "Status of the hall."
+msgstr "دۆخی هۆڵەکە."
+
+#: documents/models.py:87 documents/models.py:202 pages/models.py:103
+msgid "Activation Status"
+msgstr "دۆخی چالاککردن"
+
+#: documents/models.py:88
+msgid "Is the hall active?"
+msgstr "ئایا هۆڵەکە چالاکە؟"
+
+#: documents/models.py:92 documents/models.py:207
+msgid "Explicit Content"
+msgstr "ناوەڕۆکی ڕوون"
+
+#: documents/models.py:93
+msgid "Is the hall explicit? Is it has explicit content?"
+msgstr "ئایا هۆڵەکە ڕوون و ئاشکرایە؟ ئایا ناوەڕۆکی ڕوون و ئاشکرای هەیە؟"
+
+#: documents/models.py:97 documents/models.py:160
+msgid "Hall"
+msgstr "هۆڵ"
+
+#: documents/models.py:98
+msgid "Halls"
+msgstr "هۆڵەکان"
+
+#: documents/models.py:129
+msgid "Draft"
+msgstr "ڕەشنووس"
+
+#: documents/models.py:130
+msgid "Published"
+msgstr "بڵاوکراوەتەوە"
+
+#: documents/models.py:139
+msgid "Artwork for the post."
+msgstr "ئارتوۆرکی پۆستەکە."
+
+#: documents/models.py:146
+msgid "Title"
+msgstr "ناونیشان"
+
+#: documents/models.py:147
+msgid "Title of the post."
+msgstr "ناونیشانی پۆستەکە."
+
+#: documents/models.py:150
+msgid "Content"
+msgstr "ناوەڕۆک"
+
+#: documents/models.py:151
+msgid "Content of the post."
+msgstr "ناوەڕۆکی پۆستەکە."
+
+#: documents/models.py:162
+msgid "Hall of the post."
+msgstr "هۆڵی پۆستەکە."
+
+#: documents/models.py:169
+msgid "Slug for the post. Used in the URL."
+msgstr "سلۆگ بۆ پۆستەکە. لە URL بەکاردێت."
+
+#: documents/models.py:174
+msgid "Author"
+msgstr "نووسەر"
+
+#: documents/models.py:176
+msgid "Author of the post."
+msgstr "نووسەری پۆستەکە."
+
+#: documents/models.py:181
+msgid "Date and time when the post was created."
+msgstr "بەروار و کاتی دروستکردنی پۆستەکە."
+
+#: documents/models.py:186
+msgid "Date and time when the post was last updated."
+msgstr "بەروار و کاتی دوایین نوێکردنەوەی پۆستەکە."
+
+#: documents/models.py:190
+msgid "Published At"
+msgstr "بڵاوکراوەتەوە لە"
+
+#: documents/models.py:191
+msgid "Date and time when the post was published."
+msgstr "بەروار و کاتی بڵاوبوونەوەی پۆستەکە."
+
+#: documents/models.py:198
+msgid "Status of the post."
+msgstr "دۆخی پۆستەکە."
+
+#: documents/models.py:203
+msgid "Is the post active?"
+msgstr "ئایا پۆستەکە ئەکتیڤە؟"
+
+#: documents/models.py:208
+msgid "Is the post explicit? Is it has explicit content?"
+msgstr "ئایا پۆستەکە ڕوون و ئاشکرایە؟ ئایا ناوەڕۆکی ڕوون و ئاشکرای هەیە؟"
+
+#: documents/models.py:212
+msgid "Views"
+msgstr "بینینەکان"
+
+#: documents/models.py:214
+msgid "This field shows how many people watched this post."
+msgstr "ئەم بوارە نیشان دەدات کە چەند کەس سەیری ئەم پۆستەی کردووە."
+
+#: documents/models.py:223
+msgid "Post"
+msgstr "پۆست"
+
+#: documents/models.py:224
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:98
+#: pages/templates/includes/pages/en/_index_content_en.html:98
+#: pages/templates/includes/pages/fa/_index_content_fa.html:98
+msgid "Posts"
+msgstr "پۆستەکان"
+
+#: engine/apps.py:9
+msgid "Engine"
+msgstr "بزوێنەر"
+
+#: engine/models.py:15 engine/models.py:26
+msgid "IP Address"
+msgstr "ناونیشانی IP"
+
+#: engine/models.py:16
+msgid "IP address of the user."
+msgstr "ناونیشانی ئایپی بەکارهێنەر."
+
+#: engine/models.py:22
+msgid "Date and time when the IP address was created."
+msgstr "بەروار و کاتی دروستکردنی ئایپی."
+
+#: engine/models.py:27
+msgid "IP Addresses"
+msgstr "ناونیشانی IPکان"
+
+#: pages/apps.py:13 pages/models.py:109
+msgid "Pages"
+msgstr "لاپەڕەکان"
+
+#: pages/models.py:17
+msgid "Main Header Image"
+msgstr "وێنەی سەردێڕی سەرەکی"
+
+#: pages/models.py:22
+msgid "Upload a header image for the index/home page."
+msgstr "وێنەیەکی سەردێڕ بۆ ئیندێکس/لاپەڕەی سەرەکی باربکە."
+
+#: pages/models.py:25
+msgid "About Header Image"
+msgstr "دەربارەی وێنەی سەردێڕ"
+
+#: pages/models.py:30
+msgid "Upload a header image for the 'About' page."
+msgstr "وێنەیەکی سەردێڕ بۆ لاپەڕەی 'دەربارەی' باربکە."
+
+#: pages/models.py:35
+msgid "'Index/Home' Page Title"
+msgstr "ناونیشانی لاپەڕەی 'Index/Home'"
+
+#: pages/models.py:37
+msgid "Index: Auditorium"
+msgstr "لاپەڕەی سەرەکی: ئاودیتۆریۆم"
+
+#: pages/models.py:40
+msgid "'Index/Home' Page Introduction Title"
+msgstr "ناونیشانی پێشەکی لاپەڕەی 'Index/Home'"
+
+#: pages/models.py:42
+msgid "HELLO TO THE 'BIG STEPPER.'"
+msgstr "سڵاو بۆ تۆ بنیاتنەری داهاتوو."
+
+#: pages/models.py:45
+msgid "'Index/Home' Page Introduction Subtitle"
+msgstr "'Index/Home' لاپەڕەی پێشەکی ژێرنووسی"
+
+#: pages/models.py:47
+msgid ""
+"Welcome to AUDITORIUM — a sanctuary, a safe house for thoughts, articles, "
+"reflections, and everything your mind dares to put to the paper of this "
+"project."
+msgstr ""
+"بەخێربێن بۆ ئاودیتۆریۆم - پیرۆزگایەک، خانوویەکی سەلامەت بۆ بیرکردنەوە، وتار، "
+"ڕەنگدانەوەی، و هەر شتێک کە مێشکت دەوێرێت بیخاتە سەر کاغەز بۆ ئەم پڕۆژەیە."
+
+#: pages/models.py:50
+msgid "Background Title"
+msgstr "ناونیشانی پاشخان"
+
+#: pages/models.py:52
+msgid "GRIEVE & GRIEF"
+msgstr "گەشەکردن و خەم"
+
+#: pages/models.py:53
+msgid "This text will be displayed as a background title."
+msgstr "ئەم دەقە وەک ناونیشانی پاشبنەما پیشان دەدرێت."
+
+#: pages/models.py:56 pages/models.py:62
+msgid "Moving Slogan Text"
+msgstr "دەقی دروشمی جوڵاو"
+
+#: pages/models.py:58
+msgid "Welcome to Auditorium: The Opinions & Ideas Open Source project."
+msgstr "بەخێربێن بۆ هۆڵی کۆبوونەوە: پڕۆژەی سەرچاوە کراوەی بۆچوون و بیرۆکەکان."
+
+#: pages/models.py:59
+msgid "This text will be displayed as a moving slogan. (it's the first one)"
+msgstr "ئەم دەقە وەک دروشمی جوڵاو پیشان دەدرێت. (یەکەم جارە)"
+
+#: pages/models.py:64
+msgid "Hello to the big stepper, never losing count."
+msgstr "سڵاو لە تۆ بیناکاری داهاتوو... هەرگیز نادۆڕێیت."
+
+#: pages/models.py:65
+msgid "This text will be displayed as a moving slogan (it's the second one)."
+msgstr "ئەم دەقە وەک دروشمی جوڵاو پیشان دەدرێت (ئەوە دووەم دروشمە)."
+
+#: pages/models.py:68
+msgid "'About' Page Title"
+msgstr "'دەربارەی' ناونیشانی لاپەڕە"
+
+#: pages/models.py:74
+msgid "'About' Page Introduction Title"
+msgstr "'دەربارەی' لاپەڕەی پێشەکی ناونیشان"
+
+#: pages/models.py:78
+msgid ""
+"This text will be displayed as the introduction title of the 'About' page."
+msgstr "ئەم دەقە وەک ناونیشانی پێشەکی لاپەڕەی 'دەربارەی' پیشان دەدرێت."
+
+#: pages/models.py:81
+msgid "'About' Page Background Title"
+msgstr "'دەربارەی' ناونیشانی پاشخانی لاپەڕە"
+
+#: pages/models.py:85
+msgid ""
+"This text will be displayed as the background title of the 'About' page."
+msgstr "ئەم دەقە وەک ناونیشانی پاشبنەمای لاپەڕەی 'دەربارەی' پیشان دەدرێت."
+
+#: pages/models.py:90
+msgid "'About' Page Content"
+msgstr "'دەربارەی' ناوەڕۆکی لاپەڕە"
+
+#: pages/models.py:91
+msgid "This text will be displayed as the content of the 'About' page."
+msgstr "ئەم دەقە وەک ناوەڕۆکی لاپەڕەی 'دەربارەی' پیشان دەدرێت."
+
+#: pages/models.py:97
+msgid "Index Page Sentences"
+msgstr "ڕستەکان لاپەڕەی ئیندێکس"
+
+#: pages/models.py:99
+msgid "These sentences will be displayed on the index page."
+msgstr "ئەم ڕستانە لە لاپەڕەی ئیندێکسدا پیشان دەدرێن."
+
+#: pages/models.py:108
+msgid "Page"
+msgstr "لاپەڕە"
+
+#: pages/models.py:120
+msgid "(Untitled Page)"
+msgstr "(پەڕەی بێ ناونیشان)"
+
+#: pages/models.py:130 pages/models.py:142
+msgid "Sentence"
+msgstr "ڕستە"
+
+#: pages/models.py:132
+msgid "This text will be displayed as a sentence."
+msgstr "ئەم دەقە وەک ڕستەیەک پیشان دەدرێت."
+
+#: pages/models.py:135
+msgid "Quote"
+msgstr "وەرگرتە"
+
+#: pages/models.py:137
+msgid "It shows who this passage was quoted from."
+msgstr "ئەوە نیشان دەدات کە ئەم بڕگەیە لە کێوە وەرگیراوە."
+
+#: pages/models.py:143
+msgid "Sentences"
+msgstr "ڕستەکان"
+
+#: pages/models.py:148
+msgid "(Untitled Sentence)"
+msgstr "(ڕستەی بێ ناونیشان)"
+
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:25
+#: pages/templates/includes/pages/en/_index_content_en.html:25
+#: pages/templates/includes/pages/fa/_index_content_fa.html:25
+msgid "Image"
+msgstr "وێنە"
+
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:58
+#: pages/templates/includes/pages/en/_index_content_en.html:58
+#: pages/templates/includes/pages/fa/_index_content_fa.html:58
+msgid "Scroll down - Scroll down -"
+msgstr ""
+"ئێسکـــــرۆل بـــــۆ خوـــــارۆ ـــ ئێسکـــــرۆل بـــــۆ خوـــــارۆ ـــ "
+"ئێسکـــــرۆل بـــــۆ خوـــــارۆ ـــ ئێسکـــــرۆل بـــــۆ خوـــــارۆ ـــ"
+
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:70
+#: pages/templates/includes/pages/en/_index_content_en.html:70
+#: pages/templates/includes/pages/fa/_index_content_fa.html:70
+msgid "Made with..."
+msgstr "دروستکراوە بە..."
+
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:97
+#: pages/templates/includes/pages/en/_index_content_en.html:97
+#: pages/templates/includes/pages/fa/_index_content_fa.html:97
+msgid "Pinned Posts"
+msgstr "پۆستە پین کراوەکان"
+
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:100
+#: pages/templates/includes/pages/en/_index_content_en.html:100
+#: pages/templates/includes/pages/fa/_index_content_fa.html:100
+msgid "See the Halls"
+msgstr "سەیری هۆڵەکان بکە"
+
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:327
+#: pages/templates/includes/pages/en/_index_content_en.html:327
+msgid "What We Discuss About"
+msgstr "باسی چی دەکەین؟"
+
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:328
+#: pages/templates/includes/pages/en/_index_content_en.html:328
+msgid "Pinned Halls"
+msgstr "هۆڵە پین کراوەکان"
