@@ -22,7 +22,7 @@
             ============================= -->
             <div class="ph-image">
                 <div class="ph-image-inner">
-                    <img src="{% static 'ckb/img/page-header/ph-6.jpg' %}" alt="تصویر" />
+                    <img src="{{ context.index_page_header_image.url }}" alt="{% translate "Image" %}" />
                 </div>
             </div>
             <!-- End page header image -->
@@ -33,11 +33,13 @@
             -->
             <div class="ph-caption max-width-1000">
                 <h1 class="ph-caption-title ph-appear font-normal">
-                    <em>سلام غریبه!</em><br />
-                    ما یک آژانس طراحی خلاق مستقر در تهران هستیم. ما <em><u>ایده های</u></em> شما را زنده می کنیم.
+                    <em>{{ context.index_page_introduction_title }}</em><br />
                 </h1>
-                <div class="ph-caption-title-ghost ph-appear">سلام!</div>
-                <!-- <div class="ph-caption-subtitle ph-appear">زیرعنوان</div> -->
+                <h2 class="ph-caption-subtitle ph-appear font-normal">
+                    <em>{{ context.index_page_introduction_subtitle }}</em>
+                </h2>
+                <div class="ph-caption-title-ghost ph-appear">{{ context.index_page_background_title }}</div>
+                <!-- <div class="ph-caption-subtitle ph-appear">Subtitle</div> -->
             </div>
             <!-- End page header caption -->
         </div>
@@ -53,7 +55,7 @@
                         <path d="M50,250c0-110.5,89.5-200,200-200s200,89.5,200,200s-89.5,200-200,200S50,360.5,50,250" id="textcircle"></path>
                     </defs>
                     <text dy="30">
-                        <textPath xlink:href="#textcircle">اسکـــــرول بـــــه پـــــایـیـن ـــ اسکـــــرول بـــــه پـــــایـیـن ـــ اسکـــــرول بـــــه پـــــایـیـن ـــ اسکـــــرول بـــــه پـــــایـیـن ـــ </textPath>
+                        <textPath xlink:href="#textcircle">{% translate "Scroll down - Scroll down -" %}</textPath>
                     </text>
                 </svg>
             </div>
@@ -61,17 +63,15 @@
         </a>
         <!-- End scroll down circle -->
 
-        <!-- Begin phone
+        <!-- Begin made with love 
         ========================== -->
-        <div class="phone ph-appear">
+        <div class="made-with-love ph-appear">
             <div class="mwl-inner">
-                <a href="tel:09123456789">
-                    <div class="mwl-text">09123456789</div>
-                    <div class="mwl-icon"><i class="fa fa-phone"></i></div>
-                </a>
+                <div class="mwl-text">{% translate "Made with..." %}</div>
+                <div class="mwl-icon"><i class="far fa-heart"></i></div>
             </div>
         </div>
-        <!-- End phone-->
+        <!-- End made with love -->
     </div>
     <!-- End page header -->
 
@@ -94,10 +94,10 @@
                 * Use prepared helper class "max-width-*" to add custom width if needed. Example: "max-width-800". More info about helper classes can be found in the file "helper.css".
                 -->
                 <div class="tt-heading tt-heading-lg tt-heading-center margin-bottom-10-p anim-fadeinup">
-                    <h3 class="tt-heading-subtitle text-gray">آخرین پروژه ها</h3>
-                    <h2 class="tt-heading-title">کارها</h2>
+                    <h3 class="tt-heading-subtitle text-gray">{% translate "Pinned Posts" %}</h3>
+                    <h2 class="tt-heading-title">{% translate "Posts" %}</h2>
                     <div class="tt-btn tt-btn-link margin-top-20">
-                        <a href="portfolio-grid-creative-1.html" data-hover="مشاهده همه کارها">مشاهده همه کارها</a>
+                        <a href="portfolio-grid-creative-1.html" data-hover="{% translate "See the Halls" %}">{% translate "See the Halls" %}</a>
                     </div>
                 </div>
                 <!-- End tt-Heading -->
@@ -324,8 +324,8 @@
                 * Use prepared helper class "max-width-*" to add custom width if needed. Example: "max-width-800". More info about helper classes can be found in the file "helper.css".
                 -->
                 <div class="tt-heading tt-heading-lg tt-heading-center margin-bottom-15-p anim-fadeinup">
-                    <h3 class="tt-heading-subtitle text-gray">آنچه ما انجام می دهیم</h3>
-                    <h2 class="tt-heading-title">خدمات</h2>
+                    <h3 class="tt-heading-subtitle text-gray">{% translate "What We Discuss About" %}</h3>
+                    <h2 class="tt-heading-title">{% translate "Pinned Halls" %}</h2>
                 </div>
                 <!-- End tt-Heading -->
 
@@ -455,65 +455,21 @@
                     <div class="swiper">
                         <!-- Begin swiper wrapper (required) -->
                         <div class="swiper-wrapper">
+                            
+                            {% for sentence in context.index_page_sentences.all %}
                             <!-- Begin swiper slide 
                             ======================== -->
                             <div class="swiper-slide font-alter">
                                 <div class="tt-ts-item">
                                     <div class="tt-ts-text">
-                                        "یکی از بهترین قالب هایی که تا به حال داشته ام. من آن را دوست دارم! کاملا قابل تنظیم است، به خوبی کدگذاری شده، سریع و واکنشگرا است - برای همه نوع دستگاه ها مناسب است."
+                                        "{{ sentence.sentence }}"
                                     </div>
-                                    <div class="tt-ts-subtext">- لورم ایپسوم</div>
+                                    <div class="tt-ts-subtext">- {{ sentence.quote_by }}</div>
                                 </div>
                             </div>
                             <!-- End swiper slide -->
+                            {% endfor %}
 
-                            <!-- Begin swiper slide 
-                            ======================== -->
-                            <div class="swiper-slide font-alter">
-                                <div class="tt-ts-item">
-                                    <div class="tt-ts-text">
-                                        "قالب درخشان. هزاران گزینه، مفاهیم بسیار، انعطاف پذیری در طراحی، کیفیت کد، کامنت های توضیح داده شده در هر بخش برای یک ظاهر طراحی آسان."
-                                    </div>
-                                    <div class="tt-ts-subtext">- لورم</div>
-                                </div>
-                            </div>
-                            <!-- End swiper slide -->
-
-                            <!-- Begin swiper slide 
-                            ======================== -->
-                            <div class="swiper-slide font-alter">
-                                <div class="tt-ts-item">
-                                    <div class="tt-ts-text">
-                                        "سفارشی سازی آسان، انتخاب های فراوان برای نمایش نمونه کارها، زمان بارگذاری سریع. پشتیبانی عالی."
-                                    </div>
-                                    <div class="tt-ts-subtext">- لورم</div>
-                                </div>
-                            </div>
-                            <!-- End swiper slide -->
-
-                            <!-- Begin swiper slide 
-                            ======================== -->
-                            <div class="swiper-slide font-alter">
-                                <div class="tt-ts-item">
-                                    <div class="tt-ts-text">
-                                        "طراحی بسیار زیبا و به خوبی سازماندهی شده و کد کامنت گذاری شده. همچنین خدمات مشتری خوب."
-                                    </div>
-                                    <div class="tt-ts-subtext">- لورم ایپسوم</div>
-                                </div>
-                            </div>
-                            <!-- End swiper slide -->
-
-                            <!-- Begin swiper slide 
-                            ======================== -->
-                            <div class="swiper-slide font-alter">
-                                <div class="tt-ts-item">
-                                    <div class="tt-ts-text">
-                                        "من یک اشکال را در آیفون و آیپد پیدا کردم و نویسنده خیلی سریع آن را برطرف کرد. از تلاش و سرعت او در حل این مشکل قدردانی می کنم."
-                                    </div>
-                                    <div class="tt-ts-subtext">- لورم ایپسوم</div>
-                                </div>
-                            </div>
-                            <!-- End swiper slide -->
                         </div>
                         <!-- End swiper wrapper -->
                     </div>
@@ -550,8 +506,8 @@
                 Use class "scr-text-stroke" to enable text stroke style (no effect on smaller screens!). 
                 -->
                 <div class="tt-scrolling-text scr-text-stroke font-italic" data-scroll-speed="15">
-                    <div class="tt-scrolling-text-inner text-dark-3" data-text="بیایید با هم چیزهای عالی بسازیم! -">
-                        بیایید با هم چیزهای عالی بسازیم! -
+                    <div class="tt-scrolling-text-inner text-dark-3" data-text="{{ context.index_page_moving_slogan_text_1 }} -">
+                        {{ context.index_page_moving_slogan_text_1 }} -
                     </div>
                     <!-- /.tt-scrolling-text-inner -->
                 </div>
@@ -564,8 +520,8 @@
                 Use class "scr-text-stroke" to enable text stroke style (no effect on smaller screens!). 
                 -->
                 <div class="tt-scrolling-text scr-text-stroke scr-text-reverse font-italic" data-scroll-speed="15">
-                    <div class="tt-scrolling-text-inner text-dark-3" data-text="بیایید با هم چیزهای عالی بسازیم! -">
-                        بیایید با هم چیزهای عالی بسازیم! -
+                    <div class="tt-scrolling-text-inner text-dark-3" data-text="{{ context.index_page_moving_slogan_text_2 }} -">
+                        {{ context.index_page_moving_slogan_text_2 }} -
                     </div>
                     <!-- /.tt-scrolling-text-inner -->
                 </div>

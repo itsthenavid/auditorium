@@ -19,7 +19,7 @@ class IndexView(TemplateView):
         This method retrieves the active page from the database and adds it to the context.
         """
         context = super().get_context_data(**kwargs)
-        context["index_page"] = Page.objects.get(is_active=True)
+        context["context"] = Page.objects.get(is_active=True)
         return context
     
 

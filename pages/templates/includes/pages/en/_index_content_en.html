@@ -21,8 +21,8 @@
             <!-- Begin page header image 
             ============================= -->
             <div class="ph-image">
-                <div class="ph-image-inner">
-                    <img src="{% static 'en/img/page-header/ph-6.jpg' %}" alt="Image" />
+                <div class="ph-image-inner" style="opacity: 0.5;">
+                    <img src="{{ context.index_page_header_image.url }}" alt="{% translate "Image" %}" />
                 </div>
             </div>
             <!-- End page header image -->
@@ -33,10 +33,12 @@
             -->
             <div class="ph-caption max-width-1000">
                 <h1 class="ph-caption-title ph-appear font-normal">
-                    <em>Hello stranger!</em><br />
-                    We are a creative design agency based in Melbourne. We bring your <em><u>ideas</u></em> to life.
+                    <em>{{ context.index_page_introduction_title }}</em><br />
                 </h1>
-                <div class="ph-caption-title-ghost ph-appear">Hello!</div>
+                <h2 class="ph-caption-subtitle ph-appear font-normal">
+                    <em>{{ context.index_page_introduction_subtitle }}</em>
+                </h2>
+                <div class="ph-caption-title-ghost ph-appear">{{ context.index_page_background_title }}</div>
                 <!-- <div class="ph-caption-subtitle ph-appear">Subtitle</div> -->
             </div>
             <!-- End page header caption -->
@@ -53,7 +55,7 @@
                         <path d="M50,250c0-110.5,89.5-200,200-200s200,89.5,200,200s-89.5,200-200,200S50,360.5,50,250" id="textcircle"></path>
                     </defs>
                     <text dy="30">
-                        <textPath xlink:href="#textcircle">Scroll down - Scroll down -</textPath>
+                        <textPath xlink:href="#textcircle">{% translate "Scroll down - Scroll down -" %}</textPath>
                     </text>
                 </svg>
             </div>
@@ -65,7 +67,7 @@
         ========================== -->
         <div class="made-with-love ph-appear">
             <div class="mwl-inner">
-                <div class="mwl-text">Made with</div>
+                <div class="mwl-text">{% translate "Made with..." %}</div>
                 <div class="mwl-icon"><i class="far fa-heart"></i></div>
             </div>
         </div>
@@ -92,10 +94,10 @@
                 * Use prepared helper class "max-width-*" to add custom width if needed. Example: "max-width-800". More info about helper classes can be found in the file "helper.css".
                 -->
                 <div class="tt-heading tt-heading-lg tt-heading-center margin-bottom-10-p anim-fadeinup">
-                    <h3 class="tt-heading-subtitle text-gray">Latest Projects</h3>
-                    <h2 class="tt-heading-title">Works</h2>
+                    <h3 class="tt-heading-subtitle text-gray">{% translate "Pinned Posts" %}</h3>
+                    <h2 class="tt-heading-title">{% translate "Posts" %}</h2>
                     <div class="tt-btn tt-btn-link margin-top-20">
-                        <a href="portfolio-grid-creative-1.html" data-hover="See All Works">See All Works</a>
+                        <a href="portfolio-grid-creative-1.html" data-hover="{% translate "See the Halls" %}">{% translate "See the Halls" %}</a>
                     </div>
                 </div>
                 <!-- End tt-Heading -->
@@ -322,8 +324,8 @@
                 * Use prepared helper class "max-width-*" to add custom width if needed. Example: "max-width-800". More info about helper classes can be found in the file "helper.css".
                 -->
                 <div class="tt-heading tt-heading-lg tt-heading-center margin-bottom-15-p anim-fadeinup">
-                    <h3 class="tt-heading-subtitle text-gray">What We Do</h3>
-                    <h2 class="tt-heading-title">Services</h2>
+                    <h3 class="tt-heading-subtitle text-gray">{% translate "What We Discuss About" %}</h3>
+                    <h2 class="tt-heading-title">{% translate "Pinned Halls" %}</h2>
                 </div>
                 <!-- End tt-Heading -->
 
@@ -457,65 +459,21 @@
                     <div class="swiper">
                         <!-- Begin swiper wrapper (required) -->
                         <div class="swiper-wrapper">
-                            <!-- Begin swiper slide 
-                            ======================== -->
-                            <div class="swiper-slide font-alter">
-                                <div class="tt-ts-item">
-                                    <div class="tt-ts-text">
-                                        "One of the best template I've ever had. I love it! It's fully customizable, well coded, fast and responsive - fitting for all kind of devices."
-                                    </div>
-                                    <div class="tt-ts-subtext">- Wironimo</div>
-                                </div>
-                            </div>
-                            <!-- End swiper slide -->
 
+                            {% for sentence in context.index_page_sentences.all %}
                             <!-- Begin swiper slide 
                             ======================== -->
                             <div class="swiper-slide font-alter">
                                 <div class="tt-ts-item">
                                     <div class="tt-ts-text">
-                                        "Brilliant template. Tons of options, many concepts, design flexibility, code quality, explanatory comments in each section for easy styling."
+                                        "{{ sentence.sentence }}"
                                     </div>
-                                    <div class="tt-ts-subtext">- Gneto</div>
+                                    <div class="tt-ts-subtext">- {{ sentence.quote_by }}</div>
                                 </div>
                             </div>
                             <!-- End swiper slide -->
+                            {% endfor %}
 
-                            <!-- Begin swiper slide 
-                            ======================== -->
-                            <div class="swiper-slide font-alter">
-                                <div class="tt-ts-item">
-                                    <div class="tt-ts-text">
-                                        "Easy to customize, plenty of choices to display your portfolio, fast loading times. Excellent support."
-                                    </div>
-                                    <div class="tt-ts-subtext">- Brendak</div>
-                                </div>
-                            </div>
-                            <!-- End swiper slide -->
-
-                            <!-- Begin swiper slide 
-                            ======================== -->
-                            <div class="swiper-slide font-alter">
-                                <div class="tt-ts-item">
-                                    <div class="tt-ts-text">
-                                        "Very nice design and well organised and commented code. Also good customer service."
-                                    </div>
-                                    <div class="tt-ts-subtext">- Gazzzzz</div>
-                                </div>
-                            </div>
-                            <!-- End swiper slide -->
-
-                            <!-- Begin swiper slide 
-                            ======================== -->
-                            <div class="swiper-slide font-alter">
-                                <div class="tt-ts-item">
-                                    <div class="tt-ts-text">
-                                        "I founded a bug on Iphone and Ipad and the author fixed very quickly. I appreciated his efforts and his quickness in solving the problem."
-                                    </div>
-                                    <div class="tt-ts-subtext">- Admanente</div>
-                                </div>
-                            </div>
-                            <!-- End swiper slide -->
                         </div>
                         <!-- End swiper wrapper -->
                     </div>
@@ -552,8 +510,8 @@
                 Use class "scr-text-stroke" to enable text stroke style (no effect on smaller screens!). 
                 -->
                 <div class="tt-scrolling-text scr-text-stroke font-italic" data-scroll-speed="15">
-                    <div class="tt-scrolling-text-inner text-dark-3" data-text="Let's create something awesome together! -">
-                        Let's create something awesome together! -
+                    <div class="tt-scrolling-text-inner text-dark-3" data-text="{{ context.index_page_moving_slogan_text_1 }} -">
+                        {{ context.index_page_moving_slogan_text_1 }} -
                     </div>
                     <!-- /.tt-scrolling-text-inner -->
                 </div>
@@ -566,8 +524,8 @@
                 Use class "scr-text-stroke" to enable text stroke style (no effect on smaller screens!). 
                 -->
                 <div class="tt-scrolling-text scr-text-stroke scr-text-reverse font-italic" data-scroll-speed="15">
-                    <div class="tt-scrolling-text-inner text-dark-3" data-text="Let's create something awesome together! -">
-                        Let's create something awesome together! -
+                    <div class="tt-scrolling-text-inner text-dark-3" data-text="{{ context.index_page_moving_slogan_text_2 }} -">
+                        {{ context.index_page_moving_slogan_text_2 }} -
                     </div>
                     <!-- /.tt-scrolling-text-inner -->
                 </div>
