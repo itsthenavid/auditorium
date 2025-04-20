@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-19 19:21+0330\n"
+"POT-Creation-Date: 2025-04-20 03:50+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -251,7 +251,7 @@ msgid "Post"
 msgstr "پۆست"
 
 #: documents/models.py:224
-#: pages/templates/includes/pages/ckb/_index_content_ckb.html:98
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:99
 #: pages/templates/includes/pages/en/_index_content_en.html:98
 #: pages/templates/includes/pages/fa/_index_content_fa.html:98
 msgid "Posts"
@@ -430,42 +430,50 @@ msgstr "(ڕستەی بێ ناونیشان)"
 
 #: pages/templates/includes/pages/ckb/_index_content_ckb.html:25
 #: pages/templates/includes/pages/en/_index_content_en.html:25
+#: pages/templates/includes/pages/fa/_about_content_fa.html:25
 #: pages/templates/includes/pages/fa/_index_content_fa.html:25
 msgid "Image"
 msgstr "وێنە"
 
 #: pages/templates/includes/pages/ckb/_index_content_ckb.html:58
+#: pages/templates/includes/pages/en/_about_content_en.html:53
 #: pages/templates/includes/pages/en/_index_content_en.html:58
+#: pages/templates/includes/pages/fa/_about_content_fa.html:53
 #: pages/templates/includes/pages/fa/_index_content_fa.html:58
 msgid "Scroll down - Scroll down -"
 msgstr ""
 "ئێسکـــــرۆل بـــــۆ خوـــــارۆ ـــ ئێسکـــــرۆل بـــــۆ خوـــــارۆ ـــ "
 "ئێسکـــــرۆل بـــــۆ خوـــــارۆ ـــ ئێسکـــــرۆل بـــــۆ خوـــــارۆ ـــ"
 
-#: pages/templates/includes/pages/ckb/_index_content_ckb.html:70
-#: pages/templates/includes/pages/en/_index_content_en.html:70
-#: pages/templates/includes/pages/fa/_index_content_fa.html:70
-msgid "Made with..."
-msgstr "دروستکراوە بە..."
-
-#: pages/templates/includes/pages/ckb/_index_content_ckb.html:97
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:98
 #: pages/templates/includes/pages/en/_index_content_en.html:97
 #: pages/templates/includes/pages/fa/_index_content_fa.html:97
 msgid "Pinned Posts"
 msgstr "پۆستە پین کراوەکان"
 
-#: pages/templates/includes/pages/ckb/_index_content_ckb.html:100
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:101
 #: pages/templates/includes/pages/en/_index_content_en.html:100
 #: pages/templates/includes/pages/fa/_index_content_fa.html:100
 msgid "See the Halls"
 msgstr "سەیری هۆڵەکان بکە"
 
-#: pages/templates/includes/pages/ckb/_index_content_ckb.html:327
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:328
 #: pages/templates/includes/pages/en/_index_content_en.html:327
 msgid "What We Discuss About"
 msgstr "باسی چی دەکەین؟"
 
-#: pages/templates/includes/pages/ckb/_index_content_ckb.html:328
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:329
 #: pages/templates/includes/pages/en/_index_content_en.html:328
 msgid "Pinned Halls"
 msgstr "هۆڵە پین کراوەکان"
+
+#: pages/templates/includes/pages/en/_about_content_en.html:37
+#: pages/templates/includes/pages/fa/_about_content_fa.html:37
+msgid "The House...!"
+msgstr "ماڵ...!"
+
+#: pages/templates/includes/pages/en/_about_content_en.html:65
+#: pages/templates/includes/pages/en/_index_content_en.html:70
+#: pages/templates/includes/pages/fa/_index_content_fa.html:70
+msgid "Made with..."
+msgstr "دروستکراو بە..."

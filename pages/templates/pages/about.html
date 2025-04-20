@@ -1,0 +1,26 @@
+{% extends "_base.html" %}
+
+{% load static %}
+{% load i18n %}
+
+{% get_current_language as LANGUAGE_CODE %}
+
+{% if LANGUAGE_CODE == "en" %}
+{% block title_en %}{{ context.about_page_title }}{% endblock title_en %}
+{% block content_en %}
+{% include "includes/pages/en/_about_content_en.html" %}
+{% endblock content_en %}
+
+{% elif LANGUAGE_CODE == "fa" %}
+{% block title_fa %}{{ context.about_page_title }}{% endblock title_fa %}
+{% block content_fa %}
+{% include "includes/pages/fa/_about_content_fa.html" %}
+{% endblock content_fa %}
+
+{% elif LANGUAGE_CODE == "ckb" %}
+{% block title_ckb %}{{ context.about_page_title }}{% endblock title_ckb %}
+{% block content_ckb %}
+{% include "includes/pages/ckb/_about_content_ckb.html" %}
+{% endblock content_ckb %}
+
+{% endif %}
