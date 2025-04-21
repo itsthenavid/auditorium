@@ -3158,6 +3158,7 @@
 
 
 })(jQuery);
+
 let avatarIndex = Math.floor(Math.random() * 10);
 const avatarPaths = Array.from({ length: 10 }, (_, i) => `/static/en/img/avatars/avatar_${i + 1}.webp`);
 
