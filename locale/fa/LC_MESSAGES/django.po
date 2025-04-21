@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-20 03:50+0330\n"
+"POT-Creation-Date: 2025-04-21 17:48+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,7 +38,8 @@ msgstr "آواتار"
 msgid "Select an avatar for your profile."
 msgstr "آواتاری برای پروفایلتان انتخاب کنید."
 
-#: accounts/models.py:69
+#: accounts/models.py:69 templates/account/signup.html:164
+#: templates/account/signup.html:424 templates/account/signup.html:684
 msgid "Bio"
 msgstr "بیو"
 
@@ -429,6 +430,7 @@ msgstr "جملات"
 msgid "(Untitled Sentence)"
 msgstr "(بی‌عنوان)"
 
+#: pages/templates/includes/pages/ckb/_about_content_ckb.html:25
 #: pages/templates/includes/pages/ckb/_index_content_ckb.html:25
 #: pages/templates/includes/pages/en/_index_content_en.html:25
 #: pages/templates/includes/pages/fa/_about_content_fa.html:25
@@ -436,11 +438,21 @@ msgstr "(بی‌عنوان)"
 msgid "Image"
 msgstr "تصویر"
 
+#: pages/templates/includes/pages/ckb/_about_content_ckb.html:37
+#: pages/templates/includes/pages/en/_about_content_en.html:37
+#: pages/templates/includes/pages/fa/_about_content_fa.html:37
+msgid "The House...!"
+msgstr "خانه...!"
+
+#: pages/templates/includes/pages/ckb/_about_content_ckb.html:53
 #: pages/templates/includes/pages/ckb/_index_content_ckb.html:58
 #: pages/templates/includes/pages/en/_about_content_en.html:53
 #: pages/templates/includes/pages/en/_index_content_en.html:58
 #: pages/templates/includes/pages/fa/_about_content_fa.html:53
 #: pages/templates/includes/pages/fa/_index_content_fa.html:58
+#: templates/account/login.html:63 templates/account/login.html:298
+#: templates/account/login.html:523 templates/account/signup.html:63
+#: templates/account/signup.html:333 templates/account/signup.html:593
 msgid "Scroll down - Scroll down -"
 msgstr ""
 "اسکـــــرول بـــــه پـــــایـیـن ـــ اسکـــــرول بـــــه پـــــایـیـن ـــ "
@@ -468,13 +480,149 @@ msgstr "درمورد چه چیزهایی بحث می‌کنیم؟"
 msgid "Pinned Halls"
 msgstr "تالارهای پین‌شده"
 
-#: pages/templates/includes/pages/en/_about_content_en.html:37
-#: pages/templates/includes/pages/fa/_about_content_fa.html:37
-msgid "The House...!"
-msgstr "خانه...!"
-
 #: pages/templates/includes/pages/en/_about_content_en.html:65
 #: pages/templates/includes/pages/en/_index_content_en.html:70
 #: pages/templates/includes/pages/fa/_index_content_fa.html:70
+#: templates/account/login.html:75 templates/account/signup.html:75
 msgid "Made with..."
 msgstr "ساخته شده با..."
+
+#: templates/account/login.html:9 templates/account/login.html:243
+#: templates/account/login.html:468
+msgid "Auditorium: Login"
+msgstr "آودیتوریوم: ورود"
+
+#: templates/account/login.html:45 templates/account/login.html:280
+#: templates/account/login.html:505
+msgid "Log In To Your Account"
+msgstr "وارد شوید"
+
+#: templates/account/login.html:46 templates/account/login.html:99
+#: templates/account/login.html:549
+msgid "Log In"
+msgstr "ورود به حساب"
+
+#: templates/account/login.html:47 templates/account/login.html:282
+#: templates/account/login.html:507 templates/account/signup.html:47
+#: templates/account/signup.html:317 templates/account/signup.html:577
+msgid "Manage your activities."
+msgstr "فعالیت‌های خود را مدیریت کنید."
+
+#: templates/account/login.html:131 templates/account/login.html:356
+#: templates/account/login.html:581
+msgid "Username or Email Address"
+msgstr "نام کاربری یا نشانی ایمیل"
+
+#: templates/account/login.html:136 templates/account/login.html:361
+#: templates/account/login.html:586 templates/account/signup.html:169
+#: templates/account/signup.html:429 templates/account/signup.html:689
+msgid "Password"
+msgstr "گذرواژه"
+
+#: templates/account/login.html:142 templates/account/login.html:367
+#: templates/account/login.html:592
+msgid "Remember me."
+msgstr "من را به‌خاطر بسپار."
+
+#: templates/account/login.html:145 templates/account/login.html:370
+#: templates/account/login.html:595
+msgid "Lost your password?"
+msgstr "گذرواژه خود را فراموش کرده‌اید؟"
+
+#: templates/account/login.html:148 templates/account/login.html:281
+#: templates/account/login.html:373 templates/account/login.html:506
+#: templates/account/login.html:598
+msgid "Login"
+msgstr "ورود"
+
+#: templates/account/login.html:161 templates/account/login.html:386
+#: templates/account/login.html:611
+msgid "Don't have an account yet?"
+msgstr "حسابی ندارید؟"
+
+#: templates/account/login.html:163 templates/account/login.html:388
+#: templates/account/login.html:613
+msgid ""
+"Registering for this project allows you to publish posts, articles, develop "
+"and create a profile to upload your thoughts and ideas.<br />To register, "
+"simply fill in your username and password.<br />Create an account to use all "
+"the features of the project."
+msgstr ""
+"ثبت‌نام در این پروژه اجازه انتشار پست، مقاله، توسعه و ایجاد یک پروفایل برای "
+"بارگذاری افکار و ایده‌های شما را می‌دهد.<br />برای ثبت‌نام، پر کردن نام کاربری "
+"و رمزعبور کافی است.<br />برای بهره‌وری از تمامی امکانات پروژه، بهتر است "
+"ثبت‌نام کنید."
+
+#: templates/account/login.html:167 templates/account/login.html:392
+#: templates/account/login.html:617
+msgid "Register Now!"
+msgstr "ثبت‌نام کنید!"
+
+#: templates/account/login.html:324
+msgid "Login."
+msgstr "ورود."
+
+#: templates/account/signup.html:9 templates/account/signup.html:279
+#: templates/account/signup.html:539
+msgid "Auditorium: Registration"
+msgstr "آودیتوریوم: ثبت‌نام"
+
+#: templates/account/signup.html:45 templates/account/signup.html:315
+#: templates/account/signup.html:575
+msgid "Register an Account"
+msgstr "یک حساب کاربری ایجاد کنید."
+
+#: templates/account/signup.html:46 templates/account/signup.html:184
+#: templates/account/signup.html:316 templates/account/signup.html:444
+#: templates/account/signup.html:576 templates/account/signup.html:704
+msgid "Register"
+msgstr "ثبت‌نام"
+
+#: templates/account/signup.html:99 templates/account/signup.html:359
+#: templates/account/signup.html:619
+msgid "Create an account."
+msgstr "حساب کاربری خود را ایجاد کنید."
+
+#: templates/account/signup.html:131 templates/account/signup.html:391
+#: templates/account/signup.html:651
+msgid "Choose your profile avatar."
+msgstr "آواتاری برای پروفایل خود انتخاب کنید."
+
+#: templates/account/signup.html:149 templates/account/signup.html:409
+#: templates/account/signup.html:669
+msgid "Username"
+msgstr "کاربر"
+
+#: templates/account/signup.html:154 templates/account/signup.html:414
+#: templates/account/signup.html:674
+msgid "Full Name"
+msgstr "نام کامل"
+
+#: templates/account/signup.html:159 templates/account/signup.html:419
+#: templates/account/signup.html:679
+msgid "Email Address"
+msgstr "نشانی ایمیل"
+
+#: templates/account/signup.html:174 templates/account/signup.html:434
+#: templates/account/signup.html:694
+msgid "Again: Password"
+msgstr "گذرواژه: مجدد"
+
+#: templates/account/signup.html:489 templates/account/signup.html:749
+msgid "Back to top"
+msgstr "بازگشت به بالا"
+
+#: templates/account/signup.html:489 templates/account/signup.html:749
+msgid "Back to top."
+msgstr "بازگشت به بالا."
+
+#~ msgid ""
+#~ "Registering for this project allows you to publish posts, articles, "
+#~ "develop and create a profile to upload your content.<br />To register, "
+#~ "simply fill in your username and password.<br />Create an account to use "
+#~ "all the features of the project."
+#~ msgstr ""
+#~ "ثبت‌نام در این پروژه اجازه انتشار پست، مقاله، توسعه و ایجاد یک پروفایل "
+#~ "برای بارگذاری محتواهای شما را می‌دهد.<br />برای ثبت‌نام، پر کردن نام کاربری "
+#~ "و رمزعبور کافی است.<br />برای بهره‌وری از تمامی امکانات پروژه، بهتر است "
+#~ "ثبت‌نام کنید."

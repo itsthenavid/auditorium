@@ -180,7 +180,7 @@ class Post(TranslatableModel):
         verbose_name=_("Created At"),
         help_text=_("Date and time when the post was created."),
     )
-    updated_datetime = models.DateTimeField(
+    modified_datetime = models.DateTimeField(
         auto_now=True,
         verbose_name=_("Updated At"),
         help_text=_("Date and time when the post was last updated."),

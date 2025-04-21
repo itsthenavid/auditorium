@@ -74,6 +74,15 @@ class UserModel(AbstractUser):
         verbose_name = _("User")
         verbose_name_plural = _("Users")
 
+    def get_user_shown_name(self):
+        """
+        Decides the name to be shown for the user.
+        """
+        if self.name:
+            return self.name
+        else:
+            return self.username
+
     def __str__(self):
         return self.username
     

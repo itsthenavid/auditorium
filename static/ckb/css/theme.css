@@ -11310,3 +11310,66 @@ body:not(.tt-boxed) .tt-footer-inner,
 .tt-link {
 	background-position: 100%;
 }
+
+.avatar-section {
+	text-align: center;
+}
+
+.avatar-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+.avatar-preview-wrap {
+	width: 140px;
+	height: 140px;
+	border-radius: 50%;
+	overflow: hidden;
+	cursor: pointer;
+	box-shadow: 0 0 16px rgba(255, 255, 255, 0.08);
+	background: rgba(255, 255, 255, 0.04);
+	backdrop-filter: blur(6px);
+	-webkit-backdrop-filter: blur(6px);
+	transition: transform 0.3s ease;
+}
+
+.avatar-preview-wrap:hover {
+	transform: scale(1.05);
+}
+
+.avatar-preview-wrap img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 50%;
+}
+
+.avatar-buttons {
+	margin-top: 12px;
+	display: flex;
+	gap: 14px;
+	justify-content: center;
+}
+
+.avatar-btn {
+	background: rgba(255, 255, 255, 0.05);
+	color: white;
+	border: none;
+	border-radius: 50%;
+	font-size: 18px;
+	width: 36px;
+	height: 36px;
+	cursor: pointer;
+	backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px);
+	transition: all 0.2s ease;
+}
+
+.avatar-btn:hover {
+	background: rgba(255, 255, 255, 0.2);
+	transform: scale(1.1);
+}
