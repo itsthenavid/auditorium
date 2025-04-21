@@ -35,10 +35,23 @@ class CustomSignupForm(SignupForm):
         }
 
     def save(self, request):
+
         user = super(CustomSignupForm, self).save(request)
         user.name = self.cleaned_data['name']
         user.avatar = self.cleaned_data.get('avatar')
         user.bio = self.cleaned_data.get('bio')
+
+        avatar_file = request.FILES.get("avatar_file")
+        avatar_default = request.POST.get("avatar_default")
+
+        if avatar_file:
+            # Save the uploaded file to user's avatar
+            user.avatar = avatar_file
+        else:
+            # Set avatar as path to default selected image
+            user.avatar = f"{avatar_default}".replace("/static/en/img/", "defaults/accounts/")
+
+
         user.save()
         return user
     

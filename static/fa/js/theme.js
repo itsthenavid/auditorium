@@ -3096,13 +3096,15 @@ const avatarPaths = Array.from({ length: 10 }, (_, i) => `/static/en/img/avatars
 
 function updateAvatar(src, isCustom = false) {
 	document.getElementById("avatar-preview").src = src;
-	document.getElementById("avatar-input").value = src;
-	if (isCustom) avatarIndex = -1;
+
+	// if it's a default image, set avatar_default input
+	if (!isCustom) {
+		document.getElementById("avatar-default").value = src;
+	}
 }
 
 function cycleAvatar() {
-	if (avatarIndex === -1) avatarIndex = 0;
-	else avatarIndex = (avatarIndex + 1) % avatarPaths.length;
+	avatarIndex = (avatarIndex + 1) % avatarPaths.length;
 	updateAvatar(avatarPaths[avatarIndex]);
 }
 
@@ -3110,7 +3112,7 @@ function triggerAvatarUpload() {
 	document.getElementById("avatar-upload").click();
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("load", () => {
 	updateAvatar(avatarPaths[avatarIndex]);
 
 	document.getElementById("avatar-upload").addEventListener("change", function () {
