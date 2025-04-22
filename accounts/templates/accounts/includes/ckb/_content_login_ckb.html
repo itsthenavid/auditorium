@@ -1,0 +1,215 @@
+{% load i18n %}
+
+<div id="content-wrap">
+    <!-- ========================
+    ///// Begin page header /////
+    ============================= 
+    * Use class "ph-full" to enable fullscreen size.
+    * Use class "ph-cap-sm", "ph-cap-lg", "ph-cap-xlg" or "ph-cap-xxlg" to set caption size (no class = default size).
+    * Use class "ph-center" to enable content center position.
+    * Use class "ph-bg-image" to enable page header background image (required for a portfolio single project!).
+    * Use class "ph-bg-image-is-light" if needed, it makes the elements dark and more visible if you use a very light image (effect only with class "ph-bg-image").
+    * Use class "ph-image-shadow" to enable page header background image (effect only with class "ph-bg-image").
+    * Use class "ph-image-cropped" to crop image. It fixes image dimensions (no effect for "ph-bg-image"!).
+    * Use class "ph-image-cover-*" to set image overlay opacity. For example "ph-image-cover-2" or "ph-image-cover-2-5" (up to "ph-image-cover-9-5").
+    * Use class "ph-content-parallax" to enable content parallax.
+    * Use class "ph-stroke" to enable caption title stroke style.
+    -->
+    <div id="page-header" class="ph-cap-sm ph-center ph-image-cropped ph-image-cover-4 ph-content-parallax">
+        <div class="page-header-inner tt-wrap">
+            {% comment %} <!-- Begin page header image 
+            ============================= -->
+            <div class="ph-image">
+                <div class="ph-image-inner" style="opacity: 0.5;">
+                    <img src="{% static "fa/img/page-header/ph-2.jpg" %}" alt="{% translate "Image" %}">
+                </div>
+            </div>
+            <!-- End page header image --> {% endcomment %}
+
+            <!-- Begin page header caption
+            =============================== 
+            Use class "max-width-*" to set caption max width if needed. For example "max-width-1000". More info about helper classes can be found in the file "helper.css".
+            -->
+            <div class="ph-caption">
+                <h1 class="ph-caption-title ph-appear">{% translate "Log In To Your Account" %}</h1>
+                <div class="ph-caption-title-ghost ph-appear">{% translate "Login" %}</div>
+                <div class="ph-caption-subtitle ph-appear">{% translate "Manage your activities." %}</div>
+            </div>
+            <!-- End page header caption -->
+        </div>
+        <!-- /.page-header-inner -->
+
+        <!-- Begin scroll down circle (you can change "data-offset" to set scroll top offset) 
+        ============================== -->
+        <a href="#page-content" class="scroll-down-circle" data-offset="30">
+            <div class="sdc-inner ph-appear">
+                <div class="sdc-icon"><i class="fas fa-chevron-down"></i></div>
+                <svg viewBox="0 0 500 500">
+                    <defs>
+                        <path d="M50,250c0-110.5,89.5-200,200-200s200,89.5,200,200s-89.5,200-200,200S50,360.5,50,250" id="textcircle"></path>
+                    </defs>
+                    <text dy="30">
+                        <textPath xlink:href="#textcircle">{% translate "Scroll down - Scroll down -" %}</textPath>
+                    </text>
+                </svg>
+            </div>
+            <!-- /.sdc-inner -->
+        </a>
+        <!-- End scroll down circle -->
+    </div>
+    <!-- End page header -->
+
+    <!-- *************************************
+    *********** Begin page content *********** 
+    ************************************** -->
+    <div id="page-content">
+        <!-- =======================
+        ///// Begin tt-section /////
+        ============================ 
+        * You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
+        -->
+        <div class="tt-section no-padding-top">
+            <div class="tt-section-inner tt-wrap">
+                <div class="tt-row">
+                    <div class="tt-col-lg-6">
+                        <!-- Begin shop login box 
+                        ========================== -->
+                        <div class="slr-box shop-login-box">
+                            <h4 class="slr-heading"><i class="fas fa-unlock-alt"></i> {% translate "Log In" %}</h4>
+
+                            <!-- Begin form (Note: for design purposes only!)
+                            ================ 
+                            * Use class "tt-form-filled" or "tt-form-minimal" to change form style.
+                            * Use class "tt-form-sm" or "tt-form-lg" to change form size (no class = default size).
+                            -->
+                            <form class="tt-login-form tt-form-minimal" method="post" action="{% url 'account_login' %}">
+                                {% csrf_token %}
+                                
+                                {% if form.errors %}
+                                <div style="color: red;" role="alert">
+                                    <ul class="errorlist">
+                                    <!-- Non-field errors -->
+                                    {% for error in form.non_field_errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                    
+                                    <!-- Field-specific errors -->
+                                    {% for field in form %}
+                                        {% if field.errors %}
+                                            {% for error in field.errors %}
+                                            <li>{{ field.label }}: {{ error }}</li>
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    </ul>
+                                </div>
+                                <br />
+                                {% endif %}
+                                
+                                <div class="tt-form-group">
+                                    <label>{% translate "Username or Email Address" %} <span class="required">*</span></label>
+                                    <input type="text" class="tt-form-control" id="login-name" name="login" required />
+                                </div>
+                                
+                                <div class="tt-form-group">
+                                    <label>{% translate "Password" %} <span class="required">*</span></label>
+                                    <input type="password" class="tt-form-control" id="login-password" name="password" required />
+                                </div>
+
+                                <div class="tt-form-check">
+                                    <input type="checkbox" id="login-remember" name="remember" />
+                                    <label for="login-remember">{% translate "Remember me." %}</label>
+                                </div>
+
+                                <small class="tt-form-text margin-top-20"><a href="shop-reset-password.html" class="tt-link-2">{% translate "Lost your password?" %}</a></small>
+
+                                <div class="tt-btn tt-btn-primary tt-btn-block margin-top-40">
+                                    <button type="submit" data-hover="{% translate "Login" %}">{% translate "Login" %}</button>
+                                </div>
+                            </form>
+                            <!-- End form -->
+                        </div>
+                        <!-- End shop login box -->
+                    </div>
+                    <!-- /.tt-col -->
+
+                    <div class="tt-col-lg-6">
+                        <!-- Begin shop go to register box 
+                        =================================== -->
+                        <div class="slr-box shop-goto-register-box">
+                            <h4 class="slr-heading"><i class="fas fa-plug"></i> {% translate "Don't have an account yet?" %}</h4>
+                            <small class="tt-form-text">
+                                {% blocktranslate %}Registering for this project allows you to publish posts, articles, develop and create a profile to upload your thoughts and ideas.<br />To register, simply fill in your username and password.<br />Create an account to use all the features of the project.{% endblocktranslate %}
+                            </small>
+
+                            <div class="tt-btn tt-btn-dark margin-top-30">
+                                <a href="{% url "account_signup" %}" data-hover="{% translate "Register Now!" %}">{% translate "Register Now!" %}</a>
+                            </div>
+                        </div>
+                        <!-- End shop go to register box -->
+                    </div>
+                    <!-- /.tt-col -->
+                </div>
+                <!-- /.tt-row -->
+            </div>
+            <!-- /.tt-section-inner -->
+        </div>
+        <!-- End tt-section -->
+    </div>
+    <!-- End page content -->
+
+    <!-- ======================
+    ///// Begin tt-footer /////
+    =========================== -->
+    <footer id="tt-footer">
+        <div class="tt-footer-inner">
+            <!-- Begin footer column 
+            ========================= -->
+            <div class="footer-col tt-align-center-right">
+                <div class="footer-col-inner">
+                    <!-- You can use whatever button or link here -->
+                    <div class="tt-btn tt-btn-link">
+                        <a href="#" class="scroll-to-top" data-hover="بازگشت به بالا">بازگشت به بالا</a>
+                    </div>
+                </div>
+                <!-- /.footer-col-inner -->
+            </div>
+            <!-- Begin footer column -->
+
+            <!-- Begin footer column 
+            ========================= -->
+            <div class="footer-col tt-align-center order-m-last">
+                <div class="footer-col-inner">
+                    <div class="tt-copyright text-center">© تمام حقوق محفوظ است. فارسی و راستچین سازی شده توسط فرشید ترنیان</div>
+                </div>
+                <!-- /.footer-col-inner -->
+            </div>
+            <!-- Begin footer column -->
+
+            <!-- Begin footer column 
+            ========================= -->
+            <div class="footer-col tt-align-center-left">
+                <div class="footer-col-inner">
+                    <div class="footer-social">
+                        <div class="footer-social-text"><span>دنبال کنید</span><i class="fas fa-share-alt"></i></div>
+                        <div class="social-buttons">
+                            <ul>
+                                <li><a href="https://www.facebook.com/" class="magnetic-item" target="_blank" rel="noopener">Fb.</a></li>
+                                <li><a href="https://twitter.com/" class="magnetic-item" target="_blank" rel="noopener">Tw.</a></li>
+                                <li><a href="https://www.youtube.com/" class="magnetic-item" target="_blank" rel="noopener">Yt.</a></li>
+                                <li><a href="https://dribbble.com/" class="magnetic-item" target="_blank" rel="noopener">Dr.</a></li>
+                                <li><a href="https://www.behance.net/" class="magnetic-item" target="_blank" rel="noopener">Be.</a></li>
+                            </ul>
+                        </div>
+                        <!-- /.social-buttons -->
+                    </div>
+                    <!-- /.footer-social -->
+                </div>
+                <!-- /.footer-col-inner -->
+            </div>
+            <!-- Begin footer column -->
+        </div>
+        <!-- /.tt-section-inner -->
+    </footer>
+    <!-- End tt-footer -->
+</div>
