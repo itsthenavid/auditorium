@@ -3091,38 +3091,85 @@
 
 })(jQuery);
 
-let avatarIndex = Math.floor(Math.random() * 10);
+// Initialize avatar paths and index
 const avatarPaths = Array.from({ length: 10 }, (_, i) => `/static/en/img/avatars/avatar_${i + 1}.webp`);
+let profileAvatarIndex = Math.floor(Math.random() * avatarPaths.length);
 
-function updateAvatar(src, isCustom = false) {
-	document.getElementById("avatar-preview").src = src;
+// DOM elements with error checking
+const elements = {
+    preview: document.getElementById("profile-avatar-preview"),
+    upload: document.getElementById("profile-avatar-upload"),
+    previewWrap: document.getElementById("profile-avatar-preview-wrap"),
+    useDefault: document.getElementById("profile-use-default"),
+    avatarDefault: document.getElementById("profile-avatar-default"),
+    triggerUploadBtn: document.getElementById("profile-avatar-trigger-upload"),
+    refreshBtn: document.getElementById("profile-avatar-refresh")
+};
 
-	// if it's a default image, set avatar_default input
-	if (!isCustom) {
-		document.getElementById("avatar-default").value = src;
-	}
+// Check for missing elements
+Object.entries(elements).forEach(([key, el]) => {
+    if (!el) console.error(`Element not found: ${key}`);
+});
+
+// Function to set avatar with logging
+function setProfileAvatar(src, useDefault) {
+    if (!elements.preview) return console.error("Preview element missing");
+    console.log(`Setting avatar: src=${src}, useDefault=${useDefault}`);
+    elements.preview.src = src;
+    elements.useDefault.value = useDefault ? "true" : "false";
+    elements.avatarDefault.value = useDefault ? src : "";
+    if (useDefault) {
+        elements.upload.value = ""; // Clear uploaded file
+        console.log(`Set hidden inputs: useDefault=${elements.useDefault.value}, avatarDefault=${elements.avatarDefault.value}`);
+    }
 }
 
+// Function to cycle through default avatars
 function cycleAvatar() {
-	avatarIndex = (avatarIndex + 1) % avatarPaths.length;
-	updateAvatar(avatarPaths[avatarIndex]);
+    profileAvatarIndex = (profileAvatarIndex + 1) % avatarPaths.length;
+    const selected = avatarPaths[profileAvatarIndex];
+    console.log(`Cycling avatar to: ${selected}`);
+    setProfileAvatar(selected, true);
 }
 
-function triggerAvatarUpload() {
-	document.getElementById("avatar-upload").click();
+// Function to trigger file upload
+function triggerProfileAvatarUpload() {
+    if (!elements.upload) return console.error("Upload element missing");
+    console.log("Triggering avatar upload");
+    elements.upload.click();
 }
 
+// Initialize on page load
 window.addEventListener("load", () => {
-	updateAvatar(avatarPaths[avatarIndex]);
+    if (!elements.previewWrap) return console.error("Preview wrap missing");
+    const currentAvatar = elements.previewWrap.getAttribute("data-current-avatar") || avatarPaths[0];
+    console.log(`Initializing with avatar: ${currentAvatar}`);
+    setProfileAvatar(currentAvatar, false);
 
-	document.getElementById("avatar-upload").addEventListener("change", function () {
-		const file = this.files[0];
-		if (!file) return;
+    // File upload handler
+    if (elements.upload) {
+        elements.upload.addEventListener("change", function () {
+            const file = this.files[0];
+            if (!file) return console.log("No file selected");
+            console.log(`Uploading file: ${file.name}`);
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                setProfileAvatar(e.target.result, false);
+            };
+            reader.readAsDataURL(file);
+        });
+    }
 
-		const reader = new FileReader();
-		reader.onload = function (e) {
-			updateAvatar(e.target.result, true);
-		};
-		reader.readAsDataURL(file);
-	});
+    // Button event listeners
+    if (elements.triggerUploadBtn) {
+        elements.triggerUploadBtn.addEventListener("click", triggerProfileAvatarUpload);
+    } else {
+        console.error("Trigger upload button missing");
+    }
+
+    if (elements.refreshBtn) {
+        elements.refreshBtn.addEventListener("click", cycleAvatar);
+    } else {
+        console.error("Refresh button missing");
+    }
 });

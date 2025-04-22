@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-22 03:46+0330\n"
+"POT-Creation-Date: 2025-04-22 04:38+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,9 +39,11 @@ msgid "Select an avatar for your profile."
 msgstr "آواتاری برای پروفایلتان انتخاب کنید."
 
 #: accounts/models.py:69
+#: accounts/templates/accounts/includes/ckb/_content_profile_ckb.html:141
 #: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:146
+#: accounts/templates/accounts/includes/en/_content_profile_en.html:141
 #: accounts/templates/accounts/includes/en/_content_signup_en.html:156
-#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:145
+#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:141
 #: accounts/templates/accounts/includes/fa/_content_signup_fa.html:146
 msgid "Bio"
 msgstr "بیو"
@@ -73,8 +75,10 @@ msgid "Login"
 msgstr "ورود"
 
 #: accounts/templates/accounts/includes/ckb/_content_login_ckb.html:37
+#: accounts/templates/accounts/includes/ckb/_content_profile_ckb.html:37
 #: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:36
 #: accounts/templates/accounts/includes/en/_content_login_en.html:36
+#: accounts/templates/accounts/includes/en/_content_profile_en.html:37
 #: accounts/templates/accounts/includes/en/_content_signup_en.html:36
 #: accounts/templates/accounts/includes/fa/_content_login_fa.html:37
 #: accounts/templates/accounts/includes/fa/_content_profile_fa.html:37
@@ -85,6 +89,7 @@ msgstr "فعالیت‌های خود را مدیریت کنید."
 #: accounts/templates/accounts/includes/ckb/_content_login_ckb.html:53
 #: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:52
 #: accounts/templates/accounts/includes/en/_content_login_en.html:52
+#: accounts/templates/accounts/includes/en/_content_profile_en.html:53
 #: accounts/templates/accounts/includes/en/_content_signup_en.html:52
 #: accounts/templates/accounts/includes/fa/_content_login_fa.html:53
 #: accounts/templates/accounts/includes/fa/_content_signup_fa.html:52
@@ -158,6 +163,66 @@ msgstr ""
 msgid "Register Now!"
 msgstr "ثبت‌نام کنید!"
 
+#: accounts/templates/accounts/includes/ckb/_content_profile_ckb.html:35
+#: accounts/templates/accounts/includes/en/_content_profile_en.html:35
+#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:35
+msgid "Control your account's profile"
+msgstr "پروفایل حسابتان را کنترل کنید"
+
+#: accounts/templates/accounts/includes/ckb/_content_profile_ckb.html:36
+#: accounts/templates/accounts/includes/en/_content_profile_en.html:36
+#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:36
+msgid "Profile"
+msgstr "پروفایل"
+
+#: accounts/templates/accounts/includes/ckb/_content_profile_ckb.html:53
+#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:53
+#, fuzzy
+#| msgid "Scroll down - Scroll down -"
+msgid "Scroll down- Scroll down -"
+msgstr ""
+"اسکـــــرول بـــــه پـــــایـیـن ـــ اسکـــــرول بـــــه پـــــایـیـن ـــ "
+"اسکـــــرول بـــــه پـــــایـیـن ـــ اسکـــــرول بـــــه پـــــایـیـن ـــ"
+
+#: accounts/templates/accounts/includes/ckb/_content_profile_ckb.html:79
+#: accounts/templates/accounts/includes/en/_content_profile_en.html:79
+#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:79
+msgid "Manage your account profile status."
+msgstr "وضعیت پروفایل حسابتان را مدیریت کنید."
+
+#: accounts/templates/accounts/includes/ckb/_content_profile_ckb.html:126
+#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:131
+#: accounts/templates/accounts/includes/en/_content_profile_en.html:126
+#: accounts/templates/accounts/includes/en/_content_signup_en.html:141
+#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:126
+#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:131
+msgid "Username"
+msgstr "کاربر"
+
+#: accounts/templates/accounts/includes/ckb/_content_profile_ckb.html:131
+#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:136
+#: accounts/templates/accounts/includes/en/_content_profile_en.html:131
+#: accounts/templates/accounts/includes/en/_content_signup_en.html:146
+#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:131
+#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:136
+msgid "Full Name"
+msgstr "نام کامل"
+
+#: accounts/templates/accounts/includes/ckb/_content_profile_ckb.html:136
+#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:141
+#: accounts/templates/accounts/includes/en/_content_profile_en.html:136
+#: accounts/templates/accounts/includes/en/_content_signup_en.html:151
+#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:136
+#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:141
+msgid "Email Address"
+msgstr "نشانی ایمیل"
+
+#: accounts/templates/accounts/includes/ckb/_content_profile_ckb.html:151
+#: accounts/templates/accounts/includes/en/_content_profile_en.html:151
+#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:151
+msgid "Update/Modify"
+msgstr "به‌روزرسانی/تغییر"
+
 #: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:34
 #: accounts/templates/accounts/includes/en/_content_signup_en.html:34
 #: accounts/templates/accounts/includes/fa/_content_signup_fa.html:34
@@ -184,27 +249,6 @@ msgstr "حساب کاربری خود را ایجاد کنید."
 #: accounts/templates/accounts/includes/fa/_content_signup_fa.html:110
 msgid "Choose your profile avatar."
 msgstr "آواتاری برای پروفایل خود انتخاب کنید."
-
-#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:131
-#: accounts/templates/accounts/includes/en/_content_signup_en.html:141
-#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:130
-#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:131
-msgid "Username"
-msgstr "کاربر"
-
-#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:136
-#: accounts/templates/accounts/includes/en/_content_signup_en.html:146
-#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:135
-#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:136
-msgid "Full Name"
-msgstr "نام کامل"
-
-#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:141
-#: accounts/templates/accounts/includes/en/_content_signup_en.html:151
-#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:140
-#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:141
-msgid "Email Address"
-msgstr "نشانی ایمیل"
 
 #: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:156
 #: accounts/templates/accounts/includes/en/_content_signup_en.html:166
@@ -233,32 +277,6 @@ msgstr "ساخته شده با..."
 #: accounts/templates/accounts/includes/fa/_content_login_fa.html:79
 msgid "Login."
 msgstr "ورود."
-
-#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:35
-msgid "Control your account's profile"
-msgstr "پروفایل حسابتان را کنترل کنید"
-
-#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:36
-msgid "Profile"
-msgstr "پروفایل"
-
-#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:53
-msgid "Scroll down- Scroll down-"
-msgstr ""
-"اسکـــــرول بـــــه پـــــایـیـن ـــ اسکـــــرول بـــــه پـــــایـیـن ـــ "
-"اسکـــــرول بـــــه پـــــایـیـن ـــ اسکـــــرول بـــــه پـــــایـیـن ـــ"
-
-#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:79
-msgid "Manage your account profile status."
-msgstr "وضعیت پروفایل حسابتان را مدیریت کنید."
-
-#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:111
-msgid "Update your avatar if you want or need."
-msgstr "در صورت نیاز پروفایل خود را تغییر دهید."
-
-#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:155
-msgid "Update/Modify"
-msgstr "به‌روزرسانی/تغییر"
 
 #: config/settings.py:153
 msgid "English"
@@ -680,6 +698,14 @@ msgstr "آودیتوریوم: ورود"
 #: templates/account/signup.html:33
 msgid "Auditorium: Registration"
 msgstr "آودیتوریوم: ثبت‌نام"
+
+#~ msgid "Scroll down- Scroll down-"
+#~ msgstr ""
+#~ "اسکـــــرول بـــــه پـــــایـیـن ـــ اسکـــــرول بـــــه پـــــایـیـن ـــ "
+#~ "اسکـــــرول بـــــه پـــــایـیـن ـــ اسکـــــرول بـــــه پـــــایـیـن ـــ"
+
+#~ msgid "Update your avatar if you want or need."
+#~ msgstr "در صورت نیاز پروفایل خود را تغییر دهید."
 
 #~ msgid ""
 #~ "Registering for this project allows you to publish posts, articles, "

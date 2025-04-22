@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-21 17:48+0330\n"
+"POT-Creation-Date: 2025-04-22 04:38+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,8 +38,13 @@ msgstr "ئاڤاتا"
 msgid "Select an avatar for your profile."
 msgstr "ئاڤاتارییەک بۆ پڕۆفایلی خۆت هەڵبژێرە."
 
-#: accounts/models.py:69 templates/account/signup.html:164
-#: templates/account/signup.html:424 templates/account/signup.html:684
+#: accounts/models.py:69
+#: accounts/templates/accounts/includes/ckb/_content_profile_ckb.html:141
+#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:146
+#: accounts/templates/accounts/includes/en/_content_profile_en.html:141
+#: accounts/templates/accounts/includes/en/_content_signup_en.html:156
+#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:141
+#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:146
 msgid "Bio"
 msgstr "بیۆ"
 
@@ -54,6 +59,224 @@ msgstr "بەکارهێنەر"
 #: accounts/models.py:75
 msgid "Users"
 msgstr "بەکارهێنەرەکان"
+
+#: accounts/templates/accounts/includes/ckb/_content_login_ckb.html:35
+#: accounts/templates/accounts/includes/en/_content_login_en.html:34
+#: accounts/templates/accounts/includes/fa/_content_login_fa.html:35
+msgid "Log In To Your Account"
+msgstr "چوونەژوورەوە بۆ ئەکاونتەکەت"
+
+#: accounts/templates/accounts/includes/ckb/_content_login_ckb.html:36
+#: accounts/templates/accounts/includes/ckb/_content_login_ckb.html:128
+#: accounts/templates/accounts/includes/en/_content_login_en.html:137
+#: accounts/templates/accounts/includes/fa/_content_login_fa.html:36
+#: accounts/templates/accounts/includes/fa/_content_login_fa.html:128
+msgid "Login"
+msgstr "چوونەژوورەوە"
+
+#: accounts/templates/accounts/includes/ckb/_content_login_ckb.html:37
+#: accounts/templates/accounts/includes/ckb/_content_profile_ckb.html:37
+#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:36
+#: accounts/templates/accounts/includes/en/_content_login_en.html:36
+#: accounts/templates/accounts/includes/en/_content_profile_en.html:37
+#: accounts/templates/accounts/includes/en/_content_signup_en.html:36
+#: accounts/templates/accounts/includes/fa/_content_login_fa.html:37
+#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:37
+#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:36
+msgid "Manage your activities."
+msgstr "بەڕێوەبردنی چالاکییەکانت."
+
+#: accounts/templates/accounts/includes/ckb/_content_login_ckb.html:53
+#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:52
+#: accounts/templates/accounts/includes/en/_content_login_en.html:52
+#: accounts/templates/accounts/includes/en/_content_profile_en.html:53
+#: accounts/templates/accounts/includes/en/_content_signup_en.html:52
+#: accounts/templates/accounts/includes/fa/_content_login_fa.html:53
+#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:52
+#: pages/templates/includes/pages/ckb/_about_content_ckb.html:53
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:58
+#: pages/templates/includes/pages/en/_about_content_en.html:53
+#: pages/templates/includes/pages/en/_index_content_en.html:58
+#: pages/templates/includes/pages/fa/_about_content_fa.html:53
+#: pages/templates/includes/pages/fa/_index_content_fa.html:58
+msgid "Scroll down - Scroll down -"
+msgstr ""
+"ئێسکـــــرۆل بـــــۆ خوـــــارۆ ـــ ئێسکـــــرۆل بـــــۆ خوـــــارۆ ـــ "
+"ئێسکـــــرۆل بـــــۆ خوـــــارۆ ـــ ئێسکـــــرۆل بـــــۆ خوـــــارۆ ـــ"
+
+#: accounts/templates/accounts/includes/ckb/_content_login_ckb.html:79
+#: accounts/templates/accounts/includes/en/_content_login_en.html:35
+#: accounts/templates/accounts/includes/en/_content_login_en.html:88
+msgid "Log In"
+msgstr "چوونەژوورەوە"
+
+#: accounts/templates/accounts/includes/ckb/_content_login_ckb.html:111
+#: accounts/templates/accounts/includes/en/_content_login_en.html:120
+#: accounts/templates/accounts/includes/fa/_content_login_fa.html:111
+msgid "Username or Email Address"
+msgstr "ناوی بەکارهێنەر یان ناونیشانی ئیمەیڵ"
+
+#: accounts/templates/accounts/includes/ckb/_content_login_ckb.html:116
+#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:151
+#: accounts/templates/accounts/includes/en/_content_login_en.html:125
+#: accounts/templates/accounts/includes/en/_content_signup_en.html:161
+#: accounts/templates/accounts/includes/fa/_content_login_fa.html:116
+#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:151
+msgid "Password"
+msgstr "نهێنوشە"
+
+#: accounts/templates/accounts/includes/ckb/_content_login_ckb.html:122
+#: accounts/templates/accounts/includes/en/_content_login_en.html:131
+#: accounts/templates/accounts/includes/fa/_content_login_fa.html:122
+msgid "Remember me."
+msgstr "منت لەبیربێت"
+
+#: accounts/templates/accounts/includes/ckb/_content_login_ckb.html:125
+#: accounts/templates/accounts/includes/en/_content_login_en.html:134
+#: accounts/templates/accounts/includes/fa/_content_login_fa.html:125
+msgid "Lost your password?"
+msgstr "نهێنوشەکەت لەبیر کردووە؟"
+
+#: accounts/templates/accounts/includes/ckb/_content_login_ckb.html:141
+#: accounts/templates/accounts/includes/en/_content_login_en.html:150
+#: accounts/templates/accounts/includes/fa/_content_login_fa.html:141
+msgid "Don't have an account yet?"
+msgstr "ئەکاونتت نییە؟"
+
+#: accounts/templates/accounts/includes/ckb/_content_login_ckb.html:143
+#: accounts/templates/accounts/includes/en/_content_login_en.html:152
+#: accounts/templates/accounts/includes/fa/_content_login_fa.html:143
+msgid ""
+"Registering for this project allows you to publish posts, articles, develop "
+"and create a profile to upload your thoughts and ideas.<br />To register, "
+"simply fill in your username and password.<br />Create an account to use all "
+"the features of the project."
+msgstr ""
+"ناو تۆمارکردن بۆ ئەم پڕۆژەیە ڕێگەت پێدەدات پۆست و بابەت بڵاوبکەیتەوە و پەرەی "
+"پێبدەیت و پرۆفایلی دروست بکەیت بۆ بارکردنی بیر و بیرۆکەکانت.<br />بۆ ناو "
+"تۆمارکردن تەنها ناوی بەکارهێنەر و وشەی نهێنی خۆت پڕبکەرەوە.<br />بۆ "
+"بەکارهێنانی هەموو تایبەتمەندییەکانی پڕۆژەکە باشترە ناوی خۆت تۆمار بکەیت."
+
+#: accounts/templates/accounts/includes/ckb/_content_login_ckb.html:147
+#: accounts/templates/accounts/includes/en/_content_login_en.html:156
+#: accounts/templates/accounts/includes/fa/_content_login_fa.html:147
+msgid "Register Now!"
+msgstr "تۆمارکردن!"
+
+#: accounts/templates/accounts/includes/ckb/_content_profile_ckb.html:35
+#: accounts/templates/accounts/includes/en/_content_profile_en.html:35
+#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:35
+msgid "Control your account's profile"
+msgstr "پڕۆفایلی ئەکاونتەکەت کۆنتڕۆڵ بکە"
+
+#: accounts/templates/accounts/includes/ckb/_content_profile_ckb.html:36
+#: accounts/templates/accounts/includes/en/_content_profile_en.html:36
+#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:36
+msgid "Profile"
+msgstr "پڕۆفایل"
+
+#: accounts/templates/accounts/includes/ckb/_content_profile_ckb.html:53
+#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:53
+#, fuzzy
+#| msgid "Scroll down - Scroll down -"
+msgid "Scroll down- Scroll down -"
+msgstr ""
+"ئێسکـــــرۆل بـــــۆ خوـــــارۆ ـــ ئێسکـــــرۆل بـــــۆ خوـــــارۆ ـــ "
+"ئێسکـــــرۆل بـــــۆ خوـــــارۆ ـــ ئێسکـــــرۆل بـــــۆ خوـــــارۆ ـــ"
+
+#: accounts/templates/accounts/includes/ckb/_content_profile_ckb.html:79
+#: accounts/templates/accounts/includes/en/_content_profile_en.html:79
+#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:79
+msgid "Manage your account profile status."
+msgstr "بەڕێوەبردنی دۆخی پڕۆفایلی ئەکاونتەکەت."
+
+#: accounts/templates/accounts/includes/ckb/_content_profile_ckb.html:126
+#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:131
+#: accounts/templates/accounts/includes/en/_content_profile_en.html:126
+#: accounts/templates/accounts/includes/en/_content_signup_en.html:141
+#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:126
+#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:131
+msgid "Username"
+msgstr "ناوی بەکارهێنەر"
+
+#: accounts/templates/accounts/includes/ckb/_content_profile_ckb.html:131
+#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:136
+#: accounts/templates/accounts/includes/en/_content_profile_en.html:131
+#: accounts/templates/accounts/includes/en/_content_signup_en.html:146
+#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:131
+#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:136
+msgid "Full Name"
+msgstr "ناوی تەواو"
+
+#: accounts/templates/accounts/includes/ckb/_content_profile_ckb.html:136
+#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:141
+#: accounts/templates/accounts/includes/en/_content_profile_en.html:136
+#: accounts/templates/accounts/includes/en/_content_signup_en.html:151
+#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:136
+#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:141
+msgid "Email Address"
+msgstr "ناونیشانی ئیمەیل"
+
+#: accounts/templates/accounts/includes/ckb/_content_profile_ckb.html:151
+#: accounts/templates/accounts/includes/en/_content_profile_en.html:151
+#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:151
+msgid "Update/Modify"
+msgstr "نوێکردنەوە/دەستکاریکردن"
+
+#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:34
+#: accounts/templates/accounts/includes/en/_content_signup_en.html:34
+#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:34
+msgid "Register an Account"
+msgstr "ئەکاونتێک بۆ خۆت تۆمار بکە"
+
+#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:35
+#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:166
+#: accounts/templates/accounts/includes/en/_content_signup_en.html:35
+#: accounts/templates/accounts/includes/en/_content_signup_en.html:176
+#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:35
+#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:166
+msgid "Register"
+msgstr "تۆمارکردن"
+
+#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:78
+#: accounts/templates/accounts/includes/en/_content_signup_en.html:88
+#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:78
+msgid "Create an account."
+msgstr "ئەکاونتێک دروست بکە."
+
+#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:110
+#: accounts/templates/accounts/includes/en/_content_signup_en.html:120
+#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:110
+msgid "Choose your profile avatar."
+msgstr "ئاڤاتاری پڕۆفایلی خۆت هەڵبژێرە."
+
+#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:156
+#: accounts/templates/accounts/includes/en/_content_signup_en.html:166
+#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:156
+msgid "Again: Password"
+msgstr "نهێنوشە: دووبارەی کەرۆ"
+
+#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:211
+#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:211
+msgid "Back to top"
+msgstr "گەڕانەوە بۆ سەرەوە"
+
+#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:211
+#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:211
+msgid "Back to top."
+msgstr "گەڕانەوە بۆ سەرەوە."
+
+#: accounts/templates/accounts/includes/en/_content_login_en.html:64
+#: accounts/templates/accounts/includes/en/_content_signup_en.html:64
+#: pages/templates/includes/pages/en/_about_content_en.html:65
+#: pages/templates/includes/pages/en/_index_content_en.html:70
+#: pages/templates/includes/pages/fa/_index_content_fa.html:70
+msgid "Made with..."
+msgstr "دروستکراو بە..."
+
+#: accounts/templates/accounts/includes/fa/_content_login_fa.html:79
+msgid "Login."
+msgstr "چوونەژوورەوە."
 
 #: config/settings.py:153
 msgid "English"
@@ -443,20 +666,6 @@ msgstr "وێنە"
 msgid "The House...!"
 msgstr "ماڵ...!"
 
-#: pages/templates/includes/pages/ckb/_about_content_ckb.html:53
-#: pages/templates/includes/pages/ckb/_index_content_ckb.html:58
-#: pages/templates/includes/pages/en/_about_content_en.html:53
-#: pages/templates/includes/pages/en/_index_content_en.html:58
-#: pages/templates/includes/pages/fa/_about_content_fa.html:53
-#: pages/templates/includes/pages/fa/_index_content_fa.html:58
-#: templates/account/login.html:63 templates/account/login.html:298
-#: templates/account/login.html:523 templates/account/signup.html:63
-#: templates/account/signup.html:333 templates/account/signup.html:593
-msgid "Scroll down - Scroll down -"
-msgstr ""
-"ئێسکـــــرۆل بـــــۆ خوـــــارۆ ـــ ئێسکـــــرۆل بـــــۆ خوـــــارۆ ـــ "
-"ئێسکـــــرۆل بـــــۆ خوـــــارۆ ـــ ئێسکـــــرۆل بـــــۆ خوـــــارۆ ـــ"
-
 #: pages/templates/includes/pages/ckb/_index_content_ckb.html:98
 #: pages/templates/includes/pages/en/_index_content_en.html:97
 #: pages/templates/includes/pages/fa/_index_content_fa.html:97
@@ -479,145 +688,12 @@ msgstr "باسی چی دەکەین؟"
 msgid "Pinned Halls"
 msgstr "هۆڵە پین کراوەکان"
 
-#: pages/templates/includes/pages/en/_about_content_en.html:65
-#: pages/templates/includes/pages/en/_index_content_en.html:70
-#: pages/templates/includes/pages/fa/_index_content_fa.html:70
-#: templates/account/login.html:75 templates/account/signup.html:75
-msgid "Made with..."
-msgstr "دروستکراو بە..."
-
-#: templates/account/login.html:9 templates/account/login.html:243
-#: templates/account/login.html:468
+#: templates/account/login.html:9 templates/account/login.html:21
+#: templates/account/login.html:33
 msgid "Auditorium: Login"
 msgstr "ئاودیتۆریۆم: چوونەژوورەوە"
 
-#: templates/account/login.html:45 templates/account/login.html:280
-#: templates/account/login.html:505
-msgid "Log In To Your Account"
-msgstr "چوونەژوورەوە بۆ ئەکاونتەکەت"
-
-#: templates/account/login.html:46 templates/account/login.html:99
-#: templates/account/login.html:549
-msgid "Log In"
-msgstr "چوونەژوورەوە"
-
-#: templates/account/login.html:47 templates/account/login.html:282
-#: templates/account/login.html:507 templates/account/signup.html:47
-#: templates/account/signup.html:317 templates/account/signup.html:577
-msgid "Manage your activities."
-msgstr "بەڕێوەبردنی چالاکییەکانت."
-
-#: templates/account/login.html:131 templates/account/login.html:356
-#: templates/account/login.html:581
-msgid "Username or Email Address"
-msgstr "ناوی بەکارهێنەر یان ناونیشانی ئیمەیڵ"
-
-#: templates/account/login.html:136 templates/account/login.html:361
-#: templates/account/login.html:586 templates/account/signup.html:169
-#: templates/account/signup.html:429 templates/account/signup.html:689
-msgid "Password"
-msgstr "نهێنوشە"
-
-#: templates/account/login.html:142 templates/account/login.html:367
-#: templates/account/login.html:592
-msgid "Remember me."
-msgstr "منت لەبیربێت"
-
-#: templates/account/login.html:145 templates/account/login.html:370
-#: templates/account/login.html:595
-msgid "Lost your password?"
-msgstr "نهێنوشەکەت لەبیر کردووە؟"
-
-#: templates/account/login.html:148 templates/account/login.html:281
-#: templates/account/login.html:373 templates/account/login.html:506
-#: templates/account/login.html:598
-msgid "Login"
-msgstr "چوونەژوورەوە"
-
-#: templates/account/login.html:161 templates/account/login.html:386
-#: templates/account/login.html:611
-msgid "Don't have an account yet?"
-msgstr "ئەکاونتت نییە؟"
-
-#: templates/account/login.html:163 templates/account/login.html:388
-#: templates/account/login.html:613
-msgid ""
-"Registering for this project allows you to publish posts, articles, develop "
-"and create a profile to upload your thoughts and ideas.<br />To register, "
-"simply fill in your username and password.<br />Create an account to use all "
-"the features of the project."
-msgstr ""
-"ناو تۆمارکردن بۆ ئەم پڕۆژەیە ڕێگەت پێدەدات پۆست و بابەت بڵاوبکەیتەوە و پەرەی "
-"پێبدەیت و پرۆفایلی دروست بکەیت بۆ بارکردنی بیر و بیرۆکەکانت.<br />بۆ ناو "
-"تۆمارکردن تەنها ناوی بەکارهێنەر و وشەی نهێنی خۆت پڕبکەرەوە.<br />بۆ "
-"بەکارهێنانی هەموو تایبەتمەندییەکانی پڕۆژەکە باشترە ناوی خۆت تۆمار بکەیت."
-
-#: templates/account/login.html:167 templates/account/login.html:392
-#: templates/account/login.html:617
-msgid "Register Now!"
-msgstr "تۆمارکردن!"
-
-#: templates/account/login.html:324
-msgid "Login."
-msgstr "چوونەژوورەوە."
-
-#: templates/account/signup.html:9 templates/account/signup.html:279
-#: templates/account/signup.html:539
+#: templates/account/signup.html:9 templates/account/signup.html:21
+#: templates/account/signup.html:33
 msgid "Auditorium: Registration"
 msgstr "ئاودیتۆریۆم: ناو تۆمارکردن"
-
-#: templates/account/signup.html:45 templates/account/signup.html:315
-#: templates/account/signup.html:575
-msgid "Register an Account"
-msgstr "ئەکاونتێک بۆ خۆت تۆمار بکە"
-
-#: templates/account/signup.html:46 templates/account/signup.html:184
-#: templates/account/signup.html:316 templates/account/signup.html:444
-#: templates/account/signup.html:576 templates/account/signup.html:704
-msgid "Register"
-msgstr "تۆمارکردن"
-
-#: templates/account/signup.html:99 templates/account/signup.html:359
-#: templates/account/signup.html:619
-msgid "Create an account."
-msgstr "ئەکاونتێک دروست بکە."
-
-#: templates/account/signup.html:131 templates/account/signup.html:391
-#: templates/account/signup.html:651
-msgid "Choose your profile avatar."
-msgstr "ئاڤاتاری پڕۆفایلی خۆت هەڵبژێرە."
-
-#: templates/account/signup.html:149 templates/account/signup.html:409
-#: templates/account/signup.html:669
-msgid "Username"
-msgstr "ناوی بەکارهێنەر"
-
-#: templates/account/signup.html:154 templates/account/signup.html:414
-#: templates/account/signup.html:674
-msgid "Full Name"
-msgstr "ناوی تەواو"
-
-#: templates/account/signup.html:159 templates/account/signup.html:419
-#: templates/account/signup.html:679
-msgid "Email Address"
-msgstr "ناونیشانی ئیمەیل"
-
-#: templates/account/signup.html:174 templates/account/signup.html:434
-#: templates/account/signup.html:694
-msgid "Again: Password"
-msgstr "نهێنوشە: دووبارەی کەرۆ"
-
-#: templates/account/signup.html:489 templates/account/signup.html:749
-msgid "Back to top"
-msgstr "گەڕانەوە بۆ سەرەوە"
-
-#: templates/account/signup.html:489 templates/account/signup.html:749
-msgid "Back to top."
-msgstr "گەڕانەوە بۆ سەرەوە."
-
-#, fuzzy
-#~| msgid "Scroll down - Scroll down -"
-#~ msgid "Scroll down - Scroll down-"
-#~ msgstr ""
-#~ "ئێسکـــــرۆل بـــــۆ خوـــــارۆ ـــ ئێسکـــــرۆل بـــــۆ خوـــــارۆ ـــ "
-#~ "ئێسکـــــرۆل بـــــۆ خوـــــارۆ ـــ ئێسکـــــرۆل بـــــۆ خوـــــارۆ ـــ"
