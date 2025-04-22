@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import gettext_lazy as _
 
 from allauth.account.forms import SignupForm
 
@@ -57,19 +58,35 @@ class CustomSignupForm(SignupForm):
     
 
 class UserProfileForm(forms.ModelForm):
-    """
-    Custom form for updating the UserModel profile.
-    This form is used in the ProfileView to allow users to update
-    their profile information, including avatar, banner, name,
-    username, email, and bio.
-    """
+    name = forms.CharField(
+        max_length=100,
+        required=False,
+        label=_("Name"),
+        help_text=_("Enter your full name.")
+    )
+    bio = forms.CharField(
+        max_length=500,
+        required=False,
+        label=_("Bio"),
+        help_text=_("Write a short bio about yourself."),
+        widget=forms.Textarea(attrs={'rows': 3})
+    )
 
     class Meta:
         model = UserModel
-        fields = (
-            "avatar",
-            "name",
-            "username",
-            "email",
-            "bio",
-        )
+        fields = ['avatar']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance:
+            self.fields['name'].initial = self.instance.name
+            self.fields['bio'].initial = self.instance.bio
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        instance.set_current_language(self.instance.get_current_language())
+        instance.name = self.cleaned_data['name']
+        instance.bio = self.cleaned_data['bio']
+        if commit:
+            instance.save()
+        return instance
