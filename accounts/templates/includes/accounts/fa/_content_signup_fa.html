@@ -106,26 +106,19 @@
                                 <br />
                                 {% endif %}
 
-                                <div class="tt-form-group avatar-section">
-                                    <label for="avatar">{% translate "Choose your profile avatar." %}</label>
-                                  
-                                    <div class="avatar-container">
-                                      <div class="avatar-preview-wrap" onclick="triggerAvatarUpload()">
-                                        <img id="avatar-preview" src="" alt="Avatar preview" />
-                                      </div>
-                                  
-                                      <div class="avatar-buttons">
-                                        <button type="button" class="avatar-btn" onclick="cycleAvatar()" title="Random Avatar">↻</button>
-                                        <button type="button" class="avatar-btn" onclick="triggerAvatarUpload()" title="Upload Avatar">⤒</button>
-                                      </div>
-                                  
-                                      <!-- NEW: Hidden input for default avatar path -->
-                                      <input type="hidden" id="avatar-default" name="avatar_default" />
-                                  
-                                      <!-- File input for uploaded avatars -->
-                                      <input type="file" id="avatar-upload" name="avatar_file" accept="image/*" style="display: none;" />
+                                <div class="avatar-container">
+                                    <div class="avatar-preview-wrap" id="profile-avatar-preview-wrap" onclick="triggerProfileAvatarUpload()" 
+                                         data-current-avatar="{{ request.user.avatar.url|default:'/static/en/img/avatars/avatar_1.webp' }}">
+                                        <img id="profile-avatar-preview" src="" alt="Avatar preview" />
                                     </div>
-                                </div> 
+                                    <input type="file" name="avatar" id="profile-avatar-upload" accept="image/*" style="display: none;" />
+                                    <input type="hidden" name="use_default_avatar" id="profile-use-default" value="false" />
+                                    <input type="hidden" name="avatar_default" id="profile-avatar-default" value="" />
+                                    <div class="avatar-actions">
+                                        <button class="avatar-btn" type="button" id="profile-avatar-refresh">↻</button>
+                                        <button class="avatar-btn" type="button" id="profile-avatar-trigger-upload">⤒</button>
+                                    </div>
+                                </div>
 
                                 <div class="tt-form-group">
                                     <label>{% translate "Username" %} <span class="required">*</span></label>
