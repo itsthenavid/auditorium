@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-23 03:15+0330\n"
+"POT-Creation-Date: 2025-04-23 05:13+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,12 +31,12 @@ msgid "Enter your full name."
 msgstr "نام کاملتان را وارد کنید."
 
 #: accounts/forms.py:70 accounts/models.py:68
-#: accounts/templates/accounts/includes/ckb/_content_profile_ckb.html:141
-#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:146
-#: accounts/templates/accounts/includes/en/_content_profile_en.html:141
-#: accounts/templates/accounts/includes/en/_content_signup_en.html:156
-#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:141
-#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:146
+#: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:141
+#: accounts/templates/includes/accounts/ckb/_content_signup_ckb.html:146
+#: accounts/templates/includes/accounts/en/_content_profile_en.html:141
+#: accounts/templates/includes/accounts/en/_content_signup_en.html:156
+#: accounts/templates/includes/accounts/fa/_content_profile_fa.html:141
+#: accounts/templates/includes/accounts/fa/_content_signup_fa.html:146
 msgid "Bio"
 msgstr "بیو"
 
@@ -60,41 +60,42 @@ msgstr "کاربر"
 msgid "Users"
 msgstr "کاربران"
 
-#: accounts/templates/accounts/includes/ckb/_content_login_ckb.html:35
-#: accounts/templates/accounts/includes/en/_content_login_en.html:34
-#: accounts/templates/accounts/includes/fa/_content_login_fa.html:35
+#: accounts/templates/includes/accounts/ckb/_content_login_ckb.html:35
+#: accounts/templates/includes/accounts/en/_content_login_en.html:34
+#: accounts/templates/includes/accounts/fa/_content_login_fa.html:35
 msgid "Log In To Your Account"
 msgstr "وارد شوید"
 
-#: accounts/templates/accounts/includes/ckb/_content_login_ckb.html:36
-#: accounts/templates/accounts/includes/ckb/_content_login_ckb.html:128
-#: accounts/templates/accounts/includes/en/_content_login_en.html:137
-#: accounts/templates/accounts/includes/fa/_content_login_fa.html:36
-#: accounts/templates/accounts/includes/fa/_content_login_fa.html:128
+#: accounts/templates/includes/accounts/ckb/_content_login_ckb.html:36
+#: accounts/templates/includes/accounts/ckb/_content_login_ckb.html:128
+#: accounts/templates/includes/accounts/en/_content_login_en.html:137
+#: accounts/templates/includes/accounts/fa/_content_login_fa.html:36
+#: accounts/templates/includes/accounts/fa/_content_login_fa.html:128
 msgid "Login"
 msgstr "ورود"
 
-#: accounts/templates/accounts/includes/ckb/_content_login_ckb.html:37
-#: accounts/templates/accounts/includes/ckb/_content_profile_ckb.html:37
-#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:36
-#: accounts/templates/accounts/includes/en/_content_login_en.html:36
-#: accounts/templates/accounts/includes/en/_content_profile_en.html:37
-#: accounts/templates/accounts/includes/en/_content_signup_en.html:36
-#: accounts/templates/accounts/includes/fa/_content_login_fa.html:37
-#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:37
-#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:36
+#: accounts/templates/includes/accounts/ckb/_content_login_ckb.html:37
+#: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:37
+#: accounts/templates/includes/accounts/ckb/_content_signup_ckb.html:36
+#: accounts/templates/includes/accounts/en/_content_login_en.html:36
+#: accounts/templates/includes/accounts/en/_content_profile_en.html:37
+#: accounts/templates/includes/accounts/en/_content_signup_en.html:36
+#: accounts/templates/includes/accounts/fa/_content_login_fa.html:37
+#: accounts/templates/includes/accounts/fa/_content_profile_fa.html:37
+#: accounts/templates/includes/accounts/fa/_content_signup_fa.html:36
 #: templates/account/password_change.html:47
 #: templates/account/password_change.html:260
+#: templates/account/password_change.html:464
 msgid "Manage your activities."
 msgstr "فعالیت‌های خود را مدیریت کنید."
 
-#: accounts/templates/accounts/includes/ckb/_content_login_ckb.html:53
-#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:52
-#: accounts/templates/accounts/includes/en/_content_login_en.html:52
-#: accounts/templates/accounts/includes/en/_content_profile_en.html:53
-#: accounts/templates/accounts/includes/en/_content_signup_en.html:52
-#: accounts/templates/accounts/includes/fa/_content_login_fa.html:53
-#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:52
+#: accounts/templates/includes/accounts/ckb/_content_login_ckb.html:53
+#: accounts/templates/includes/accounts/ckb/_content_signup_ckb.html:52
+#: accounts/templates/includes/accounts/en/_content_login_en.html:52
+#: accounts/templates/includes/accounts/en/_content_profile_en.html:53
+#: accounts/templates/includes/accounts/en/_content_signup_en.html:52
+#: accounts/templates/includes/accounts/fa/_content_login_fa.html:53
+#: accounts/templates/includes/accounts/fa/_content_signup_fa.html:52
 #: pages/templates/includes/pages/ckb/_about_content_ckb.html:53
 #: pages/templates/includes/pages/ckb/_index_content_ckb.html:58
 #: pages/templates/includes/pages/en/_about_content_en.html:53
@@ -103,53 +104,54 @@ msgstr "فعالیت‌های خود را مدیریت کنید."
 #: pages/templates/includes/pages/fa/_index_content_fa.html:58
 #: templates/account/password_change.html:63
 #: templates/account/password_change.html:276
+#: templates/account/password_change.html:480
 msgid "Scroll down - Scroll down -"
 msgstr ""
 "اسکـــــرول بـــــه پـــــایـیـن ـــ اسکـــــرول بـــــه پـــــایـیـن ـــ "
 "اسکـــــرول بـــــه پـــــایـیـن ـــ اسکـــــرول بـــــه پـــــایـیـن ـــ"
 
-#: accounts/templates/accounts/includes/ckb/_content_login_ckb.html:79
-#: accounts/templates/accounts/includes/en/_content_login_en.html:35
-#: accounts/templates/accounts/includes/en/_content_login_en.html:88
+#: accounts/templates/includes/accounts/ckb/_content_login_ckb.html:79
+#: accounts/templates/includes/accounts/en/_content_login_en.html:35
+#: accounts/templates/includes/accounts/en/_content_login_en.html:88
 msgid "Log In"
 msgstr "ورود به حساب"
 
-#: accounts/templates/accounts/includes/ckb/_content_login_ckb.html:111
-#: accounts/templates/accounts/includes/en/_content_login_en.html:120
-#: accounts/templates/accounts/includes/fa/_content_login_fa.html:111
+#: accounts/templates/includes/accounts/ckb/_content_login_ckb.html:111
+#: accounts/templates/includes/accounts/en/_content_login_en.html:120
+#: accounts/templates/includes/accounts/fa/_content_login_fa.html:111
 msgid "Username or Email Address"
 msgstr "نام کاربری یا نشانی ایمیل"
 
-#: accounts/templates/accounts/includes/ckb/_content_login_ckb.html:116
-#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:151
-#: accounts/templates/accounts/includes/en/_content_login_en.html:125
-#: accounts/templates/accounts/includes/en/_content_signup_en.html:161
-#: accounts/templates/accounts/includes/fa/_content_login_fa.html:116
-#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:151
+#: accounts/templates/includes/accounts/ckb/_content_login_ckb.html:116
+#: accounts/templates/includes/accounts/ckb/_content_signup_ckb.html:151
+#: accounts/templates/includes/accounts/en/_content_login_en.html:125
+#: accounts/templates/includes/accounts/en/_content_signup_en.html:161
+#: accounts/templates/includes/accounts/fa/_content_login_fa.html:116
+#: accounts/templates/includes/accounts/fa/_content_signup_fa.html:151
 msgid "Password"
 msgstr "گذرواژه"
 
-#: accounts/templates/accounts/includes/ckb/_content_login_ckb.html:122
-#: accounts/templates/accounts/includes/en/_content_login_en.html:131
-#: accounts/templates/accounts/includes/fa/_content_login_fa.html:122
+#: accounts/templates/includes/accounts/ckb/_content_login_ckb.html:122
+#: accounts/templates/includes/accounts/en/_content_login_en.html:131
+#: accounts/templates/includes/accounts/fa/_content_login_fa.html:122
 msgid "Remember me."
 msgstr "من را به‌خاطر بسپار."
 
-#: accounts/templates/accounts/includes/ckb/_content_login_ckb.html:125
-#: accounts/templates/accounts/includes/en/_content_login_en.html:134
-#: accounts/templates/accounts/includes/fa/_content_login_fa.html:125
+#: accounts/templates/includes/accounts/ckb/_content_login_ckb.html:125
+#: accounts/templates/includes/accounts/en/_content_login_en.html:134
+#: accounts/templates/includes/accounts/fa/_content_login_fa.html:125
 msgid "Lost your password?"
 msgstr "گذرواژه خود را فراموش کرده‌اید؟"
 
-#: accounts/templates/accounts/includes/ckb/_content_login_ckb.html:141
-#: accounts/templates/accounts/includes/en/_content_login_en.html:150
-#: accounts/templates/accounts/includes/fa/_content_login_fa.html:141
+#: accounts/templates/includes/accounts/ckb/_content_login_ckb.html:141
+#: accounts/templates/includes/accounts/en/_content_login_en.html:150
+#: accounts/templates/includes/accounts/fa/_content_login_fa.html:141
 msgid "Don't have an account yet?"
 msgstr "حسابی ندارید؟"
 
-#: accounts/templates/accounts/includes/ckb/_content_login_ckb.html:143
-#: accounts/templates/accounts/includes/en/_content_login_en.html:152
-#: accounts/templates/accounts/includes/fa/_content_login_fa.html:143
+#: accounts/templates/includes/accounts/ckb/_content_login_ckb.html:143
+#: accounts/templates/includes/accounts/en/_content_login_en.html:152
+#: accounts/templates/includes/accounts/fa/_content_login_fa.html:143
 msgid ""
 "Registering for this project allows you to publish posts, articles, develop "
 "and create a profile to upload your thoughts and ideas.<br />To register, "
@@ -161,26 +163,28 @@ msgstr ""
 "و رمزعبور کافی است.<br />برای بهره‌وری از تمامی امکانات پروژه، بهتر است "
 "ثبت‌نام کنید."
 
-#: accounts/templates/accounts/includes/ckb/_content_login_ckb.html:147
-#: accounts/templates/accounts/includes/en/_content_login_en.html:156
-#: accounts/templates/accounts/includes/fa/_content_login_fa.html:147
+#: accounts/templates/includes/accounts/ckb/_content_login_ckb.html:147
+#: accounts/templates/includes/accounts/en/_content_login_en.html:156
+#: accounts/templates/includes/accounts/fa/_content_login_fa.html:147
 msgid "Register Now!"
 msgstr "ثبت‌نام کنید!"
 
-#: accounts/templates/accounts/includes/ckb/_content_profile_ckb.html:35
-#: accounts/templates/accounts/includes/en/_content_profile_en.html:35
-#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:35
-msgid "Control your account's profile"
-msgstr "پروفایل حسابتان را کنترل کنید"
+#: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:35
+#: accounts/templates/includes/accounts/fa/_content_profile_fa.html:35
+#: templates/account/password_change.html:45
+#: templates/account/password_change.html:258
+#: templates/account/password_change.html:462
+msgid "Control your account's password"
+msgstr "گذرواژه حسابتان را کنترل کنید"
 
-#: accounts/templates/accounts/includes/ckb/_content_profile_ckb.html:36
-#: accounts/templates/accounts/includes/en/_content_profile_en.html:36
-#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:36
+#: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:36
+#: accounts/templates/includes/accounts/en/_content_profile_en.html:36
+#: accounts/templates/includes/accounts/fa/_content_profile_fa.html:36
 msgid "Profile"
 msgstr "پروفایل"
 
-#: accounts/templates/accounts/includes/ckb/_content_profile_ckb.html:53
-#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:53
+#: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:53
+#: accounts/templates/includes/accounts/fa/_content_profile_fa.html:53
 #, fuzzy
 #| msgid "Scroll down - Scroll down -"
 msgid "Scroll down- Scroll down -"
@@ -188,102 +192,48 @@ msgstr ""
 "اسکـــــرول بـــــه پـــــایـیـن ـــ اسکـــــرول بـــــه پـــــایـیـن ـــ "
 "اسکـــــرول بـــــه پـــــایـیـن ـــ اسکـــــرول بـــــه پـــــایـیـن ـــ"
 
-#: accounts/templates/accounts/includes/ckb/_content_profile_ckb.html:79
-#: accounts/templates/accounts/includes/en/_content_profile_en.html:79
-#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:79
+#: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:79
+#: accounts/templates/includes/accounts/en/_content_profile_en.html:79
+#: accounts/templates/includes/accounts/fa/_content_profile_fa.html:79
 msgid "Manage your account profile status."
 msgstr "وضعیت پروفایل حسابتان را مدیریت کنید."
 
-#: accounts/templates/accounts/includes/ckb/_content_profile_ckb.html:126
-#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:131
-#: accounts/templates/accounts/includes/en/_content_profile_en.html:126
-#: accounts/templates/accounts/includes/en/_content_signup_en.html:141
-#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:126
-#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:131
+#: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:126
+#: accounts/templates/includes/accounts/ckb/_content_signup_ckb.html:131
+#: accounts/templates/includes/accounts/en/_content_profile_en.html:126
+#: accounts/templates/includes/accounts/en/_content_signup_en.html:141
+#: accounts/templates/includes/accounts/fa/_content_profile_fa.html:126
+#: accounts/templates/includes/accounts/fa/_content_signup_fa.html:131
 msgid "Username"
 msgstr "کاربر"
 
-#: accounts/templates/accounts/includes/ckb/_content_profile_ckb.html:131
-#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:136
-#: accounts/templates/accounts/includes/en/_content_profile_en.html:131
-#: accounts/templates/accounts/includes/en/_content_signup_en.html:146
-#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:131
-#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:136
+#: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:131
+#: accounts/templates/includes/accounts/ckb/_content_signup_ckb.html:136
+#: accounts/templates/includes/accounts/en/_content_profile_en.html:131
+#: accounts/templates/includes/accounts/en/_content_signup_en.html:146
+#: accounts/templates/includes/accounts/fa/_content_profile_fa.html:131
+#: accounts/templates/includes/accounts/fa/_content_signup_fa.html:136
 msgid "Full Name"
 msgstr "نام کامل"
 
-#: accounts/templates/accounts/includes/ckb/_content_profile_ckb.html:136
-#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:141
-#: accounts/templates/accounts/includes/en/_content_profile_en.html:136
-#: accounts/templates/accounts/includes/en/_content_signup_en.html:151
-#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:136
-#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:141
+#: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:136
+#: accounts/templates/includes/accounts/ckb/_content_signup_ckb.html:141
+#: accounts/templates/includes/accounts/en/_content_profile_en.html:136
+#: accounts/templates/includes/accounts/en/_content_signup_en.html:151
+#: accounts/templates/includes/accounts/fa/_content_profile_fa.html:136
+#: accounts/templates/includes/accounts/fa/_content_signup_fa.html:141
 msgid "Email Address"
 msgstr "نشانی ایمیل"
 
-#: accounts/templates/accounts/includes/ckb/_content_profile_ckb.html:151
-#: accounts/templates/accounts/includes/en/_content_profile_en.html:151
-#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:151
+#: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:151
+#: accounts/templates/includes/accounts/en/_content_profile_en.html:151
+#: accounts/templates/includes/accounts/fa/_content_profile_fa.html:151
 msgid "Update/Modify"
 msgstr "به‌روزرسانی/تغییر"
 
-#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:34
-#: accounts/templates/accounts/includes/en/_content_signup_en.html:34
-#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:34
-msgid "Register an Account"
-msgstr "یک حساب کاربری ایجاد کنید."
-
-#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:35
-#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:166
-#: accounts/templates/accounts/includes/en/_content_signup_en.html:35
-#: accounts/templates/accounts/includes/en/_content_signup_en.html:176
-#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:35
-#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:166
-msgid "Register"
-msgstr "ثبت‌نام"
-
-#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:78
-#: accounts/templates/accounts/includes/en/_content_signup_en.html:88
-#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:78
-msgid "Create an account."
-msgstr "حساب کاربری خود را ایجاد کنید."
-
-#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:110
-#: accounts/templates/accounts/includes/en/_content_signup_en.html:120
-#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:110
-msgid "Choose your profile avatar."
-msgstr "آواتاری برای پروفایل خود انتخاب کنید."
-
-#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:156
-#: accounts/templates/accounts/includes/en/_content_signup_en.html:166
-#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:156
-#: templates/account/password_change.html:144
-#: templates/account/password_change.html:347
-msgid "Again: Password"
-msgstr "گذرواژه: مجدد"
-
-#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:211
-#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:211
-#: templates/account/password_change.html:376
-msgid "Back to top"
-msgstr "بازگشت به بالا"
-
-#: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:211
-#: accounts/templates/accounts/includes/fa/_content_signup_fa.html:211
-msgid "Back to top."
-msgstr "بازگشت به بالا."
-
-#: accounts/templates/accounts/includes/en/_content_login_en.html:64
-#: accounts/templates/accounts/includes/en/_content_signup_en.html:64
-#: pages/templates/includes/pages/en/_about_content_en.html:65
-#: pages/templates/includes/pages/en/_index_content_en.html:70
-#: pages/templates/includes/pages/fa/_index_content_fa.html:70
-#: templates/account/password_change.html:75
-msgid "Made with..."
-msgstr "ساخته شده با..."
-
-#: accounts/templates/accounts/includes/en/_content_profile_en.html:164
-#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:164
+#: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:164
+#: accounts/templates/includes/accounts/en/_content_profile_en.html:164
+#: accounts/templates/includes/accounts/fa/_content_profile_fa.html:164
 msgid ""
 "These are the glories you've had: The posts, halls & projects; A summary of "
 "what you have done."
@@ -291,13 +241,15 @@ msgstr ""
 "اینها افتخاراتی هستند که شما داشته اید: پست ها، سالن ها و پروژه ها. خلاصه ای "
 "از کارهایی که انجام داده اید."
 
-#: accounts/templates/accounts/includes/en/_content_profile_en.html:171
-#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:171
+#: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:171
+#: accounts/templates/includes/accounts/en/_content_profile_en.html:171
+#: accounts/templates/includes/accounts/fa/_content_profile_fa.html:171
 msgid "Wanna change your password?"
 msgstr "می‌خواهید گذرواژه خود دهید؟"
 
-#: accounts/templates/accounts/includes/en/_content_profile_en.html:173
-#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:173
+#: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:173
+#: accounts/templates/includes/accounts/en/_content_profile_en.html:173
+#: accounts/templates/includes/accounts/fa/_content_profile_fa.html:173
 msgid ""
 "For security reasons, Auditorium does not allow you to change your password "
 "on your profile page. To change your account password, please visit the "
@@ -306,21 +258,86 @@ msgstr ""
 "به دلایل امنیتی، آودیتوریوم اجازه تغییر گذرواژه شما در صفحه پروفایل شما را "
 "نمی‌دهد. برای تغییر گذرواژه حساب خود، به صفحه تغییر گذرواژه مراجعه بفرمایید."
 
-#: accounts/templates/accounts/includes/en/_content_profile_en.html:177
-#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:177
+#: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:177
+#: accounts/templates/includes/accounts/en/_content_profile_en.html:177
+#: accounts/templates/includes/accounts/fa/_content_profile_fa.html:177
 #: templates/account/password_change.html:46
 #: templates/account/password_change.html:97
 #: templates/account/password_change.html:259
 #: templates/account/password_change.html:300
+#: templates/account/password_change.html:463
+#: templates/account/password_change.html:504
 msgid "Change Password"
 msgstr "تغییر گذرواژه"
 
-#: accounts/templates/accounts/includes/en/_content_profile_en.html:182
-#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:182
+#: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:182
+#: accounts/templates/includes/accounts/en/_content_profile_en.html:182
+#: accounts/templates/includes/accounts/fa/_content_profile_fa.html:182
 msgid "Wanna delete your account? :("
 msgstr "می‌خوای اکانتتو دیلیت کنی؟ :( <br /> دلت میاد بری؟ :("
 
-#: accounts/templates/accounts/includes/fa/_content_login_fa.html:79
+#: accounts/templates/includes/accounts/ckb/_content_signup_ckb.html:34
+#: accounts/templates/includes/accounts/en/_content_signup_en.html:34
+#: accounts/templates/includes/accounts/fa/_content_signup_fa.html:34
+msgid "Register an Account"
+msgstr "یک حساب کاربری ایجاد کنید."
+
+#: accounts/templates/includes/accounts/ckb/_content_signup_ckb.html:35
+#: accounts/templates/includes/accounts/ckb/_content_signup_ckb.html:166
+#: accounts/templates/includes/accounts/en/_content_signup_en.html:35
+#: accounts/templates/includes/accounts/en/_content_signup_en.html:176
+#: accounts/templates/includes/accounts/fa/_content_signup_fa.html:35
+#: accounts/templates/includes/accounts/fa/_content_signup_fa.html:166
+msgid "Register"
+msgstr "ثبت‌نام"
+
+#: accounts/templates/includes/accounts/ckb/_content_signup_ckb.html:78
+#: accounts/templates/includes/accounts/en/_content_signup_en.html:88
+#: accounts/templates/includes/accounts/fa/_content_signup_fa.html:78
+msgid "Create an account."
+msgstr "حساب کاربری خود را ایجاد کنید."
+
+#: accounts/templates/includes/accounts/ckb/_content_signup_ckb.html:110
+#: accounts/templates/includes/accounts/en/_content_signup_en.html:120
+#: accounts/templates/includes/accounts/fa/_content_signup_fa.html:110
+msgid "Choose your profile avatar."
+msgstr "آواتاری برای پروفایل خود انتخاب کنید."
+
+#: accounts/templates/includes/accounts/ckb/_content_signup_ckb.html:156
+#: accounts/templates/includes/accounts/en/_content_signup_en.html:166
+#: accounts/templates/includes/accounts/fa/_content_signup_fa.html:156
+#: templates/account/password_change.html:144
+#: templates/account/password_change.html:347
+#: templates/account/password_change.html:551
+msgid "Again: Password"
+msgstr "گذرواژه: مجدد"
+
+#: accounts/templates/includes/accounts/ckb/_content_signup_ckb.html:211
+#: accounts/templates/includes/accounts/fa/_content_signup_fa.html:211
+#: templates/account/password_change.html:376
+#: templates/account/password_change.html:580
+msgid "Back to top"
+msgstr "بازگشت به بالا"
+
+#: accounts/templates/includes/accounts/ckb/_content_signup_ckb.html:211
+#: accounts/templates/includes/accounts/fa/_content_signup_fa.html:211
+msgid "Back to top."
+msgstr "بازگشت به بالا."
+
+#: accounts/templates/includes/accounts/en/_content_login_en.html:64
+#: accounts/templates/includes/accounts/en/_content_signup_en.html:64
+#: pages/templates/includes/pages/en/_about_content_en.html:65
+#: pages/templates/includes/pages/en/_index_content_en.html:70
+#: pages/templates/includes/pages/fa/_index_content_fa.html:70
+#: templates/account/password_change.html:75
+msgid "Made with..."
+msgstr "ساخته شده با..."
+
+#: accounts/templates/includes/accounts/en/_content_profile_en.html:35
+msgid "Control your account's profile"
+msgstr "پروفایل حسابتان را کنترل کنید"
+
+#: accounts/templates/includes/accounts/fa/_content_login_fa.html:79
 msgid "Login."
 msgstr "ورود."
 
@@ -433,6 +450,7 @@ msgid "Hall"
 msgstr "تالار"
 
 #: documents/models.py:98
+#: pages/templates/includes/pages/fa/_index_content_fa.html:328
 msgid "Halls"
 msgstr "تالارها"
 
@@ -727,6 +745,7 @@ msgstr "تالارها را مشاهده بفرمایید"
 
 #: pages/templates/includes/pages/ckb/_index_content_ckb.html:328
 #: pages/templates/includes/pages/en/_index_content_en.html:327
+#: pages/templates/includes/pages/fa/_index_content_fa.html:327
 msgid "What We Discuss About"
 msgstr "درمورد چه چیزهایی بحث می‌کنیم؟"
 
@@ -740,13 +759,9 @@ msgstr "تالارهای پین‌شده"
 msgid "Auditorium: Login"
 msgstr "آودیتوریوم: ورود"
 
-#: templates/account/password_change.html:45
-#: templates/account/password_change.html:258
-msgid "Control your account's password"
-msgstr "گذرواژه حسابتان را کنترل کنید"
-
 #: templates/account/password_change.html:98
 #: templates/account/password_change.html:301
+#: templates/account/password_change.html:505
 msgid ""
 "If you want to change your password, Auditorium will do it for you on this "
 "page. Enter your current password and then set your new password."
@@ -757,21 +772,26 @@ msgstr ""
 
 #: templates/account/password_change.html:121
 #: templates/account/password_change.html:324
+#: templates/account/password_change.html:528
 msgid "Current Password: The current password you entered is wrong. Try again."
-msgstr "گذرواژه کنونی: گذرواژه‌ای که وارد کرده‌اید اشتباه است. لطفا مجدد تلاش کنید."
+msgstr ""
+"گذرواژه کنونی: گذرواژه‌ای که وارد کرده‌اید اشتباه است. لطفا مجدد تلاش کنید."
 
 #: templates/account/password_change.html:134
 #: templates/account/password_change.html:337
+#: templates/account/password_change.html:541
 msgid "Current password"
 msgstr "گذرواژه کنونی"
 
 #: templates/account/password_change.html:139
 #: templates/account/password_change.html:342
+#: templates/account/password_change.html:546
 msgid "New password"
-msgstr "گذرواژه جدید" 
+msgstr "گذرواژه جدید"
 
 #: templates/account/password_change.html:149
 #: templates/account/password_change.html:352
+#: templates/account/password_change.html:556
 msgid "Change password"
 msgstr "تغییر گذرواژه"
 
@@ -779,6 +799,46 @@ msgstr "تغییر گذرواژه"
 #: templates/account/signup.html:33
 msgid "Auditorium: Registration"
 msgstr "آودیتوریوم: ثبت‌نام"
+
+#: templates/includes/_header.html:17 templates/includes/_header.html:19
+#: templates/includes/_header.html:487 templates/includes/_header.html:489
+#: templates/includes/_header.html:958 templates/includes/_header.html:960
+msgid "Logo"
+msgstr "لوگو"
+
+#: templates/includes/_header.html:38 templates/includes/_header.html:51
+#: templates/includes/_header.html:69 templates/includes/_header.html:508
+#: templates/includes/_header.html:521 templates/includes/_header.html:539
+#: templates/includes/_header.html:979 templates/includes/_header.html:992
+#: templates/includes/_header.html:1010
+msgid "Search"
+msgstr "جست‌وجو"
+
+#: templates/includes/_header.html:61 templates/includes/_header.html:531
+#: templates/includes/_header.html:1002
+msgid "Type your keywords to search..."
+msgstr "کلیدواژه‌های مدنظرتان را برای جست‌وجو تایپ کنید..."
+
+#: templates/includes/_header.html:70 templates/includes/_header.html:108
+#: templates/includes/_header.html:540 templates/includes/_header.html:578
+#: templates/includes/_header.html:1011 templates/includes/_header.html:1049
+msgid "Close"
+msgstr "بستن"
+
+#: templates/includes/_header.html:80 templates/includes/_header.html:550
+#: templates/includes/_header.html:1021
+msgid "My Account"
+msgstr "حساب کاربری من"
+
+#: templates/includes/_header.html:107 templates/includes/_header.html:577
+#: templates/includes/_header.html:1048
+msgid "Open"
+msgstr "گشودن"
+
+#: templates/includes/_header.html:107 templates/includes/_header.html:577
+#: templates/includes/_header.html:1048
+msgid "Menu"
+msgstr "منو"
 
 #~ msgid "Scroll down- Scroll down-"
 #~ msgstr ""

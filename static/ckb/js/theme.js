@@ -2911,7 +2911,7 @@
 			$(".cursor-close").each(function () {
 				$(this).on("mouseenter", function () {
 					$ball.addClass("ball-close-enabled");
-					$ball.append('<div class="ball-close">بستن</div>');
+					$ball.append('<div class="ball-close">بەستن</div>');
 					gsap.to($ball, { duration: 0.3, yPercent: -75, width: 80, height: 80, opacity: 1 });
 					gsap.from(".ball-close", { duration: 0.3, scale: 0, autoAlpha: 0 });
 				}).on("mouseleave click", function () {

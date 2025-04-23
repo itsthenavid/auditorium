@@ -4,7 +4,7 @@ from .views import IndexView, AboutView
 
 # Set your URL paths for the app views' here.
 
-name = "pages"
+app_name = "pages"
 
 urlpatterns = [
     path("", IndexView.as_view(), name="index"),
