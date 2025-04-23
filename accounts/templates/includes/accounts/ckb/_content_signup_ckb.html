@@ -169,13 +169,13 @@
                         <!-- Begin shop go to login box 
                         ================================ -->
                         <div class="slr-box shop-goto-login-box">
-                            <h4 class="slr-heading"><i class="fas fa-unlock-alt"></i> از قبل حساب کاربری دارید؟</h4>
+                            <h4 class="slr-heading"><i class="fas fa-unlock-alt"></i> {% translate "Already have an account?" %}</h4>
                             <small class="tt-form-text">
-                                با وارد کردن نام کاربری و رمز عبور خود در اینجا وارد فروشگاه شوید. ورود به فروشگاه فرآیند خرید را ساده تر کرده و به شما امکان مدیریت حساب شخصی تان را می دهد.
+                                {% translate "Auditorium allows users to log in to the project using their username (or email) and password." %}
                             </small>
 
                             <div class="tt-btn tt-btn-dark margin-top-30">
-                                <a href="shop-login.html" data-hover="ورود">ورود</a>
+                                <a href="{% url "account_login" %}" data-hover="{% translate "Log in" %}">{% translate "Log in" %}</a>
                             </div>
                         </div>
                         <!-- End shop go to login box -->
