@@ -84,7 +84,6 @@ class UserProfileForm(forms.ModelForm):
 
     def save(self, commit=True):
         instance = super().save(commit=False)
-        instance.set_current_language(self.instance.get_current_language())
         instance.name = self.cleaned_data['name']
         instance.bio = self.cleaned_data['bio']
         if commit:

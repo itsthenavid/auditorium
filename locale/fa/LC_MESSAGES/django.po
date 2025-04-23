@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-22 04:38+0330\n"
+"POT-Creation-Date: 2025-04-23 03:15+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,23 +22,15 @@ msgstr ""
 msgid "Accounts"
 msgstr "حساب‌ها"
 
-#: accounts/models.py:54 documents/models.py:46
+#: accounts/forms.py:64 accounts/models.py:53 documents/models.py:46
 msgid "Name"
 msgstr "نام"
 
-#: accounts/models.py:55
+#: accounts/forms.py:65 accounts/models.py:54
 msgid "Enter your full name."
 msgstr "نام کاملتان را وارد کنید."
 
-#: accounts/models.py:62
-msgid "Avatar"
-msgstr "آواتار"
-
-#: accounts/models.py:63
-msgid "Select an avatar for your profile."
-msgstr "آواتاری برای پروفایلتان انتخاب کنید."
-
-#: accounts/models.py:69
+#: accounts/forms.py:70 accounts/models.py:68
 #: accounts/templates/accounts/includes/ckb/_content_profile_ckb.html:141
 #: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:146
 #: accounts/templates/accounts/includes/en/_content_profile_en.html:141
@@ -48,15 +40,23 @@ msgstr "آواتاری برای پروفایلتان انتخاب کنید."
 msgid "Bio"
 msgstr "بیو"
 
-#: accounts/models.py:70
+#: accounts/forms.py:71 accounts/models.py:69
 msgid "Write a short bio about yourself."
 msgstr "بیویی کوتاه در مورد خود بنویسید."
 
-#: accounts/models.py:74
+#: accounts/models.py:61
+msgid "Avatar"
+msgstr "آواتار"
+
+#: accounts/models.py:62
+msgid "Select an avatar for your profile."
+msgstr "آواتاری برای پروفایلتان انتخاب کنید."
+
+#: accounts/models.py:73
 msgid "User"
 msgstr "کاربر"
 
-#: accounts/models.py:75
+#: accounts/models.py:74
 msgid "Users"
 msgstr "کاربران"
 
@@ -83,6 +83,8 @@ msgstr "ورود"
 #: accounts/templates/accounts/includes/fa/_content_login_fa.html:37
 #: accounts/templates/accounts/includes/fa/_content_profile_fa.html:37
 #: accounts/templates/accounts/includes/fa/_content_signup_fa.html:36
+#: templates/account/password_change.html:47
+#: templates/account/password_change.html:260
 msgid "Manage your activities."
 msgstr "فعالیت‌های خود را مدیریت کنید."
 
@@ -99,6 +101,8 @@ msgstr "فعالیت‌های خود را مدیریت کنید."
 #: pages/templates/includes/pages/en/_index_content_en.html:58
 #: pages/templates/includes/pages/fa/_about_content_fa.html:53
 #: pages/templates/includes/pages/fa/_index_content_fa.html:58
+#: templates/account/password_change.html:63
+#: templates/account/password_change.html:276
 msgid "Scroll down - Scroll down -"
 msgstr ""
 "اسکـــــرول بـــــه پـــــایـیـن ـــ اسکـــــرول بـــــه پـــــایـیـن ـــ "
@@ -253,11 +257,14 @@ msgstr "آواتاری برای پروفایل خود انتخاب کنید."
 #: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:156
 #: accounts/templates/accounts/includes/en/_content_signup_en.html:166
 #: accounts/templates/accounts/includes/fa/_content_signup_fa.html:156
+#: templates/account/password_change.html:144
+#: templates/account/password_change.html:347
 msgid "Again: Password"
 msgstr "گذرواژه: مجدد"
 
 #: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:211
 #: accounts/templates/accounts/includes/fa/_content_signup_fa.html:211
+#: templates/account/password_change.html:376
 msgid "Back to top"
 msgstr "بازگشت به بالا"
 
@@ -271,22 +278,61 @@ msgstr "بازگشت به بالا."
 #: pages/templates/includes/pages/en/_about_content_en.html:65
 #: pages/templates/includes/pages/en/_index_content_en.html:70
 #: pages/templates/includes/pages/fa/_index_content_fa.html:70
+#: templates/account/password_change.html:75
 msgid "Made with..."
 msgstr "ساخته شده با..."
+
+#: accounts/templates/accounts/includes/en/_content_profile_en.html:164
+#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:164
+msgid ""
+"These are the glories you've had: The posts, halls & projects; A summary of "
+"what you have done."
+msgstr ""
+"اینها افتخاراتی هستند که شما داشته اید: پست ها، سالن ها و پروژه ها. خلاصه ای "
+"از کارهایی که انجام داده اید."
+
+#: accounts/templates/accounts/includes/en/_content_profile_en.html:171
+#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:171
+msgid "Wanna change your password?"
+msgstr "می‌خواهید گذرواژه خود دهید؟"
+
+#: accounts/templates/accounts/includes/en/_content_profile_en.html:173
+#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:173
+msgid ""
+"For security reasons, Auditorium does not allow you to change your password "
+"on your profile page. To change your account password, please visit the "
+"Change Password page."
+msgstr ""
+"به دلایل امنیتی، آودیتوریوم اجازه تغییر گذرواژه شما در صفحه پروفایل شما را "
+"نمی‌دهد. برای تغییر گذرواژه حساب خود، به صفحه تغییر گذرواژه مراجعه بفرمایید."
+
+#: accounts/templates/accounts/includes/en/_content_profile_en.html:177
+#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:177
+#: templates/account/password_change.html:46
+#: templates/account/password_change.html:97
+#: templates/account/password_change.html:259
+#: templates/account/password_change.html:300
+msgid "Change Password"
+msgstr "تغییر گذرواژه"
+
+#: accounts/templates/accounts/includes/en/_content_profile_en.html:182
+#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:182
+msgid "Wanna delete your account? :("
+msgstr "می‌خوای اکانتتو دیلیت کنی؟ :( <br /> دلت میاد بری؟ :("
 
 #: accounts/templates/accounts/includes/fa/_content_login_fa.html:79
 msgid "Login."
 msgstr "ورود."
 
-#: config/settings.py:153
+#: config/settings.py:154
 msgid "English"
 msgstr "انگلیسی"
 
-#: config/settings.py:154
+#: config/settings.py:155
 msgid "Persian"
 msgstr "فارسی"
 
-#: config/settings.py:155
+#: config/settings.py:156
 msgid "Central Kurdish"
 msgstr "کُردی مرکزی (سورانی)"
 
@@ -693,6 +739,41 @@ msgstr "تالارهای پین‌شده"
 #: templates/account/login.html:33
 msgid "Auditorium: Login"
 msgstr "آودیتوریوم: ورود"
+
+#: templates/account/password_change.html:45
+#: templates/account/password_change.html:258
+msgid "Control your account's password"
+msgstr "گذرواژه حسابتان را کنترل کنید"
+
+#: templates/account/password_change.html:98
+#: templates/account/password_change.html:301
+msgid ""
+"If you want to change your password, Auditorium will do it for you on this "
+"page. Enter your current password and then set your new password."
+msgstr ""
+"چنانچه قصد تغییر گذرواژه خود را دارید، آودیتوریوم در این صفحه این کار را "
+"برای شما انجام می‌دهد. رمز کنونی خودتان را وارد کرده و سپس گذرواژه جدید خود "
+"را تنظیم بفرمایید."
+
+#: templates/account/password_change.html:121
+#: templates/account/password_change.html:324
+msgid "Current Password: The current password you entered is wrong. Try again."
+msgstr "گذرواژه کنونی: گذرواژه‌ای که وارد کرده‌اید اشتباه است. لطفا مجدد تلاش کنید."
+
+#: templates/account/password_change.html:134
+#: templates/account/password_change.html:337
+msgid "Current password"
+msgstr "گذرواژه کنونی"
+
+#: templates/account/password_change.html:139
+#: templates/account/password_change.html:342
+msgid "New password"
+msgstr "گذرواژه جدید" 
+
+#: templates/account/password_change.html:149
+#: templates/account/password_change.html:352
+msgid "Change password"
+msgstr "تغییر گذرواژه"
 
 #: templates/account/signup.html:9 templates/account/signup.html:21
 #: templates/account/signup.html:33

@@ -32,7 +32,7 @@
             Use class "max-width-*" to set caption max width if needed. For example "max-width-1000". More info about helper classes can be found in the file "helper.css".
             -->
             <div class="ph-caption">
-                <h1 class="ph-caption-title ph-appear">{% translate "Control your account's profile" %}</h1>
+                <h1 class="ph-caption-title ph-appear">{% translate "Control your account's password" %}</h1>
                 <div class="ph-caption-title-ghost ph-appear">{% translate "Profile" %}</div>
                 <div class="ph-caption-subtitle ph-appear">{% translate "Manage your activities." %}</div>
             </div>
@@ -161,13 +161,27 @@
                         <!-- Begin shop go to login box 
                         ================================ -->
                         <div class="slr-box shop-goto-login-box">
-                            <h4 class="slr-heading"><i class="fas fa-unlock-alt"></i> از قبل حساب کاربری دارید؟</h4>
+                            <h4 class="slr-heading"><i class="fas fa-cloud"></i> {% translate "These are the glories you've had: The posts, halls & projects; A summary of what you have done." %}</h4>
                             <small class="tt-form-text">
-                                با وارد کردن نام کاربری و رمز عبور خود در اینجا وارد فروشگاه شوید. ورود به فروشگاه فرآیند خرید را ساده تر کرده و به شما امکان مدیریت حساب شخصی تان را می دهد.
+                                Login here by filling you're username and password to enter to the shop. Shop login will simplify the purchase process and allows you to manage your personal account.
+                            </small>
+
+                            <br /><hr /><br />
+
+                            <h4 class="slr-heading"><i class="fas fa-unlock-alt"></i> {% translate "Wanna change your password?" %}</h4>
+                            <small class="tt-form-text">
+                                {% translate "For security reasons, Auditorium does not allow you to change your password on your profile page. To change your account password, please visit the Change Password page." %}
                             </small>
 
                             <div class="tt-btn tt-btn-dark margin-top-30">
-                                <a href="shop-login.html" data-hover="ورود">ورود</a>
+                                <a href="{% url "account_change_password" %}" data-hover="{% translate "Change Password" %}">{% translate "Change Password" %}</a>
+                            </div>
+
+                            <br /><hr /><br />
+
+                            <h4 class="slr-heading"><i class="fas fa-cross"></i> {% translate "Wanna delete your account? :(" %}</h4>
+                            <div class="margin-top-30">
+
                             </div>
                         </div>
                         <!-- End shop go to login box -->

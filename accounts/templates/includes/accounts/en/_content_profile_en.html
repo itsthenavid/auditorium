@@ -170,11 +170,11 @@
 
                             <h4 class="slr-heading"><i class="fas fa-unlock-alt"></i> {% translate "Wanna change your password?" %}</h4>
                             <small class="tt-form-text">
-                                Login here by filling you're username and password to enter to the shop. Shop login will simplify the purchase process and allows you to manage your personal account.
+                                {% translate "For security reasons, Auditorium does not allow you to change your password on your profile page. To change your account password, please visit the Change Password page." %}
                             </small>
 
                             <div class="tt-btn tt-btn-dark margin-top-30">
-                                <a href="shop-login.html" data-hover="Log in">Log in</a>
+                                <a href="{% url "account_change_password" %}" data-hover="{% translate "Change Password" %}">{% translate "Change Password" %}</a>
                             </div>
 
                             <br /><hr /><br />

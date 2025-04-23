@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-22 04:38+0330\n"
+"POT-Creation-Date: 2025-04-23 03:57+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,23 +22,15 @@ msgstr ""
 msgid "Accounts"
 msgstr "ئەکاونتەکان"
 
-#: accounts/models.py:54 documents/models.py:46
+#: accounts/forms.py:64 accounts/models.py:53 documents/models.py:46
 msgid "Name"
 msgstr "ناو"
 
-#: accounts/models.py:55
+#: accounts/forms.py:65 accounts/models.py:54
 msgid "Enter your full name."
 msgstr "ناوی تەواوی خۆت بنووسە."
 
-#: accounts/models.py:62
-msgid "Avatar"
-msgstr "ئاڤاتا"
-
-#: accounts/models.py:63
-msgid "Select an avatar for your profile."
-msgstr "ئاڤاتارییەک بۆ پڕۆفایلی خۆت هەڵبژێرە."
-
-#: accounts/models.py:69
+#: accounts/forms.py:70 accounts/models.py:68
 #: accounts/templates/accounts/includes/ckb/_content_profile_ckb.html:141
 #: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:146
 #: accounts/templates/accounts/includes/en/_content_profile_en.html:141
@@ -48,15 +40,23 @@ msgstr "ئاڤاتارییەک بۆ پڕۆفایلی خۆت هەڵبژێرە."
 msgid "Bio"
 msgstr "بیۆ"
 
-#: accounts/models.py:70
+#: accounts/forms.py:71 accounts/models.py:69
 msgid "Write a short bio about yourself."
 msgstr "کورتە بایۆیەک لەسەر خۆت بنووسە."
 
-#: accounts/models.py:74
+#: accounts/models.py:61
+msgid "Avatar"
+msgstr "ئاڤاتا"
+
+#: accounts/models.py:62
+msgid "Select an avatar for your profile."
+msgstr "ئاڤاتارییەک بۆ پڕۆفایلی خۆت هەڵبژێرە."
+
+#: accounts/models.py:73
 msgid "User"
 msgstr "بەکارهێنەر"
 
-#: accounts/models.py:75
+#: accounts/models.py:74
 msgid "Users"
 msgstr "بەکارهێنەرەکان"
 
@@ -83,6 +83,8 @@ msgstr "چوونەژوورەوە"
 #: accounts/templates/accounts/includes/fa/_content_login_fa.html:37
 #: accounts/templates/accounts/includes/fa/_content_profile_fa.html:37
 #: accounts/templates/accounts/includes/fa/_content_signup_fa.html:36
+#: templates/account/password_change.html:47
+#: templates/account/password_change.html:260
 msgid "Manage your activities."
 msgstr "بەڕێوەبردنی چالاکییەکانت."
 
@@ -99,6 +101,8 @@ msgstr "بەڕێوەبردنی چالاکییەکانت."
 #: pages/templates/includes/pages/en/_index_content_en.html:58
 #: pages/templates/includes/pages/fa/_about_content_fa.html:53
 #: pages/templates/includes/pages/fa/_index_content_fa.html:58
+#: templates/account/password_change.html:63
+#: templates/account/password_change.html:276
 msgid "Scroll down - Scroll down -"
 msgstr ""
 "ئێسکـــــرۆل بـــــۆ خوـــــارۆ ـــ ئێسکـــــرۆل بـــــۆ خوـــــارۆ ـــ "
@@ -165,7 +169,6 @@ msgstr "تۆمارکردن!"
 
 #: accounts/templates/accounts/includes/ckb/_content_profile_ckb.html:35
 #: accounts/templates/accounts/includes/en/_content_profile_en.html:35
-#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:35
 msgid "Control your account's profile"
 msgstr "پڕۆفایلی ئەکاونتەکەت کۆنتڕۆڵ بکە"
 
@@ -253,11 +256,14 @@ msgstr "ئاڤاتاری پڕۆفایلی خۆت هەڵبژێرە."
 #: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:156
 #: accounts/templates/accounts/includes/en/_content_signup_en.html:166
 #: accounts/templates/accounts/includes/fa/_content_signup_fa.html:156
+#: templates/account/password_change.html:144
+#: templates/account/password_change.html:347
 msgid "Again: Password"
 msgstr "نهێنوشە: دووبارەی کەرۆ"
 
 #: accounts/templates/accounts/includes/ckb/_content_signup_ckb.html:211
 #: accounts/templates/accounts/includes/fa/_content_signup_fa.html:211
+#: templates/account/password_change.html:376
 msgid "Back to top"
 msgstr "گەڕانەوە بۆ سەرەوە"
 
@@ -271,22 +277,63 @@ msgstr "گەڕانەوە بۆ سەرەوە."
 #: pages/templates/includes/pages/en/_about_content_en.html:65
 #: pages/templates/includes/pages/en/_index_content_en.html:70
 #: pages/templates/includes/pages/fa/_index_content_fa.html:70
+#: templates/account/password_change.html:75
 msgid "Made with..."
 msgstr "دروستکراو بە..."
+
+#: accounts/templates/accounts/includes/en/_content_profile_en.html:164
+#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:164
+msgid ""
+"These are the glories you've had: The posts, halls & projects; A summary of "
+"what you have done."
+msgstr "ئەمانە ئەو شکۆمەندیانەن کە هەتبووە: پۆستەکان، هۆڵەکان و پڕۆژەکان؛ پوختەیەک لەو کارانەی کە کردووتە."
+
+#: accounts/templates/accounts/includes/en/_content_profile_en.html:171
+#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:171
+msgid "Wanna change your password?"
+msgstr "دەتەوێت نهێنوشەکەت بگۆری؟"
+
+#: accounts/templates/accounts/includes/en/_content_profile_en.html:173
+#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:173
+msgid ""
+"For security reasons, Auditorium does not allow you to change your password "
+"on your profile page. To change your account password, please visit the "
+"Change Password page."
+msgstr "لەبەر هۆکاری ئەمنی، ئۆدیتۆریۆم ڕێگەت پێنادات وشەی نهێنی لە لاپەڕەی پڕۆفایلی خۆتدا بگۆڕیت. بۆ گۆڕینی وشەی نهێنی ئەکاونتەکەت، تکایە سەردانی لاپەڕەی گۆڕینی وشەی نهێنی بکە."
+
+#: accounts/templates/accounts/includes/en/_content_profile_en.html:177
+#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:177
+#: templates/account/password_change.html:46
+#: templates/account/password_change.html:97
+#: templates/account/password_change.html:259
+#: templates/account/password_change.html:300
+msgid "Change Password"
+msgstr "نهێنوشەکەت بگۆرە"
+
+#: accounts/templates/accounts/includes/en/_content_profile_en.html:182
+#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:182
+msgid "Wanna delete your account? :("
+msgstr "دەتەوێت ئەکاونتەکەت بسڕیتەوە؟ :("
 
 #: accounts/templates/accounts/includes/fa/_content_login_fa.html:79
 msgid "Login."
 msgstr "چوونەژوورەوە."
 
-#: config/settings.py:153
+#: accounts/templates/accounts/includes/fa/_content_profile_fa.html:35
+#: templates/account/password_change.html:45
+#: templates/account/password_change.html:258
+msgid "Control your account's password"
+msgstr "نهێنوشەی ئەکاونتەکەت کۆنتڕۆڵ بکە"
+
+#: config/settings.py:154
 msgid "English"
 msgstr "ئینگلیزی"
 
-#: config/settings.py:154
+#: config/settings.py:155
 msgid "Persian"
 msgstr "فارسی"
 
-#: config/settings.py:155
+#: config/settings.py:156
 msgid "Central Kurdish"
 msgstr "کوردی ناوەڕاست"
 
@@ -692,6 +739,33 @@ msgstr "هۆڵە پین کراوەکان"
 #: templates/account/login.html:33
 msgid "Auditorium: Login"
 msgstr "ئاودیتۆریۆم: چوونەژوورەوە"
+
+#: templates/account/password_change.html:98
+#: templates/account/password_change.html:301
+msgid ""
+"If you want to change your password, Auditorium will do it for you on this "
+"page. Enter your current password and then set your new password."
+msgstr "ئەگەر دەتەوێت پاسۆردەکەت بگۆڕیت، ئۆدیتۆریۆم لەم لاپەڕەیەدا بۆت دەکات. وشەی نهێنی ئێستات داخڵ بکە و پاشان وشەی نهێنی نوێت دابنێ."
+
+#: templates/account/password_change.html:121
+#: templates/account/password_change.html:324
+msgid "Current Password: The current password you entered is wrong. Try again."
+msgstr "وشەی نهێنی ئێستا: ئەو وشەی نهێنی ئێستا کە داوتە هەڵەیە. دووبارە هەوڵبدەرەوە."
+
+#: templates/account/password_change.html:134
+#: templates/account/password_change.html:337
+msgid "Current password"
+msgstr "وشەی نهێنی ئێستا"
+
+#: templates/account/password_change.html:139
+#: templates/account/password_change.html:342
+msgid "New password"
+msgstr "وشەی نهێنی نوێ"
+
+#: templates/account/password_change.html:149
+#: templates/account/password_change.html:352
+msgid "Change password"
+msgstr "گۆڕینی وشەی نهێنی"
 
 #: templates/account/signup.html:9 templates/account/signup.html:21
 #: templates/account/signup.html:33

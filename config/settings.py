@@ -14,6 +14,7 @@ from pathlib import Path
 from os import environ as env 
 
 from django.utils.translation import gettext_lazy as _
+from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -205,6 +206,14 @@ AUTHENTICATION_BACKENDS = [
 ACCOUNT_FORMS = {
     'signup': 'accounts.forms.CustomSignupForm',
 }
+
+LOGIN_REDIRECT_URL = reverse_lazy("profile")
+
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+
+ACCOUNT_PASSWORD_CHANGE_REDIRECT_URL = reverse_lazy("profile")
+
+ACCOUNT_LOGOUT_ON_GET = True
 
 # CKEditor 5 settings
 # https://github.com/django-ckeditor/django-ckeditor-5
