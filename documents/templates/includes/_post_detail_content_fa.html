@@ -1,0 +1,641 @@
+{% load i18n %}
+{% load post_filters %}
+
+<div id="content-wrap">
+    <!-- ========================
+    ///// Begin page header /////
+    ============================= 
+    * ATENTION: This page header is slightly different from the default page header! 
+    It contains some extra elements and classec specifically for a blog post.
+    ============================= 
+    * Use class "ph-full" to enable fullscreen size.
+    * Use class "ph-cap-sm", "ph-cap-lg", "ph-cap-xlg" or "ph-cap-xxlg" to set caption size (no class = default size).
+    * Use class "ph-center" to enable content center position.
+    * Use class "ph-bg-image" to enable page header background image (required for a portfolio single project!).
+    * Use class "ph-bg-image-is-light" if needed, it makes the elements dark and more visible if you use a very light image (effect only with class "ph-bg-image").
+    * Use class "ph-image-shadow" to enable page header background image (effect only with class "ph-bg-image").
+    * Use class "ph-image-cropped" to crop image. It fixes image dimensions (no effect for "ph-bg-image"!).
+    * Use class "ph-image-cover-*" to set image overlay opacity. For example "ph-image-cover-2" or "ph-image-cover-2-5" (up to "ph-image-cover-9-5").
+    * Use class "ph-content-parallax" to enable content parallax.
+    * Use class "ph-stroke" to enable caption title stroke style.
+    -->
+    <div id="page-header" class="ph-full ph-cap-sm ph-center ph-bg-image ph-image-shadow ph-image-cover-6 ph-content-parallax">
+        <div class="page-header-inner tt-wrap max-width-1400">
+            <!-- Begin page header image 
+            ============================= -->
+            <div class="ph-image">
+                <div class="ph-image-inner">
+                    <img src="{{ object.artwork.url }}" alt="تصویر" />
+                </div>
+            </div>
+            <!-- End page header image -->
+
+            <!-- Begin page header caption
+            =============================== 
+            Use class "max-width-*" to set caption max width if needed. For example "max-width-1000". More info about helper classes can be found in the file "helper.css".
+            -->
+            <div class="ph-caption">
+                <div class="ph-categories ph-appear">
+                    <a href="blog-archive.html" class="ph-category">{{ object.hall.title }}</a>
+                    <!-- <a href="blog-archive.html" class="ph-category">دسته بندی نشده</a> -->
+                </div>
+                <!-- /.ph-categories -->
+
+                <h2 class="ph-caption-title ph-appear">{{ object.title }}</h2>
+                <!-- You can use <br class="hide-from-lg"> to break a text line if needed -->
+
+                <div class="ph-meta ph-appear">
+                    <span class="ph-meta-published">{{ object.publish_datetime }}</span>
+                    <span class="ph-meta-posted-by">نویسنده: <a href="blog-archive.html" title="مشاهده همه پست های مرتضی بهبودی">{{ object.author.get_user_shown_name }}</a></span>
+                </div>
+                <!-- /.ph-meta -->
+            </div>
+            <!-- End page header caption -->
+        </div>
+        <!-- /.page-header-inner -->
+
+        <!-- Begin scroll down circle (you can change "data-offset" to set scroll top offset) 
+        ============================== -->
+        <a href="#page-content" class="scroll-down-circle" data-offset="30">
+            <div class="sdc-inner ph-appear">
+                <div class="sdc-icon"><i class="fas fa-chevron-down"></i></div>
+                <svg viewBox="0 0 500 500">
+                    <defs>
+                        <path d="M50,250c0-110.5,89.5-200,200-200s200,89.5,200,200s-89.5,200-200,200S50,360.5,50,250" id="textcircle"></path>
+                    </defs>
+                    <text dy="30">
+                        <textPath xlink:href="#textcircle">{% translate "Scroll down - Scroll down -" %}</textPath>
+                    </text>
+                </svg>
+            </div>
+            <!-- /.sdc-inner -->
+        </a>
+        <!-- End scroll down circle -->
+
+        <!-- Begin page header share (share buttons are for design purposes only!) 
+        ============================= -->
+        <div class="ph-share">
+            <div class="ph-share-trigger ph-appear">
+                <div class="ph-share-text">به اشتراک گذاری</div>
+                <div class="ph-share-icon magnetic-item"><i class="fas fa-share-alt"></i></div>
+            </div>
+            <!-- /.ph-share-trigger -->
+
+            <div class="ph-share-content">
+                <div class="ph-share-close cursor-close"><div class="bg-noise"></div></div>
+                <div class="ph-share-inner">
+                    <h1 class="ph-share-title ph-share-appear">انتشار مقاله!</h1>
+                    <div class="ph-share-subtitle ph-share-appear">این مقاله را با دوستان خود به اشتراک بگذارید</div>
+
+                    <div class="social-buttons ph-share-appear">
+                        <ul>
+                            <li>
+                                <a href="#0" class="magnetic-item" title="به اشتراک گذاری در فیس بوک"><i class="fab fa-facebook-f"></i></a>
+                            </li>
+                            <li>
+                                <a href="#0" class="magnetic-item" title="به اشتراک گذاری در توییتر"><i class="fab fa-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a href="#0" class="magnetic-item" title="به اشتراک گذاری در پینترست"><i class="fab fa-pinterest"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.social-buttons -->
+                </div>
+                <!-- /.ph-share-inner -->
+
+                <div class="ph-share-ghost ph-share-appear">اشتراک</div>
+            </div>
+            <!-- /.ph-share-content -->
+        </div>
+        <!-- End page header share -->
+    </div>
+    <!-- End page header -->
+
+    <!-- *************************************
+    *********** Begin page content *********** 
+    ************************************** -->
+    <div id="page-content">
+        <!-- =======================
+        ///// Begin tt-section /////
+        ============================ 
+        * You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
+        -->
+        <div class="tt-section">
+            <div class="tt-section-inner tt-wrap max-width-900">
+                <!-- Begin blog post 
+                ===================== -->
+                <article class="tt-blog-post lightgallery">
+                    <!-- Begin blog post content -->
+                    <div class="tt-blog-post-content">
+                        {{ object.content|process_blockquotes|process_figures|safe }}
+                    </div>
+                    <!-- End blog post content -->
+
+                    <!-- Begin blog post tags -->
+                    <div class="tt-blog-post-tags">
+                        <ul>
+                            <li><span>برچسب ها:</span></li>
+                            <li><a href="blog-archive.html">#عکاسی</a></li>
+                            <li><a href="blog-archive.html">#سفر</a></li>
+                            <li><a href="blog-archive.html">#حرکت</a></li>
+                        </ul>
+                    </div>
+                    <!-- End blog post tags -->
+
+                    <!-- Begin blog post share (Note: for design purposes only!) 
+                    =========================== 
+                    * Use class "bss-fixed-bottom" to enable post share fixed bottom position (effect only on small screens!!!).
+                    -->
+                    <div class="tt-blog-post-share">
+                        <div class="tt-bps-text">به اشتراک گذاری:</div>
+                        <div class="social-buttons">
+                            <ul>
+                                <li>
+                                    <a href="#0" class="magnetic-item" rel="noopener" title="به اشتراک گذاری در فیس بوک"><i class="fab fa-facebook-f"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#0" class="magnetic-item" rel="noopener" title="به اشتراک گذاری در توییتر"><i class="fab fa-twitter"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#0" class="magnetic-item" rel="noopener" title="به اشتراک گذاری در پینترست"><i class="fab fa-pinterest"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- /.social-buttons -->
+                    </div>
+                    <!-- End blog post share -->
+                </article>
+                <!-- End blog post -->
+
+                <!-- Begin blog post nav 
+                ======================== -->
+                <div class="tt-blog-post-nav">
+                    <div class="tt-bp-nav-col tt-bp-nav-right">
+                        <div class="tt-bp-nav-text">
+                            <span><i class="fas fa-angle-right"></i></span>پست قبلی
+                        </div>
+                        <h4 class="tt-bp-nav-title"><a href="#">رازهایی برای تکمیل سریع و کارآمد پروژه شما</a></h4>
+                    </div>
+                    <div class="tt-bp-nav-col tt-bp-nav-left">
+                        <div class="tt-bp-nav-text">
+                            پست بعدی<span><i class="fas fa-angle-left"></i></span>
+                        </div>
+                        <h4 class="tt-bp-nav-title"><a href="#">چرا برخی افراد تقریبا همیشه با این روش پول پس انداز می کنند</a></h4>
+                    </div>
+                </div>
+                <!-- End blog post nav -->
+
+                <!-- Begin post comments 
+                ========================= -->
+                <div id="tt-blog-post-comments">
+                    <h4 class="tt-bpc-heading">5 نظر:</h4>
+
+                    <!-- Begin tt-Comments list 
+                    ============================ -->
+                    <ul class="tt-comments-list">
+                        <!-- Begin tt-comment -->
+                        <li class="tt-comment">
+                            <a href="#" class="tt-comment-avatar">
+                                <img src="assets/img/low-qlt-thumb.jpg" data-src="assets/img/blog/avatar.jpg" class="tt-lazy" alt="تصویر" />
+                            </a>
+                            <div class="tt-comment-body">
+                                <div class="tt-comment-meta">
+                                    <h4 class="tt-comment-heading"><a href="#">هومن عقیلی</a></h4>
+                                    <span class="tt-comment-time">21 آبان 1401 در ساعت 10:24 صبح</span>
+                                </div>
+                                <span class="tt-comment-reply"><a href="#">پاسخ</a></span>
+                                <div class="tt-comment-text">
+                                    <p>
+                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد کتابهای زیادی در شصت و سه درصد گذشته حال و آینده.
+                                    </p>
+                                </div>
+                                <!-- /.tt-comment-text -->
+                            </div>
+                            <!-- /.tt-comment-body -->
+                        </li>
+                        <!-- End tt-comment -->
+
+                        <!-- Begin tt-comment -->
+                        <li class="tt-comment">
+                            <a href="#" class="tt-comment-avatar">
+                                <img src="assets/img/low-qlt-thumb.jpg" data-src="assets/img/blog/avatar.jpg" class="tt-lazy" alt="تصویر" />
+                            </a>
+                            <div class="tt-comment-body">
+                                <div class="tt-comment-meta">
+                                    <h4 class="tt-comment-heading"><a href="#">مونا شاکری</a></h4>
+                                    <span class="tt-comment-time">21 آبان 1401 در ساعت 10:24 صبح</span>
+                                </div>
+                                <span class="tt-comment-reply"><a href="#">پاسخ</a></span>
+                                <div class="tt-comment-text">
+                                    <p>
+                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
+                                    </p>
+                                </div>
+                                <!-- /.tt-comment-text -->
+
+                                <!-- Begin tt comments list 
+                                ============================ -->
+                                <ul class="tt-comments-list">
+                                    <!-- Begin tt-comment -->
+                                    <li class="tt-comment">
+                                        <a href="#" class="tt-comment-avatar">
+                                            <img src="assets/img/low-qlt-thumb.jpg" data-src="assets/img/blog/avatar.jpg" class="tt-lazy" alt="تصویر" />
+                                        </a>
+                                        <div class="tt-comment-body">
+                                            <div class="tt-comment-meta">
+                                                <h4 class="tt-comment-heading"><a href="#">مرتضی بهبودی</a></h4>
+                                                <span class="tt-comment-time">21 آبان 1401 در ساعت 10:24 صبح</span>
+                                            </div>
+                                            <span class="tt-comment-reply"><a href="#">پاسخ</a></span>
+                                            <div class="tt-comment-text">
+                                                <p>
+                                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد کتابهای زیادی در شصت و سه درصد گذشته حال و آینده.
+                                                </p>
+                                            </div>
+                                            <!-- /.tt-comment-text -->
+                                        </div>
+                                        <!-- /.tt-comment-body -->
+                                    </li>
+                                    <!-- End tt-comment -->
+
+                                    <!-- Begin tt-comment -->
+                                    <li class="tt-comment">
+                                        <a href="#" class="tt-comment-avatar">
+                                            <img src="assets/img/low-qlt-thumb.jpg" data-src="assets/img/blog/avatar.jpg" class="tt-lazy" alt="تصویر" />
+                                        </a>
+                                        <div class="tt-comment-body">
+                                            <div class="tt-comment-meta">
+                                                <h4 class="tt-comment-heading"><a href="#">مونا شاکری</a></h4>
+                                                <span class="tt-comment-time">21 آبان 1401 در ساعت 10:24 صبح</span>
+                                            </div>
+                                            <span class="tt-comment-reply"><a href="#">پاسخ</a></span>
+                                            <div class="tt-comment-text">
+                                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.</p>
+                                            </div>
+                                            <!-- /.tt-comment-text -->
+                                        </div>
+                                        <!-- /.tt-comment-body -->
+                                    </li>
+                                    <!-- End tt-comment -->
+                                </ul>
+                                <!-- End tt comments list -->
+                            </div>
+                            <!-- /.tt-comment-body -->
+                        </li>
+                        <!-- End tt-comment -->
+
+                        <!-- Begin tt-comment -->
+                        <li class="tt-comment">
+                            <a href="#" class="tt-comment-avatar">
+                                <img src="assets/img/low-qlt-thumb.jpg" data-src="assets/img/blog/avatar.jpg" class="tt-lazy" alt="تصویر" />
+                            </a>
+                            <div class="tt-comment-body">
+                                <div class="tt-comment-meta">
+                                    <h4 class="tt-comment-heading"><a href="#">فریبا خزایی</a></h4>
+                                    <span class="tt-comment-time">21 آبان 1401 در ساعت 10:24 صبح</span>
+                                </div>
+                                <span class="tt-comment-reply"><a href="#">پاسخ</a></span>
+                                <div class="tt-comment-text">
+                                    <p>
+                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
+                                    </p>
+                                </div>
+                                <!-- /.tt-comment-text -->
+                            </div>
+                            <!-- /.tt-comment-body -->
+                        </li>
+                        <!-- End tt-comment -->
+                    </ul>
+                    <!-- End tt-Comments list -->
+
+                    <!-- Begin post comment form (Note: post comment form is for design purposes only!) 
+                    ============================= 
+                    * Use class "tt-form-filled" or "tt-form-minimal" to change form style.
+                    * Use class "tt-form-sm" or "tt-form-lg" to change form size (no class = default size).
+                    -->
+                    <form id="tt-post-comment-form" class="tt-form-minimal anim-fadeinup">
+                        <h4 class="tt-post-comment-form-heading">نظر بدهید:</h4>
+                        <div class="tt-row">
+                            <div class="tt-col-lg-6">
+                                <div class="tt-form-group">
+                                    <label>نام <span class="required">*</span></label>
+                                    <input class="tt-form-control" id="84990245" type="text" placeholder="" />
+                                </div>
+                            </div>
+                            <!-- /.col -->
+
+                            <div class="tt-col-lg-6">
+                                <div class="tt-form-group">
+                                    <label>نشانی ایمیل <span class="small text-gray">(اختیاری)</span></label>
+                                    <input class="tt-form-control" id="19833520" type="email" placeholder="" />
+                                </div>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+
+                        <div class="tt-form-group">
+                            <label>نظر <span class="required">*</span></label>
+                            <textarea class="tt-form-control" id="30945381" rows="6" placeholder=""></textarea>
+                        </div>
+
+                        <small class="tt-form-text">فیلدهایی که با ستاره (*) مشخص شده اند الزامی هستند!</small>
+
+                        <!-- Begin post comment reminder -->
+                        <div class="tt-post-comment-reminder">
+                            <div class="tt-form-check tt-form-check-inline">
+                                <input type="checkbox" id="notify-me-new-comment" />
+                                <label for="notify-me-new-comment">وقتی این نظر پاسخی دریافت کرد، به من ایمیل زده شود.</label>
+                            </div>
+                            <div class="tt-form-check">
+                                <input type="checkbox" id="notify-me-new-post" />
+                                <label for="notify-me-new-post">از طریق ایمیل پست های جدید به من اطلاع داده شود.</label>
+                            </div>
+                        </div>
+                        <!-- End post comment reminder -->
+
+                        <!-- Begin post comment submit button -->
+                        <div class="tt-btn tt-btn-light-outline margin-top-40">
+                            <button type="submit" data-hover="ارسال نظر">ارسال نظر</button>
+                        </div>
+                        <!-- End post comment submit button -->
+                    </form>
+                    <!-- End post comment form -->
+                </div>
+                <!-- End post comments -->
+
+                <!-- Begin sliding sidebar 
+                =========================== 
+                * Use class "tt-ss-right" to align sidebar to right.
+                -->
+                <div class="tt-sliding-sidebar-wrap">
+                    <div class="tt-sliding-sidebar">
+                        <div class="tt-sliding-sidebar-inner">
+                            <!-- Begin sidebar widget -->
+                            <div class="sidebar-widget sidebar-search">
+                                <h3 class="sidebar-heading">جستجو</h3>
+
+                                <!-- Begin form (Note: for design purposes only!) 
+                                ================ 
+                                * Use class "tt-form-filled" or "tt-form-minimal" to change form style.
+                                * Use class "tt-form-sm" or "tt-form-lg" to change form size (no class = default size).
+                                -->
+                                <form>
+                                    <div class="tt-form-btn-inside">
+                                        <input class="tt-form-control" type="text" id="search" placeholder="چیزی تایپ کنید و اینتر را بزنید" required />
+                                        <button type="submit"><i class="fas fa-search"></i></button>
+                                    </div>
+                                </form>
+                                <!-- End form -->
+                            </div>
+                            <!-- End sidebar widget -->
+
+                            <!-- Begin sidebar widget -->
+                            <div class="sidebar-widget sidebar-categories">
+                                <h3 class="sidebar-heading">دسته بندی ها</h3>
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <a href="blog-archive.html">طراحی وب <span title="پست های این دسته بندی">26</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="blog-archive.html">منابع <span title="پست های این دسته بندی">12</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="blog-archive.html">آموزش ها <span title="پست های این دسته بندی">19</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="blog-archive.html">رایگان ها <span title="پست های این دسته بندی">31</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="blog-archive.html">الهام <span title="پست های این دسته بندی">67</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- End sidebar widget -->
+
+                            <!-- Begin sidebar widget -->
+                            <div class="sidebar-widget sidebar-post-list">
+                                <!-- Can be "Recent Posts" or "Popular Posts" etc. -->
+                                <h3 class="sidebar-heading">پست های پرطرفدار</h3>
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <div class="sidebar-post-data">
+                                            <h5 class="sidebar-post-title"><a href="#">چرا برخی افراد تقریبا همیشه با این روش پول پس انداز می کنند</a></h5>
+                                            <!-- <span class="sidebar-post-author">توسط: <a href="">مرتضی بهبودی</a></span> -->
+                                            <span class="sidebar-post-date">21 آبان 1401</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="sidebar-post-data">
+                                            <h5 class="sidebar-post-title"><a href="#">آیا می خواهید مهارت های خود را افزایش دهید؟ ابتدا باید این را بخوانید</a></h5>
+                                            <!-- <span class="sidebar-post-author">توسط: <a href="">مرتضی بهبودی</a></span> -->
+                                            <span class="sidebar-post-date">21 مهر 1401</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="sidebar-post-data">
+                                            <h5 class="sidebar-post-title"><a href="#">رازهایی برای تکمیل سریع و کارآمد پروژه شما</a></h5>
+                                            <!-- <span class="sidebar-post-author">توسط: <a href="">رامین داوودی</a></span> -->
+                                            <span class="sidebar-post-date">21 شهریور 1401</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="sidebar-post-data">
+                                            <h5 class="sidebar-post-title"><a href="#">چگونه دوستان خود را به دست آوریم و بر مردم تاثیر بگذاریم؟</a></h5>
+                                            <!-- <span class="sidebar-post-author">توسط: <a href="">رامین داوودی</a></span> -->
+                                            <span class="sidebar-post-date">21 مرداد 1401</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- End sidebar widget -->
+
+                            <!-- Begin sidebar widget -->
+                            <div class="sidebar-widget sidebar-comments-list">
+                                <h3 class="sidebar-heading">نظرات جدید</h3>
+                                <ul class="list-unstyled">
+                                    <li class="sidebar-comment">
+                                        <div class="sidebar-comment-meta">
+                                            <div class="sidebar-comment-data">
+                                                <span class="sidebar-comment-author"><a href="#">مرتضی بهبودی</a></span>
+                                                <span class="sidebar-comment-date">21 آبان 1401</span>
+                                            </div>
+                                        </div>
+                                        <div class="sidebar-comment-text">
+                                            <a href="#">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است ...</a>
+                                        </div>
+                                    </li>
+
+                                    <li class="sidebar-comment">
+                                        <div class="sidebar-comment-meta">
+                                            <div class="sidebar-comment-data">
+                                                <span class="sidebar-comment-author"><a href="#">هومن عقیلی</a></span>
+                                                <span class="sidebar-comment-date">21 آبان 1401</span>
+                                            </div>
+                                        </div>
+                                        <div class="sidebar-comment-text">
+                                            <a href="#">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است ...</a>
+                                        </div>
+                                    </li>
+
+                                    <li class="sidebar-comment">
+                                        <div class="sidebar-comment-meta">
+                                            <div class="sidebar-comment-data">
+                                                <span class="sidebar-comment-author"><a href="#">فریبا خزایی</a></span>
+                                                <span class="sidebar-comment-date">21 آبان 1401</span>
+                                            </div>
+                                        </div>
+                                        <div class="sidebar-comment-text">
+                                            <a href="#">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است ...</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- End sidebar widget -->
+
+                            <!-- Begin sidebar widget -->
+                            <div class="sidebar-widget sidebar-tags">
+                                <h3 class="sidebar-heading">برچسب ها</h3>
+                                <div class="sidebar-tags-list">
+                                    <ul>
+                                        <li><a href="blog-archive.html">#نمونه کارها</a></li>
+                                        <li><a href="blog-archive.html">#چند منظوره</a></li>
+                                        <li><a href="blog-archive.html">#مینیمال</a></li>
+                                        <li><a href="blog-archive.html">#آژانس</a></li>
+                                        <li><a href="blog-archive.html">#خلاقان</a></li>
+                                        <li><a href="blog-archive.html">#فریلنسرها</a></li>
+                                        <li><a href="blog-archive.html">#طراحی</a></li>
+                                        <li><a href="blog-archive.html">#بوت استرپ</a></li>
+                                        <li><a href="blog-archive.html">#واکنشگرا</a></li>
+                                        <li><a href="blog-archive.html">#ساده</a></li>
+                                        <li><a href="blog-archive.html">#خلاقانه</a></li>
+                                        <li><a href="blog-archive.html">#وبلاگ</a></li>
+                                        <li><a href="blog-archive.html">#وردپرس</a></li>
+                                        <li><a href="blog-archive.html">#سیاه و سفید</a></li>
+                                    </ul>
+                                </div>
+                                <!-- /.sidebar-tags-list -->
+                            </div>
+                            <!-- End sidebar widget -->
+
+                            <!-- Begin sidebar widget -->
+                            <div class="sidebar-widget sidebar-meta">
+                                <h3 class="sidebar-heading">متا</h3>
+                                <ul class="list-unstyled">
+                                    <li><a href="#">ورود</a></li>
+                                    <li><a href="#">ورودی های RSS</a></li>
+                                    <li><a href="#">نظرات RSS</a></li>
+                                </ul>
+                            </div>
+                            <!-- End sidebar widget -->
+                        </div>
+                        <!-- /.tt-sliding-sidebar-inner -->
+                    </div>
+                    <!-- /.tt-sliding-sidebar -->
+
+                    <!-- Begin sliding sidebar trigger -->
+                    <div class="tt-sliding-sidebar-trigger hide-cursor">
+                        <span class="tt-ss-icon"><i class="fas fa-align-justify"></i></span>
+                        <span class="tt-ss-icon-close"><i class="fas fa-times"></i></span>
+                    </div>
+                    <!-- End sliding sidebar trigger -->
+
+                    <!-- Close overlay -->
+                    <div class="tt-sliding-sidebar-close cursor-close"></div>
+                </div>
+                <!-- End sliding sidebar -->
+            </div>
+            <!-- /.tt-section-inner -->
+        </div>
+        <!-- End tt-section -->
+
+        <!-- =======================
+        ///// Begin tt-section /////
+        ============================ 
+        * You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
+        -->
+        <div class="tt-section padding-bottom-xlg-150">
+            <div class="tt-section-inner tt-wrap">
+                <!-- Begin page nav 
+                ==================== 
+                * Use class "tt-pn-stroke" to enable title stroke style.
+                * Use class "tt-pn-scroll" to enable hover title scroll. Note: If "tt-pn-hover-title" text is wider than "tt-pn-link" then it scrolls by default. The longer the text, the faster it scrolls.
+                -->
+                <div class="tt-page-nav tt-pn-scroll">
+                    <a href="portfolio-grid-modern.html" class="tt-pn-link anim-fadeinup">
+                        <div class="tt-pn-title">نمونه کارها</div>
+                        <div class="tt-pn-hover-title">نمونه کارها</div>
+                    </a>
+                    <!-- /.tt-pn-link -->
+
+                    <div class="tt-pn-subtitle anim-fadeinup">کارهای منتخب</div>
+
+                    <!-- Use if destination page contains page header image -->
+                    <div class="tt-pn-image">
+                        <img src="assets/img/page-header/ph-1.jpg" alt="تصویر" />
+                    </div>
+                </div>
+                <!-- End page nav -->
+            </div>
+            <!-- /.tt-section-inner -->
+        </div>
+        <!-- End tt-section -->
+    </div>
+    <!-- End page content -->
+
+    <!-- ======================
+    ///// Begin tt-footer /////
+    =========================== -->
+    <footer id="tt-footer">
+        <div class="tt-footer-inner">
+            <!-- Begin footer column 
+            ========================= -->
+            <div class="footer-col tt-align-center-right">
+                <div class="footer-col-inner">
+                    <!-- You can use whatever button or link here -->
+                    <div class="tt-btn tt-btn-link">
+                        <a href="#" class="scroll-to-top" data-hover="بازگشت به بالا">بازگشت به بالا</a>
+                    </div>
+                </div>
+                <!-- /.footer-col-inner -->
+            </div>
+            <!-- Begin footer column -->
+
+            <!-- Begin footer column 
+            ========================= -->
+            <div class="footer-col tt-align-center order-m-last">
+                <div class="footer-col-inner">
+                    <div class="tt-copyright text-center">© تمام حقوق محفوظ است. فارسی و راستچین سازی شده توسط فرشید ترنیان</div>
+                </div>
+                <!-- /.footer-col-inner -->
+            </div>
+            <!-- Begin footer column -->
+
+            <!-- Begin footer column 
+            ========================= -->
+            <div class="footer-col tt-align-center-left">
+                <div class="footer-col-inner">
+                    <div class="footer-social">
+                        <div class="footer-social-text"><span>دنبال کنید</span><i class="fas fa-share-alt"></i></div>
+                        <div class="social-buttons">
+                            <ul>
+                                <li><a href="https://www.facebook.com/" class="magnetic-item" target="_blank" rel="noopener">Fb.</a></li>
+                                <li><a href="https://twitter.com/" class="magnetic-item" target="_blank" rel="noopener">Tw.</a></li>
+                                <li><a href="https://www.youtube.com/" class="magnetic-item" target="_blank" rel="noopener">Yt.</a></li>
+                                <li><a href="https://dribbble.com/" class="magnetic-item" target="_blank" rel="noopener">Dr.</a></li>
+                                <li><a href="https://www.behance.net/" class="magnetic-item" target="_blank" rel="noopener">Be.</a></li>
+                            </ul>
+                        </div>
+                        <!-- /.social-buttons -->
+                    </div>
+                    <!-- /.footer-social -->
+                </div>
+                <!-- /.footer-col-inner -->
+            </div>
+            <!-- Begin footer column -->
+        </div>
+        <!-- /.tt-section-inner -->
+    </footer>
+    <!-- End tt-footer -->
+</div>
