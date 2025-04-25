@@ -87,10 +87,15 @@ class Hall(TranslatableModel):
         verbose_name=_("Activation Status"),
         help_text=_("Is the hall active?"),
     )
-    explicit = models.BooleanField(
+    is_explicit = models.BooleanField(
         default=False,
         verbose_name=_("Explicit Content"),
         help_text=_("Is the hall explicit? Is it has explicit content?"),
+    )
+    is_sequential = models.BooleanField(
+        default=False,
+        verbose_name=_("Sequential Posts"),
+        help_text=_("This room contains sequential posts, and the posts will be related to each other."),
     )
 
     class Meta:
@@ -202,7 +207,7 @@ class Post(TranslatableModel):
         verbose_name=_("Activation Status"),
         help_text=_("Is the post active?"),
     )
-    explicit = models.BooleanField(
+    is_explicit = models.BooleanField(
         default=False,
         verbose_name=_("Explicit Content"),
         help_text=_("Is the post explicit? Is it has explicit content?"),
