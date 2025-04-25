@@ -110,7 +110,12 @@
         {% include "includes/_meta.html" %}
 
         <!-- Favicon (http://www.favicon-generator.org/) -->
-        {% include "includes/_favicon.html" %}
+        
+        <!-- Light mode favicon -->
+        <link rel="icon" href="{% static "favicon/favicon-light.png" %}" media="(prefers-color-scheme: light)">
+        <!-- Dark mode favicon -->
+        
+        <link rel="icon" href="{% static "favicon/favicon-dark.png" %}" media="(prefers-color-scheme: dark)">
 
         <!-- Libs and Plugins CSS -->
         {% include "includes/_plugins.html" %}
@@ -199,7 +204,11 @@
         {% include "includes/_meta.html" %}
 
         <!-- Favicon (http://www.favicon-generator.org/) -->
-        {% include "includes/_favicon.html" %}
+
+        <!-- Light mode favicon -->
+        <link rel="icon" href="{% static "favicon/favicon-light.png" %}" media="(prefers-color-scheme: light)">
+        <!-- Dark mode favicon -->        
+        <link rel="icon" href="{% static "favicon/favicon-dark.png" %}" media="(prefers-color-scheme: dark)">
 
         <!-- Libs and Plugins CSS -->
         {% include "includes/_plugins.html" %}

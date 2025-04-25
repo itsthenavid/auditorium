@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "django_tiptap",
     # "django_quill",
     # Developed installed apps
+    "extensions",
     "engine.apps.EngineConfig",
     "accounts.apps.AccountsConfig",
     "pages.apps.PagesConfig",

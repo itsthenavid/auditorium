@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from django.urls import reverse
 
+from extensions.utils import persian_datetime_converter
 from accounts.models import UserModel as User
 from engine.models import IPAddress
 
@@ -223,6 +224,10 @@ class Post(TranslatableModel):
         if self.status == str(0) and timezone.now() >= self.publish_datetime:
             self.status = str(1)
             self.save()
+
+    def persian_pub_datetime(self):
+       return persian_datetime_converter(self.publish_datetime)
+    persian_pub_datetime.short_description = _("Publish Datetime")
 
     class Meta:
         verbose_name = _("Post")

@@ -45,8 +45,7 @@
                 <!-- You can use <br class="hide-from-lg"> to break a text line if needed -->
 
                 <div class="ph-meta ph-appear">
-                    <span class="ph-meta-published">{{ object.publish_datetime }}</span>
-                    <span class="ph-meta-posted-by">نووسینی: <a href="blog-archive.html" title="مشاهده همه پست های مرتضی بهبودی">{{ object.author.get_user_shown_name }}</a></span>
+                    <p><span class="ph-meta-published">{{ object.publish_datetime|localize_numbers_ckb }}</span> | <span class="ph-meta-posted-by">نووسینی: <a href="blog-archive.html" title="مشاهده همه پست های مرتضی بهبودی">{{ object.author.get_user_shown_name }}</a></span></p>
                 </div>
                 <!-- /.ph-meta -->
             </div>

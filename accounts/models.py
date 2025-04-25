@@ -1,19 +1,11 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
+from django.contrib.auth.models import AbstractUser, UserManager
+from parler.models import TranslatableModel, TranslatedFields
+from parler.managers import TranslatableManager, TranslatableQuerySet
 from random import choice
 
-from django.contrib.auth.models import AbstractUser
-
-# Create your models here.
-
 def _set_random_avatar():
-    """
-    Function to set a random avatar for the user.
-    This function can be customized to select a random avatar
-    from a predefined list or any other logic as per your requirement.
-    """
-
     choices = (
         "defaults/accounts/avatars/avatar_1.webp",
         "defaults/accounts/avatars/avatar_2.webp",
@@ -26,67 +18,61 @@ def _set_random_avatar():
         "defaults/accounts/avatars/avatar_9.webp",
         "defaults/accounts/avatars/avatar_10.webp",
     )
-    
-    # Example logic: return a default avatar URL
     return choice(choices)
 
+class TranslatableUserQuerySet(TranslatableQuerySet):
+    """Custom QuerySet that inherits from TranslatableQuerySet."""
+    pass
 
-class UserModel(AbstractUser):
-    """
-    Custom user model that extends the AbstractUser model.
-    This model can be used to add additional fields or methods
-    specific to your application's user requirements.
-    """
+class TranslatableUserManager(UserManager, TranslatableManager):
+    """Custom manager combining UserManager and TranslatableManager."""
+    def get_queryset(self):
+        return TranslatableUserQuerySet(self.model, using=self._db)
 
-    # Removing unnecessary fields
+class UserModel(AbstractUser, TranslatableModel):
     first_name = None
     last_name = None
-    
-    # Add any additional fields or methods here
-    # For example, you can add a profile picture field:
-    # profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
-    
-    name = models.CharField(
-        max_length=100,
-        blank=True,
-        null=True,
-        verbose_name=_("Name"),
-        help_text=_("Enter your full name."),
+
+    # Assign the custom manager
+    objects = TranslatableUserManager()
+
+    translations = TranslatedFields(
+        name=models.CharField(
+            max_length=100,
+            blank=True,
+            null=True,
+            verbose_name=_("Name"),
+            help_text=_("Enter your full name."),
+        ),
+        bio=models.CharField(
+            max_length=500,
+            blank=True,
+            null=True,
+            verbose_name=_("Bio"),
+            help_text=_("Write a short bio about yourself."),
+        ),
     )
+
     avatar = models.ImageField(
         upload_to='avatars/',
         blank=True,
         null=True,
-        default=_set_random_avatar,
+        default=None,
         verbose_name=_("Avatar"),
         help_text=_("Select an avatar for your profile."),
     )
-    bio = models.CharField(
-        max_length=500,
-        blank=True,
-        null=True,
-        verbose_name=_("Bio"),
-        help_text=_("Write a short bio about yourself."),
-    )
+
+    def save(self, *args, **kwargs):
+        if not self.avatar:
+            self.avatar = _set_random_avatar()
+        super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = _("User")
         verbose_name_plural = _("Users")
 
-    def get_user_shown_name(self):
-        """
-        Decides the name to be shown for the user.
-        """
-        if self.name:
-            return self.name
-        else:
-            return self.username
-
     def __str__(self):
         return self.username
-    
-    def __repr__(self):
-        return self.username
 
-    def __unicode__(self):
+    def __repr__(self):
         return self.username

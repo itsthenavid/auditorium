@@ -1,12 +1,14 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
+from parler.admin import TranslatableAdmin
+
 from .models import UserModel
 
 # Register your models here.
 
 @admin.register(UserModel)
-class UserAdmin(admin.ModelAdmin):
+class UserAdmin(TranslatableAdmin):
     """
     Admin interface for the custom user model.
     This class can be used to customize the admin interface

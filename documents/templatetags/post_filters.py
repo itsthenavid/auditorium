@@ -51,3 +51,43 @@ def process_blockquotes(content):
         new_blockquote.append(BeautifulSoup(quote_text, 'html.parser'))
         blockquote.replace_with(new_blockquote)
     return str(soup)
+
+@register.filter
+def localize_numbers_fa(value):
+    numbers = {
+        "0": "۰",
+        "1": "۱",
+        "2": "۲",
+        "3": "۳",
+        "4": "۴",
+        "5": "۵",
+        "6": "۶",
+        "7": "۷",
+        "8": "۸",
+        "9": "۹",
+    }
+
+    for e, p in numbers.items():
+        value = value.replace(e, p)
+    
+    return value
+
+@register.filter
+def localize_numbers_ckb(value):
+    numbers = {
+        "0": "٠",
+        "1": "١",
+        "2": "٢",
+        "3": "٣",
+        "4": "٤",
+        "5": "٥",
+        "6": "٦",
+        "7": "٧",
+        "8": "٨",
+        "9": "٩",
+    }
+
+    for e, p in numbers.items():
+        value = value.replace(e, p)
+    
+    return value
