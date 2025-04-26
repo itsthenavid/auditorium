@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-24 02:48+0330\n"
+"POT-Creation-Date: 2025-04-25 18:51+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,15 +22,15 @@ msgstr ""
 msgid "Accounts"
 msgstr "حساب‌ها"
 
-#: accounts/forms.py:64 accounts/models.py:53 documents/models.py:46
+#: accounts/forms.py:64 accounts/models.py:44 documents/models.py:47
 msgid "Name"
 msgstr "نام"
 
-#: accounts/forms.py:65 accounts/models.py:54
+#: accounts/forms.py:65 accounts/models.py:45
 msgid "Enter your full name."
 msgstr "نام کاملتان را وارد کنید."
 
-#: accounts/forms.py:70 accounts/models.py:68
+#: accounts/forms.py:70 accounts/models.py:51
 #: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:141
 #: accounts/templates/includes/accounts/ckb/_content_signup_ckb.html:139
 #: accounts/templates/includes/accounts/en/_content_profile_en.html:141
@@ -40,7 +40,7 @@ msgstr "نام کاملتان را وارد کنید."
 msgid "Bio"
 msgstr "بیو"
 
-#: accounts/forms.py:71 accounts/models.py:69
+#: accounts/forms.py:71 accounts/models.py:52
 msgid "Write a short bio about yourself."
 msgstr "بیویی کوتاه در مورد خود بنویسید."
 
@@ -52,11 +52,11 @@ msgstr "آواتار"
 msgid "Select an avatar for your profile."
 msgstr "آواتاری برای پروفایلتان انتخاب کنید."
 
-#: accounts/models.py:73
+#: accounts/models.py:71
 msgid "User"
 msgstr "کاربر"
 
-#: accounts/models.py:74
+#: accounts/models.py:72
 msgid "Users"
 msgstr "کاربران"
 
@@ -96,6 +96,10 @@ msgstr "فعالیت‌های خود را مدیریت کنید."
 #: accounts/templates/includes/accounts/en/_content_signup_en.html:52
 #: accounts/templates/includes/accounts/fa/_content_login_fa.html:53
 #: accounts/templates/includes/accounts/fa/_content_signup_fa.html:52
+#: documents/templates/documents/post_list.html:60
+#: documents/templates/includes/_post_detail_content_ckb.html:66
+#: documents/templates/includes/_post_detail_content_en.html:67
+#: documents/templates/includes/_post_detail_content_fa.html:66
 #: pages/templates/includes/pages/ckb/_about_content_ckb.html:53
 #: pages/templates/includes/pages/ckb/_index_content_ckb.html:58
 #: pages/templates/includes/pages/en/_about_content_en.html:53
@@ -169,6 +173,60 @@ msgstr ""
 msgid "Register Now!"
 msgstr "ثبت‌نام کنید!"
 
+#: accounts/templates/includes/accounts/ckb/_content_login_ckb.html:173
+#: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:209
+#: accounts/templates/includes/accounts/ckb/_content_signup_ckb.html:203
+#: accounts/templates/includes/accounts/en/_content_login_en.html:182
+#: accounts/templates/includes/accounts/en/_content_profile_en.html:209
+#: accounts/templates/includes/accounts/en/_content_signup_en.html:213
+#: accounts/templates/includes/accounts/fa/_content_login_fa.html:173
+#: accounts/templates/includes/accounts/fa/_content_profile_fa.html:209
+#: accounts/templates/includes/accounts/fa/_content_signup_fa.html:203
+#: documents/templates/includes/_post_detail_content_en.html:613
+msgid "Back to top."
+msgstr "بازگشت به بالا."
+
+#: accounts/templates/includes/accounts/ckb/_content_login_ckb.html:184
+#: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:220
+#: accounts/templates/includes/accounts/ckb/_content_signup_ckb.html:214
+#: accounts/templates/includes/accounts/en/_content_login_en.html:193
+#: accounts/templates/includes/accounts/en/_content_profile_en.html:220
+#: accounts/templates/includes/accounts/en/_content_signup_en.html:224
+#: accounts/templates/includes/accounts/fa/_content_login_fa.html:184
+#: accounts/templates/includes/accounts/fa/_content_profile_fa.html:220
+#: accounts/templates/includes/accounts/fa/_content_signup_fa.html:214
+msgid ""
+"© Copyright/Copyleft - MIT LICENSE: Navid. R. - All rights reserved to "
+"developers and content creators."
+msgstr "© حق کپی‌رایت/کپی‌لفت - مجوز MIT: نوید رحیم‌زاده - تمامی حقوق متعلق به توسعه‌دهندگان و خالقین محتوای پروژه است."
+
+#: accounts/templates/includes/accounts/ckb/_content_login_ckb.html:184
+#: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:220
+#: accounts/templates/includes/accounts/ckb/_content_signup_ckb.html:214
+#: accounts/templates/includes/accounts/en/_content_login_en.html:193
+#: accounts/templates/includes/accounts/en/_content_profile_en.html:220
+#: accounts/templates/includes/accounts/en/_content_signup_en.html:224
+#: accounts/templates/includes/accounts/fa/_content_login_fa.html:184
+#: accounts/templates/includes/accounts/fa/_content_profile_fa.html:220
+#: accounts/templates/includes/accounts/fa/_content_signup_fa.html:214
+msgid ""
+"In loving memory of my cherished friend, Donya Farhadi. Dearest soul, "
+"Kurdistan shall forever hold your pain, your sorrow, and your boundless love "
+"in its heart."
+msgstr "تقدیم به دوستِ آسمانی‌ام، دنیا فرهادی. در آرامش بخواب؛ کُردستان رنج و اندوه، و محبتِ بی‌پایان تو را از یاد نخواهد برد."
+
+#: accounts/templates/includes/accounts/ckb/_content_login_ckb.html:195
+#: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:231
+#: accounts/templates/includes/accounts/ckb/_content_signup_ckb.html:225
+#: accounts/templates/includes/accounts/en/_content_login_en.html:204
+#: accounts/templates/includes/accounts/en/_content_profile_en.html:231
+#: accounts/templates/includes/accounts/en/_content_signup_en.html:235
+#: accounts/templates/includes/accounts/fa/_content_login_fa.html:195
+#: accounts/templates/includes/accounts/fa/_content_profile_fa.html:231
+#: accounts/templates/includes/accounts/fa/_content_signup_fa.html:225
+msgid "Follow (Developer)"
+msgstr "دنبال کنید (توسعه‌دهنده)"
+
 #: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:35
 #: accounts/templates/includes/accounts/fa/_content_profile_fa.html:35
 #: templates/account/password_change.html:45
@@ -225,15 +283,27 @@ msgstr "نام کامل"
 msgid "Email Address"
 msgstr "نشانی ایمیل"
 
-#: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:151
-#: accounts/templates/includes/accounts/en/_content_profile_en.html:151
-#: accounts/templates/includes/accounts/fa/_content_profile_fa.html:151
+#: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:146
+#: accounts/templates/includes/accounts/ckb/_content_signup_ckb.html:154
+#: accounts/templates/includes/accounts/en/_content_profile_en.html:146
+#: accounts/templates/includes/accounts/en/_content_signup_en.html:164
+#: accounts/templates/includes/accounts/fa/_content_profile_fa.html:146
+#: accounts/templates/includes/accounts/fa/_content_signup_fa.html:154
+msgid ""
+"Please be advised: Auditorium will not use your personal information in any "
+"way for its own benefit or yours, and Auditorium will be responsible for "
+"ensuring the security of the information."
+msgstr ""
+
+#: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:150
+#: accounts/templates/includes/accounts/en/_content_profile_en.html:150
+#: accounts/templates/includes/accounts/fa/_content_profile_fa.html:150
 msgid "Update/Modify"
 msgstr "به‌روزرسانی/تغییر"
 
-#: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:164
-#: accounts/templates/includes/accounts/en/_content_profile_en.html:164
-#: accounts/templates/includes/accounts/fa/_content_profile_fa.html:164
+#: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:163
+#: accounts/templates/includes/accounts/en/_content_profile_en.html:163
+#: accounts/templates/includes/accounts/fa/_content_profile_fa.html:163
 msgid ""
 "These are the glories you've had: The posts, halls & projects; A summary of "
 "what you have done."
@@ -241,15 +311,15 @@ msgstr ""
 "اینها افتخاراتی هستند که شما داشته اید: پست ها، سالن ها و پروژه ها. خلاصه ای "
 "از کارهایی که انجام داده اید."
 
-#: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:171
-#: accounts/templates/includes/accounts/en/_content_profile_en.html:171
-#: accounts/templates/includes/accounts/fa/_content_profile_fa.html:171
+#: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:170
+#: accounts/templates/includes/accounts/en/_content_profile_en.html:170
+#: accounts/templates/includes/accounts/fa/_content_profile_fa.html:170
 msgid "Wanna change your password?"
 msgstr "می‌خواهید گذرواژه خود دهید؟"
 
-#: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:173
-#: accounts/templates/includes/accounts/en/_content_profile_en.html:173
-#: accounts/templates/includes/accounts/fa/_content_profile_fa.html:173
+#: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:172
+#: accounts/templates/includes/accounts/en/_content_profile_en.html:172
+#: accounts/templates/includes/accounts/fa/_content_profile_fa.html:172
 msgid ""
 "For security reasons, Auditorium does not allow you to change your password "
 "on your profile page. To change your account password, please visit the "
@@ -258,9 +328,9 @@ msgstr ""
 "به دلایل امنیتی، آودیتوریوم اجازه تغییر گذرواژه شما در صفحه پروفایل شما را "
 "نمی‌دهد. برای تغییر گذرواژه حساب خود، به صفحه تغییر گذرواژه مراجعه بفرمایید."
 
-#: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:177
-#: accounts/templates/includes/accounts/en/_content_profile_en.html:177
-#: accounts/templates/includes/accounts/fa/_content_profile_fa.html:177
+#: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:176
+#: accounts/templates/includes/accounts/en/_content_profile_en.html:176
+#: accounts/templates/includes/accounts/fa/_content_profile_fa.html:176
 #: templates/account/password_change.html:46
 #: templates/account/password_change.html:97
 #: templates/account/password_change.html:259
@@ -270,9 +340,9 @@ msgstr ""
 msgid "Change Password"
 msgstr "تغییر گذرواژه"
 
-#: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:182
-#: accounts/templates/includes/accounts/en/_content_profile_en.html:182
-#: accounts/templates/includes/accounts/fa/_content_profile_fa.html:182
+#: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:181
+#: accounts/templates/includes/accounts/en/_content_profile_en.html:181
+#: accounts/templates/includes/accounts/fa/_content_profile_fa.html:181
 msgid "Wanna delete your account? :("
 msgstr "می‌خوای اکانتتو دیلیت کنی؟ :( <br /> دلت میاد بری؟ :("
 
@@ -283,11 +353,11 @@ msgid "Register an Account"
 msgstr "یک حساب کاربری ایجاد کنید."
 
 #: accounts/templates/includes/accounts/ckb/_content_signup_ckb.html:35
-#: accounts/templates/includes/accounts/ckb/_content_signup_ckb.html:159
+#: accounts/templates/includes/accounts/ckb/_content_signup_ckb.html:158
 #: accounts/templates/includes/accounts/en/_content_signup_en.html:35
-#: accounts/templates/includes/accounts/en/_content_signup_en.html:169
+#: accounts/templates/includes/accounts/en/_content_signup_en.html:168
 #: accounts/templates/includes/accounts/fa/_content_signup_fa.html:35
-#: accounts/templates/includes/accounts/fa/_content_signup_fa.html:159
+#: accounts/templates/includes/accounts/fa/_content_signup_fa.html:158
 msgid "Register"
 msgstr "ثبت‌نام"
 
@@ -306,40 +376,31 @@ msgstr "حساب کاربری خود را ایجاد کنید."
 msgid "Again: Password"
 msgstr "گذرواژه: مجدد"
 
-#: accounts/templates/includes/accounts/ckb/_content_signup_ckb.html:172
-#: accounts/templates/includes/accounts/en/_content_signup_en.html:182
-#: accounts/templates/includes/accounts/fa/_content_signup_fa.html:172
+#: accounts/templates/includes/accounts/ckb/_content_signup_ckb.html:171
+#: accounts/templates/includes/accounts/en/_content_signup_en.html:181
+#: accounts/templates/includes/accounts/fa/_content_signup_fa.html:171
 msgid "Already have an account?"
 msgstr "در آودیتوریوم حساب دارید؟"
 
-#: accounts/templates/includes/accounts/ckb/_content_signup_ckb.html:174
-#: accounts/templates/includes/accounts/en/_content_signup_en.html:184
-#: accounts/templates/includes/accounts/fa/_content_signup_fa.html:174
+#: accounts/templates/includes/accounts/ckb/_content_signup_ckb.html:173
+#: accounts/templates/includes/accounts/en/_content_signup_en.html:183
+#: accounts/templates/includes/accounts/fa/_content_signup_fa.html:173
 msgid ""
 "Auditorium allows users to log in to the project using their username (or "
 "email) and password."
-msgstr "آودیتوریوم به کاربارن اجازه می‌دهد با استفاده از نام کاربری (یا ایمیل) و ورود گذرواژه خود، وارد پروژه شوند. "
+msgstr ""
+"آودیتوریوم به کاربارن اجازه می‌دهد با استفاده از نام کاربری (یا ایمیل) و ورود "
+"گذرواژه خود، وارد پروژه شوند. "
 
-#: accounts/templates/includes/accounts/ckb/_content_signup_ckb.html:178
-#: accounts/templates/includes/accounts/en/_content_signup_en.html:188
-#: accounts/templates/includes/accounts/fa/_content_signup_fa.html:178
+#: accounts/templates/includes/accounts/ckb/_content_signup_ckb.html:177
+#: accounts/templates/includes/accounts/en/_content_signup_en.html:187
+#: accounts/templates/includes/accounts/fa/_content_signup_fa.html:177
 msgid "Log in"
 msgstr "ورود"
 
-#: accounts/templates/includes/accounts/ckb/_content_signup_ckb.html:204
-#: accounts/templates/includes/accounts/fa/_content_signup_fa.html:204
-#: templates/account/password_change.html:376
-#: templates/account/password_change.html:580
-msgid "Back to top"
-msgstr "بازگشت به بالا"
-
-#: accounts/templates/includes/accounts/ckb/_content_signup_ckb.html:204
-#: accounts/templates/includes/accounts/fa/_content_signup_fa.html:204
-msgid "Back to top."
-msgstr "بازگشت به بالا."
-
 #: accounts/templates/includes/accounts/en/_content_login_en.html:64
 #: accounts/templates/includes/accounts/en/_content_signup_en.html:64
+#: documents/templates/includes/_post_detail_content_en.html:79
 #: pages/templates/includes/pages/en/_about_content_en.html:65
 #: pages/templates/includes/pages/en/_index_content_en.html:70
 #: templates/account/password_change.html:75
@@ -354,15 +415,15 @@ msgstr "پروفایل حسابتان را کنترل کنید"
 msgid "Login."
 msgstr "ورود."
 
-#: config/settings.py:154
+#: config/settings.py:155
 msgid "English"
 msgstr "انگلیسی"
 
-#: config/settings.py:155
+#: config/settings.py:156
 msgid "Persian"
 msgstr "فارسی"
 
-#: config/settings.py:156
+#: config/settings.py:157
 msgid "Central Kurdish"
 msgstr "کُردی مرکزی (سورانی)"
 
@@ -370,193 +431,215 @@ msgstr "کُردی مرکزی (سورانی)"
 msgid "Documents"
 msgstr "اسناد"
 
-#: documents/models.py:24
+#: documents/models.py:25
 msgid "Idea"
 msgstr "ایده"
 
-#: documents/models.py:25
+#: documents/models.py:26
 msgid "Activated"
 msgstr "فعال‌شده"
 
-#: documents/models.py:31
+#: documents/models.py:32
 msgid "Parent"
 msgstr "والد"
 
-#: documents/models.py:34
+#: documents/models.py:35
 msgid "Parent hall of the current hall."
 msgstr "والد تالارِ کنونی."
 
-#: documents/models.py:39 documents/models.py:135
+#: documents/models.py:40 documents/models.py:141
 msgid "Artwork"
 msgstr "آرت‌وورک"
 
-#: documents/models.py:47
+#: documents/models.py:48
 msgid "Name of the hall."
 msgstr "نامِ تالار."
 
-#: documents/models.py:50
+#: documents/models.py:51
 msgid "Description"
 msgstr "توضیحات"
 
-#: documents/models.py:51
+#: documents/models.py:52
 msgid "Description of the hall."
 msgstr "توضیحاتِ مربوط به تالار."
 
-#: documents/models.py:58 documents/models.py:168
+#: documents/models.py:59 documents/models.py:174
 msgid "Slug"
 msgstr "اسلاگ"
 
-#: documents/models.py:59
+#: documents/models.py:60
 msgid "Slug for the hall. Used in the URL."
 msgstr "اسلاگِ تالار. در URLها استفاده می‌شود."
 
-#: documents/models.py:64
+#: documents/models.py:65
 msgid "Creator"
 msgstr "خالق"
 
-#: documents/models.py:66
+#: documents/models.py:67
 msgid "Creator of the hall."
 msgstr "خالقِ تالار"
 
-#: documents/models.py:70 documents/models.py:180 engine/models.py:21
+#: documents/models.py:71 documents/models.py:186 engine/models.py:21
 msgid "Created At"
 msgstr "ساخته‌شده در"
 
-#: documents/models.py:71
+#: documents/models.py:72
 msgid "Date and time when the hall was created."
 msgstr "تاریخ و زمانِ ایجادِ تالار"
 
-#: documents/models.py:75 documents/models.py:185
+#: documents/models.py:76 documents/models.py:191
 msgid "Updated At"
 msgstr "به‌روزرسانی‌شده در"
 
-#: documents/models.py:76
+#: documents/models.py:77
 msgid "Date and time when the hall was last updated."
 msgstr "تاریخ و زمان آخرین به‌روزرسانی تالار"
 
-#: documents/models.py:82 documents/models.py:197
+#: documents/models.py:83 documents/models.py:203
 msgid "Status"
 msgstr "وضعیت"
 
-#: documents/models.py:83
+#: documents/models.py:84
 msgid "Status of the hall."
 msgstr "وضعیتِ تالار"
 
-#: documents/models.py:87 documents/models.py:202 pages/models.py:103
+#: documents/models.py:88 documents/models.py:208 pages/models.py:103
 msgid "Activation Status"
 msgstr "وضعیت فعال‌سازی"
 
-#: documents/models.py:88
+#: documents/models.py:89
 msgid "Is the hall active?"
 msgstr "تالار فعال باشد؟"
 
-#: documents/models.py:92 documents/models.py:207
+#: documents/models.py:93 documents/models.py:213
 msgid "Explicit Content"
 msgstr "محتوای صریح (توهین‌آمیز)"
 
-#: documents/models.py:93
+#: documents/models.py:94
 msgid "Is the hall explicit? Is it has explicit content?"
 msgstr "تالار شامل محتوای اهانت‌آمیز است؟"
 
-#: documents/models.py:97 documents/models.py:160
+#: documents/models.py:98
+msgid "Sequential Posts"
+msgstr ""
+
+#: documents/models.py:99
+msgid ""
+"This room contains sequential posts, and the posts will be related to each "
+"other."
+msgstr ""
+
+#: documents/models.py:103 documents/models.py:166
 msgid "Hall"
 msgstr "تالار"
 
-#: documents/models.py:98
+#: documents/models.py:104
 #: pages/templates/includes/pages/fa/_index_content_fa.html:318
 msgid "Halls"
 msgstr "تالارها"
 
-#: documents/models.py:129
+#: documents/models.py:135
 msgid "Draft"
 msgstr "پیش‌نویس"
 
-#: documents/models.py:130
+#: documents/models.py:136
 msgid "Published"
 msgstr "منتشرشده"
 
-#: documents/models.py:139
+#: documents/models.py:145
 msgid "Artwork for the post."
 msgstr "آرت‌وورکِ پست."
 
-#: documents/models.py:146
+#: documents/models.py:152
 msgid "Title"
 msgstr "عنوان"
 
-#: documents/models.py:147
+#: documents/models.py:153
 msgid "Title of the post."
 msgstr "عنوانِ پست."
 
-#: documents/models.py:150
+#: documents/models.py:156
 msgid "Content"
 msgstr "محتوا"
 
-#: documents/models.py:151
+#: documents/models.py:157
 msgid "Content of the post."
 msgstr "محتوای پست."
 
-#: documents/models.py:162
+#: documents/models.py:168
 msgid "Hall of the post."
 msgstr "تالار والد پست."
 
-#: documents/models.py:169
+#: documents/models.py:175
 msgid "Slug for the post. Used in the URL."
 msgstr "اسلاگِ پست. در URLها به‌کار می‌رود."
 
-#: documents/models.py:174
+#: documents/models.py:180
 msgid "Author"
 msgstr "نویسنده"
 
-#: documents/models.py:176
+#: documents/models.py:182
 msgid "Author of the post."
 msgstr "نویسنده‌ی پست."
 
-#: documents/models.py:181
+#: documents/models.py:187
 msgid "Date and time when the post was created."
 msgstr "تاریخ و زمان دقیق خلق پست."
 
-#: documents/models.py:186
+#: documents/models.py:192
 msgid "Date and time when the post was last updated."
 msgstr "تاریخ و زمان دقیق آخرین به‌روزرسانی پست."
 
-#: documents/models.py:190
+#: documents/models.py:196
 msgid "Published At"
 msgstr "منتشرشده در"
 
-#: documents/models.py:191
+#: documents/models.py:197
 msgid "Date and time when the post was published."
 msgstr "تاریخ و زمان انتشار پست."
 
-#: documents/models.py:198
+#: documents/models.py:204
 msgid "Status of the post."
 msgstr "وضعیت پست."
 
-#: documents/models.py:203
+#: documents/models.py:209
 msgid "Is the post active?"
 msgstr "وضعیت فعالیت پست."
 
-#: documents/models.py:208
+#: documents/models.py:214
 msgid "Is the post explicit? Is it has explicit content?"
 msgstr "پست حاوی محتوای اهانت‌آمیز است؟"
 
-#: documents/models.py:212
+#: documents/models.py:218
 msgid "Views"
 msgstr "بازدیدها"
 
-#: documents/models.py:214
+#: documents/models.py:220
 msgid "This field shows how many people watched this post."
 msgstr "این فیلد نشان می‌دهد چه تعداد از افراد این پست را دیده‌اند."
 
-#: documents/models.py:223
+#: documents/models.py:230
+#, fuzzy
+#| msgid "Published At"
+msgid "Publish Datetime"
+msgstr "منتشرشده در"
+
+#: documents/models.py:233
 msgid "Post"
 msgstr "پست"
 
-#: documents/models.py:224
+#: documents/models.py:234
 #: pages/templates/includes/pages/ckb/_index_content_ckb.html:99
 #: pages/templates/includes/pages/en/_index_content_en.html:98
 #: pages/templates/includes/pages/fa/_index_content_fa.html:88
 msgid "Posts"
 msgstr "پست‌ها"
+
+#: documents/templates/documents/post_list.html:9
+#, fuzzy
+#| msgid "Auditorium: Login"
+msgid "Auditorium: Documents"
+msgstr "آودیتوریوم: ورود"
 
 #: engine/apps.py:9
 msgid "Engine"
@@ -807,6 +890,11 @@ msgstr "گذرواژه جدید"
 #: templates/account/password_change.html:556
 msgid "Change password"
 msgstr "تغییر گذرواژه"
+
+#: templates/account/password_change.html:376
+#: templates/account/password_change.html:580
+msgid "Back to top"
+msgstr "بازگشت به بالا"
 
 #: templates/account/signup.html:9 templates/account/signup.html:21
 #: templates/account/signup.html:33

@@ -62,6 +62,12 @@ class UserModel(AbstractUser, TranslatableModel):
         help_text=_("Select an avatar for your profile."),
     )
 
+    def get_user_shown_name(self):
+        if self.name:
+            return self.name
+        else:
+            return self.username
+
     def save(self, *args, **kwargs):
         if not self.avatar:
             self.avatar = _set_random_avatar()
