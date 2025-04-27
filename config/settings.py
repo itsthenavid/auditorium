@@ -252,13 +252,13 @@ customColorPalette = [
 ]
 
 CKEDITOR_5_CONFIGS = {
-    # 'default': {
-    #     'toolbar': {
-    #         'items': ['heading', '|', 'bold', 'italic', 'link',
-    #                   'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', ],
-    #                 }
+    'simple': {
+        'toolbar': {
+            'items': ['heading', '|', 'bold', 'italic', 'link',
+                      'bulletedList', 'numberedList', 'blockQuote', ],
+                    }
 
-    # },
+    },
     'default': {
         'blockToolbar': [
             'paragraph', 'heading1', 'heading2', 'heading3',

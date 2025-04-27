@@ -51,7 +51,7 @@ class Hall(TranslatableModel):
         description=CKEditor5Field(
             verbose_name=_("Description"),
             help_text=_("Description of the hall."),
-            config_name='default'
+            config_name='simple'
         ),
     )
     slug = models.SlugField(

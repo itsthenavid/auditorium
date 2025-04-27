@@ -12,7 +12,15 @@ class HallListView(ListView):
     """
     
     model = Hall
-    template_name = "documents/halls/list.html"
+    template_name = "documents/hall_list.html"
+
+
+class HallDetailView(DetailView):
+    """
+    """
+
+    model = Hall
+    template_name = "documents/hall_detail.html"
 
 
 class PostDetailView(DetailView):

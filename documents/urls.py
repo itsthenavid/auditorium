@@ -1,12 +1,15 @@
 from django.urls import path
 
-from .views import PostDetailView, PostListView
+from .views import HallDetailView, HallListView, PostDetailView, PostListView
 
 # Create your URLs here.
 
 app_name = "documents"
 
 urlpatterns = [
-    path("<slug:slug>/", PostDetailView.as_view(), name="post-detail"),
-    path("", PostListView.as_view(), name="post-list"),
+    path("hall/<slug:slug>/", HallDetailView.as_view(), name="hall-detail"),
+    path("halls/", HallListView.as_view(), name="hall-list"),
+
+    path("post/<slug:slug>/", PostDetailView.as_view(), name="post-detail"),
+    path("posts/", PostListView.as_view(), name="post-list"),
 ]
