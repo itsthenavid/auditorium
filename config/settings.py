@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "parler",
     "django_ckeditor_5",
     "django_tiptap",
+    "taggit",
     # "django_quill",
     # Developed installed apps
     "extensions",

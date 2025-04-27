@@ -9,6 +9,7 @@ from engine.models import IPAddress
 
 from django_ckeditor_5.fields import CKEditor5Field
 from parler.models import TranslatableModel, TranslatedFields
+from taggit.managers import TaggableManager
 
 # Create your models here.
 
@@ -202,6 +203,9 @@ class Post(TranslatableModel):
         default=str(0),
         verbose_name=_("Status"),
         help_text=_("Status of the post."),
+    )
+    tags = TaggableManager(
+        _("Tags"),
     )
     is_active = models.BooleanField(
         default=True,
