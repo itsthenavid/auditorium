@@ -90,7 +90,7 @@ def localize_numbers_ckb(value):
     for e, p in numbers.items():
         value = value.replace(e, p)
     
-    return str(value)
+    return value
 
 @register.filter
 def to_persian_digits(value):
