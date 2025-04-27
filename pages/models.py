@@ -34,7 +34,7 @@ class Page(TranslatableModel):
         index_page_title=models.CharField(
             verbose_name=_("'Index/Home' Page Title"),
             max_length=255,
-            default=_("Index: Auditorium")
+            default=_("Auditorium: Index")
         ),
         index_page_introduction_title = models.CharField(
             verbose_name=_("'Index/Home' Page Introduction Title"),
