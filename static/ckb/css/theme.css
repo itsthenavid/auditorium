@@ -10436,7 +10436,7 @@ body.tt-sliding-sidebar-open .tt-sliding-sidebar-close {
 	}
 
 	.blog-interactive-item::before {
-		position: absolute;
+		/* position: absolute;
 		counter-increment: bi-item-counter;
 		content: "" counter(bi-item-counter, decimal-leading-zero);
 		top: 45%;
@@ -10447,7 +10447,7 @@ body.tt-sliding-sidebar-open .tt-sliding-sidebar-close {
 		color: #FFF;
 		opacity: 0.1;
 		z-index: -1;
-		transform: translateY(-50%);
+		transform: translateY(-50%); */
 	}
 }
 

@@ -29,3 +29,5 @@ class PostListView(ListView):
 
     model = Post
     template_name = "documents/post_list.html"
+    
+    paginate_by = 5

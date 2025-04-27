@@ -439,7 +439,7 @@ h6,
 .tt-scrolling-text,
 #blog-list.bli-compact .bli-info::before,
 .blog-interactive-item::before {
-	font-family: 'Dana', serif;
+	font-family: 'Dana';
 }
 
 
@@ -10451,7 +10451,7 @@ body.tt-sliding-sidebar-open .tt-sliding-sidebar-close {
 	}
 
 	.blog-interactive-item::before {
-		position: absolute;
+		/* position: absolute;
 		counter-increment: bi-item-counter;
 		content: "" counter(bi-item-counter, decimal-leading-zero);
 		top: 45%;
@@ -10459,16 +10459,18 @@ body.tt-sliding-sidebar-open .tt-sliding-sidebar-close {
 		line-height: 1;
 		font-size: clamp(40px, 12vw, 220px);
 		font-weight: normal;
+		font-family: 'Dana';
 		color: #FFF;
 		opacity: 0.1;
 		z-index: -1;
-		transform: translateY(-50%);
+		transform: translateY(-50%); */
 	}
 }
 
 @media (max-width: 1400px) {
 	.blog-interactive-item::before {
 		left: 3%;
+		font-family: 'Dana';
 	}
 }
 
@@ -10536,6 +10538,7 @@ body.tt-sliding-sidebar-open .tt-sliding-sidebar-close {
 	display: inline-block;
 	margin-bottom: 15px;
 	font-size: 16px;
+	font-family: 'Dana';
 	color: #999;
 }
 
@@ -11405,4 +11408,3 @@ body:not(.tt-boxed) .tt-footer-inner,
 	transform: scale(1.04);
 	box-shadow: 0 0 0 2px rgba(255,255,255,0.1);
   }
-  

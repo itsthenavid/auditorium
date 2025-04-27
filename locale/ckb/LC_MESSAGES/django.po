@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 18:51+0330\n"
+"POT-Creation-Date: 2025-04-26 06:26+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,11 +52,11 @@ msgstr "ئاڤاتا"
 msgid "Select an avatar for your profile."
 msgstr "ئاڤاتارییەک بۆ پڕۆفایلی خۆت هەڵبژێرە."
 
-#: accounts/models.py:71
+#: accounts/models.py:77
 msgid "User"
 msgstr "بەکارهێنەر"
 
-#: accounts/models.py:72
+#: accounts/models.py:78
 msgid "Users"
 msgstr "بەکارهێنەرەکان"
 
@@ -96,7 +96,7 @@ msgstr "بەڕێوەبردنی چالاکییەکانت."
 #: accounts/templates/includes/accounts/en/_content_signup_en.html:52
 #: accounts/templates/includes/accounts/fa/_content_login_fa.html:53
 #: accounts/templates/includes/accounts/fa/_content_signup_fa.html:52
-#: documents/templates/documents/post_list.html:60
+#: documents/templates/documents/post_list.html:61
 #: documents/templates/includes/_post_detail_content_ckb.html:66
 #: documents/templates/includes/_post_detail_content_en.html:67
 #: documents/templates/includes/_post_detail_content_fa.html:66
@@ -183,6 +183,12 @@ msgstr "تۆمارکردن!"
 #: accounts/templates/includes/accounts/fa/_content_profile_fa.html:209
 #: accounts/templates/includes/accounts/fa/_content_signup_fa.html:203
 #: documents/templates/includes/_post_detail_content_en.html:613
+#: pages/templates/includes/pages/ckb/_about_content_ckb.html:654
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:638
+#: pages/templates/includes/pages/en/_about_content_en.html:658
+#: pages/templates/includes/pages/en/_index_content_en.html:641
+#: pages/templates/includes/pages/fa/_about_content_fa.html:654
+#: pages/templates/includes/pages/fa/_index_content_fa.html:627
 msgid "Back to top."
 msgstr "گەڕانەوە بۆ سەرەوە."
 
@@ -195,10 +201,18 @@ msgstr "گەڕانەوە بۆ سەرەوە."
 #: accounts/templates/includes/accounts/fa/_content_login_fa.html:184
 #: accounts/templates/includes/accounts/fa/_content_profile_fa.html:220
 #: accounts/templates/includes/accounts/fa/_content_signup_fa.html:214
+#: pages/templates/includes/pages/ckb/_about_content_ckb.html:665
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:649
+#: pages/templates/includes/pages/en/_about_content_en.html:669
+#: pages/templates/includes/pages/en/_index_content_en.html:652
+#: pages/templates/includes/pages/fa/_about_content_fa.html:665
+#: pages/templates/includes/pages/fa/_index_content_fa.html:638
 msgid ""
 "© Copyright/Copyleft - MIT LICENSE: Navid. R. - All rights reserved to "
 "developers and content creators."
-msgstr "مافی بڵاوکردنەوە/کۆپی لێفت - مۆڵەتی MIT: بۆ نەوید ڕەحیم زادە - هەموو مافەکان پارێزراوە بۆ گەشەپێدەران و دروستکەرانی ناوەڕۆک."
+msgstr ""
+"مافی بڵاوکردنەوە/کۆپی لێفت - مۆڵەتی MIT: بۆ نەوید ڕەحیم زادە - هەموو مافەکان "
+"پارێزراوە بۆ گەشەپێدەران و دروستکەرانی ناوەڕۆک."
 
 #: accounts/templates/includes/accounts/ckb/_content_login_ckb.html:184
 #: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:220
@@ -209,11 +223,19 @@ msgstr "مافی بڵاوکردنەوە/کۆپی لێفت - مۆڵەتی MIT: ب
 #: accounts/templates/includes/accounts/fa/_content_login_fa.html:184
 #: accounts/templates/includes/accounts/fa/_content_profile_fa.html:220
 #: accounts/templates/includes/accounts/fa/_content_signup_fa.html:214
+#: pages/templates/includes/pages/ckb/_about_content_ckb.html:665
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:649
+#: pages/templates/includes/pages/en/_about_content_en.html:669
+#: pages/templates/includes/pages/en/_index_content_en.html:652
+#: pages/templates/includes/pages/fa/_about_content_fa.html:665
+#: pages/templates/includes/pages/fa/_index_content_fa.html:638
 msgid ""
 "In loving memory of my cherished friend, Donya Farhadi. Dearest soul, "
 "Kurdistan shall forever hold your pain, your sorrow, and your boundless love "
 "in its heart."
-msgstr "لە بیره‌وەری هاوڕێی خۆشەویستم، دونیا فەرهادی. کوردستان هەمیشە خەم و ئازار، و خۆشەویستی بێ‌سنووری تۆ لە دڵیدا هەڵ دەگرێت."
+msgstr ""
+"لە بیره‌وەری هاوڕێی خۆشەویستم، دونیا فەرهادی. کوردستان هەمیشە خەم و ئازار، و "
+"خۆشەویستی بێ‌سنووری تۆ لە دڵیدا هەڵ دەگرێت."
 
 #: accounts/templates/includes/accounts/ckb/_content_login_ckb.html:195
 #: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:231
@@ -224,6 +246,12 @@ msgstr "لە بیره‌وەری هاوڕێی خۆشەویستم، دونیا ف
 #: accounts/templates/includes/accounts/fa/_content_login_fa.html:195
 #: accounts/templates/includes/accounts/fa/_content_profile_fa.html:231
 #: accounts/templates/includes/accounts/fa/_content_signup_fa.html:225
+#: pages/templates/includes/pages/ckb/_about_content_ckb.html:676
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:660
+#: pages/templates/includes/pages/en/_about_content_en.html:680
+#: pages/templates/includes/pages/en/_index_content_en.html:663
+#: pages/templates/includes/pages/fa/_about_content_fa.html:676
+#: pages/templates/includes/pages/fa/_index_content_fa.html:649
 msgid "Follow (Developer)"
 msgstr "بەدواداچوون (گەشەپێدەر)"
 
@@ -399,6 +427,7 @@ msgstr "چوونەژوورەوە"
 
 #: accounts/templates/includes/accounts/en/_content_login_en.html:64
 #: accounts/templates/includes/accounts/en/_content_signup_en.html:64
+#: documents/templates/documents/post_list.html:73
 #: documents/templates/includes/_post_detail_content_en.html:79
 #: pages/templates/includes/pages/en/_about_content_en.html:65
 #: pages/templates/includes/pages/en/_index_content_en.html:70
@@ -426,7 +455,7 @@ msgstr "فارسی"
 msgid "Central Kurdish"
 msgstr "کوردی ناوەڕاست"
 
-#: documents/apps.py:12
+#: documents/apps.py:12 documents/templates/documents/post_list.html:43
 msgid "Documents"
 msgstr "بەڵگەنامەکان"
 
@@ -625,7 +654,7 @@ msgstr "بڵاوکراوەتەوە لە"
 msgid "Post"
 msgstr "پۆست"
 
-#: documents/models.py:234
+#: documents/models.py:234 documents/templates/documents/post_list.html:44
 #: pages/templates/includes/pages/ckb/_index_content_ckb.html:99
 #: pages/templates/includes/pages/en/_index_content_en.html:98
 #: pages/templates/includes/pages/fa/_index_content_fa.html:88
@@ -633,8 +662,31 @@ msgid "Posts"
 msgstr "پۆستەکان"
 
 #: documents/templates/documents/post_list.html:9
+#: documents/templates/documents/post_list.html:439
+#: documents/templates/documents/post_list.html:445
 msgid "Auditorium: Documents"
 msgstr "ئاودیتۆریۆم: بەڵگەنامەکان"
+
+#: documents/templates/documents/post_list.html:45
+msgid "See what Auditorium users have written"
+msgstr "بزانە بەکارهێنەرانی ئۆدیتۆریۆم چییان نووسیوە"
+
+#: documents/templates/documents/post_list.html:103
+#: pages/templates/includes/pages/ckb/_about_content_ckb.html:25
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:25
+#: pages/templates/includes/pages/en/_index_content_en.html:25
+#: pages/templates/includes/pages/fa/_about_content_fa.html:25
+#: pages/templates/includes/pages/fa/_index_content_fa.html:25
+msgid "Image"
+msgstr "وێنە"
+
+#: documents/templates/documents/post_list.html:112
+msgid "by"
+msgstr "نووسینی..."
+
+#: documents/templates/documents/post_list.html:112
+msgid "View all posts by this author."
+msgstr "بینینی هەموو پۆستەکانی ئەم نووسەرە."
 
 #: engine/apps.py:9
 msgid "Engine"
@@ -806,14 +858,6 @@ msgstr "ڕستەکان"
 #: pages/models.py:148
 msgid "(Untitled Sentence)"
 msgstr "(ڕستەی بێ ناونیشان)"
-
-#: pages/templates/includes/pages/ckb/_about_content_ckb.html:25
-#: pages/templates/includes/pages/ckb/_index_content_ckb.html:25
-#: pages/templates/includes/pages/en/_index_content_en.html:25
-#: pages/templates/includes/pages/fa/_about_content_fa.html:25
-#: pages/templates/includes/pages/fa/_index_content_fa.html:25
-msgid "Image"
-msgstr "وێنە"
 
 #: pages/templates/includes/pages/ckb/_about_content_ckb.html:37
 #: pages/templates/includes/pages/en/_about_content_en.html:37

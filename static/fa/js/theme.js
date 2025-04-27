@@ -3173,3 +3173,39 @@ window.addEventListener("load", () => {
         console.error("Refresh button missing");
     }
 });
+
+function toPersianDigits(str) {
+    const persianDigits = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+    return str.toString().replace(/\d/g, x => persianDigits[x]);
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    const items = document.querySelectorAll('.blog-interactive-item');
+
+    items.forEach((item, index) => {
+        const counterValue = (index + 1).toString().padStart(2, '0');
+        const persianCounter = toPersianDigits(counterValue);
+
+        // Create a custom element or inject a span for the Persian number
+        let customCounter = document.createElement('span');
+        customCounter.classList.add('bi-counter'); // Add a class if you want to style it
+
+        customCounter.innerText = persianCounter;
+
+        // Position it absolutely (like the ::before element)
+        customCounter.style.position = 'absolute';
+        customCounter.style.top = '45%';
+        customCounter.style.left = '0';
+        customCounter.style.lineHeight = '1';
+        customCounter.style.fontSize = 'clamp(40px, 12vw, 220px)';
+        customCounter.style.fontWeight = 'normal';
+        customCounter.style.fontFamily = "'Dana'";
+        customCounter.style.color = '#FFF';
+        customCounter.style.opacity = '0.1';
+        customCounter.style.zIndex = '-1';
+        customCounter.style.transform = 'translateY(-50%)';
+
+        item.appendChild(customCounter);
+    });
+});
+

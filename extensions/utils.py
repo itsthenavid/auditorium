@@ -23,10 +23,10 @@ def persian_datetime_converter(time):
         "اسفند",
     )
 
+    time = timezone.localtime(time)
+
     time_to_str = "{},{},{}".format(time.year, time.month, time.day)
     time_to_tuple = jalali.Gregorian(time_to_str).persian_tuple()
-
-    time = timezone.localtime(time)
 
     time_to_list = list(time_to_tuple)
 

@@ -90,4 +90,14 @@ def localize_numbers_ckb(value):
     for e, p in numbers.items():
         value = value.replace(e, p)
     
-    return value
+    return str(value)
+
+@register.filter
+def to_persian_digits(value):
+    persian_digits = '۰۱۲۳۴۵۶۷۸۹'
+    return ''.join(persian_digits[int(d)] if d.isdigit() else d for d in str(value))
+
+@register.filter
+def to_kurdish_digits(value):
+    persian_digits = '٠١٢٣٤٥٦٧٨٩'
+    return ''.join(persian_digits[int(d)] if d.isdigit() else d for d in str(value))

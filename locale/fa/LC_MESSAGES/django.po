@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 18:51+0330\n"
+"POT-Creation-Date: 2025-04-26 06:26+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,11 +52,11 @@ msgstr "آواتار"
 msgid "Select an avatar for your profile."
 msgstr "آواتاری برای پروفایلتان انتخاب کنید."
 
-#: accounts/models.py:71
+#: accounts/models.py:77
 msgid "User"
 msgstr "کاربر"
 
-#: accounts/models.py:72
+#: accounts/models.py:78
 msgid "Users"
 msgstr "کاربران"
 
@@ -96,7 +96,7 @@ msgstr "فعالیت‌های خود را مدیریت کنید."
 #: accounts/templates/includes/accounts/en/_content_signup_en.html:52
 #: accounts/templates/includes/accounts/fa/_content_login_fa.html:53
 #: accounts/templates/includes/accounts/fa/_content_signup_fa.html:52
-#: documents/templates/documents/post_list.html:60
+#: documents/templates/documents/post_list.html:61
 #: documents/templates/includes/_post_detail_content_ckb.html:66
 #: documents/templates/includes/_post_detail_content_en.html:67
 #: documents/templates/includes/_post_detail_content_fa.html:66
@@ -183,6 +183,12 @@ msgstr "ثبت‌نام کنید!"
 #: accounts/templates/includes/accounts/fa/_content_profile_fa.html:209
 #: accounts/templates/includes/accounts/fa/_content_signup_fa.html:203
 #: documents/templates/includes/_post_detail_content_en.html:613
+#: pages/templates/includes/pages/ckb/_about_content_ckb.html:654
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:638
+#: pages/templates/includes/pages/en/_about_content_en.html:658
+#: pages/templates/includes/pages/en/_index_content_en.html:641
+#: pages/templates/includes/pages/fa/_about_content_fa.html:654
+#: pages/templates/includes/pages/fa/_index_content_fa.html:627
 msgid "Back to top."
 msgstr "بازگشت به بالا."
 
@@ -195,10 +201,18 @@ msgstr "بازگشت به بالا."
 #: accounts/templates/includes/accounts/fa/_content_login_fa.html:184
 #: accounts/templates/includes/accounts/fa/_content_profile_fa.html:220
 #: accounts/templates/includes/accounts/fa/_content_signup_fa.html:214
+#: pages/templates/includes/pages/ckb/_about_content_ckb.html:665
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:649
+#: pages/templates/includes/pages/en/_about_content_en.html:669
+#: pages/templates/includes/pages/en/_index_content_en.html:652
+#: pages/templates/includes/pages/fa/_about_content_fa.html:665
+#: pages/templates/includes/pages/fa/_index_content_fa.html:638
 msgid ""
 "© Copyright/Copyleft - MIT LICENSE: Navid. R. - All rights reserved to "
 "developers and content creators."
-msgstr "© حق کپی‌رایت/کپی‌لفت - مجوز MIT: نوید رحیم‌زاده - تمامی حقوق متعلق به توسعه‌دهندگان و خالقین محتوای پروژه است."
+msgstr ""
+"© حق کپی‌رایت/کپی‌لفت - مجوز MIT: نوید رحیم‌زاده - تمامی حقوق متعلق به "
+"توسعه‌دهندگان و خالقین محتوای پروژه است."
 
 #: accounts/templates/includes/accounts/ckb/_content_login_ckb.html:184
 #: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:220
@@ -209,11 +223,19 @@ msgstr "© حق کپی‌رایت/کپی‌لفت - مجوز MIT: نوید رح�
 #: accounts/templates/includes/accounts/fa/_content_login_fa.html:184
 #: accounts/templates/includes/accounts/fa/_content_profile_fa.html:220
 #: accounts/templates/includes/accounts/fa/_content_signup_fa.html:214
+#: pages/templates/includes/pages/ckb/_about_content_ckb.html:665
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:649
+#: pages/templates/includes/pages/en/_about_content_en.html:669
+#: pages/templates/includes/pages/en/_index_content_en.html:652
+#: pages/templates/includes/pages/fa/_about_content_fa.html:665
+#: pages/templates/includes/pages/fa/_index_content_fa.html:638
 msgid ""
 "In loving memory of my cherished friend, Donya Farhadi. Dearest soul, "
 "Kurdistan shall forever hold your pain, your sorrow, and your boundless love "
 "in its heart."
-msgstr "تقدیم به دوستِ آسمانی‌ام، دنیا فرهادی. در آرامش بخواب؛ کُردستان رنج و اندوه، و محبتِ بی‌پایان تو را از یاد نخواهد برد."
+msgstr ""
+"تقدیم به دوستِ آسمانی‌ام، دنیا فرهادی. در آرامش بخواب؛ کُردستان رنج و اندوه، و "
+"محبتِ بی‌پایان تو را از یاد نخواهد برد."
 
 #: accounts/templates/includes/accounts/ckb/_content_login_ckb.html:195
 #: accounts/templates/includes/accounts/ckb/_content_profile_ckb.html:231
@@ -224,6 +246,12 @@ msgstr "تقدیم به دوستِ آسمانی‌ام، دنیا فرهادی. 
 #: accounts/templates/includes/accounts/fa/_content_login_fa.html:195
 #: accounts/templates/includes/accounts/fa/_content_profile_fa.html:231
 #: accounts/templates/includes/accounts/fa/_content_signup_fa.html:225
+#: pages/templates/includes/pages/ckb/_about_content_ckb.html:676
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:660
+#: pages/templates/includes/pages/en/_about_content_en.html:680
+#: pages/templates/includes/pages/en/_index_content_en.html:663
+#: pages/templates/includes/pages/fa/_about_content_fa.html:676
+#: pages/templates/includes/pages/fa/_index_content_fa.html:649
 msgid "Follow (Developer)"
 msgstr "دنبال کنید (توسعه‌دهنده)"
 
@@ -400,6 +428,7 @@ msgstr "ورود"
 
 #: accounts/templates/includes/accounts/en/_content_login_en.html:64
 #: accounts/templates/includes/accounts/en/_content_signup_en.html:64
+#: documents/templates/documents/post_list.html:73
 #: documents/templates/includes/_post_detail_content_en.html:79
 #: pages/templates/includes/pages/en/_about_content_en.html:65
 #: pages/templates/includes/pages/en/_index_content_en.html:70
@@ -427,7 +456,7 @@ msgstr "فارسی"
 msgid "Central Kurdish"
 msgstr "کُردی مرکزی (سورانی)"
 
-#: documents/apps.py:12
+#: documents/apps.py:12 documents/templates/documents/post_list.html:43
 msgid "Documents"
 msgstr "اسناد"
 
@@ -628,7 +657,7 @@ msgstr "منتشرشده در"
 msgid "Post"
 msgstr "پست"
 
-#: documents/models.py:234
+#: documents/models.py:234 documents/templates/documents/post_list.html:44
 #: pages/templates/includes/pages/ckb/_index_content_ckb.html:99
 #: pages/templates/includes/pages/en/_index_content_en.html:98
 #: pages/templates/includes/pages/fa/_index_content_fa.html:88
@@ -636,10 +665,33 @@ msgid "Posts"
 msgstr "پست‌ها"
 
 #: documents/templates/documents/post_list.html:9
+#: documents/templates/documents/post_list.html:439
+#: documents/templates/documents/post_list.html:445
 #, fuzzy
 #| msgid "Auditorium: Login"
 msgid "Auditorium: Documents"
 msgstr "آودیتوریوم: ورود"
+
+#: documents/templates/documents/post_list.html:45
+msgid "See what Auditorium users have written"
+msgstr "آثار نویسندگان آودیتوریوم را مشاهده بفرمایید."
+
+#: documents/templates/documents/post_list.html:103
+#: pages/templates/includes/pages/ckb/_about_content_ckb.html:25
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:25
+#: pages/templates/includes/pages/en/_index_content_en.html:25
+#: pages/templates/includes/pages/fa/_about_content_fa.html:25
+#: pages/templates/includes/pages/fa/_index_content_fa.html:25
+msgid "Image"
+msgstr "تصویر"
+
+#: documents/templates/documents/post_list.html:112
+msgid "by"
+msgstr "نوشته‌ی..."
+
+#: documents/templates/documents/post_list.html:112
+msgid "View all posts by this author."
+msgstr "مشاهده تمامی پست‌های این نویسنده"
 
 #: engine/apps.py:9
 msgid "Engine"
@@ -812,14 +864,6 @@ msgstr "جملات"
 #: pages/models.py:148
 msgid "(Untitled Sentence)"
 msgstr "(بی‌عنوان)"
-
-#: pages/templates/includes/pages/ckb/_about_content_ckb.html:25
-#: pages/templates/includes/pages/ckb/_index_content_ckb.html:25
-#: pages/templates/includes/pages/en/_index_content_en.html:25
-#: pages/templates/includes/pages/fa/_about_content_fa.html:25
-#: pages/templates/includes/pages/fa/_index_content_fa.html:25
-msgid "Image"
-msgstr "تصویر"
 
 #: pages/templates/includes/pages/ckb/_about_content_ckb.html:37
 #: pages/templates/includes/pages/en/_about_content_en.html:37
