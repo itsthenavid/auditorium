@@ -224,6 +224,32 @@ class Post(TranslatableModel):
         help_text=_("This field shows how many people watched this post.")
     )
 
+    def get_next_post(self):
+        if self.hall.is_sequential:
+            # Sequential: next post in the same hall
+            return Post.objects.filter(
+                hall=self.hall,
+                publish_datetime__gt=self.publish_datetime
+            ).order_by('publish_datetime').first()
+        else:
+            # Non-sequential: next post from all posts
+            return Post.objects.filter(
+                publish_datetime__gt=self.publish_datetime
+            ).order_by('publish_datetime').first()
+
+    def get_previous_post(self):
+        if self.hall.is_sequential:
+            # Sequential: previous post in the same hall
+            return Post.objects.filter(
+                hall=self.hall,
+                publish_datetime__lt=self.publish_datetime
+            ).order_by('-publish_datetime').first()
+        else:
+            # Non-sequential: previous post from all posts
+            return Post.objects.filter(
+                publish_datetime__lt=self.publish_datetime
+            ).order_by('-publish_datetime').first()
+
     def publish_if_time_passed(self):
         if self.status == str(0) and timezone.now() >= self.publish_datetime:
             self.status = str(1)

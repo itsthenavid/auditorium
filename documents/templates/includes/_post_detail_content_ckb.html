@@ -167,24 +167,85 @@
                 </article>
                 <!-- End blog post -->
 
+                {% if object.hall.is_sequential %}
                 <!-- Begin blog post nav 
-                ======================== -->
+								======================== -->
+                                <div class="tt-blog-post-nav">
+                                    {% if object.get_previous_post %}
+                                    <div class="tt-bp-nav-col tt-bp-nav-right">
+                                        <div class="tt-bp-nav-text">
+                                            <span><i class="fas fa-angle-right"></i></span>{% translate "Prev Post" %}
+                                        </div>
+                                        <h4 class="tt-bp-nav-title"><a href="{% url "documents:post-detail" object.get_previous_post.slug %}">{{ object.get_previous_post }}</a></h4>
+                                    </div>
+                                    {% else %}
+                                    <div class="tt-bp-nav-col tt-bp-nav-right">
+                                        <div class="tt-bp-nav-text">
+                                            <span><i class="fas fa-angle-right"></i></span>{% translate "Prev Post" %}
+                                        </div>
+                                        <h4 class="tt-bp-nav-title">{% translate "This is the first post of the hall." %}</h4>
+                                    </div>
+                                    {% endif %}
+                
+                                    {% if object.get_next_post %}
+                                    <div class="tt-bp-nav-col tt-bp-nav-left">
+                                        <div class="tt-bp-nav-text">
+                                            {% translate "Next Post" %}<span><i class="fas fa-angle-left"></i></span>
+                                        </div>
+                                        <h4 class="tt-bp-nav-title"><a href="{% url 'documents:post-detail' object.get_next_post.slug %}">{{ object.get_next_post }}</a></h4>
+                                    </div>
+                
+                                    {% else %}
+                                    <div class="tt-bp-nav-col tt-bp-nav-left">
+                                        <div class="tt-bp-nav-text">
+                                            {% translate "Next Post" %}<span><i class="fas fa-angle-left"></i></span>
+                                        </div>
+                                        <h4 class="tt-bp-nav-title">{% translate "By now, this is the last post of the hall." %}</h4>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <!-- End blog post nav -->
+                {% else %}
+
+                <!-- Begin blog post nav 
+								======================== -->
                 <div class="tt-blog-post-nav">
+                    {% if object.get_previous_post %}
                     <div class="tt-bp-nav-col tt-bp-nav-right">
                         <div class="tt-bp-nav-text">
-                            <span><i class="fas fa-angle-right"></i></span>پست قبلی
+                            <span><i class="fas fa-angle-right"></i></span>{% translate "Prev Post" %}
                         </div>
-                        <h4 class="tt-bp-nav-title"><a href="#">رازهایی برای تکمیل سریع و کارآمد پروژه شما</a></h4>
+                        <h4 class="tt-bp-nav-title"><a href="{% url "documents:post-detail" object.get_previous_post.slug %}">{{ object.get_previous_post }}</a></h4>
                     </div>
+                    {% else %}
+                    <div class="tt-bp-nav-col tt-bp-nav-right">
+                        <div class="tt-bp-nav-text">
+                            <span><i class="fas fa-angle-right"></i></span>{% translate "Prev Post" %}
+                        </div>
+                        <h4 class="tt-bp-nav-title">{% translate "This is the first post of the hall." %}</h4>
+                    </div>
+                    {% endif %}
+
+                    {% if object.get_next_post %}
                     <div class="tt-bp-nav-col tt-bp-nav-left">
                         <div class="tt-bp-nav-text">
-                            پست بعدی<span><i class="fas fa-angle-left"></i></span>
+                            {% translate "Next Post" %}<span><i class="fas fa-angle-left"></i></span>
                         </div>
-                        <h4 class="tt-bp-nav-title"><a href="#">چرا برخی افراد تقریبا همیشه با این روش پول پس انداز می کنند</a></h4>
+                        <h4 class="tt-bp-nav-title"><a href="{% url 'documents:post-detail' object.get_next_post.slug %}">{{ object.get_next_post }}</a></h4>
                     </div>
+
+                    {% else %}
+                    <div class="tt-bp-nav-col tt-bp-nav-left">
+                        <div class="tt-bp-nav-text">
+                            {% translate "Next Post" %}<span><i class="fas fa-angle-left"></i></span>
+                        </div>
+                        <h4 class="tt-bp-nav-title">{% translate "By now, this is the last post of the hall." %}</h4>
+                    </div>
+                    {% endif %}
                 </div>
                 <!-- End blog post nav -->
 
+                {% endif %}
                 <!-- Begin post comments 
                 ========================= -->
                 <div id="tt-blog-post-comments">

@@ -19,7 +19,8 @@
     * Use class "ph-content-parallax" to enable content parallax.
     * Use class "ph-stroke" to enable caption title stroke style.
     -->
-    <div id="page-header" class="ph-full ph-cap-sm ph-center ph-bg-image ph-image-shadow ph-image-cover-6 ph-content-parallax">
+    <div id="page-header"
+        class="ph-full ph-cap-sm ph-center ph-bg-image ph-image-shadow ph-image-cover-6 ph-content-parallax">
         <div class="page-header-inner tt-wrap max-width-1400">
             <!-- Begin page header image 
             ============================= -->
@@ -45,7 +46,10 @@
                 <!-- You can use <br class="hide-from-lg"> to break a text line if needed -->
 
                 <div class="ph-meta ph-appear">
-                    <p><span class="ph-meta-published">{{ object.persian_pub_datetime|localize_numbers_fa }}</span> <br /> <span class="ph-meta-posted-by">نویسنده: <a href="blog-archive.html" title="مشاهده همه پست های مرتضی بهبودی">{{ object.author.get_user_shown_name }}</a></span></p>
+                    <p><span class="ph-meta-published">{{ object.persian_pub_datetime|localize_numbers_fa }}</span>
+                        <br /> <span class="ph-meta-posted-by">نویسنده: <a href="blog-archive.html"
+                                title="مشاهده همه پست های مرتضی بهبودی">{{ object.author.get_user_shown_name }}</a></span>
+                    </p>
                 </div>
                 <!-- /.ph-meta -->
             </div>
@@ -60,7 +64,8 @@
                 <div class="sdc-icon"><i class="fas fa-chevron-down"></i></div>
                 <svg viewBox="0 0 500 500">
                     <defs>
-                        <path d="M50,250c0-110.5,89.5-200,200-200s200,89.5,200,200s-89.5,200-200,200S50,360.5,50,250" id="textcircle"></path>
+                        <path d="M50,250c0-110.5,89.5-200,200-200s200,89.5,200,200s-89.5,200-200,200S50,360.5,50,250"
+                            id="textcircle"></path>
                     </defs>
                     <text dy="30">
                         <textPath xlink:href="#textcircle">{% translate "Scroll down - Scroll down -" %}</textPath>
@@ -81,7 +86,9 @@
             <!-- /.ph-share-trigger -->
 
             <div class="ph-share-content">
-                <div class="ph-share-close cursor-close"><div class="bg-noise"></div></div>
+                <div class="ph-share-close cursor-close">
+                    <div class="bg-noise"></div>
+                </div>
                 <div class="ph-share-inner">
                     <h1 class="ph-share-title ph-share-appear">انتشار مقاله!</h1>
                     <div class="ph-share-subtitle ph-share-appear">این مقاله را با دوستان خود به اشتراک بگذارید</div>
@@ -89,13 +96,16 @@
                     <div class="social-buttons ph-share-appear">
                         <ul>
                             <li>
-                                <a href="#0" class="magnetic-item" title="به اشتراک گذاری در فیس بوک"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#0" class="magnetic-item" title="به اشتراک گذاری در فیس بوک"><i
+                                        class="fab fa-facebook-f"></i></a>
                             </li>
                             <li>
-                                <a href="#0" class="magnetic-item" title="به اشتراک گذاری در توییتر"><i class="fab fa-twitter"></i></a>
+                                <a href="#0" class="magnetic-item" title="به اشتراک گذاری در توییتر"><i
+                                        class="fab fa-twitter"></i></a>
                             </li>
                             <li>
-                                <a href="#0" class="magnetic-item" title="به اشتراک گذاری در پینترست"><i class="fab fa-pinterest"></i></a>
+                                <a href="#0" class="magnetic-item" title="به اشتراک گذاری در پینترست"><i
+                                        class="fab fa-pinterest"></i></a>
                             </li>
                         </ul>
                     </div>
@@ -151,13 +161,16 @@
                         <div class="social-buttons">
                             <ul>
                                 <li>
-                                    <a href="#0" class="magnetic-item" rel="noopener" title="به اشتراک گذاری در فیس بوک"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="#0" class="magnetic-item" rel="noopener"
+                                        title="به اشتراک گذاری در فیس بوک"><i class="fab fa-facebook-f"></i></a>
                                 </li>
                                 <li>
-                                    <a href="#0" class="magnetic-item" rel="noopener" title="به اشتراک گذاری در توییتر"><i class="fab fa-twitter"></i></a>
+                                    <a href="#0" class="magnetic-item" rel="noopener"
+                                        title="به اشتراک گذاری در توییتر"><i class="fab fa-twitter"></i></a>
                                 </li>
                                 <li>
-                                    <a href="#0" class="magnetic-item" rel="noopener" title="به اشتراک گذاری در پینترست"><i class="fab fa-pinterest"></i></a>
+                                    <a href="#0" class="magnetic-item" rel="noopener"
+                                        title="به اشتراک گذاری در پینترست"><i class="fab fa-pinterest"></i></a>
                                 </li>
                             </ul>
                         </div>
@@ -167,23 +180,85 @@
                 </article>
                 <!-- End blog post -->
 
+                {% if object.hall.is_sequential %}
                 <!-- Begin blog post nav 
-                ======================== -->
+								======================== -->
+                                <div class="tt-blog-post-nav">
+                                    {% if object.get_previous_post %}
+                                    <div class="tt-bp-nav-col tt-bp-nav-right">
+                                        <div class="tt-bp-nav-text">
+                                            <span><i class="fas fa-angle-right"></i></span>{% translate "Prev Post" %}
+                                        </div>
+                                        <h4 class="tt-bp-nav-title"><a href="{% url "documents:post-detail" object.get_previous_post.slug %}">{{ object.get_previous_post }}</a></h4>
+                                    </div>
+                                    {% else %}
+                                    <div class="tt-bp-nav-col tt-bp-nav-right">
+                                        <div class="tt-bp-nav-text">
+                                            <span><i class="fas fa-angle-right"></i></span>{% translate "Prev Post" %}
+                                        </div>
+                                        <h4 class="tt-bp-nav-title">{% translate "This is the first post of the hall." %}</h4>
+                                    </div>
+                                    {% endif %}
+                
+                                    {% if object.get_next_post %}
+                                    <div class="tt-bp-nav-col tt-bp-nav-left">
+                                        <div class="tt-bp-nav-text">
+                                            {% translate "Next Post" %}<span><i class="fas fa-angle-left"></i></span>
+                                        </div>
+                                        <h4 class="tt-bp-nav-title"><a href="{% url 'documents:post-detail' object.get_next_post.slug %}">{{ object.get_next_post }}</a></h4>
+                                    </div>
+                
+                                    {% else %}
+                                    <div class="tt-bp-nav-col tt-bp-nav-left">
+                                        <div class="tt-bp-nav-text">
+                                            {% translate "Next Post" %}<span><i class="fas fa-angle-left"></i></span>
+                                        </div>
+                                        <h4 class="tt-bp-nav-title">{% translate "By now, this is the last post of the hall." %}</h4>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <!-- End blog post nav -->
+                {% else %}
+
+                <!-- Begin blog post nav 
+								======================== -->
                 <div class="tt-blog-post-nav">
+                    {% if object.get_previous_post %}
                     <div class="tt-bp-nav-col tt-bp-nav-right">
                         <div class="tt-bp-nav-text">
-                            <span><i class="fas fa-angle-right"></i></span>پست قبلی
+                            <span><i class="fas fa-angle-right"></i></span>{% translate "Prev Post" %}
                         </div>
-                        <h4 class="tt-bp-nav-title"><a href="#">رازهایی برای تکمیل سریع و کارآمد پروژه شما</a></h4>
+                        <h4 class="tt-bp-nav-title"><a href="{% url "documents:post-detail" object.get_previous_post.slug %}">{{ object.get_previous_post }}</a></h4>
                     </div>
+                    {% else %}
+                    <div class="tt-bp-nav-col tt-bp-nav-right">
+                        <div class="tt-bp-nav-text">
+                            <span><i class="fas fa-angle-right"></i></span>{% translate "Prev Post" %}
+                        </div>
+                        <h4 class="tt-bp-nav-title">{% translate "This is the first post of the hall." %}</h4>
+                    </div>
+                    {% endif %}
+
+                    {% if object.get_next_post %}
                     <div class="tt-bp-nav-col tt-bp-nav-left">
                         <div class="tt-bp-nav-text">
-                            پست بعدی<span><i class="fas fa-angle-left"></i></span>
+                            {% translate "Next Post" %}<span><i class="fas fa-angle-left"></i></span>
                         </div>
-                        <h4 class="tt-bp-nav-title"><a href="#">چرا برخی افراد تقریبا همیشه با این روش پول پس انداز می کنند</a></h4>
+                        <h4 class="tt-bp-nav-title"><a href="{% url 'documents:post-detail' object.get_next_post.slug %}">{{ object.get_next_post }}</a></h4>
                     </div>
+
+                    {% else %}
+                    <div class="tt-bp-nav-col tt-bp-nav-left">
+                        <div class="tt-bp-nav-text">
+                            {% translate "Next Post" %}<span><i class="fas fa-angle-left"></i></span>
+                        </div>
+                        <h4 class="tt-bp-nav-title">{% translate "By now, this is the last post of the hall." %}</h4>
+                    </div>
+                    {% endif %}
                 </div>
                 <!-- End blog post nav -->
+
+                {% endif %}
 
                 <!-- Begin post comments 
                 ========================= -->
@@ -196,7 +271,8 @@
                         <!-- Begin tt-comment -->
                         <li class="tt-comment">
                             <a href="#" class="tt-comment-avatar">
-                                <img src="assets/img/low-qlt-thumb.jpg" data-src="assets/img/blog/avatar.jpg" class="tt-lazy" alt="تصویر" />
+                                <img src="assets/img/low-qlt-thumb.jpg" data-src="assets/img/blog/avatar.jpg"
+                                    class="tt-lazy" alt="تصویر" />
                             </a>
                             <div class="tt-comment-body">
                                 <div class="tt-comment-meta">
@@ -206,7 +282,10 @@
                                 <span class="tt-comment-reply"><a href="#">پاسخ</a></span>
                                 <div class="tt-comment-text">
                                     <p>
-                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد کتابهای زیادی در شصت و سه درصد گذشته حال و آینده.
+                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
+                                        گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و
+                                        برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای
+                                        کاربردی می باشد کتابهای زیادی در شصت و سه درصد گذشته حال و آینده.
                                     </p>
                                 </div>
                                 <!-- /.tt-comment-text -->
@@ -218,7 +297,8 @@
                         <!-- Begin tt-comment -->
                         <li class="tt-comment">
                             <a href="#" class="tt-comment-avatar">
-                                <img src="assets/img/low-qlt-thumb.jpg" data-src="assets/img/blog/avatar.jpg" class="tt-lazy" alt="تصویر" />
+                                <img src="assets/img/low-qlt-thumb.jpg" data-src="assets/img/blog/avatar.jpg"
+                                    class="tt-lazy" alt="تصویر" />
                             </a>
                             <div class="tt-comment-body">
                                 <div class="tt-comment-meta">
@@ -228,7 +308,10 @@
                                 <span class="tt-comment-reply"><a href="#">پاسخ</a></span>
                                 <div class="tt-comment-text">
                                     <p>
-                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
+                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
+                                        گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و
+                                        برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای
+                                        کاربردی می باشد.
                                     </p>
                                 </div>
                                 <!-- /.tt-comment-text -->
@@ -239,7 +322,8 @@
                                     <!-- Begin tt-comment -->
                                     <li class="tt-comment">
                                         <a href="#" class="tt-comment-avatar">
-                                            <img src="assets/img/low-qlt-thumb.jpg" data-src="assets/img/blog/avatar.jpg" class="tt-lazy" alt="تصویر" />
+                                            <img src="assets/img/low-qlt-thumb.jpg"
+                                                data-src="assets/img/blog/avatar.jpg" class="tt-lazy" alt="تصویر" />
                                         </a>
                                         <div class="tt-comment-body">
                                             <div class="tt-comment-meta">
@@ -249,7 +333,11 @@
                                             <span class="tt-comment-reply"><a href="#">پاسخ</a></span>
                                             <div class="tt-comment-text">
                                                 <p>
-                                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد کتابهای زیادی در شصت و سه درصد گذشته حال و آینده.
+                                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
+                                                    استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در
+                                                    ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
+                                                    کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد کتابهای زیادی
+                                                    در شصت و سه درصد گذشته حال و آینده.
                                                 </p>
                                             </div>
                                             <!-- /.tt-comment-text -->
@@ -261,7 +349,8 @@
                                     <!-- Begin tt-comment -->
                                     <li class="tt-comment">
                                         <a href="#" class="tt-comment-avatar">
-                                            <img src="assets/img/low-qlt-thumb.jpg" data-src="assets/img/blog/avatar.jpg" class="tt-lazy" alt="تصویر" />
+                                            <img src="assets/img/low-qlt-thumb.jpg"
+                                                data-src="assets/img/blog/avatar.jpg" class="tt-lazy" alt="تصویر" />
                                         </a>
                                         <div class="tt-comment-body">
                                             <div class="tt-comment-meta">
@@ -270,7 +359,9 @@
                                             </div>
                                             <span class="tt-comment-reply"><a href="#">پاسخ</a></span>
                                             <div class="tt-comment-text">
-                                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.</p>
+                                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
+                                                    استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در
+                                                    ستون و سطرآنچنان که لازم است.</p>
                                             </div>
                                             <!-- /.tt-comment-text -->
                                         </div>
@@ -287,7 +378,8 @@
                         <!-- Begin tt-comment -->
                         <li class="tt-comment">
                             <a href="#" class="tt-comment-avatar">
-                                <img src="assets/img/low-qlt-thumb.jpg" data-src="assets/img/blog/avatar.jpg" class="tt-lazy" alt="تصویر" />
+                                <img src="assets/img/low-qlt-thumb.jpg" data-src="assets/img/blog/avatar.jpg"
+                                    class="tt-lazy" alt="تصویر" />
                             </a>
                             <div class="tt-comment-body">
                                 <div class="tt-comment-meta">
@@ -297,7 +389,10 @@
                                 <span class="tt-comment-reply"><a href="#">پاسخ</a></span>
                                 <div class="tt-comment-text">
                                     <p>
-                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
+                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
+                                        گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و
+                                        برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای
+                                        کاربردی می باشد.
                                     </p>
                                 </div>
                                 <!-- /.tt-comment-text -->
@@ -345,7 +440,8 @@
                         <div class="tt-post-comment-reminder">
                             <div class="tt-form-check tt-form-check-inline">
                                 <input type="checkbox" id="notify-me-new-comment" />
-                                <label for="notify-me-new-comment">وقتی این نظر پاسخی دریافت کرد، به من ایمیل زده شود.</label>
+                                <label for="notify-me-new-comment">وقتی این نظر پاسخی دریافت کرد، به من ایمیل زده
+                                    شود.</label>
                             </div>
                             <div class="tt-form-check">
                                 <input type="checkbox" id="notify-me-new-post" />
@@ -382,7 +478,8 @@
                                 -->
                                 <form>
                                     <div class="tt-form-btn-inside">
-                                        <input class="tt-form-control" type="text" id="search" placeholder="چیزی تایپ کنید و اینتر را بزنید" required />
+                                        <input class="tt-form-control" type="text" id="search"
+                                            placeholder="چیزی تایپ کنید و اینتر را بزنید" required />
                                         <button type="submit"><i class="fas fa-search"></i></button>
                                     </div>
                                 </form>
@@ -395,19 +492,24 @@
                                 <h3 class="sidebar-heading">دسته بندی ها</h3>
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="blog-archive.html">طراحی وب <span title="پست های این دسته بندی">26</span></a>
+                                        <a href="blog-archive.html">طراحی وب <span
+                                                title="پست های این دسته بندی">26</span></a>
                                     </li>
                                     <li>
-                                        <a href="blog-archive.html">منابع <span title="پست های این دسته بندی">12</span></a>
+                                        <a href="blog-archive.html">منابع <span
+                                                title="پست های این دسته بندی">12</span></a>
                                     </li>
                                     <li>
-                                        <a href="blog-archive.html">آموزش ها <span title="پست های این دسته بندی">19</span></a>
+                                        <a href="blog-archive.html">آموزش ها <span
+                                                title="پست های این دسته بندی">19</span></a>
                                     </li>
                                     <li>
-                                        <a href="blog-archive.html">رایگان ها <span title="پست های این دسته بندی">31</span></a>
+                                        <a href="blog-archive.html">رایگان ها <span
+                                                title="پست های این دسته بندی">31</span></a>
                                     </li>
                                     <li>
-                                        <a href="blog-archive.html">الهام <span title="پست های این دسته بندی">67</span></a>
+                                        <a href="blog-archive.html">الهام <span
+                                                title="پست های این دسته بندی">67</span></a>
                                     </li>
                                 </ul>
                             </div>
@@ -420,28 +522,32 @@
                                 <ul class="list-unstyled">
                                     <li>
                                         <div class="sidebar-post-data">
-                                            <h5 class="sidebar-post-title"><a href="#">چرا برخی افراد تقریبا همیشه با این روش پول پس انداز می کنند</a></h5>
+                                            <h5 class="sidebar-post-title"><a href="#">چرا برخی افراد تقریبا همیشه با
+                                                    این روش پول پس انداز می کنند</a></h5>
                                             <!-- <span class="sidebar-post-author">توسط: <a href="">مرتضی بهبودی</a></span> -->
                                             <span class="sidebar-post-date">21 آبان 1401</span>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="sidebar-post-data">
-                                            <h5 class="sidebar-post-title"><a href="#">آیا می خواهید مهارت های خود را افزایش دهید؟ ابتدا باید این را بخوانید</a></h5>
+                                            <h5 class="sidebar-post-title"><a href="#">آیا می خواهید مهارت های خود را
+                                                    افزایش دهید؟ ابتدا باید این را بخوانید</a></h5>
                                             <!-- <span class="sidebar-post-author">توسط: <a href="">مرتضی بهبودی</a></span> -->
                                             <span class="sidebar-post-date">21 مهر 1401</span>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="sidebar-post-data">
-                                            <h5 class="sidebar-post-title"><a href="#">رازهایی برای تکمیل سریع و کارآمد پروژه شما</a></h5>
+                                            <h5 class="sidebar-post-title"><a href="#">رازهایی برای تکمیل سریع و کارآمد
+                                                    پروژه شما</a></h5>
                                             <!-- <span class="sidebar-post-author">توسط: <a href="">رامین داوودی</a></span> -->
                                             <span class="sidebar-post-date">21 شهریور 1401</span>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="sidebar-post-data">
-                                            <h5 class="sidebar-post-title"><a href="#">چگونه دوستان خود را به دست آوریم و بر مردم تاثیر بگذاریم؟</a></h5>
+                                            <h5 class="sidebar-post-title"><a href="#">چگونه دوستان خود را به دست آوریم
+                                                    و بر مردم تاثیر بگذاریم؟</a></h5>
                                             <!-- <span class="sidebar-post-author">توسط: <a href="">رامین داوودی</a></span> -->
                                             <span class="sidebar-post-date">21 مرداد 1401</span>
                                         </div>
@@ -462,7 +568,8 @@
                                             </div>
                                         </div>
                                         <div class="sidebar-comment-text">
-                                            <a href="#">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است ...</a>
+                                            <a href="#">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
+                                                استفاده از طراحان گرافیک است ...</a>
                                         </div>
                                     </li>
 
@@ -474,7 +581,8 @@
                                             </div>
                                         </div>
                                         <div class="sidebar-comment-text">
-                                            <a href="#">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است ...</a>
+                                            <a href="#">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
+                                                استفاده از طراحان گرافیک است ...</a>
                                         </div>
                                     </li>
 
@@ -486,7 +594,8 @@
                                             </div>
                                         </div>
                                         <div class="sidebar-comment-text">
-                                            <a href="#">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است ...</a>
+                                            <a href="#">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
+                                                استفاده از طراحان گرافیک است ...</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -594,7 +703,8 @@
                 <div class="footer-col-inner">
                     <!-- You can use whatever button or link here -->
                     <div class="tt-btn tt-btn-link">
-                        <a href="#" class="scroll-to-top" data-hover="{% translate "Back to top." %}">{% translate "Back to top." %}</a>
+                        <a href="#" class="scroll-to-top" data-hover="{% translate " Back to top." %}">{% translate
+                            "Back to top." %}</a>
                     </div>
                 </div>
                 <!-- /.footer-col-inner -->
@@ -605,7 +715,12 @@
             ========================= -->
             <div class="footer-col tt-align-center order-m-last">
                 <div class="footer-col-inner">
-                    <div style="text-align: center;" class="tt-copyright">{% translate "© Copyright/Copyleft - MIT LICENSE: Navid. R. - All rights reserved to developers and content creators." %}<br /><div style="font-size: xx-small; text-align: center;">{% translate "In loving memory of my cherished friend, Donya Farhadi. Dearest soul, Kurdistan shall forever hold your pain, your sorrow, and your boundless love in its heart." %}</div></div>
+                    <div style="text-align: center;" class="tt-copyright">{% translate "© Copyright/Copyleft - MIT
+                        LICENSE: Navid. R. - All rights reserved to developers and content creators." %}<br />
+                        <div style="font-size: xx-small; text-align: center;">{% translate "In loving memory of my
+                            cherished friend, Donya Farhadi. Dearest soul, Kurdistan shall forever hold your pain, your
+                            sorrow, and your boundless love in its heart." %}</div>
+                    </div>
                 </div>
                 <!-- /.footer-col-inner -->
             </div>
@@ -616,13 +731,18 @@
             <div class="footer-col tt-align-center-left">
                 <div class="footer-col-inner">
                     <div class="footer-social">
-                        <div class="footer-social-text"><span>{% translate "Follow (Developer)" %}</span><i class="fas fa-share-alt"></i></div>
+                        <div class="footer-social-text"><span>{% translate "Follow (Developer)" %}</span><i
+                                class="fas fa-share-alt"></i></div>
                         <div class="social-buttons">
                             <ul>
-                                <li><a href="https://github.com/itsthenavid" class="magnetic-item" target="_blank" rel="noopener">GitHub.</a></li>
-                                <li><a href="https://t.me/KungFuMorale" class="magnetic-item" target="_blank" rel="noopener">Tl. Pv.</a></li>
-                                <li><a href="https://t.me/MoraleRadio" class="magnetic-item" target="_blank" rel="noopener">Tl. Ch.</a></li>
-                                <li><a href="https://instagram.com/itsthenavid/" class="magnetic-item" target="_blank" rel="noopener">Ig.</a></li>
+                                <li><a href="https://github.com/itsthenavid" class="magnetic-item" target="_blank"
+                                        rel="noopener">GitHub.</a></li>
+                                <li><a href="https://t.me/KungFuMorale" class="magnetic-item" target="_blank"
+                                        rel="noopener">Tl. Pv.</a></li>
+                                <li><a href="https://t.me/MoraleRadio" class="magnetic-item" target="_blank"
+                                        rel="noopener">Tl. Ch.</a></li>
+                                <li><a href="https://instagram.com/itsthenavid/" class="magnetic-item" target="_blank"
+                                        rel="noopener">Ig.</a></li>
                             </ul>
                         </div>
                         <!-- /.social-buttons -->
