@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-from os import environ as env 
+from os import environ as env
 
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
