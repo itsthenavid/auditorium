@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-27 19:17+0330\n"
+"POT-Creation-Date: 2025-04-28 04:47+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Accounts"
 msgstr "ئەکاونتەکان"
 
-#: accounts/forms.py:64 accounts/models.py:44 documents/models.py:48
+#: accounts/forms.py:64 accounts/models.py:44 documents/models.py:49
 msgid "Name"
 msgstr "ناو"
 
@@ -96,9 +96,11 @@ msgstr "بەڕێوەبردنی چالاکییەکانت."
 #: accounts/templates/includes/accounts/en/_content_signup_en.html:52
 #: accounts/templates/includes/accounts/fa/_content_login_fa.html:53
 #: accounts/templates/includes/accounts/fa/_content_signup_fa.html:52
+#: documents/templates/includes/_hall_list_content_en.html:54
+#: documents/templates/includes/_hall_list_content_fa.html:57
 #: documents/templates/includes/_post_detail_content_ckb.html:66
 #: documents/templates/includes/_post_detail_content_en.html:67
-#: documents/templates/includes/_post_detail_content_fa.html:66
+#: documents/templates/includes/_post_detail_content_fa.html:71
 #: documents/templates/includes/_post_list_content_ckb.html:60
 #: documents/templates/includes/_post_list_content_en.html:55
 #: documents/templates/includes/_post_list_content_fa.html:56
@@ -184,9 +186,8 @@ msgstr "تۆمارکردن!"
 #: accounts/templates/includes/accounts/fa/_content_login_fa.html:173
 #: accounts/templates/includes/accounts/fa/_content_profile_fa.html:209
 #: accounts/templates/includes/accounts/fa/_content_signup_fa.html:203
-#: documents/templates/includes/_post_detail_content_ckb.html:653
+#: documents/templates/includes/_post_detail_content_ckb.html:658
 #: documents/templates/includes/_post_detail_content_en.html:669
-#: documents/templates/includes/_post_detail_content_fa.html:653
 #: documents/templates/includes/_post_list_content_fa.html:380
 #: pages/templates/includes/pages/ckb/_about_content_ckb.html:654
 #: pages/templates/includes/pages/ckb/_index_content_ckb.html:638
@@ -206,9 +207,8 @@ msgstr "گەڕانەوە بۆ سەرەوە."
 #: accounts/templates/includes/accounts/fa/_content_login_fa.html:184
 #: accounts/templates/includes/accounts/fa/_content_profile_fa.html:220
 #: accounts/templates/includes/accounts/fa/_content_signup_fa.html:214
-#: documents/templates/includes/_post_detail_content_ckb.html:664
+#: documents/templates/includes/_post_detail_content_ckb.html:669
 #: documents/templates/includes/_post_detail_content_en.html:680
-#: documents/templates/includes/_post_detail_content_fa.html:664
 #: documents/templates/includes/_post_list_content_fa.html:391
 #: pages/templates/includes/pages/ckb/_about_content_ckb.html:665
 #: pages/templates/includes/pages/ckb/_index_content_ckb.html:649
@@ -232,9 +232,8 @@ msgstr ""
 #: accounts/templates/includes/accounts/fa/_content_login_fa.html:184
 #: accounts/templates/includes/accounts/fa/_content_profile_fa.html:220
 #: accounts/templates/includes/accounts/fa/_content_signup_fa.html:214
-#: documents/templates/includes/_post_detail_content_ckb.html:664
+#: documents/templates/includes/_post_detail_content_ckb.html:669
 #: documents/templates/includes/_post_detail_content_en.html:680
-#: documents/templates/includes/_post_detail_content_fa.html:664
 #: documents/templates/includes/_post_list_content_fa.html:391
 #: pages/templates/includes/pages/ckb/_about_content_ckb.html:665
 #: pages/templates/includes/pages/ckb/_index_content_ckb.html:649
@@ -259,9 +258,9 @@ msgstr ""
 #: accounts/templates/includes/accounts/fa/_content_login_fa.html:195
 #: accounts/templates/includes/accounts/fa/_content_profile_fa.html:231
 #: accounts/templates/includes/accounts/fa/_content_signup_fa.html:225
-#: documents/templates/includes/_post_detail_content_ckb.html:675
+#: documents/templates/includes/_post_detail_content_ckb.html:680
 #: documents/templates/includes/_post_detail_content_en.html:691
-#: documents/templates/includes/_post_detail_content_fa.html:675
+#: documents/templates/includes/_post_detail_content_fa.html:734
 #: documents/templates/includes/_post_list_content_fa.html:402
 #: pages/templates/includes/pages/ckb/_about_content_ckb.html:676
 #: pages/templates/includes/pages/ckb/_index_content_ckb.html:660
@@ -444,6 +443,7 @@ msgstr "چوونەژوورەوە"
 
 #: accounts/templates/includes/accounts/en/_content_login_en.html:64
 #: accounts/templates/includes/accounts/en/_content_signup_en.html:64
+#: documents/templates/includes/_hall_list_content_en.html:66
 #: documents/templates/includes/_post_detail_content_en.html:79
 #: documents/templates/includes/_post_list_content_en.html:67
 #: pages/templates/includes/pages/en/_about_content_en.html:65
@@ -479,207 +479,213 @@ msgstr "کوردی ناوەڕاست"
 msgid "Documents"
 msgstr "بەڵگەنامەکان"
 
-#: documents/models.py:26
+#: documents/models.py:27
 msgid "Idea"
 msgstr "بیرۆکە"
 
-#: documents/models.py:27
+#: documents/models.py:28
 msgid "Activated"
 msgstr "چالاک کراوە"
 
-#: documents/models.py:33
+#: documents/models.py:34
 msgid "Parent"
 msgstr "باوک"
 
-#: documents/models.py:36
+#: documents/models.py:37
 msgid "Parent hall of the current hall."
 msgstr "هۆڵی دایکان و باوکانی هۆڵی ئێستا."
 
-#: documents/models.py:41 documents/models.py:142
+#: documents/models.py:42 documents/models.py:165
 msgid "Artwork"
 msgstr "ئارتوۆرک"
 
-#: documents/models.py:49
+#: documents/models.py:50
 msgid "Name of the hall."
 msgstr "ناوی هۆڵەکە."
 
-#: documents/models.py:52
+#: documents/models.py:53
 msgid "Description"
 msgstr "وەسف"
 
-#: documents/models.py:53
+#: documents/models.py:54
 msgid "Description of the hall."
 msgstr "وەسفکردنی هۆڵەکە."
 
-#: documents/models.py:60 documents/models.py:175
+#: documents/models.py:61 documents/models.py:198
 msgid "Slug"
 msgstr "سلۆگ"
 
-#: documents/models.py:61
+#: documents/models.py:62
 msgid "Slug for the hall. Used in the URL."
 msgstr "سلۆگ بۆ هۆڵەکە. لە URL بەکاردێت."
 
-#: documents/models.py:66
+#: documents/models.py:67
 msgid "Creator"
 msgstr "داهێنەر"
 
-#: documents/models.py:68
+#: documents/models.py:69
 msgid "Creator of the hall."
 msgstr "داهێنەری هۆڵەکە"
 
-#: documents/models.py:72 documents/models.py:187 engine/models.py:21
+#: documents/models.py:73 documents/models.py:210 engine/models.py:21
 msgid "Created At"
 msgstr "داهاتوو لە"
 
-#: documents/models.py:73
+#: documents/models.py:74
 msgid "Date and time when the hall was created."
 msgstr "بەروار و کاتی دروستبوونی هۆڵەکە."
 
-#: documents/models.py:77 documents/models.py:192
+#: documents/models.py:78 documents/models.py:215
 msgid "Updated At"
 msgstr "نوێکراوەتەوە لە"
 
-#: documents/models.py:78
+#: documents/models.py:79
 msgid "Date and time when the hall was last updated."
 msgstr "بەروار و کاتی دوایین نوێکردنەوەی هۆڵەکە."
 
-#: documents/models.py:84 documents/models.py:204
+#: documents/models.py:85 documents/models.py:227
 msgid "Status"
 msgstr "دۆخ"
 
-#: documents/models.py:85
+#: documents/models.py:86
 msgid "Status of the hall."
 msgstr "دۆخی هۆڵەکە."
 
-#: documents/models.py:89 documents/models.py:212 pages/models.py:103
+#: documents/models.py:90 documents/models.py:235 pages/models.py:103
 msgid "Activation Status"
 msgstr "دۆخی چالاککردن"
 
-#: documents/models.py:90
+#: documents/models.py:91
 msgid "Is the hall active?"
 msgstr "ئایا هۆڵەکە چالاکە؟"
 
-#: documents/models.py:94 documents/models.py:217
+#: documents/models.py:95 documents/models.py:240
 msgid "Explicit Content"
 msgstr "ناوەڕۆکی ڕوون"
 
-#: documents/models.py:95
+#: documents/models.py:96
 msgid "Is the hall explicit? Is it has explicit content?"
 msgstr "ئایا هۆڵەکە ڕوون و ئاشکرایە؟ ئایا ناوەڕۆکی ڕوون و ئاشکرای هەیە؟"
 
-#: documents/models.py:99
-msgid "Sequential Posts"
-msgstr ""
-
 #: documents/models.py:100
+msgid "Sequential Posts"
+msgstr "پۆستە بەرزبووەکان/یەک لە دوای یەک"
+
+#: documents/models.py:101
 msgid ""
 "This room contains sequential posts, and the posts will be related to each "
 "other."
-msgstr ""
+msgstr "ئەم ژوورە پۆستی یەک لە دوای یەک لەخۆدەگرێت، پۆستەکانیش پەیوەندییان بە یەکەوە دەبێت."
 
-#: documents/models.py:104 documents/models.py:167
+#: documents/models.py:114
+msgid "Leading Hall"
+msgstr "هۆڵی پێشەنگ"
+
+#: documents/models.py:127 documents/models.py:190
 msgid "Hall"
 msgstr "هۆڵ"
 
-#: documents/models.py:105
+#: documents/models.py:128
+#: documents/templates/includes/_hall_list_content_en.html:35
+#: documents/templates/includes/_hall_list_content_fa.html:39
 #: pages/templates/includes/pages/fa/_index_content_fa.html:318
 msgid "Halls"
 msgstr "هۆڵەکان"
 
-#: documents/models.py:136
+#: documents/models.py:159
 msgid "Draft"
 msgstr "ڕەشنووس"
 
-#: documents/models.py:137
+#: documents/models.py:160
 msgid "Published"
 msgstr "بڵاوکراوەتەوە"
 
-#: documents/models.py:146
+#: documents/models.py:169
 msgid "Artwork for the post."
 msgstr "ئارتوۆرکی پۆستەکە."
 
-#: documents/models.py:153
+#: documents/models.py:176
 msgid "Title"
 msgstr "ناونیشان"
 
-#: documents/models.py:154
+#: documents/models.py:177
 msgid "Title of the post."
 msgstr "ناونیشانی پۆستەکە."
 
-#: documents/models.py:157
+#: documents/models.py:180
 msgid "Content"
 msgstr "ناوەڕۆک"
 
-#: documents/models.py:158
+#: documents/models.py:181
 msgid "Content of the post."
 msgstr "ناوەڕۆکی پۆستەکە."
 
-#: documents/models.py:169
+#: documents/models.py:192
 msgid "Hall of the post."
 msgstr "هۆڵی پۆستەکە."
 
-#: documents/models.py:176
+#: documents/models.py:199
 msgid "Slug for the post. Used in the URL."
 msgstr "سلۆگ بۆ پۆستەکە. لە URL بەکاردێت."
 
-#: documents/models.py:181
+#: documents/models.py:204
 msgid "Author"
 msgstr "نووسەر"
 
-#: documents/models.py:183
+#: documents/models.py:206
 msgid "Author of the post."
 msgstr "نووسەری پۆستەکە."
 
-#: documents/models.py:188
+#: documents/models.py:211
 msgid "Date and time when the post was created."
 msgstr "بەروار و کاتی دروستکردنی پۆستەکە."
 
-#: documents/models.py:193
+#: documents/models.py:216
 msgid "Date and time when the post was last updated."
 msgstr "بەروار و کاتی دوایین نوێکردنەوەی پۆستەکە."
 
-#: documents/models.py:197
+#: documents/models.py:220
 msgid "Published At"
 msgstr "بڵاوکراوەتەوە لە"
 
-#: documents/models.py:198
+#: documents/models.py:221
 msgid "Date and time when the post was published."
 msgstr "بەروار و کاتی بڵاوبوونەوەی پۆستەکە."
 
-#: documents/models.py:205
+#: documents/models.py:228
 msgid "Status of the post."
 msgstr "دۆخی پۆستەکە."
 
-#: documents/models.py:208
+#: documents/models.py:231
 #: documents/templates/includes/_post_detail_content_en.html:148
 msgid "Tags"
 msgstr ""
 
-#: documents/models.py:213
+#: documents/models.py:236
 msgid "Is the post active?"
 msgstr "ئایا پۆستەکە ئەکتیڤە؟"
 
-#: documents/models.py:218
+#: documents/models.py:241
 msgid "Is the post explicit? Is it has explicit content?"
 msgstr "ئایا پۆستەکە ڕوون و ئاشکرایە؟ ئایا ناوەڕۆکی ڕوون و ئاشکرای هەیە؟"
 
-#: documents/models.py:222
+#: documents/models.py:245
 msgid "Views"
 msgstr "بینینەکان"
 
-#: documents/models.py:224
+#: documents/models.py:247
 msgid "This field shows how many people watched this post."
 msgstr "ئەم بوارە نیشان دەدات کە چەند کەس سەیری ئەم پۆستەی کردووە."
 
-#: documents/models.py:260
+#: documents/models.py:283
 msgid "Publish Datetime"
 msgstr "بڵاوکراوەتەوە لە"
 
-#: documents/models.py:263
+#: documents/models.py:286
 msgid "Post"
 msgstr "پۆست"
 
-#: documents/models.py:264
+#: documents/models.py:287
 #: documents/templates/includes/_post_list_content_ckb.html:41
 #: documents/templates/includes/_post_list_content_en.html:38
 #: documents/templates/includes/_post_list_content_fa.html:39
@@ -689,59 +695,117 @@ msgstr "پۆست"
 msgid "Posts"
 msgstr "پۆستەکان"
 
+#: documents/templates/documents/hall_list.html:11
+#: documents/templates/documents/hall_list.html:17
+#: documents/templates/documents/hall_list.html:23
+msgid "Auditorium: Halls"
+msgstr "ئاودیتۆریۆم: هۆڵەکان"
+
 #: documents/templates/documents/post_list.html:11
 #: documents/templates/documents/post_list.html:17
 #: documents/templates/documents/post_list.html:23
 msgid "Auditorium: Documents"
 msgstr "ئاودیتۆریۆم: بەڵگەنامەکان"
 
+#: documents/templates/includes/_hall_list_content_en.html:36
+#: documents/templates/includes/_hall_list_content_fa.html:40
+msgid "Discussions"
+msgstr "وتوووژەکان"
+
+#: documents/templates/includes/_hall_list_content_en.html:37
+#: documents/templates/includes/_hall_list_content_fa.html:41
+msgid "Rooms to express thoughts and ideas."
+msgstr "ژوور بۆ دەربڕینی بیر و بیرۆکە."
+
+#: documents/templates/includes/_hall_list_content_en.html:100
+#: documents/templates/includes/_hall_list_content_fa.html:91
+#: documents/templates/includes/_post_list_content_en.html:98
+#: documents/templates/includes/_post_list_content_fa.html:89
+#: pages/templates/includes/pages/ckb/_about_content_ckb.html:25
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:25
+#: pages/templates/includes/pages/en/_index_content_en.html:25
+#: pages/templates/includes/pages/fa/_about_content_fa.html:25
+#: pages/templates/includes/pages/fa/_index_content_fa.html:25
+msgid "Image"
+msgstr "وێنە"
+
+#: documents/templates/includes/_hall_list_content_en.html:114
+#: documents/templates/includes/_hall_list_content_fa.html:105
+msgid "created by:"
+msgstr "نوسراو لەلایەن:"
+
+#: documents/templates/includes/_hall_list_content_en.html:120
+msgid "Read More"
+msgstr "زیاتر بخوێنەوە"
+
+#: documents/templates/includes/_hall_list_content_fa.html:89
+msgid "Read<br>More"
+msgstr "زیاتر<br>بخوێنەوە"
+
+#: documents/templates/includes/_hall_list_content_fa.html:112
+msgid "Read more"
+msgstr "زیاتر بخوێنەوە"
+
+#: documents/templates/includes/_hall_list_content_fa.html:131
+#: templates/includes/_header.html:38 templates/includes/_header.html:51
+#: templates/includes/_header.html:69 templates/includes/_header.html:508
+#: templates/includes/_header.html:521 templates/includes/_header.html:539
+#: templates/includes/_header.html:979 templates/includes/_header.html:992
+#: templates/includes/_header.html:1010
+msgid "Search"
+msgstr "گەڕان"
+
 #: documents/templates/includes/_post_detail_content_ckb.html:177
 #: documents/templates/includes/_post_detail_content_ckb.html:184
-#: documents/templates/includes/_post_detail_content_ckb.html:213
-#: documents/templates/includes/_post_detail_content_ckb.html:220
+#: documents/templates/includes/_post_detail_content_ckb.html:216
+#: documents/templates/includes/_post_detail_content_ckb.html:223
 #: documents/templates/includes/_post_detail_content_en.html:188
 #: documents/templates/includes/_post_detail_content_en.html:195
 #: documents/templates/includes/_post_detail_content_en.html:224
 #: documents/templates/includes/_post_detail_content_en.html:231
-#: documents/templates/includes/_post_detail_content_fa.html:177
-#: documents/templates/includes/_post_detail_content_fa.html:184
-#: documents/templates/includes/_post_detail_content_fa.html:213
-#: documents/templates/includes/_post_detail_content_fa.html:220
+#: documents/templates/includes/_post_detail_content_fa.html:190
+#: documents/templates/includes/_post_detail_content_fa.html:197
+#: documents/templates/includes/_post_detail_content_fa.html:229
+#: documents/templates/includes/_post_detail_content_fa.html:236
 msgid "Prev Post"
 msgstr "پۆستی پێشوو"
 
 #: documents/templates/includes/_post_detail_content_ckb.html:186
-#: documents/templates/includes/_post_detail_content_ckb.html:222
+#: documents/templates/includes/_post_detail_content_ckb.html:225
 #: documents/templates/includes/_post_detail_content_en.html:197
 #: documents/templates/includes/_post_detail_content_en.html:233
-#: documents/templates/includes/_post_detail_content_fa.html:186
-#: documents/templates/includes/_post_detail_content_fa.html:222
+#: documents/templates/includes/_post_detail_content_fa.html:199
+#: documents/templates/includes/_post_detail_content_fa.html:238
 msgid "This is the first post of the hall."
 msgstr "ئەمە یەکەم پۆستی هۆڵەکەیە."
 
-#: documents/templates/includes/_post_detail_content_ckb.html:192
-#: documents/templates/includes/_post_detail_content_ckb.html:199
-#: documents/templates/includes/_post_detail_content_ckb.html:228
-#: documents/templates/includes/_post_detail_content_ckb.html:235
+#: documents/templates/includes/_post_detail_content_ckb.html:193
+#: documents/templates/includes/_post_detail_content_ckb.html:201
+#: documents/templates/includes/_post_detail_content_ckb.html:232
+#: documents/templates/includes/_post_detail_content_ckb.html:240
 #: documents/templates/includes/_post_detail_content_en.html:203
 #: documents/templates/includes/_post_detail_content_en.html:210
 #: documents/templates/includes/_post_detail_content_en.html:239
 #: documents/templates/includes/_post_detail_content_en.html:246
-#: documents/templates/includes/_post_detail_content_fa.html:192
-#: documents/templates/includes/_post_detail_content_fa.html:199
-#: documents/templates/includes/_post_detail_content_fa.html:228
-#: documents/templates/includes/_post_detail_content_fa.html:235
+#: documents/templates/includes/_post_detail_content_fa.html:206
+#: documents/templates/includes/_post_detail_content_fa.html:214
+#: documents/templates/includes/_post_detail_content_fa.html:245
+#: documents/templates/includes/_post_detail_content_fa.html:253
 msgid "Next Post"
 msgstr "پۆستی داهاتوو"
 
-#: documents/templates/includes/_post_detail_content_ckb.html:201
-#: documents/templates/includes/_post_detail_content_ckb.html:237
+#: documents/templates/includes/_post_detail_content_ckb.html:203
+#: documents/templates/includes/_post_detail_content_ckb.html:242
 #: documents/templates/includes/_post_detail_content_en.html:212
 #: documents/templates/includes/_post_detail_content_en.html:248
-#: documents/templates/includes/_post_detail_content_fa.html:201
-#: documents/templates/includes/_post_detail_content_fa.html:237
+#: documents/templates/includes/_post_detail_content_fa.html:216
+#: documents/templates/includes/_post_detail_content_fa.html:255
 msgid "By now, this is the last post of the hall."
 msgstr "تا ئێستا ئەمە دوا پۆستی هۆڵەکەیە."
+
+#: documents/templates/includes/_post_detail_content_fa.html:706
+msgid " Back to top."
+msgstr "گەڕانەوە بۆ سەرەوە."
 
 #: documents/templates/includes/_post_list_content_ckb.html:42
 #: documents/templates/includes/_post_list_content_en.html:39
@@ -763,16 +827,6 @@ msgstr "نووسینی..."
 #: documents/templates/includes/_post_list_content_fa.html:98
 msgid "View all posts by this author."
 msgstr "بینینی هەموو پۆستەکانی ئەم نووسەرە."
-
-#: documents/templates/includes/_post_list_content_en.html:98
-#: documents/templates/includes/_post_list_content_fa.html:89
-#: pages/templates/includes/pages/ckb/_about_content_ckb.html:25
-#: pages/templates/includes/pages/ckb/_index_content_ckb.html:25
-#: pages/templates/includes/pages/en/_index_content_en.html:25
-#: pages/templates/includes/pages/fa/_about_content_fa.html:25
-#: pages/templates/includes/pages/fa/_index_content_fa.html:25
-msgid "Image"
-msgstr "وێنە"
 
 #: engine/apps.py:9
 msgid "Engine"
@@ -1029,14 +1083,6 @@ msgstr "ئاودیتۆریۆم: ناو تۆمارکردن"
 #: templates/includes/_header.html:958 templates/includes/_header.html:960
 msgid "Logo"
 msgstr "لۆگۆ"
-
-#: templates/includes/_header.html:38 templates/includes/_header.html:51
-#: templates/includes/_header.html:69 templates/includes/_header.html:508
-#: templates/includes/_header.html:521 templates/includes/_header.html:539
-#: templates/includes/_header.html:979 templates/includes/_header.html:992
-#: templates/includes/_header.html:1010
-msgid "Search"
-msgstr "گەڕان"
 
 #: templates/includes/_header.html:61 templates/includes/_header.html:531
 #: templates/includes/_header.html:1002

@@ -16,13 +16,13 @@
 {% elif LANGUAGE_CODE == "fa" %}
 {% block title_fa %}{% translate "Auditorium: Halls" %}{% endblock title_fa %}
 {% block content_fa %}
-
+{% include "includes/_hall_list_content_fa.html" %}
 {% endblock content_fa %}
 
 {% elif LANGUAGE_CODE == "ckb" %}
 {% block title_ckb %}{% translate "Auditorium: Halls" %}{% endblock title_ckb %}
 {% block content_ckb %}
-
+{% include "includes/_hall_list_content_ckb.html" %}
 {% endblock content_ckb %}
 
 {% endif %}

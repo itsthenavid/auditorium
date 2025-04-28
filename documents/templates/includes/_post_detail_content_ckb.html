@@ -45,7 +45,7 @@
                 <!-- You can use <br class="hide-from-lg"> to break a text line if needed -->
 
                 <div class="ph-meta ph-appear">
-                    <p><span class="ph-meta-published to-kurdish-digits">{{ object.publish_datetime }}</span><br /><span class="ph-meta-posted-by">نووسینی: <a href="blog-archive.html" title="مشاهده همه پست های مرتضی بهبودی">{{ object.author.get_user_shown_name }}</a></span></p>
+                    <p><span class="ph-meta-published to-kurdish-digits">{{ object.kurdish_pub_datetime|localize_numbers_ckb }}</span><br /><span class="ph-meta-posted-by">نووسینی: <a href="blog-archive.html" title="مشاهده همه پست های مرتضی بهبودی">{{ object.author.get_user_shown_name }}</a></span></p>
                 </div>
                 <!-- /.ph-meta -->
             </div>

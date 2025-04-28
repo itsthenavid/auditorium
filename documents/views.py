@@ -6,6 +6,14 @@ from .models import Hall, Post
 # Create your views here.
 
 
+class HallDetailView(DetailView):
+    """
+    """
+
+    model = Hall
+    template_name = "documents/hall_detail.html"
+
+
 class HallListView(ListView):
     """
     
@@ -14,13 +22,7 @@ class HallListView(ListView):
     model = Hall
     template_name = "documents/hall_list.html"
 
-
-class HallDetailView(DetailView):
-    """
-    """
-
-    model = Hall
-    template_name = "documents/hall_detail.html"
+    paginate_by = 5
 
 
 class PostDetailView(DetailView):

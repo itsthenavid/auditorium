@@ -2,8 +2,9 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from django.urls import reverse
+from django.utils.html import format_html, mark_safe
 
-from extensions.utils import persian_datetime_converter
+from extensions.utils import persian_datetime_converter, persian_date_converter, kurdish_datetime_converter, kurdish_date_converter
 from accounts.models import UserModel as User
 from engine.models import IPAddress
 
@@ -99,6 +100,34 @@ class Hall(TranslatableModel):
         verbose_name=_("Sequential Posts"),
         help_text=_("This room contains sequential posts, and the posts will be related to each other."),
     )
+
+    def persian_created_date(self):
+       return persian_date_converter(self.created_datetime)
+    persian_created_date.short_description = _("Created Datetime")
+
+    def kurdish_created_date(self):
+       return kurdish_date_converter(self.created_datetime)
+    kurdish_created_date.short_description = _("Created Datetime")
+
+    def full_parent_chain(self):
+        ancestors = []
+        current = self.parent
+        while current is not None:
+            if current.name:  # Make sure it has a title
+                link = f'<a href="{current.get_absolute_url()}">{current.name}</a>'
+                ancestors.insert(0, link)
+            current = current.parent
+        if ancestors:
+            return mark_safe(' &#8250; '.join(ancestors))  # ›
+        return _("Leading Hall")
+    
+    @property
+    def display_parent(self):
+        return self.full_parent_chain()
+    
+    def get_absolute_url(self):
+        return reverse("documents:hall-detail", kwargs={"slug": self.slug})
+    
 
     class Meta:
         verbose_name = _("Hall")
@@ -258,6 +287,18 @@ class Post(TranslatableModel):
     def persian_pub_datetime(self):
        return persian_datetime_converter(self.publish_datetime)
     persian_pub_datetime.short_description = _("Publish Datetime")
+
+    def kurdish_pub_datetime(self):
+       return kurdish_datetime_converter(self.publish_datetime)
+    kurdish_pub_datetime.short_description = _("Publish Datetime")
+
+    def persian_pub_date(self):
+       return persian_date_converter(self.publish_datetime)
+    persian_pub_date.short_description = _("Publish Date")
+
+    def kurdish_pub_date(self):
+       return kurdish_date_converter(self.publish_datetime)
+    kurdish_pub_date.short_description = _("Publish Date")
 
     class Meta:
         verbose_name = _("Post")

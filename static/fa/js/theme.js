@@ -3209,3 +3209,40 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+window.addEventListener('DOMContentLoaded', () => {
+    // Check if sidebar is not present and compact blog list exists
+    if (!document.body.classList.contains('tt-sidebar-on')) {
+        const blogList = document.querySelector('#blog-list.bli-compact');
+        if (blogList) {
+            const items = blogList.querySelectorAll('.blog-list-item');
+
+            items.forEach((item, index) => {
+                const counterValue = (index + 1).toString().padStart(2, '0');
+                const persianCounter = toPersianDigits(counterValue);
+
+                // Find the bli-info element within the current blog-list-item
+                const infoElement = item.querySelector('.bli-info');
+                if (infoElement) {
+                    // Create a custom element for the Persian number
+                    let customCounter = document.createElement('span');
+                    customCounter.classList.add('bli-counter');
+
+                    customCounter.innerText = persianCounter;
+
+                    // Apply styles matching the original CSS
+                    customCounter.style.position = 'absolute';
+                    customCounter.style.top = '-20%';
+                    customCounter.style.right = '30%';
+                    customCounter.style.lineHeight = '1';
+                    customCounter.style.fontSize = 'clamp(40px, 37vw, 360px)';
+                    customCounter.style.fontWeight = 'normal';
+                    customCounter.style.color = '#FFF';
+                    customCounter.style.opacity = '0.1';
+                    customCounter.style.zIndex = '-1';
+
+                    infoElement.appendChild(customCounter);
+                }
+            });
+        }
+    }
+});

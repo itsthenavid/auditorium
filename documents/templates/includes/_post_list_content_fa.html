@@ -93,7 +93,7 @@
                         </div>
                         <h2 class="bi-item-title"><a href="{% url "documents:post-detail" slug=post.slug %}">{{ post.title }}</a></h2>
                         <div class="bi-item-meta">
-                            <span class="published">{{ post.publish_datetime|date|localize_numbers_fa }}</span>
+                            <span class="published">{{ post.persian_pub_date|localize_numbers_fa }}</span>
                             <span class="posted-by">- {% translate "by" %} <a href="blog-archive.html" title="{% translate "View all posts by this author." %}">{{ post.author.get_user_shown_name }}</a></span>
                         </div>
                     </article>

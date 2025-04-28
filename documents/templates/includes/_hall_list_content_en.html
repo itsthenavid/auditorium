@@ -104,21 +104,14 @@
 
                         <!-- Begin blog list item info -->
                         <div class="bli-info">
-                            {% if hall.parent %}
                             <div class="bli-categories">
-                                <a href="blog-archive.html">{{ hall.parent.name }}</a>
+                                <span>{{ hall.full_parent_chain|safe }}</span>
                                 <!-- <a href="blog-archive.html">Uncategorized</a> -->
                             </div>
-                            {% else %}
-                            <div class="bli-categories">
-                                <span>{% translate "Leading Hall" %}</span>
-                                <!-- <a href="blog-archive.html">Uncategorized</a> -->
-                            </div>
-                            {% endif %}
-                            <h2 class="bli-title"><a href="blog-post.html">{{ hall.name }}</a></h2>
+                            <h2 class="bli-title"><a href="{% url 'documents:hall-detail' hall.slug %}">{{ hall.name }}</a></h2>
                             <div class="bli-meta">
                                 <span class="published">{{ hall.created_datetime|date }}</span>
-                                <span class="posted-by">- {% translate "created by" %} {{ hall.creator.get_user_shown_name }}</span>
+                                <span class="posted-by">- {% translate "created by:" %} {{ hall.creator.get_user_shown_name }}</span>
                             </div>
                             <div class="bli-desc">
                                 {{ hall.description|safe|truncatechars:235 }}
@@ -331,25 +324,45 @@
                 </div>
                 <!-- End sliding sidebar -->
 
-                <!-- Begin tt-pagination 
-								========================= 
-								* Use class "tt-pagin-center" to align center.
-								-->
-                <div class="tt-pagination tt-pagin-center anim-fadeinup">
-                    <div class="tt-pagin-prev">
-                        <a href="#" class="tt-pagin-item magnetic-item"><i class="fas fa-chevron-left"></i></a>
+                <!-- Begin tt-pagination -->
+                {% if is_paginated %}
+                    <div class="tt-pagination tt-pagin-center margin-top-xlg-100 anim-fadeinup" dir="ltr">
+                        <!-- Previous button -->
+                        <div class="tt-pagin-prev">
+                            {% if page_obj.has_previous %}
+                                <a href="?page={{ page_obj.previous_page_number }}" class="tt-pagin-item magnetic-item"><i class="fas fa-chevron-left"></i></a>
+                            {% else %}
+                                {% comment %} <a href="#" class="tt-pagin-item magnetic-item disabled">قبلی</a> {% endcomment %}
+                            {% endif %}
+                        </div>
+
+                        <!-- Page numbers -->
+                        <div class="tt-pagin-numbers">
+                            {% for num in page_obj.paginator.page_range %}
+                                {% if page_obj.number == num %}
+                                    <a href="?page={{ num }}" class="tt-pagin-item magnetic-item active">{{ num }}</a>
+                                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                    <a href="?page={{ num }}" class="tt-pagin-item magnetic-item">{{ num }}</a>
+                                {% elif num == page_obj.paginator.num_pages and page_obj.number < page_obj.paginator.num_pages|add:'-2' %}
+                                    <span class="tt-pagin-item magnetic-item">...</span>
+                                    <a href="?page={{ num }}" class="tt-pagin-item magnetic-item">{{ num }}</a>
+                                {% elif num == 1 and page_obj.number > 3 %}
+                                    <a href="?page={{ num }}" class="tt-pagin-item magnetic-item">{{ num }}</a>
+                                    <span class="tt-pagin-item magnetic-item">...</span>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+
+                        <!-- Next button -->
+                        <div class="tt-pagin-next">
+                            {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}" class="tt-pagin-item magnetic-item"><i class="fas fa-chevron-right"></i></a>
+                            {% else %}
+                                {% comment %} <a href="#" class="tt-pagin-item magnetic-item disabled">بعدی</a> {% endcomment %}
+                            {% endif %}
+                        </div>
                     </div>
-                    <div class="tt-pagin-numbers">
-                        <a href="#0" class="tt-pagin-item magnetic-item active">1</a>
-                        <a href="#" class="tt-pagin-item magnetic-item">2</a>
-                        <a href="#" class="tt-pagin-item magnetic-item">3</a>
-                        <a href="#" class="tt-pagin-item magnetic-item">4</a>
-                    </div>
-                    <div class="tt-pagin-next">
-                        <a href="#" class="tt-pagin-item tt-pagin-next magnetic-item"><i
-                                class="fas fa-chevron-right"></i></a>
-                    </div>
-                </div>
+                {% endif %}
                 <!-- End tt-pagination -->
             </div>
             <!-- /.tt-section-inner -->
