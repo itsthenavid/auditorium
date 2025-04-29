@@ -7,6 +7,7 @@ from django.utils.html import format_html, mark_safe
 from extensions.utils import persian_datetime_converter, persian_date_converter, kurdish_datetime_converter, kurdish_date_converter
 from accounts.models import UserModel as User
 from engine.models import IPAddress
+from .managers import HallActivatedManager, PostActivatedManager
 
 from django_ckeditor_5.fields import CKEditor5Field
 from parler.models import TranslatableModel, TranslatedFields
@@ -36,6 +37,7 @@ class Hall(TranslatableModel):
         blank=True,
         help_text=_("Parent hall of the current hall."),
         related_name="children",
+        default=None
     )
     artwork = models.ImageField(
         upload_to="documents/halls/",
@@ -48,6 +50,13 @@ class Hall(TranslatableModel):
             max_length=255,
             verbose_name=_("Name"),
             help_text=_("Name of the hall."),
+        ),
+        subtitle = models.CharField(
+            max_length=225,
+            verbose_name=_("Subtitle"),
+            blank=True,
+            null=True,
+            help_text=_("Subtitle of the hall")
         ),
         description=CKEditor5Field(
             verbose_name=_("Description"),
@@ -100,6 +109,10 @@ class Hall(TranslatableModel):
         verbose_name=_("Sequential Posts"),
         help_text=_("This room contains sequential posts, and the posts will be related to each other."),
     )
+
+    # Managers
+    objects = models.Manager()
+    activated = HallActivatedManager()
 
     def persian_created_date(self):
        return persian_date_converter(self.created_datetime)
@@ -252,6 +265,10 @@ class Post(TranslatableModel):
         blank=True,
         help_text=_("This field shows how many people watched this post.")
     )
+    
+    # Managers
+    objects = models.Manager()
+    activated = PostActivatedManager()
 
     def get_next_post(self):
         if self.hall.is_sequential:

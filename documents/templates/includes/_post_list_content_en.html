@@ -296,11 +296,11 @@
 
                 <!-- Begin tt-pagination -->
                 {% if is_paginated %}
-                    <div class="tt-pagination tt-pagin-center margin-top-xlg-100 anim-fadeinup" dir="rtl">
+                    <div class="tt-pagination tt-pagin-center margin-top-xlg-100 anim-fadeinup" dir="ltr">
                         <!-- Previous button -->
                         <div class="tt-pagin-prev">
                             {% if page_obj.has_previous %}
-                                <a href="?page={{ page_obj.previous_page_number }}" class="tt-pagin-item magnetic-item"><i class="fas fa-chevron-right"></i></a>
+                                <a href="?page={{ page_obj.previous_page_number }}" class="tt-pagin-item magnetic-item"><i class="fas fa-chevron-left"></i></a>
                             {% else %}
                                 {% comment %} <a href="#" class="tt-pagin-item magnetic-item disabled">قبلی</a> {% endcomment %}
                             {% endif %}
@@ -326,7 +326,7 @@
                         <!-- Next button -->
                         <div class="tt-pagin-next">
                             {% if page_obj.has_next %}
-                                <a href="?page={{ page_obj.next_page_number }}" class="tt-pagin-item magnetic-item"><i class="fas fa-chevron-left"></i></a>
+                                <a href="?page={{ page_obj.next_page_number }}" class="tt-pagin-item magnetic-item"><i class="fas fa-chevron-right"></i></a>
                             {% else %}
                                 {% comment %} <a href="#" class="tt-pagin-item magnetic-item disabled">بعدی</a> {% endcomment %}
                             {% endif %}

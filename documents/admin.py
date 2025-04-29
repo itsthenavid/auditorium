@@ -16,6 +16,10 @@ class HallAdmin(TranslatableAdmin):
     """
     pass
 
+    def get_queryset(self, request):
+        # Ensure the admin uses the activated manager
+        return Hall.objects.all()
+
 
 @admin.register(Post)
 class PostAdmin(TranslatableAdmin):
@@ -25,3 +29,7 @@ class PostAdmin(TranslatableAdmin):
     and to add custom actions to the admin panel.
     """
     pass
+
+    def get_queryset(self, request):
+        # Ensure the admin uses the activated manager
+        return Post.objects.all()

@@ -86,7 +86,7 @@
                     ========================== -->
                     <article class="blog-list-item">
                         <!-- Begin blog list item image -->
-                        <a href="blog-post.html" class="bli-image-wrap" data-cursor="{% translate "Read<br>More" %}">
+                        <a href="{% url "documents:hall-detail" hall.slug %}" class="bli-image-wrap" data-cursor="{% translate "Read<br>More" %}">
                             <figure class="bli-image">
                                 <img src="{{ hall.artwork.url }}" data-src="{{ hall.artwork.url }}" class="tt-lazy anim-zoomin" alt="{% translate "Image" %}" />
                             </figure>
@@ -109,7 +109,7 @@
                                 {{ hall.description|safe|truncatechars:235 }}
                             </div>
                             <div class="bli-read-more tt-btn tt-btn-link">
-                                <a href="blog-post.html" data-hover="{% translate "Read more" %}">{% translate "Read more" %}</a>
+                                <a href="{% url "documents:hall-detail" hall.slug %}" data-hover="{% translate "Read more" %}">{% translate "Read more" %}</a>
                             </div>
                         </div>
                         <!-- End blog list item info -->

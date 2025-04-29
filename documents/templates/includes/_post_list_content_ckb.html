@@ -307,7 +307,7 @@
                     <div class="tt-pagin-prev">
                         {% if page_obj.has_previous %}
                         <a href="?page={{ page_obj.previous_page_number }}"
-                            class="tt-pagin-item magnetic-item">پێشووتر</a>
+                            class="tt-pagin-item magnetic-item"><i class="fas fa-chevron-right"></i></a>
                         {% else %}
                         {% comment %} <a href="#" class="tt-pagin-item magnetic-item disabled">پێشووتر</a> {% endcomment %}
                         {% endif %}
@@ -332,7 +332,7 @@
                     <!-- Next button -->
                     <div class="tt-pagin-next">
                         {% if page_obj.has_next %}
-                        <a href="?page={{ page_obj.next_page_number }}" class="tt-pagin-item magnetic-item">داهاتوو</a>
+                        <a href="?page={{ page_obj.next_page_number }}" class="tt-pagin-item magnetic-item"><i class="fas fa-chevron-left"></i></a>
                         {% else %}
                         {% comment %} <a href="#" class="tt-pagin-item magnetic-item disabled">داهاتوو</a> {% endcomment %}
                         {% endif %}

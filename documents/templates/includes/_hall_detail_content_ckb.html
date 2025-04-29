@@ -20,23 +20,26 @@
     -->
     <div id="page-header" class="ph-cap-lg ph-center ph-image-cropped ph-image-cover-4 ph-content-parallax">
         <div class="page-header-inner tt-wrap">
-            {% comment %} <!-- Begin page header image 
+            <!-- Begin page header image 
             ============================= -->
             <div class="ph-image">
                 <div class="ph-image-inner">
-                    <img src="{% static "en/img/page-header/ph-2.jpg" %}" alt="Image">
+                    <img src="{{ object.artwork.url }}" alt="Image">
                 </div>
             </div>
-            <!-- End page header image --> {% endcomment %}
+            <!-- End page header image -->
 
             <!-- Begin page header caption
             =============================== 
             Use class "max-width-*" to set caption max width if needed. For example "max-width-1000". More info about helper classes can be found in the file "helper.css".
             -->
             <div class="ph-caption">
-                <h1 class="ph-caption-title ph-appear">{% translate "Documents" %}</h1>
-                <div class="ph-caption-title-ghost ph-appear">{% translate "Posts" %}</div>
-                <div class="ph-caption-subtitle ph-appear">{% translate "See what Auditorium users have written" %}</div>
+                <h1 class="ph-caption-title ph-appear">{{ object.name }}</h1>
+                <div class="ph-caption-title-ghost ph-appear">{% translate "The Hall" %}</div>
+                <div class="ph-caption-subtitle ph-appear">{{ object.subtitle }}</div>
+                <!-- <div class="ph-caption-subtitle ph-appear">Tag: "#minimal"</div> -->
+                <!-- <div class="ph-caption-subtitle ph-appear">Posts by: John Doe</div> -->
+                <!-- <div class="ph-caption-subtitle ph-appear">Search results: "Love"</div> -->
             </div>
             <!-- End page header caption -->
         </div>
@@ -73,34 +76,108 @@
         -->
         <div class="tt-section">
             <div class="tt-section-inner tt-wrap">
-                <!-- Begin blog interactive 
-                =================================
-                * Use class "bi-borders" to enable borders.
-                -->
-                <div class="blog-interactive bi-borders">
-
-                    {% for post in object_list %}
-                    <!-- Begin blog interactive item 
-                    ====================================== -->
-                    <article class="blog-interactive-item anim-skewinup">
-                        <a href="{% url "documents:post-detail" slug=post.slug %}" class="bi-item-image">
-                            <!-- if exist -->
-                            <img src="{{ post.artwork.url }}" alt="{% translate "Image" %}" />
-                        </a>
-                        <div class="bi-item-categories">
-                            <a href="blog-archive.html">{{ post.hall.name }}</a>
-                            <!-- <a href="blog-archive.html">Uncategorized</a> -->
-                        </div>
-                        <h2 class="bi-item-title"><a href="{% url "documents:post-detail" slug=post.slug %}">{{ post.title }}</a></h2>
-                        <div class="bi-item-meta">
-                            <span class="published">{{ post.persian_pub_date|localize_numbers_fa }}</span>
-                            <span class="posted-by">- {% translate "by" %} <a href="blog-archive.html" title="{% translate "View all posts by this author." %}">{{ post.author.get_user_shown_name }}</a></span>
+                <div class="slr-box">
+                    <article class="tt-blog-post">
+                        <div class="tt-blog-post-content">
+                            {{ object.description|safe }}
                         </div>
                     </article>
-                    <!-- End blog interactive item -->
-                    {% endfor %}
                 </div>
-                <!-- End blog interactive -->
+
+                <div class="tt-row">
+                    <div class="tt-col-lg-6">
+                        <!-- Begin blog interactive 
+                        =================================
+                        * Use class "bi-borders" to enable borders.
+                        -->
+                        <div class="slr-box bli-image-cropped">
+                            <h4>
+                                {% translate "Posts of the hall." %}
+                            </h4>
+                            {% for post in activated_posts %}
+                                    <!-- Begin blog list item 
+									========================== -->
+                                    <article id="blog-list" class="blog-list-item">
+                                        <!-- Begin blog list item image -->
+                                        <a href="{% url "documents:post-detail" post.slug %}" class="bli-image-wrap" data-cursor="{% translate "Read<br>More" %}">
+                                            <figure class="bli-image">
+                                                <img src="{{ post.artwork.url }}" data-src="{{ post.artwork.url }}" class="tt-lazy anim-zoomin" alt="Image" />
+                                            </figure>
+                                        </a>
+                                        <!-- End blog list item image -->
+
+                                        <!-- Begin blog list item info -->
+                                        <div class="bli-info">
+                                            <div class="bli-categories">
+                                                <!-- <a href="blog-archive.html">Uncategorized</a> -->
+                                            </div>
+                                            <h2 class="bli-title"><a href="{% url 'documents:post-detail' post.slug %}">{{ post.title }}</a></h2>
+                                            <div class="bli-meta">
+                                                <span class="published">{{ post.kurdish_pub_date|to_kurdish_digits }}</span>
+                                                <span class="posted-by">- {% translate "created by" %} <a href="blog-archive.html" title="{% translate "View all posts by this author." %}">{{ post.author.get_user_shown_name }}</a></span>
+                                            </div>
+                                            <div class="bli-desc" style="font-size: medium">
+                                                {{ post.content|safe|truncatechars:235 }}
+                                            </div>
+                                            <div class="bli-read-more tt-btn tt-btn-link">
+                                                <a href="{% url "documents:post-detail" post.slug %}" data-hover="{% translate "Read More" %}">{% translate "Read More" %}</a>
+                                            </div>
+                                        </div>
+                                        <!-- End blog list item info -->
+                                    </article>
+                                    <!-- End blog list item -->
+                                    <hr />
+                            {% endfor %}
+                        </div>
+                        <!-- End blog interactive -->
+                    </div>
+
+                    <div class="tt-col-lg-6">
+                        <div class="slr-box bli-image-cropped bli-compact" id="blog-list">
+                            <h4>
+                                {% translate "Halls under this Hall:" %}
+                            </h4>
+
+                            {% for hall in object.children.all %}
+                                    <!-- Begin blog list item 
+									========================== -->
+                                    <article class="blog-list-item">
+                                        <!-- Begin blog list item image -->
+                                        <a href="blog-post.html" class="bli-image-wrap" data-cursor="{% translate "Read<br>More" %}">
+                                            <figure class="bli-image">
+                                                <img src="{{ hall.artwork.url }}" data-src="{{ hall.artwork.url }}" class="tt-lazy anim-zoomin" alt="Image" />
+                                            </figure>
+                                        </a>
+                                        <!-- End blog list item image -->
+
+                                        <!-- Begin blog list item info -->
+                                        <div class="bli-info">
+                                            <h2 class="bli-title"><a href="{% url "documents:hall-detail" hall.slug %}">{{ hall.name }}</a></h2>
+                                            <div class="bli-meta">
+                                                <span class="published">{{ hall.kurdish_created_date|to_kurdish_digits }}</span>
+                                                <span class="posted-by">- {% translate "created by" %} <a href="blog-archive.html" title="{% translate "View all halls by this creator" %}">{{ hall.creator.get_user_shown_name }}</a></span>
+                                            </div>
+                                            <div class="bli-desc">
+                                                {{ hall.description|safe|truncatechars:235 }}
+                                            </div>
+                                            <div class="bli-read-more tt-btn tt-btn-link">
+                                                <a href="blog-post.html" data-hover="{% translate "Read More" %}">{% translate "Read More" %}</a>
+                                            </div>
+                                        </div>
+                                        <!-- End blog list item info -->
+                                    </article>
+                                    <!-- End blog list item -->
+
+                            {% empty %}
+
+                            <hr /><br />
+
+                            <h6>{% translate "There's no halls under this hall." %}</h6>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Begin sliding sidebar 
                 =========================== 
@@ -165,14 +242,14 @@
                                     </li>
                                     <li>
                                         <div class="sidebar-post-data">
-                                            <h5 class="sidebar-post-title"><a href="blog-post.html">Want to Step Up Your Skills? You Need to Read This First</a></h5>
+                                            <h5 class="sidebar-post-title"><a href="blog-single-alter.html">Want to Step Up Your Skills? You Need to Read This First</a></h5>
                                             <!-- <span class="sidebar-post-author">By: <a href="">John Doe</a></span> -->
                                             <span class="sidebar-post-date">May 12, 2021</span>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="sidebar-post-data">
-                                            <h5 class="sidebar-post-title"><a href="blog-post.html">Secrets to Getting Your Project to Complete Quickly and Efficiently</a></h5>
+                                            <h5 class="sidebar-post-title"><a href="blog-single-sidebar.html">Secrets to Getting Your Project to Complete Quickly and Efficiently</a></h5>
                                             <!-- <span class="sidebar-post-author">By: <a href="">Henry Harrison</a></span> -->
                                             <span class="sidebar-post-date">May 17, 2021</span>
                                         </div>
@@ -236,20 +313,20 @@
                                 <h3 class="sidebar-heading">Tags</h3>
                                 <div class="sidebar-tags-list">
                                     <ul>
-                                        <li><a href="blog-archive.html">#portfolio</a></li>
-                                        <li><a href="blog-archive.html">#multipurpose</a></li>
-                                        <li><a href="blog-archive.html">#minimal</a></li>
-                                        <li><a href="blog-archive.html">#agency</a></li>
-                                        <li><a href="blog-archive.html">#creatives</a></li>
-                                        <li><a href="blog-archive.html">#freelancers</a></li>
-                                        <li><a href="blog-archive.html">#design</a></li>
-                                        <li><a href="blog-archive.html">#bootstrap</a></li>
-                                        <li><a href="blog-archive.html">#responsive</a></li>
-                                        <li><a href="blog-archive.html">#simple</a></li>
-                                        <li><a href="blog-archive.html">#creative</a></li>
-                                        <li><a href="blog-archive.html">#blog</a></li>
-                                        <li><a href="blog-archive.html">#wordpress</a></li>
-                                        <li><a href="blog-archive.html">#black &amp; white</a></li>
+                                        <li><a href="#">#portfolio</a></li>
+                                        <li><a href="#">#multipurpose</a></li>
+                                        <li><a href="#">#minimal</a></li>
+                                        <li><a href="#">#agency</a></li>
+                                        <li><a href="#">#creatives</a></li>
+                                        <li><a href="#">#freelancers</a></li>
+                                        <li><a href="#">#design</a></li>
+                                        <li><a href="#">#bootstrap</a></li>
+                                        <li><a href="#">#responsive</a></li>
+                                        <li><a href="#">#simple</a></li>
+                                        <li><a href="#">#creative</a></li>
+                                        <li><a href="#">#blog</a></li>
+                                        <li><a href="#">#wordpress</a></li>
+                                        <li><a href="#">#black &amp; white</a></li>
                                     </ul>
                                 </div>
                                 <!-- /.sidebar-tags-list -->
@@ -284,45 +361,24 @@
                 </div>
                 <!-- End sliding sidebar -->
 
-                <!-- Begin tt-pagination -->
-                {% if is_paginated %}
-                    <div class="tt-pagination tt-pagin-center margin-top-xlg-100 anim-fadeinup" dir="rtl">
-                        <!-- Previous button -->
-                        <div class="tt-pagin-prev">
-                            {% if page_obj.has_previous %}
-                                <a href="?page={{ page_obj.previous_page_number }}" class="tt-pagin-item magnetic-item"><i class="fas fa-chevron-right"></i></a>
-                            {% else %}
-                                {% comment %} <a href="#" class="tt-pagin-item magnetic-item disabled">قبلی</a> {% endcomment %}
-                            {% endif %}
-                        </div>
-
-                        <!-- Page numbers -->
-                        <div class="tt-pagin-numbers">
-                            {% for num in page_obj.paginator.page_range %}
-                                {% if page_obj.number == num %}
-                                    <a href="?page={{ num }}" class="tt-pagin-item magnetic-item active">{{ num|to_persian_digits }}</a>
-                                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                                    <a href="?page={{ num }}" class="tt-pagin-item magnetic-item">{{ num|to_persian_digits }}</a>
-                                {% elif num == page_obj.paginator.num_pages and page_obj.number < page_obj.paginator.num_pages|add:'-2' %}
-                                    <span class="tt-pagin-item magnetic-item">...</span>
-                                    <a href="?page={{ num }}" class="tt-pagin-item magnetic-item">{{ num|to_persian_digits }}</a>
-                                {% elif num == 1 and page_obj.number > 3 %}
-                                    <a href="?page={{ num }}" class="tt-pagin-item magnetic-item">{{ num|to_persian_digits }}</a>
-                                    <span class="tt-pagin-item magnetic-item">...</span>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-
-                        <!-- Next button -->
-                        <div class="tt-pagin-next">
-                            {% if page_obj.has_next %}
-                                <a href="?page={{ page_obj.next_page_number }}" class="tt-pagin-item magnetic-item"><i class="fas fa-chevron-left"></i></a>
-                            {% else %}
-                                {% comment %} <a href="#" class="tt-pagin-item magnetic-item disabled">بعدی</a> {% endcomment %}
-                            {% endif %}
-                        </div>
+                <!-- Begin tt-pagination 
+                ========================= 
+                * Use class "tt-pagin-center" to align center.
+                -->
+                <div class="tt-pagination tt-pagin-center margin-top-xlg-100 anim-fadeinup">
+                    <div class="tt-pagin-prev">
+                        <a href="#" class="tt-pagin-item magnetic-item"><i class="fas fa-chevron-left"></i></a>
                     </div>
-                {% endif %}
+                    <div class="tt-pagin-numbers">
+                        <a href="#0" class="tt-pagin-item magnetic-item active">1</a>
+                        <a href="#" class="tt-pagin-item magnetic-item">2</a>
+                        <a href="#" class="tt-pagin-item magnetic-item">3</a>
+                        <a href="#" class="tt-pagin-item magnetic-item">4</a>
+                    </div>
+                    <div class="tt-pagin-next">
+                        <a href="#" class="tt-pagin-item tt-pagin-next magnetic-item"><i class="fas fa-chevron-right"></i></a>
+                    </div>
+                </div>
                 <!-- End tt-pagination -->
             </div>
             <!-- /.tt-section-inner -->
@@ -352,7 +408,7 @@
 
                     <!-- Use if destination page contains page header image -->
                     <div class="tt-pn-image">
-                        <img src="{% static "en/img/page-header/ph-1.jpg" %}" alt="image" />
+                        <img src="assets/img/page-header/ph-1.jpg" alt="image" />
                     </div>
                 </div>
                 <!-- End page nav -->
@@ -363,18 +419,18 @@
     </div>
     <!-- End page content -->
 
-        <!-- ======================
+    <!-- ======================
     ///// Begin tt-footer /////
     =========================== -->
     <footer id="tt-footer">
         <div class="tt-footer-inner">
             <!-- Begin footer column 
             ========================= -->
-            <div class="footer-col tt-align-center-right">
+            <div class="footer-col tt-align-center-left">
                 <div class="footer-col-inner">
                     <!-- You can use whatever button or link here -->
                     <div class="tt-btn tt-btn-link">
-                        <a href="#" class="scroll-to-top" data-hover="{% translate "Back to top." %}">{% translate "Back to top." %}</a>
+                        <a href="#" class="scroll-to-top" data-hover="Back to top">Back to top</a>
                     </div>
                 </div>
                 <!-- /.footer-col-inner -->
@@ -385,7 +441,7 @@
             ========================= -->
             <div class="footer-col tt-align-center order-m-last">
                 <div class="footer-col-inner">
-                    <div style="text-align: center;" class="tt-copyright">{% translate "© Copyright/Copyleft - MIT LICENSE: Navid. R. - All rights reserved to developers and content creators." %}<br /><div style="font-size: xx-small; text-align: center;">{% translate "In loving memory of my cherished friend, Donya Farhadi. Dearest soul, Kurdistan shall forever hold your pain, your sorrow, and your boundless love in its heart." %}</div></div>
+                    <div class="tt-copyright">© Copyright - <a href="https://themetorium.net/" target="_blank" rel="noopener" class="tt-link">Themetorium.net</a></div>
                 </div>
                 <!-- /.footer-col-inner -->
             </div>
@@ -393,16 +449,17 @@
 
             <!-- Begin footer column 
             ========================= -->
-            <div class="footer-col tt-align-center-left">
+            <div class="footer-col tt-align-center-right">
                 <div class="footer-col-inner">
                     <div class="footer-social">
-                        <div class="footer-social-text"><span>{% translate "Follow (Developer)" %}</span><i class="fas fa-share-alt"></i></div>
+                        <div class="footer-social-text"><span>Follow</span><i class="fas fa-share-alt"></i></div>
                         <div class="social-buttons">
                             <ul>
-                                <li><a href="https://github.com/itsthenavid" class="magnetic-item" target="_blank" rel="noopener">GitHub.</a></li>
-                                <li><a href="https://t.me/KungFuMorale" class="magnetic-item" target="_blank" rel="noopener">Tl. Pv.</a></li>
-                                <li><a href="https://t.me/MoraleRadio" class="magnetic-item" target="_blank" rel="noopener">Tl. Ch.</a></li>
-                                <li><a href="https://instagram.com/itsthenavid/" class="magnetic-item" target="_blank" rel="noopener">Ig.</a></li>
+                                <li><a href="https://www.facebook.com/themetorium" class="magnetic-item" target="_blank" rel="noopener">Fb.</a></li>
+                                <li><a href="https://twitter.com/Themetorium" class="magnetic-item" target="_blank" rel="noopener">Tw.</a></li>
+                                <li><a href="https://www.youtube.com/" class="magnetic-item" target="_blank" rel="noopener">Yt.</a></li>
+                                <li><a href="https://dribbble.com/Themetorium" class="magnetic-item" target="_blank" rel="noopener">Dr.</a></li>
+                                <li><a href="https://www.behance.net/Themetorium" class="magnetic-item" target="_blank" rel="noopener">Be.</a></li>
                             </ul>
                         </div>
                         <!-- /.social-buttons -->

@@ -8,21 +8,21 @@
 {% load post_filters %}
 
 {% if LANGUAGE_CODE == "en" %}
-{% block title_en %}{% endblock title_en %}
+{% block title_en %}{% translate "Auditorium: " %}{{ object.name }}{% endblock title_en %}
 {% block content_en %}
-
+{% include "includes/_hall_detail_content_en.html" %}
 {% endblock content_en %}
 
 {% elif LANGUAGE_CODE == "fa" %}
-{% block title_fa %}{% endblock title_fa %}
+{% block title_fa %}{% translate "Auditorium: " %}{{ object.name }}{% endblock title_fa %}
 {% block content_fa %}
-
+{% include "includes/_hall_detail_content_fa.html" %}
 {% endblock content_fa %}
 
 {% elif LANGUAGE_CODE == "ckb" %}
-{% block title_ckb %}{% endblock title_ckb %}
+{% block title_ckb %}{% translate "Auditorium: " %}{{ object.name }}{% endblock title_ckb %}
 {% block content_ckb %}
-
+{% include "includes/_hall_detail_content_ckb.html" %}
 {% endblock content_ckb %}
 
 {% endif %}
