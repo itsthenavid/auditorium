@@ -1,13 +1,3 @@
-/* =================================================================
-* Template Shop JS
-* 
-* Template:    Tank - Creative Portfolio Showcase HTML Website Template
-* Author:      Themetorium
-* URL:         https://themetorium.net/
-*
-================================================================= */
-
-
 // Table of Content
 // =================
 // Shop single product image slider (product gallery)

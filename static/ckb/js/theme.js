@@ -3066,31 +3066,6 @@
 		$(this).trigger("hover");
 	});
 
-
-
-	// ================================================================
-	// Begin demo button (for DEMO SITE ONLY!!!)
-	// Note: GSAP and ScrollTrigger plugin required!
-	// ================================================================ 
-
-	// Append button
-	var $tt_demo_btn = '<a href="#" class="tt-demo-btn" target="_blank" rel="noopener"><div class="tt-demo-btn-img"><img src="https://stuff.themetorium.net/img/envato-logo-white.png" alt="Download!"></div><div class="tt-demo-btn-text">Buy This<br> Template!</div></a>';
-
-	$("#body-inner").append($tt_demo_btn);
-
-
-	// Activate button on menu trigger click (classic menu mobile trigger and overlay menu trigger)
-	$(".tt-ol-menu-toggle-btn-text, .tt-ol-menu-toggle-btn, .tt-m-menu-toggle-btn-text, .tt-m-menu-toggle-btn").on("click", function () {
-		$("body").toggleClass("tt-demo-btn-active");
-		if ($("body").hasClass("tt-demo-btn-active")) {
-			gsap.to(".tt-demo-btn", { duration: 0.3, scale: 1, autoAlpha: 1, delay: 0.8 });
-		} else {
-			gsap.to(".tt-demo-btn", { duration: 0.3, scale: 0.9, autoAlpha: 0 });
-		}
-	});
-
-})(jQuery);
-
 // Initialize avatar paths and index
 const avatarPaths = Array.from({ length: 10 }, (_, i) => `/static/en/img/avatars/avatar_${i + 1}.webp`);
 let profileAvatarIndex = Math.floor(Math.random() * avatarPaths.length);

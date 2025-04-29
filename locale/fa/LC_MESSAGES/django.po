@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-29 19:00+0330\n"
+"POT-Creation-Date: 2025-04-29 20:55+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -108,12 +108,12 @@ msgstr "فعالیت‌های خود را مدیریت کنید."
 #: documents/templates/includes/_post_list_content_ckb.html:60
 #: documents/templates/includes/_post_list_content_en.html:55
 #: documents/templates/includes/_post_list_content_fa.html:56
-#: pages/templates/includes/pages/ckb/_about_content_ckb.html:53
 #: pages/templates/includes/pages/ckb/_index_content_ckb.html:58
-#: pages/templates/includes/pages/en/_about_content_en.html:53
+#: pages/templates/includes/pages/ckb/_introduction_content_ckb.html:53
 #: pages/templates/includes/pages/en/_index_content_en.html:58
-#: pages/templates/includes/pages/fa/_about_content_fa.html:53
+#: pages/templates/includes/pages/en/_introduction_content_en.html:53
 #: pages/templates/includes/pages/fa/_index_content_fa.html:58
+#: pages/templates/includes/pages/fa/_introduction_content_fa.html:53
 #: templates/account/password_change.html:63
 #: templates/account/password_change.html:276
 #: templates/account/password_change.html:480
@@ -190,15 +190,24 @@ msgstr "ثبت‌نام کنید!"
 #: accounts/templates/includes/accounts/fa/_content_login_fa.html:173
 #: accounts/templates/includes/accounts/fa/_content_profile_fa.html:209
 #: accounts/templates/includes/accounts/fa/_content_signup_fa.html:203
-#: documents/templates/includes/_post_detail_content_ckb.html:658
-#: documents/templates/includes/_post_detail_content_en.html:669
-#: documents/templates/includes/_post_list_content_fa.html:380
-#: pages/templates/includes/pages/ckb/_about_content_ckb.html:654
-#: pages/templates/includes/pages/ckb/_index_content_ckb.html:638
-#: pages/templates/includes/pages/en/_about_content_en.html:658
-#: pages/templates/includes/pages/en/_index_content_en.html:641
-#: pages/templates/includes/pages/fa/_about_content_fa.html:654
-#: pages/templates/includes/pages/fa/_index_content_fa.html:627
+#: documents/templates/includes/_hall_detail_content_ckb.html:381
+#: documents/templates/includes/_hall_detail_content_en.html:391
+#: documents/templates/includes/_hall_detail_content_fa.html:381
+#: documents/templates/includes/_hall_list_content_ckb.html:363
+#: documents/templates/includes/_hall_list_content_en.html:387
+#: documents/templates/includes/_hall_list_content_fa.html:363
+#: documents/templates/includes/_post_detail_content_ckb.html:626
+#: documents/templates/includes/_post_detail_content_en.html:637
+#: documents/templates/includes/_post_detail_content_fa.html:674
+#: documents/templates/includes/_post_list_content_ckb.html:363
+#: documents/templates/includes/_post_list_content_en.html:357
+#: documents/templates/includes/_post_list_content_fa.html:348
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:634
+#: pages/templates/includes/pages/ckb/_introduction_content_ckb.html:654
+#: pages/templates/includes/pages/en/_index_content_en.html:633
+#: pages/templates/includes/pages/en/_introduction_content_en.html:658
+#: pages/templates/includes/pages/fa/_index_content_fa.html:623
+#: pages/templates/includes/pages/fa/_introduction_content_fa.html:654
 msgid "Back to top."
 msgstr "بازگشت به بالا."
 
@@ -211,15 +220,24 @@ msgstr "بازگشت به بالا."
 #: accounts/templates/includes/accounts/fa/_content_login_fa.html:184
 #: accounts/templates/includes/accounts/fa/_content_profile_fa.html:220
 #: accounts/templates/includes/accounts/fa/_content_signup_fa.html:214
-#: documents/templates/includes/_post_detail_content_ckb.html:669
-#: documents/templates/includes/_post_detail_content_en.html:680
-#: documents/templates/includes/_post_list_content_fa.html:391
-#: pages/templates/includes/pages/ckb/_about_content_ckb.html:665
-#: pages/templates/includes/pages/ckb/_index_content_ckb.html:649
-#: pages/templates/includes/pages/en/_about_content_en.html:669
-#: pages/templates/includes/pages/en/_index_content_en.html:652
-#: pages/templates/includes/pages/fa/_about_content_fa.html:665
-#: pages/templates/includes/pages/fa/_index_content_fa.html:638
+#: documents/templates/includes/_hall_detail_content_ckb.html:392
+#: documents/templates/includes/_hall_detail_content_en.html:402
+#: documents/templates/includes/_hall_detail_content_fa.html:392
+#: documents/templates/includes/_hall_list_content_ckb.html:374
+#: documents/templates/includes/_hall_list_content_en.html:398
+#: documents/templates/includes/_hall_list_content_fa.html:374
+#: documents/templates/includes/_post_detail_content_ckb.html:637
+#: documents/templates/includes/_post_detail_content_en.html:648
+#: documents/templates/includes/_post_detail_content_fa.html:685
+#: documents/templates/includes/_post_list_content_ckb.html:374
+#: documents/templates/includes/_post_list_content_en.html:368
+#: documents/templates/includes/_post_list_content_fa.html:359
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:645
+#: pages/templates/includes/pages/ckb/_introduction_content_ckb.html:665
+#: pages/templates/includes/pages/en/_index_content_en.html:644
+#: pages/templates/includes/pages/en/_introduction_content_en.html:669
+#: pages/templates/includes/pages/fa/_index_content_fa.html:634
+#: pages/templates/includes/pages/fa/_introduction_content_fa.html:665
 msgid ""
 "© Copyright/Copyleft - MIT LICENSE: Navid. R. - All rights reserved to "
 "developers and content creators."
@@ -236,15 +254,24 @@ msgstr ""
 #: accounts/templates/includes/accounts/fa/_content_login_fa.html:184
 #: accounts/templates/includes/accounts/fa/_content_profile_fa.html:220
 #: accounts/templates/includes/accounts/fa/_content_signup_fa.html:214
-#: documents/templates/includes/_post_detail_content_ckb.html:669
-#: documents/templates/includes/_post_detail_content_en.html:680
-#: documents/templates/includes/_post_list_content_fa.html:391
-#: pages/templates/includes/pages/ckb/_about_content_ckb.html:665
-#: pages/templates/includes/pages/ckb/_index_content_ckb.html:649
-#: pages/templates/includes/pages/en/_about_content_en.html:669
-#: pages/templates/includes/pages/en/_index_content_en.html:652
-#: pages/templates/includes/pages/fa/_about_content_fa.html:665
-#: pages/templates/includes/pages/fa/_index_content_fa.html:638
+#: documents/templates/includes/_hall_detail_content_ckb.html:392
+#: documents/templates/includes/_hall_detail_content_en.html:402
+#: documents/templates/includes/_hall_detail_content_fa.html:392
+#: documents/templates/includes/_hall_list_content_ckb.html:374
+#: documents/templates/includes/_hall_list_content_en.html:398
+#: documents/templates/includes/_hall_list_content_fa.html:374
+#: documents/templates/includes/_post_detail_content_ckb.html:637
+#: documents/templates/includes/_post_detail_content_en.html:648
+#: documents/templates/includes/_post_detail_content_fa.html:685
+#: documents/templates/includes/_post_list_content_ckb.html:374
+#: documents/templates/includes/_post_list_content_en.html:368
+#: documents/templates/includes/_post_list_content_fa.html:359
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:645
+#: pages/templates/includes/pages/ckb/_introduction_content_ckb.html:665
+#: pages/templates/includes/pages/en/_index_content_en.html:644
+#: pages/templates/includes/pages/en/_introduction_content_en.html:669
+#: pages/templates/includes/pages/fa/_index_content_fa.html:634
+#: pages/templates/includes/pages/fa/_introduction_content_fa.html:665
 msgid ""
 "In loving memory of my cherished friend, Donya Farhadi. Dearest soul, "
 "Kurdistan shall forever hold your pain, your sorrow, and your boundless love "
@@ -262,16 +289,24 @@ msgstr ""
 #: accounts/templates/includes/accounts/fa/_content_login_fa.html:195
 #: accounts/templates/includes/accounts/fa/_content_profile_fa.html:231
 #: accounts/templates/includes/accounts/fa/_content_signup_fa.html:225
-#: documents/templates/includes/_post_detail_content_ckb.html:680
-#: documents/templates/includes/_post_detail_content_en.html:691
-#: documents/templates/includes/_post_detail_content_fa.html:734
-#: documents/templates/includes/_post_list_content_fa.html:402
-#: pages/templates/includes/pages/ckb/_about_content_ckb.html:676
-#: pages/templates/includes/pages/ckb/_index_content_ckb.html:660
-#: pages/templates/includes/pages/en/_about_content_en.html:680
-#: pages/templates/includes/pages/en/_index_content_en.html:663
-#: pages/templates/includes/pages/fa/_about_content_fa.html:676
-#: pages/templates/includes/pages/fa/_index_content_fa.html:649
+#: documents/templates/includes/_hall_detail_content_ckb.html:403
+#: documents/templates/includes/_hall_detail_content_en.html:413
+#: documents/templates/includes/_hall_detail_content_fa.html:403
+#: documents/templates/includes/_hall_list_content_ckb.html:385
+#: documents/templates/includes/_hall_list_content_en.html:409
+#: documents/templates/includes/_hall_list_content_fa.html:385
+#: documents/templates/includes/_post_detail_content_ckb.html:648
+#: documents/templates/includes/_post_detail_content_en.html:659
+#: documents/templates/includes/_post_detail_content_fa.html:696
+#: documents/templates/includes/_post_list_content_ckb.html:385
+#: documents/templates/includes/_post_list_content_en.html:379
+#: documents/templates/includes/_post_list_content_fa.html:370
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:656
+#: pages/templates/includes/pages/ckb/_introduction_content_ckb.html:676
+#: pages/templates/includes/pages/en/_index_content_en.html:655
+#: pages/templates/includes/pages/en/_introduction_content_en.html:680
+#: pages/templates/includes/pages/fa/_index_content_fa.html:645
+#: pages/templates/includes/pages/fa/_introduction_content_fa.html:676
 msgid "Follow (Developer)"
 msgstr "دنبال کنید (توسعه‌دهنده)"
 
@@ -448,14 +483,12 @@ msgstr "ورود"
 
 #: accounts/templates/includes/accounts/en/_content_login_en.html:64
 #: accounts/templates/includes/accounts/en/_content_signup_en.html:64
-#: documents/templates/includes/_hall_detail_content_ckb.html:70
 #: documents/templates/includes/_hall_detail_content_en.html:70
-#: documents/templates/includes/_hall_detail_content_fa.html:70
 #: documents/templates/includes/_hall_list_content_en.html:66
 #: documents/templates/includes/_post_detail_content_en.html:79
 #: documents/templates/includes/_post_list_content_en.html:67
-#: pages/templates/includes/pages/en/_about_content_en.html:65
 #: pages/templates/includes/pages/en/_index_content_en.html:70
+#: pages/templates/includes/pages/en/_introduction_content_en.html:65
 #: templates/account/password_change.html:75
 msgid "Made with..."
 msgstr "ساخته شده با..."
@@ -503,7 +536,7 @@ msgstr "والد"
 msgid "Parent hall of the current hall."
 msgstr "والد تالارِ کنونی."
 
-#: documents/models.py:44 documents/models.py:184
+#: documents/models.py:44 documents/models.py:189
 msgid "Artwork"
 msgstr "آرت‌وورک"
 
@@ -527,7 +560,7 @@ msgstr "توضیحات"
 msgid "Description of the hall."
 msgstr "توضیحاتِ مربوط به تالار."
 
-#: documents/models.py:70 documents/models.py:217
+#: documents/models.py:70 documents/models.py:222
 msgid "Slug"
 msgstr "اسلاگ"
 
@@ -543,7 +576,7 @@ msgstr "خالق"
 msgid "Creator of the hall."
 msgstr "خالقِ تالار"
 
-#: documents/models.py:82 documents/models.py:229 engine/models.py:21
+#: documents/models.py:82 documents/models.py:234 engine/models.py:21
 msgid "Created At"
 msgstr "ساخته‌شده در"
 
@@ -551,7 +584,7 @@ msgstr "ساخته‌شده در"
 msgid "Date and time when the hall was created."
 msgstr "تاریخ و زمانِ ایجادِ تالار"
 
-#: documents/models.py:87 documents/models.py:234
+#: documents/models.py:87 documents/models.py:239
 msgid "Updated At"
 msgstr "به‌روزرسانی‌شده در"
 
@@ -559,7 +592,7 @@ msgstr "به‌روزرسانی‌شده در"
 msgid "Date and time when the hall was last updated."
 msgstr "تاریخ و زمان آخرین به‌روزرسانی تالار"
 
-#: documents/models.py:94 documents/models.py:246
+#: documents/models.py:94 documents/models.py:251
 msgid "Status"
 msgstr "وضعیت"
 
@@ -567,7 +600,7 @@ msgstr "وضعیت"
 msgid "Status of the hall."
 msgstr "وضعیتِ تالار"
 
-#: documents/models.py:99 documents/models.py:254 pages/models.py:103
+#: documents/models.py:99 documents/models.py:259 pages/models.py:103
 msgid "Activation Status"
 msgstr "وضعیت فعال‌سازی"
 
@@ -575,7 +608,7 @@ msgstr "وضعیت فعال‌سازی"
 msgid "Is the hall active?"
 msgstr "تالار فعال باشد؟"
 
-#: documents/models.py:104 documents/models.py:259
+#: documents/models.py:104 documents/models.py:264
 msgid "Explicit Content"
 msgstr "محتوای صریح (توهین‌آمیز)"
 
@@ -593,130 +626,132 @@ msgid ""
 "other."
 msgstr "این اتاق شامل پست‌های متوالی است و پست‌ها به یکدیگر مرتبط خواهند بود."
 
-#: documents/models.py:119 documents/models.py:123
+#: documents/models.py:114 documents/models.py:275
+#, fuzzy
+#| msgid "Pinned Posts"
+msgid "Pinned"
+msgstr "پست‌های پین‌شده"
+
+#: documents/models.py:124 documents/models.py:128
 #, fuzzy
 #| msgid "Created At"
 msgid "Created Datetime"
 msgstr "ساخته‌شده در"
 
-#: documents/models.py:135
+#: documents/models.py:140
 msgid "Leading Hall"
 msgstr "تالار پیشرو"
 
-#: documents/models.py:146 documents/models.py:209
+#: documents/models.py:151 documents/models.py:214
 msgid "Hall"
 msgstr "تالار"
 
-#: documents/models.py:147
+#: documents/models.py:152
 #: documents/templates/includes/_hall_list_content_ckb.html:39
 #: documents/templates/includes/_hall_list_content_en.html:35
 #: documents/templates/includes/_hall_list_content_fa.html:39
-#: pages/templates/includes/pages/fa/_index_content_fa.html:318
+#: templates/includes/_nav.html:33
 msgid "Halls"
 msgstr "تالارها"
 
-#: documents/models.py:178
+#: documents/models.py:183
 msgid "Draft"
 msgstr "پیش‌نویس"
 
-#: documents/models.py:179
+#: documents/models.py:184
 msgid "Published"
 msgstr "منتشرشده"
 
-#: documents/models.py:188
+#: documents/models.py:193
 msgid "Artwork for the post."
 msgstr "آرت‌وورکِ پست."
 
-#: documents/models.py:195
+#: documents/models.py:200
 msgid "Title"
 msgstr "عنوان"
 
-#: documents/models.py:196
+#: documents/models.py:201
 msgid "Title of the post."
 msgstr "عنوانِ پست."
 
-#: documents/models.py:199
+#: documents/models.py:204
 msgid "Content"
 msgstr "محتوا"
 
-#: documents/models.py:200
+#: documents/models.py:205
 msgid "Content of the post."
 msgstr "محتوای پست."
 
-#: documents/models.py:211
+#: documents/models.py:216
 msgid "Hall of the post."
 msgstr "تالار والد پست."
 
-#: documents/models.py:218
+#: documents/models.py:223
 msgid "Slug for the post. Used in the URL."
 msgstr "اسلاگِ پست. در URLها به‌کار می‌رود."
 
-#: documents/models.py:223
+#: documents/models.py:228
 msgid "Author"
 msgstr "نویسنده"
 
-#: documents/models.py:225
+#: documents/models.py:230
 msgid "Author of the post."
 msgstr "نویسنده‌ی پست."
 
-#: documents/models.py:230
+#: documents/models.py:235
 msgid "Date and time when the post was created."
 msgstr "تاریخ و زمان دقیق خلق پست."
 
-#: documents/models.py:235
+#: documents/models.py:240
 msgid "Date and time when the post was last updated."
 msgstr "تاریخ و زمان دقیق آخرین به‌روزرسانی پست."
 
-#: documents/models.py:239
+#: documents/models.py:244
 msgid "Published At"
 msgstr "منتشرشده در"
 
-#: documents/models.py:240
+#: documents/models.py:245
 msgid "Date and time when the post was published."
 msgstr "تاریخ و زمان انتشار پست."
 
-#: documents/models.py:247
+#: documents/models.py:252
 msgid "Status of the post."
 msgstr "وضعیت پست."
 
-#: documents/models.py:250
+#: documents/models.py:255
 #: documents/templates/includes/_post_detail_content_en.html:148
 msgid "Tags"
-msgstr ""
+msgstr "تگ‌ها"
 
-#: documents/models.py:255
+#: documents/models.py:260
 msgid "Is the post active?"
 msgstr "وضعیت فعالیت پست."
 
-#: documents/models.py:260
+#: documents/models.py:265
 msgid "Is the post explicit? Is it has explicit content?"
 msgstr "پست حاوی محتوای اهانت‌آمیز است؟"
 
-#: documents/models.py:264
+#: documents/models.py:269
 msgid "Views"
 msgstr "بازدیدها"
 
-#: documents/models.py:266
+#: documents/models.py:271
 msgid "This field shows how many people watched this post."
 msgstr "این فیلد نشان می‌دهد چه تعداد از افراد این پست را دیده‌اند."
 
-#: documents/models.py:306 documents/models.py:310
-#, fuzzy
-#| msgid "Published At"
+#: documents/models.py:316 documents/models.py:320
 msgid "Publish Datetime"
 msgstr "منتشرشده در"
 
-#: documents/models.py:314 documents/models.py:318
-#, fuzzy
-#| msgid "Published At"
+#: documents/models.py:324 documents/models.py:328
 msgid "Publish Date"
 msgstr "منتشرشده در"
 
-#: documents/models.py:321
+#: documents/models.py:331
 msgid "Post"
 msgstr "پست"
 
-#: documents/models.py:322
+#: documents/models.py:332
 #: documents/templates/includes/_post_list_content_ckb.html:41
 #: documents/templates/includes/_post_list_content_en.html:38
 #: documents/templates/includes/_post_list_content_fa.html:39
@@ -750,66 +785,78 @@ msgstr "آودیتوریوم: اسناد"
 msgid "The Hall"
 msgstr "تالار"
 
-#: documents/templates/includes/_hall_detail_content_ckb.html:105
+#: documents/templates/includes/_hall_detail_content_ckb.html:95
 #: documents/templates/includes/_hall_detail_content_en.html:105
-#: documents/templates/includes/_hall_detail_content_fa.html:105
+#: documents/templates/includes/_hall_detail_content_fa.html:95
 msgid "Posts of the hall."
 msgstr "پست‌های مربوط به تالار"
 
-#: documents/templates/includes/_hall_detail_content_ckb.html:112
-#: documents/templates/includes/_hall_detail_content_ckb.html:156
+#: documents/templates/includes/_hall_detail_content_ckb.html:102
+#: documents/templates/includes/_hall_detail_content_ckb.html:146
 #: documents/templates/includes/_hall_detail_content_en.html:112
 #: documents/templates/includes/_hall_detail_content_en.html:156
-#: documents/templates/includes/_hall_detail_content_fa.html:112
-#: documents/templates/includes/_hall_detail_content_fa.html:156
+#: documents/templates/includes/_hall_detail_content_fa.html:102
+#: documents/templates/includes/_hall_detail_content_fa.html:146
 #: documents/templates/includes/_hall_list_content_ckb.html:89
 #: documents/templates/includes/_hall_list_content_fa.html:89
 msgid "Read<br>More"
 msgstr "بیشتر<br>بخوانید"
 
-#: documents/templates/includes/_hall_detail_content_ckb.html:127
-#: documents/templates/includes/_hall_detail_content_ckb.html:172
+#: documents/templates/includes/_hall_detail_content_ckb.html:117
+#: documents/templates/includes/_hall_detail_content_ckb.html:158
 #: documents/templates/includes/_hall_detail_content_en.html:127
-#: documents/templates/includes/_hall_detail_content_en.html:172
-#: documents/templates/includes/_hall_detail_content_fa.html:127
-#: documents/templates/includes/_hall_detail_content_fa.html:172
+#: documents/templates/includes/_hall_detail_content_en.html:168
+#: documents/templates/includes/_hall_detail_content_fa.html:117
+#: documents/templates/includes/_hall_detail_content_fa.html:158
 msgid "created by"
 msgstr "خلق‌شده توسط:"
 
-#: documents/templates/includes/_hall_detail_content_ckb.html:127
+#: documents/templates/includes/_hall_detail_content_ckb.html:117
 #: documents/templates/includes/_hall_detail_content_en.html:127
-#: documents/templates/includes/_hall_detail_content_fa.html:127
+#: documents/templates/includes/_hall_detail_content_fa.html:117
 #: documents/templates/includes/_post_list_content_ckb.html:101
 #: documents/templates/includes/_post_list_content_en.html:107
 #: documents/templates/includes/_post_list_content_fa.html:98
 msgid "View all posts by this author."
 msgstr "مشاهده تمامی پست‌های این نویسنده"
 
-#: documents/templates/includes/_hall_detail_content_ckb.html:133
-#: documents/templates/includes/_hall_detail_content_ckb.html:178
+#: documents/templates/includes/_hall_detail_content_ckb.html:123
+#: documents/templates/includes/_hall_detail_content_ckb.html:164
 #: documents/templates/includes/_hall_detail_content_en.html:133
-#: documents/templates/includes/_hall_detail_content_en.html:178
-#: documents/templates/includes/_hall_detail_content_fa.html:133
-#: documents/templates/includes/_hall_detail_content_fa.html:178
+#: documents/templates/includes/_hall_detail_content_en.html:174
+#: documents/templates/includes/_hall_detail_content_fa.html:123
+#: documents/templates/includes/_hall_detail_content_fa.html:164
 #: documents/templates/includes/_hall_list_content_en.html:120
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:353
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:375
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:397
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:418
+#: pages/templates/includes/pages/en/_index_content_en.html:352
+#: pages/templates/includes/pages/en/_index_content_en.html:374
+#: pages/templates/includes/pages/en/_index_content_en.html:396
+#: pages/templates/includes/pages/en/_index_content_en.html:417
+#: pages/templates/includes/pages/fa/_index_content_fa.html:342
+#: pages/templates/includes/pages/fa/_index_content_fa.html:364
+#: pages/templates/includes/pages/fa/_index_content_fa.html:386
+#: pages/templates/includes/pages/fa/_index_content_fa.html:407
 msgid "Read More"
 msgstr "بیشتر بخوانید"
 
-#: documents/templates/includes/_hall_detail_content_ckb.html:148
+#: documents/templates/includes/_hall_detail_content_ckb.html:138
 #: documents/templates/includes/_hall_detail_content_en.html:148
-#: documents/templates/includes/_hall_detail_content_fa.html:148
+#: documents/templates/includes/_hall_detail_content_fa.html:138
 msgid "Halls under this Hall:"
 msgstr "تالارهای زیرمجموعه این تالار:"
 
-#: documents/templates/includes/_hall_detail_content_ckb.html:172
-#: documents/templates/includes/_hall_detail_content_en.html:172
-#: documents/templates/includes/_hall_detail_content_fa.html:172
+#: documents/templates/includes/_hall_detail_content_ckb.html:158
+#: documents/templates/includes/_hall_detail_content_en.html:168
+#: documents/templates/includes/_hall_detail_content_fa.html:158
 msgid "View all halls by this creator"
 msgstr "مشاهده تمامی تالارهای این نویسنده"
 
-#: documents/templates/includes/_hall_detail_content_ckb.html:189
-#: documents/templates/includes/_hall_detail_content_en.html:189
-#: documents/templates/includes/_hall_detail_content_fa.html:189
+#: documents/templates/includes/_hall_detail_content_ckb.html:175
+#: documents/templates/includes/_hall_detail_content_en.html:185
+#: documents/templates/includes/_hall_detail_content_fa.html:175
 msgid "There's no halls under this hall."
 msgstr "این تالار زیرمجموعه‌ای ندارد."
 
@@ -830,11 +877,23 @@ msgstr "اتاق‌هایی برای بیان افکار و ایده‌ها"
 #: documents/templates/includes/_hall_list_content_fa.html:91
 #: documents/templates/includes/_post_list_content_en.html:98
 #: documents/templates/includes/_post_list_content_fa.html:89
-#: pages/templates/includes/pages/ckb/_about_content_ckb.html:25
 #: pages/templates/includes/pages/ckb/_index_content_ckb.html:25
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:143
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:186
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:229
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:272
+#: pages/templates/includes/pages/ckb/_introduction_content_ckb.html:25
 #: pages/templates/includes/pages/en/_index_content_en.html:25
-#: pages/templates/includes/pages/fa/_about_content_fa.html:25
+#: pages/templates/includes/pages/en/_index_content_en.html:142
+#: pages/templates/includes/pages/en/_index_content_en.html:185
+#: pages/templates/includes/pages/en/_index_content_en.html:228
+#: pages/templates/includes/pages/en/_index_content_en.html:271
 #: pages/templates/includes/pages/fa/_index_content_fa.html:25
+#: pages/templates/includes/pages/fa/_index_content_fa.html:132
+#: pages/templates/includes/pages/fa/_index_content_fa.html:175
+#: pages/templates/includes/pages/fa/_index_content_fa.html:218
+#: pages/templates/includes/pages/fa/_index_content_fa.html:261
+#: pages/templates/includes/pages/fa/_introduction_content_fa.html:25
 msgid "Image"
 msgstr "تصویر"
 
@@ -852,10 +911,10 @@ msgstr "بیشتر بخوانید"
 #: documents/templates/includes/_hall_list_content_ckb.html:131
 #: documents/templates/includes/_hall_list_content_fa.html:131
 #: templates/includes/_header.html:38 templates/includes/_header.html:51
-#: templates/includes/_header.html:69 templates/includes/_header.html:508
-#: templates/includes/_header.html:521 templates/includes/_header.html:539
-#: templates/includes/_header.html:979 templates/includes/_header.html:992
-#: templates/includes/_header.html:1010
+#: templates/includes/_header.html:69 templates/includes/_header.html:161
+#: templates/includes/_header.html:174 templates/includes/_header.html:192
+#: templates/includes/_header.html:284 templates/includes/_header.html:297
+#: templates/includes/_header.html:315
 msgid "Search"
 msgstr "جست‌وجو"
 
@@ -906,10 +965,6 @@ msgstr "پست بعدی"
 #: documents/templates/includes/_post_detail_content_fa.html:255
 msgid "By now, this is the last post of the hall."
 msgstr "تا کنون، ایهن پست آخرین پستِ تالار است."
-
-#: documents/templates/includes/_post_detail_content_fa.html:706
-msgid " Back to top."
-msgstr "بازگشت به بالا."
 
 #: documents/templates/includes/_post_list_content_ckb.html:42
 #: documents/templates/includes/_post_list_content_en.html:39
@@ -1102,12 +1157,6 @@ msgstr "جملات"
 msgid "(Untitled Sentence)"
 msgstr "(بی‌عنوان)"
 
-#: pages/templates/includes/pages/ckb/_about_content_ckb.html:37
-#: pages/templates/includes/pages/en/_about_content_en.html:37
-#: pages/templates/includes/pages/fa/_about_content_fa.html:37
-msgid "The House...!"
-msgstr "خانه...!"
-
 #: pages/templates/includes/pages/ckb/_index_content_ckb.html:98
 #: pages/templates/includes/pages/en/_index_content_en.html:97
 #: pages/templates/includes/pages/fa/_index_content_fa.html:87
@@ -1120,16 +1169,38 @@ msgstr "پست‌های پین‌شده"
 msgid "See the Halls"
 msgstr "تالارها را مشاهده بفرمایید"
 
-#: pages/templates/includes/pages/ckb/_index_content_ckb.html:328
-#: pages/templates/includes/pages/en/_index_content_en.html:327
-#: pages/templates/includes/pages/fa/_index_content_fa.html:317
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:138
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:181
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:224
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:267
+#: pages/templates/includes/pages/en/_index_content_en.html:137
+#: pages/templates/includes/pages/en/_index_content_en.html:180
+#: pages/templates/includes/pages/en/_index_content_en.html:223
+#: pages/templates/includes/pages/en/_index_content_en.html:266
+#: pages/templates/includes/pages/fa/_index_content_fa.html:127
+#: pages/templates/includes/pages/fa/_index_content_fa.html:170
+#: pages/templates/includes/pages/fa/_index_content_fa.html:213
+#: pages/templates/includes/pages/fa/_index_content_fa.html:256
+msgid "View<br>Post"
+msgstr ""
+
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:326
+#: pages/templates/includes/pages/en/_index_content_en.html:325
+#: pages/templates/includes/pages/fa/_index_content_fa.html:315
 msgid "What We Discuss About"
 msgstr "درمورد چه چیزهایی بحث می‌کنیم؟"
 
-#: pages/templates/includes/pages/ckb/_index_content_ckb.html:329
-#: pages/templates/includes/pages/en/_index_content_en.html:328
+#: pages/templates/includes/pages/ckb/_index_content_ckb.html:327
+#: pages/templates/includes/pages/en/_index_content_en.html:326
+#: pages/templates/includes/pages/fa/_index_content_fa.html:316
 msgid "Pinned Halls"
 msgstr "تالارهای پین‌شده"
+
+#: pages/templates/includes/pages/ckb/_introduction_content_ckb.html:37
+#: pages/templates/includes/pages/en/_introduction_content_en.html:37
+#: pages/templates/includes/pages/fa/_introduction_content_fa.html:37
+msgid "The House...!"
+msgstr "خانه...!"
 
 #: templates/account/login.html:9 templates/account/login.html:21
 #: templates/account/login.html:33
@@ -1183,39 +1254,51 @@ msgid "Auditorium: Registration"
 msgstr "آودیتوریوم: ثبت‌نام"
 
 #: templates/includes/_header.html:17 templates/includes/_header.html:19
-#: templates/includes/_header.html:487 templates/includes/_header.html:489
-#: templates/includes/_header.html:958 templates/includes/_header.html:960
+#: templates/includes/_header.html:140 templates/includes/_header.html:142
+#: templates/includes/_header.html:263 templates/includes/_header.html:265
 msgid "Logo"
 msgstr "لوگو"
 
-#: templates/includes/_header.html:61 templates/includes/_header.html:531
-#: templates/includes/_header.html:1002
+#: templates/includes/_header.html:61 templates/includes/_header.html:184
+#: templates/includes/_header.html:307
 msgid "Type your keywords to search..."
 msgstr "کلیدواژه‌های مدنظرتان را برای جست‌وجو تایپ کنید..."
 
 #: templates/includes/_header.html:70 templates/includes/_header.html:108
-#: templates/includes/_header.html:540 templates/includes/_header.html:578
-#: templates/includes/_header.html:1011 templates/includes/_header.html:1049
+#: templates/includes/_header.html:193 templates/includes/_header.html:231
+#: templates/includes/_header.html:316 templates/includes/_header.html:354
 msgid "Close"
 msgstr "بستن"
 
-#: templates/includes/_header.html:80 templates/includes/_header.html:550
-#: templates/includes/_header.html:1021
+#: templates/includes/_header.html:80 templates/includes/_header.html:203
+#: templates/includes/_header.html:326
 msgid "My Account"
 msgstr "حساب کاربری من"
 
-#: templates/includes/_header.html:107 templates/includes/_header.html:577
-#: templates/includes/_header.html:1048
+#: templates/includes/_header.html:107 templates/includes/_header.html:230
+#: templates/includes/_header.html:353
 msgid "Open"
 msgstr "گشودن"
 
-#: templates/includes/_header.html:107 templates/includes/_header.html:577
-#: templates/includes/_header.html:1048
+#: templates/includes/_header.html:107 templates/includes/_header.html:230
+#: templates/includes/_header.html:353
 msgid "Menu"
 msgstr "منو"
 
-#~ msgid "Index: Auditorium"
-#~ msgstr "آودیتوریوم: صفحه اصلی"
+#: templates/includes/_nav.html:15
+msgid "Home/Index"
+msgstr "خانه/صفحه اصلی"
+
+#: templates/includes/_nav.html:24
+msgid "An Introduction to Auditorium"
+msgstr "در بابِ آودیتوریوم"
+
+#: templates/includes/_nav.html:42
+msgid "Posts & Content"
+msgstr "پست‌ها و محتوا"
+
+#~ msgid " Back to top."
+#~ msgstr "بازگشت به بالا."
 
 #~ msgid "Choose your profile avatar."
 #~ msgstr "آواتاری برای پروفایل خود انتخاب کنید."
