@@ -1,0 +1,59 @@
+{% load i18n %}
+
+<nav class="tt-overlay-menu tt-ol-menu-center tt-ol-menu-count">
+    <div class="tt-ol-menu-holder">
+        <div class="tt-ol-menu-inner tt-wrap">
+            <div class="tt-ol-menu-content">
+                <!-- Begin menu list -->
+                <ul class="tt-ol-menu-list">
+                    <!-- <li><a href="">Single Link</a></li> -->
+
+                    <!-- Begin submenu (submenu master)
+                    ==================================== -->
+                    <li class="tt-ol-submenu-wrap">
+                        <div class="tt-ol-submenu-trigger">
+                            <a href="{% url 'pages:index' %}">{% translate "Home/Index" %}</a>
+                        </div>
+                    </li>
+                    <!-- End submenu (sub-master) -->
+
+                    <!-- Begin submenu (submenu master)
+                    ==================================== -->
+                    <li class="tt-ol-submenu-wrap">
+                        <div class="tt-ol-submenu-trigger">
+                            <a href="{% url "pages:introduction" %}">{% translate "An Introduction to Auditorium" %}</a>
+                        </div>
+                    </li>
+                    <!-- End submenu (sub-master) -->
+
+                    <!-- Begin submenu (submenu master)
+                    ==================================== -->
+                    <li class="tt-ol-submenu-wrap">
+                        <div class="tt-ol-submenu-trigger">
+                            <a href="{% url "documents:hall-list" %}">{% translate "Halls" %}</a>
+                        </div>
+                    </li>
+                    <!-- End submenu (sub-master) -->
+
+                    <!-- Begin submenu (submenu master)
+                    ==================================== -->
+                    <li class="tt-ol-submenu-wrap">
+                        <div class="tt-ol-submenu-trigger">
+                            <a href="{% url "documents:post-list" %}">{% translate "Posts & Content" %}</a>
+                        </div>
+                        <!-- /.tt-ol-submenu-trigger -->
+                    </li>
+                    <!-- End submenu (sub-master) -->
+                </ul>
+                <!-- End menu list -->
+            </div>
+            <!-- /.tt-ol-menu-content -->
+        </div>
+        <!-- /.tt-ol-menu-inner -->
+    </div>
+    <!-- /.tt-ol-menu-holder -->
+
+    <!-- Begin noise background -->
+    <div class="bg-noise"></div>
+    <!-- End noise background -->
+</nav>
