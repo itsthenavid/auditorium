@@ -2,11 +2,12 @@
 from django.views.generic import TemplateView
 
 from .models import Page
+from documents.models import Hall, Post
 
 # Create your views here.
 
 
-class IndexView(TemplateView):
+class IndexPageView(TemplateView):
     """
     Index view for the application.
     """
@@ -20,10 +21,20 @@ class IndexView(TemplateView):
         """
         context = super().get_context_data(**kwargs)
         context["context"] = Page.objects.get(is_active=True)
+        context["pinned_post_1"] = Post.activated.filter(pinned=True)[0]
+        context["pinned_post_2"] = Post.activated.filter(pinned=True)[1]
+        context["pinned_post_3"] = Post.activated.filter(pinned=True)[2]
+        context["pinned_post_4"] = Post.activated.filter(pinned=True)[3]
+
+        context["pinned_hall_1"] = Hall.activated.filter(pinned=True)[0]
+        context["pinned_hall_2"] = Hall.activated.filter(pinned=True)[1]
+        context["pinned_hall_3"] = Hall.activated.filter(pinned=True)[2]
+        context["pinned_hall_4"] = Hall.activated.filter(pinned=True)[3]
+
         return context
     
 
-class AboutView(TemplateView):
+class IntroductionPageView(TemplateView):
     """
     About view for the application.
     """

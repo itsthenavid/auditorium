@@ -97,7 +97,7 @@
                     <h3 class="tt-heading-subtitle text-gray">{% translate "Pinned Posts" %}</h3>
                     <h2 class="tt-heading-title">{% translate "Posts" %}</h2>
                     <div class="tt-btn tt-btn-link margin-top-20">
-                        <a href="portfolio-grid-creative-1.html" data-hover="{% translate "See the Halls" %}">{% translate "See the Halls" %}</a>
+                        <a href="{% url "documents:hall-list" %}" data-hover="{% translate "See the Halls" %}">{% translate "See the Halls" %}</a>
                     </div>
                 </div>
                 <!-- End tt-Heading -->
@@ -124,7 +124,8 @@
                         <!-- Begin tt-Grid items wrap 
                         ============================== -->
                         <div class="tt-grid-items-wrap isotope-items-wrap">
-                            <!-- Begin tt-Grid item
+
+                                                        <!-- Begin tt-Grid item
                             ======================== -->
                             <div class="tt-grid-item isotope-item people">
                                 <div class="ttgr-item-inner">
@@ -133,12 +134,12 @@
                                     * Use class "pgi-image-is-light" if needed, it makes the caption visible better if you use light image (only effect if "pgi-cap-inside" is enabled on "portfolio-grid"! Also no effect on small screens!).
                                     -->
                                     <div class="portfolio-grid-item">
-                                        <a href="single-project-1.html" class="pgi-image-wrap" data-cursor="مشاهده<br>پروژه">
+                                        <a href="{% url "documents:post-detail" pinned_post_1.slug %}" class="pgi-image-wrap" data-cursor="{% translate "View<br>Post" %}">
                                             <!-- Use class "cover-opacity-*" to set image overlay if needed. For example "cover-opacity-2". Useful if class "pgi-cap-inside" is enabled on "portfolio-grid". Note: It is individual and depends on the image you use. More info about helper classes in file "helper.css". -->
                                             <div class="pgi-image-holder cover-opacity-2">
                                                 <div class="pgi-image-inner anim-zoomin">
                                                     <figure class="pgi-image ttgr-height">
-                                                        <img src="{% static 'ckb/img/portfolio/portfolio-1.jpg' %}" alt="تصویر" />
+                                                        <img src="{{ pinned_post_1.artwork.url }}" alt="{% translate "Image" %}" />
                                                     </figure>
                                                     <!-- /.pgi-image -->
                                                 </div>
@@ -150,10 +151,10 @@
 
                                         <div class="pgi-caption">
                                             <div class="pgi-caption-inner">
-                                                <h2 class="pgi-title">دختران ویکتوریا</h2>
+                                                <h2 class="pgi-title">{{ pinned_post_1.title }}</h2>
                                                 <div class="pgi-categories-wrap">
-                                                    <div class="pgi-category">مردم</div>
-                                                    <!-- <div class="pgi-category">متفرقه</div> -->
+                                                    <div class="pgi-category">{{ pinned_post_1.hall.name }}</div>
+                                                    <!-- <div class="pgi-category">Varia</div> -->
                                                 </div>
                                                 <!-- /.pli-categories-wrap -->
                                             </div>
@@ -176,12 +177,12 @@
                                     * Use class "pgi-image-is-light" if needed, it makes the caption visible better if you use light image (only effect if "pgi-cap-inside" is enabled on "portfolio-grid"!).
                                     -->
                                     <div class="portfolio-grid-item anim-parallax">
-                                        <a href="single-project-2.html" class="pgi-image-wrap" data-cursor="مشاهده<br>پروژه">
+                                        <a href="{% url "documents:post-detail" pinned_post_2.slug %}" class="pgi-image-wrap" data-cursor="{% translate "View<br>Post" %}">
                                             <!-- Use class "cover-opacity-*" to set image overlay if needed. For example "cover-opacity-2". Useful if class "pgi-cap-inside" is enabled on "portfolio-grid". Note: It is individual and depends on the image you use. More info about helper classes in file "helper.css". -->
                                             <div class="pgi-image-holder cover-opacity-2">
                                                 <div class="pgi-image-inner anim-zoomin">
                                                     <figure class="pgi-image ttgr-height">
-                                                        <img src="{% static 'ckb/img/portfolio/portfolio-2.jpg' %}" alt="تصویر" />
+                                                        <img src="{{ pinned_post_2.artwork.url }}" alt="{% translate "Image" %}" />
                                                     </figure>
                                                     <!-- /.pgi-image -->
                                                 </div>
@@ -193,10 +194,10 @@
 
                                         <div class="pgi-caption">
                                             <div class="pgi-caption-inner">
-                                                <h2 class="pgi-title">آهنگری</h2>
+                                                <h2 class="pgi-title">{{ pinned_post_2.title }}</h2>
                                                 <div class="pgi-categories-wrap">
-                                                    <div class="pgi-category">خلاقانه</div>
-                                                    <!-- <div class="pgi-category">متفرقه</div> -->
+                                                    <div class="pgi-category">{{ pinned_post_2.hall.name }}</div>
+                                                    <!-- <div class="pgi-category">Varia</div> -->
                                                 </div>
                                                 <!-- /.pli-categories-wrap -->
                                             </div>
@@ -219,15 +220,12 @@
                                     * Use class "pgi-image-is-light" if needed, it makes the caption visible better if you use light image (only effect if "pgi-cap-inside" is enabled on "portfolio-grid"!).
                                     -->
                                     <div class="portfolio-grid-item">
-                                        <a href="single-project-3.html" class="pgi-image-wrap" data-cursor="مشاهده<br>پروژه">
+                                        <a href="{% url "documents:post-detail" pinned_post_3.slug %}" class="pgi-image-wrap" data-cursor="{% translate "View<br>Post" %}">
                                             <!-- Use class "cover-opacity-*" to set image overlay if needed. For example "cover-opacity-2". Useful if class "pgi-cap-inside" is enabled on "portfolio-grid". Note: It is individual and depends on the image you use. More info about helper classes in file "helper.css". -->
                                             <div class="pgi-image-holder cover-opacity-2">
                                                 <div class="pgi-image-inner anim-zoomin">
-                                                    <figure class="pgi-video-wrap ttgr-height">
-                                                        <video class="pgi-video" loop muted preload="metadata" poster="{% static 'ckb/vids/fashion-week.jpg' %}">
-                                                            <source src="{% static 'ckb/vids/fashion-week.mp4' %}" type="video/mp4" />
-                                                            <source src="{% static 'ckb/vids/fashion-week.webm' %}" type="video/webm" />
-                                                        </video>
+                                                    <figure class="pgi-image ttgr-height">
+                                                        <img src="{{ pinned_post_3.artwork.url }}" alt="{% translate "Image" %}" />
                                                     </figure>
                                                     <!-- /.pgi-video-wrap -->
                                                 </div>
@@ -239,10 +237,10 @@
 
                                         <div class="pgi-caption">
                                             <div class="pgi-caption-inner">
-                                                <h2 class="pgi-title">هفته مد</h2>
+                                                <h2 class="pgi-title">{{ pinned_post_3.title }}</h2>
                                                 <div class="pgi-categories-wrap">
-                                                    <div class="pgi-category">مردم</div>
-                                                    <!-- <div class="pgi-category">متفرقه</div> -->
+                                                    <div class="pgi-category">{{ pinned_post_3.hall.name }}</div>
+                                                    <!-- <div class="pgi-category">Varia</div> -->
                                                 </div>
                                                 <!-- /.pli-categories-wrap -->
                                             </div>
@@ -265,12 +263,12 @@
                                     * Use class "pgi-image-is-light" if needed, it makes the caption visible better if you use light image (only effect if "pgi-cap-inside" is enabled on "portfolio-grid"!).
                                     -->
                                     <div class="portfolio-grid-item">
-                                        <a href="single-project-4.html" class="pgi-image-wrap" data-cursor="مشاهده<br>پروژه">
+                                        <a href="{% url 'documents:post-detail' pinned_post_4.slug %}" class="pgi-image-wrap" data-cursor="{% translate "View<br>Post" %}">
                                             <!-- Use class "cover-opacity-*" to set image overlay if needed. For example "cover-opacity-2". Useful if class "pgi-cap-inside" is enabled on "portfolio-grid". Note: It is individual and depends on the image you use. More info about helper classes in file "helper.css". -->
                                             <div class="pgi-image-holder cover-opacity-2">
                                                 <div class="pgi-image-inner anim-zoomin">
                                                     <figure class="pgi-image ttgr-height">
-                                                        <img src="{% static 'ckb/img/portfolio/portfolio-3.jpg' %}" alt="تصویر" />
+                                                        <img src="{{ pinned_post_4.artwork.url }}" alt="{% translate "Image" %}" />
                                                     </figure>
                                                     <!-- /.pgi-image -->
                                                 </div>
@@ -282,10 +280,10 @@
 
                                         <div class="pgi-caption">
                                             <div class="pgi-caption-inner">
-                                                <h2 class="pgi-title">جنگل اسرارآمیز</h2>
+                                                <h2 class="pgi-title">{{ pinned_post_4.title }}</h2>
                                                 <div class="pgi-categories-wrap">
-                                                    <div class="pgi-category">طبیعت</div>
-                                                    <!-- <div class="pgi-category">متفرقه</div> -->
+                                                    <div class="pgi-category">{{ pinned_post_4.hall.name }}</div>
+                                                    <!-- <div class="pgi-category">Varia</div> -->
                                                 </div>
                                                 <!-- /.pli-categories-wrap -->
                                             </div>
@@ -314,7 +312,7 @@
         ============================ 
         * You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
         -->
-        <div class="tt-section padding-bottom-xlg-150 padding-right-sm-3-p padding-left-sm-3-p">
+        <div class="tt-section padding-bottom-xlg-150 padding-left-sm-3-p padding-right-sm-3-p">
             <div class="tt-section-inner tt-wrap max-width-1100">
                 <!-- Begin tt-Heading 
                 ====================== 
@@ -338,8 +336,8 @@
                 <div class="tt-accordion tt-ac-xlg tt-ac-borders">
                     <div class="tt-accordion-item anim-fadeinup">
                         <div class="tt-accordion-heading">
-                            <h3 class="tt-ac-head-title">تجربه کاربری / تحقیق</h3>
-                            <div class="tt-accordion-subtext">لورم ایپسوم متن</div>
+                            <h3 class="tt-ac-head-title">{{ pinned_hall_1.name }}</h3>
+                            <div class="tt-accordion-subtext">{{ pinned_hall_1.creator.get_user_shown_name }}</div>
                             <div class="tt-accordion-caret-wrap">
                                 <div class="tt-accordion-caret magnetic-item"></div>
                             </div>
@@ -347,11 +345,11 @@
                         <!-- /.tt-accordion-heading -->
                         <div class="tt-accordion-content max-width-800">
                             <p>
-                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد کتابهای زیادی در شصت و سه درصد گذشته حال و آینده.
+                                {{ pinned_hall_1.description|safe|truncatechars:235 }}
                             </p>
 
                             <div class="tt-btn tt-btn-link">
-                                <a href="dummy-page.html" data-hover="بیشتر بخوانید">بیشتر بخوانید</a>
+                                <a href="{% url "documents:hall-detail" pinned_hall_1.slug %}" data-hover="{% translate "Read More" %}">{% translate "Read More" %}</a>
                             </div>
                         </div>
                         <!-- /.tt-accordion-content -->
@@ -360,8 +358,8 @@
 
                     <div class="tt-accordion-item anim-fadeinup">
                         <div class="tt-accordion-heading">
-                            <h3 class="tt-ac-head-title">استراتژی دیجیتال</h3>
-                            <div class="tt-accordion-subtext">لورم ایپسوم</div>
+                            <h3 class="tt-ac-head-title">{{ pinned_hall_2.name }}</h3>
+                            <div class="tt-accordion-subtext">{{ pinned_hall_2.creator.get_user_shown_name }}</div>
                             <div class="tt-accordion-caret-wrap">
                                 <div class="tt-accordion-caret magnetic-item"></div>
                             </div>
@@ -369,11 +367,11 @@
                         <!-- /.tt-accordion-heading -->
                         <div class="tt-accordion-content max-width-800">
                             <p>
-                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد کتابهای زیادی در شصت و سه درصد گذشته حال و آینده.
+                                {{ pinned_hall_2.description|safe|truncatechars:235 }}
                             </p>
 
                             <div class="tt-btn tt-btn-link">
-                                <a href="dummy-page.html" data-hover="بیشتر بخوانید">بیشتر بخوانید</a>
+                                <a href="{% url "documents:hall-detail" pinned_hall_2.slug %}" data-hover="{% translate "Read More" %}">{% translate "Read More" %}</a>
                             </div>
                         </div>
                         <!-- /.tt-accordion-content -->
@@ -382,8 +380,8 @@
 
                     <div class="tt-accordion-item anim-fadeinup">
                         <div class="tt-accordion-heading">
-                            <h3 class="tt-ac-head-title">برندسازی</h3>
-                            <div class="tt-accordion-subtext">لورم ایپسوم متن ساختگی</div>
+                            <h3 class="tt-ac-head-title">{{ pinned_hall_3.name }}</h3>
+                            <div class="tt-accordion-subtext">{{ pinned_hall_3.creator.get_user_shown_name }}</div>
                             <div class="tt-accordion-caret-wrap">
                                 <div class="tt-accordion-caret magnetic-item"></div>
                             </div>
@@ -391,21 +389,20 @@
                         <!-- /.tt-accordion-heading -->
                         <div class="tt-accordion-content max-width-800">
                             <p>
-                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد کتابهای زیادی در شصت و سه درصد گذشته حال و آینده.
+                                {{ pinned_hall_3.description|safe|truncatechars:235 }}
                             </p>
 
                             <div class="tt-btn tt-btn-link">
-                                <a href="dummy-page.html" data-hover="بیشتر بخوانید">بیشتر بخوانید</a>
+                                <a href="{% url "documents:hall-detail" pinned_hall_3.slug %}" data-hover="{% translate "Read More" %}">{% translate "Read More" %}</a>
                             </div>
                         </div>
                         <!-- /.tt-accordion-content -->
                     </div>
-                    <!-- /.tt-accordion-item -->
 
                     <div class="tt-accordion-item anim-fadeinup">
                         <div class="tt-accordion-heading">
-                            <h3 class="tt-ac-head-title">بازاریابی</h3>
-                            <div class="tt-accordion-subtext">لورم ایپسوم متن</div>
+                            <h3 class="tt-ac-head-title">{{ pinned_hall_4.name }}</h3>
+                            <div class="tt-accordion-subtext">{{ pinned_hall_4.creator.get_user_shown_name }}</div>
                             <div class="tt-accordion-caret-wrap">
                                 <div class="tt-accordion-caret magnetic-item"></div>
                             </div>
@@ -413,16 +410,15 @@
                         <!-- /.tt-accordion-heading -->
                         <div class="tt-accordion-content max-width-800">
                             <p>
-                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد کتابهای زیادی در شصت و سه درصد گذشته حال و آینده.
+                                {{ pinned_hall_4.description|safe|truncatechars:235 }}
                             </p>
 
                             <div class="tt-btn tt-btn-link">
-                                <a href="dummy-page.html" data-hover="بیشتر بخوانید">بیشتر بخوانید</a>
+                                <a href="{% url "documents:hall-detail" pinned_hall_4.slug %}" data-hover="{% translate "Read More" %}">{% translate "Read More" %}</a>
                             </div>
                         </div>
                         <!-- /.tt-accordion-content -->
                     </div>
-                    <!-- /.tt-accordion-item -->
                 </div>
                 <!-- End accordion -->
             </div>

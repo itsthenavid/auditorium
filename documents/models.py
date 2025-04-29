@@ -109,6 +109,11 @@ class Hall(TranslatableModel):
         verbose_name=_("Sequential Posts"),
         help_text=_("This room contains sequential posts, and the posts will be related to each other."),
     )
+    pinned = models.BooleanField(
+        default=False,
+        verbose_name=_("Pinned"),
+        blank=True
+    )
 
     # Managers
     objects = models.Manager()
@@ -264,6 +269,11 @@ class Post(TranslatableModel):
         verbose_name=_("Views"),
         blank=True,
         help_text=_("This field shows how many people watched this post.")
+    )
+    pinned = models.BooleanField(
+        default=False,
+        verbose_name=_("Pinned"),
+        blank=True
     )
     
     # Managers

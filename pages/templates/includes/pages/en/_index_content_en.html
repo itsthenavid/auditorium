@@ -97,7 +97,7 @@
                     <h3 class="tt-heading-subtitle text-gray">{% translate "Pinned Posts" %}</h3>
                     <h2 class="tt-heading-title">{% translate "Posts" %}</h2>
                     <div class="tt-btn tt-btn-link margin-top-20">
-                        <a href="portfolio-grid-creative-1.html" data-hover="{% translate "See the Halls" %}">{% translate "See the Halls" %}</a>
+                        <a href="{% url "documents:hall-list" %}" data-hover="{% translate "See the Halls" %}">{% translate "See the Halls" %}</a>
                     </div>
                 </div>
                 <!-- End tt-Heading -->
@@ -124,7 +124,8 @@
                         <!-- Begin tt-Grid items wrap 
                         ============================== -->
                         <div class="tt-grid-items-wrap isotope-items-wrap">
-                            <!-- Begin tt-Grid item
+
+                                                        <!-- Begin tt-Grid item
                             ======================== -->
                             <div class="tt-grid-item isotope-item people">
                                 <div class="ttgr-item-inner">
@@ -133,12 +134,12 @@
                                     * Use class "pgi-image-is-light" if needed, it makes the caption visible better if you use light image (only effect if "pgi-cap-inside" is enabled on "portfolio-grid"! Also no effect on small screens!).
                                     -->
                                     <div class="portfolio-grid-item">
-                                        <a href="single-project-1.html" class="pgi-image-wrap" data-cursor="View<br>Project">
+                                        <a href="{% url "documents:post-detail" pinned_post_1.slug %}" class="pgi-image-wrap" data-cursor="{% translate "View<br>Post" %}">
                                             <!-- Use class "cover-opacity-*" to set image overlay if needed. For example "cover-opacity-2". Useful if class "pgi-cap-inside" is enabled on "portfolio-grid". Note: It is individual and depends on the image you use. More info about helper classes in file "helper.css". -->
                                             <div class="pgi-image-holder cover-opacity-2">
                                                 <div class="pgi-image-inner anim-zoomin">
                                                     <figure class="pgi-image ttgr-height">
-                                                        <img src="{% static 'en/img/portfolio/portfolio-1.jpg' %}" alt="image" />
+                                                        <img src="{{ pinned_post_1.artwork.url }}" alt="{% translate "Image" %}" />
                                                     </figure>
                                                     <!-- /.pgi-image -->
                                                 </div>
@@ -150,9 +151,9 @@
 
                                         <div class="pgi-caption">
                                             <div class="pgi-caption-inner">
-                                                <h2 class="pgi-title">Victorian Girls</h2>
+                                                <h2 class="pgi-title">{{ pinned_post_1.title }}</h2>
                                                 <div class="pgi-categories-wrap">
-                                                    <div class="pgi-category">People</div>
+                                                    <div class="pgi-category">{{ pinned_post_1.hall.name }}</div>
                                                     <!-- <div class="pgi-category">Varia</div> -->
                                                 </div>
                                                 <!-- /.pli-categories-wrap -->
@@ -176,12 +177,12 @@
                                     * Use class "pgi-image-is-light" if needed, it makes the caption visible better if you use light image (only effect if "pgi-cap-inside" is enabled on "portfolio-grid"!).
                                     -->
                                     <div class="portfolio-grid-item anim-parallax">
-                                        <a href="single-project-2.html" class="pgi-image-wrap" data-cursor="View<br>Project">
+                                        <a href="{% url "documents:post-detail" pinned_post_2.slug %}" class="pgi-image-wrap" data-cursor="{% translate "View<br>Post" %}">
                                             <!-- Use class "cover-opacity-*" to set image overlay if needed. For example "cover-opacity-2". Useful if class "pgi-cap-inside" is enabled on "portfolio-grid". Note: It is individual and depends on the image you use. More info about helper classes in file "helper.css". -->
                                             <div class="pgi-image-holder cover-opacity-2">
                                                 <div class="pgi-image-inner anim-zoomin">
                                                     <figure class="pgi-image ttgr-height">
-                                                        <img src="{% static 'en/img/portfolio/portfolio-2.jpg' %}" alt="image" />
+                                                        <img src="{{ pinned_post_2.artwork.url }}" alt="{% translate "Image" %}" />
                                                     </figure>
                                                     <!-- /.pgi-image -->
                                                 </div>
@@ -193,9 +194,9 @@
 
                                         <div class="pgi-caption">
                                             <div class="pgi-caption-inner">
-                                                <h2 class="pgi-title">Smithy</h2>
+                                                <h2 class="pgi-title">{{ pinned_post_2.title }}</h2>
                                                 <div class="pgi-categories-wrap">
-                                                    <div class="pgi-category">Creative</div>
+                                                    <div class="pgi-category">{{ pinned_post_2.hall.name }}</div>
                                                     <!-- <div class="pgi-category">Varia</div> -->
                                                 </div>
                                                 <!-- /.pli-categories-wrap -->
@@ -219,15 +220,12 @@
                                     * Use class "pgi-image-is-light" if needed, it makes the caption visible better if you use light image (only effect if "pgi-cap-inside" is enabled on "portfolio-grid"!).
                                     -->
                                     <div class="portfolio-grid-item">
-                                        <a href="single-project-3.html" class="pgi-image-wrap" data-cursor="View<br>Project">
+                                        <a href="{% url "documents:post-detail" pinned_post_3.slug %}" class="pgi-image-wrap" data-cursor="{% translate "View<br>Post" %}">
                                             <!-- Use class "cover-opacity-*" to set image overlay if needed. For example "cover-opacity-2". Useful if class "pgi-cap-inside" is enabled on "portfolio-grid". Note: It is individual and depends on the image you use. More info about helper classes in file "helper.css". -->
                                             <div class="pgi-image-holder cover-opacity-2">
                                                 <div class="pgi-image-inner anim-zoomin">
-                                                    <figure class="pgi-video-wrap ttgr-height">
-                                                        <video class="pgi-video" loop muted preload="metadata" poster="{% static 'en/vids/fashion-week.jpg' %}">
-                                                            <source src="{% static 'en/vids/fashion-week.mp4' %}" type="video/mp4" />
-                                                            <source src="{% static 'en/vids/fashion-week.webm' %}" type="video/webm" />
-                                                        </video>
+                                                    <figure class="pgi-image ttgr-height">
+                                                        <img src="{{ pinned_post_3.artwork.url }}" alt="{% translate "Image" %}" />
                                                     </figure>
                                                     <!-- /.pgi-video-wrap -->
                                                 </div>
@@ -239,9 +237,9 @@
 
                                         <div class="pgi-caption">
                                             <div class="pgi-caption-inner">
-                                                <h2 class="pgi-title">Washion Week</h2>
+                                                <h2 class="pgi-title">{{ pinned_post_3.title }}</h2>
                                                 <div class="pgi-categories-wrap">
-                                                    <div class="pgi-category">People</div>
+                                                    <div class="pgi-category">{{ pinned_post_3.hall.name }}</div>
                                                     <!-- <div class="pgi-category">Varia</div> -->
                                                 </div>
                                                 <!-- /.pli-categories-wrap -->
@@ -265,12 +263,12 @@
                                     * Use class "pgi-image-is-light" if needed, it makes the caption visible better if you use light image (only effect if "pgi-cap-inside" is enabled on "portfolio-grid"!).
                                     -->
                                     <div class="portfolio-grid-item">
-                                        <a href="single-project-4.html" class="pgi-image-wrap" data-cursor="View<br>Project">
+                                        <a href="{% url 'documents:post-detail' pinned_post_4.slug %}" class="pgi-image-wrap" data-cursor="{% translate "View<br>Post" %}">
                                             <!-- Use class "cover-opacity-*" to set image overlay if needed. For example "cover-opacity-2". Useful if class "pgi-cap-inside" is enabled on "portfolio-grid". Note: It is individual and depends on the image you use. More info about helper classes in file "helper.css". -->
                                             <div class="pgi-image-holder cover-opacity-2">
                                                 <div class="pgi-image-inner anim-zoomin">
                                                     <figure class="pgi-image ttgr-height">
-                                                        <img src="{% static 'en/img/portfolio/portfolio-3.jpg' %}" alt="image" />
+                                                        <img src="{{ pinned_post_4.artwork.url }}" alt="{% translate "Image" %}" />
                                                     </figure>
                                                     <!-- /.pgi-image -->
                                                 </div>
@@ -282,9 +280,9 @@
 
                                         <div class="pgi-caption">
                                             <div class="pgi-caption-inner">
-                                                <h2 class="pgi-title">Mystery Forest</h2>
+                                                <h2 class="pgi-title">{{ pinned_post_4.title }}</h2>
                                                 <div class="pgi-categories-wrap">
-                                                    <div class="pgi-category">Nature</div>
+                                                    <div class="pgi-category">{{ pinned_post_4.hall.name }}</div>
                                                     <!-- <div class="pgi-category">Varia</div> -->
                                                 </div>
                                                 <!-- /.pli-categories-wrap -->
@@ -338,8 +336,8 @@
                 <div class="tt-accordion tt-ac-xlg tt-ac-borders">
                     <div class="tt-accordion-item anim-fadeinup">
                         <div class="tt-accordion-heading">
-                            <h3 class="tt-ac-head-title">UX / Research</h3>
-                            <div class="tt-accordion-subtext">Mauris mauris ante</div>
+                            <h3 class="tt-ac-head-title">{{ pinned_hall_1.name }}</h3>
+                            <div class="tt-accordion-subtext">{{ pinned_hall_1.creator.get_user_shown_name }}</div>
                             <div class="tt-accordion-caret-wrap">
                                 <div class="tt-accordion-caret magnetic-item"></div>
                             </div>
@@ -347,12 +345,11 @@
                         <!-- /.tt-accordion-heading -->
                         <div class="tt-accordion-content max-width-800">
                             <p>
-                                Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit amet, nunc. Nam a nibh. Donec suscipit eros.
-                                Nam mi. Proin viverra leo ut odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
+                                {{ pinned_hall_1.description|safe|truncatechars:235 }}
                             </p>
 
                             <div class="tt-btn tt-btn-link">
-                                <a href="dummy-page.html" data-hover="Read More">Read More</a>
+                                <a href="{% url "documents:hall-detail" pinned_hall_1.slug %}" data-hover="{% translate "Read More" %}">{% translate "Read More" %}</a>
                             </div>
                         </div>
                         <!-- /.tt-accordion-content -->
@@ -361,8 +358,8 @@
 
                     <div class="tt-accordion-item anim-fadeinup">
                         <div class="tt-accordion-heading">
-                            <h3 class="tt-ac-head-title">Digital Strategy</h3>
-                            <div class="tt-accordion-subtext">Vivamus nisi</div>
+                            <h3 class="tt-ac-head-title">{{ pinned_hall_2.name }}</h3>
+                            <div class="tt-accordion-subtext">{{ pinned_hall_2.creator.get_user_shown_name }}</div>
                             <div class="tt-accordion-caret-wrap">
                                 <div class="tt-accordion-caret magnetic-item"></div>
                             </div>
@@ -370,12 +367,11 @@
                         <!-- /.tt-accordion-heading -->
                         <div class="tt-accordion-content max-width-800">
                             <p>
-                                Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit amet, nunc. Nam a nibh. Donec suscipit eros.
-                                Nam mi. Proin viverra leo ut odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
+                                {{ pinned_hall_2.description|safe|truncatechars:235 }}
                             </p>
 
                             <div class="tt-btn tt-btn-link">
-                                <a href="dummy-page.html" data-hover="Read More">Read More</a>
+                                <a href="{% url "documents:hall-detail" pinned_hall_2.slug %}" data-hover="{% translate "Read More" %}">{% translate "Read More" %}</a>
                             </div>
                         </div>
                         <!-- /.tt-accordion-content -->
@@ -384,8 +380,8 @@
 
                     <div class="tt-accordion-item anim-fadeinup">
                         <div class="tt-accordion-heading">
-                            <h3 class="tt-ac-head-title">Branding</h3>
-                            <div class="tt-accordion-subtext">Nam min proin eget</div>
+                            <h3 class="tt-ac-head-title">{{ pinned_hall_3.name }}</h3>
+                            <div class="tt-accordion-subtext">{{ pinned_hall_3.creator.get_user_shown_name }}</div>
                             <div class="tt-accordion-caret-wrap">
                                 <div class="tt-accordion-caret magnetic-item"></div>
                             </div>
@@ -393,22 +389,20 @@
                         <!-- /.tt-accordion-heading -->
                         <div class="tt-accordion-content max-width-800">
                             <p>
-                                Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit amet, nunc. Nam a nibh. Donec suscipit eros.
-                                Nam mi. Proin viverra leo ut odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
+                                {{ pinned_hall_3.description|safe|truncatechars:235 }}
                             </p>
 
                             <div class="tt-btn tt-btn-link">
-                                <a href="dummy-page.html" data-hover="Read More">Read More</a>
+                                <a href="{% url "documents:hall-detail" pinned_hall_3.slug %}" data-hover="{% translate "Read More" %}">{% translate "Read More" %}</a>
                             </div>
                         </div>
                         <!-- /.tt-accordion-content -->
                     </div>
-                    <!-- /.tt-accordion-item -->
 
                     <div class="tt-accordion-item anim-fadeinup">
                         <div class="tt-accordion-heading">
-                            <h3 class="tt-ac-head-title">Marketing</h3>
-                            <div class="tt-accordion-subtext">Condimentum sit amet</div>
+                            <h3 class="tt-ac-head-title">{{ pinned_hall_4.name }}</h3>
+                            <div class="tt-accordion-subtext">{{ pinned_hall_4.creator.get_user_shown_name }}</div>
                             <div class="tt-accordion-caret-wrap">
                                 <div class="tt-accordion-caret magnetic-item"></div>
                             </div>
@@ -416,17 +410,15 @@
                         <!-- /.tt-accordion-heading -->
                         <div class="tt-accordion-content max-width-800">
                             <p>
-                                Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit amet, nunc. Nam a nibh. Donec suscipit eros.
-                                Nam mi. Proin viverra leo ut odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
+                                {{ pinned_hall_4.description|safe|truncatechars:235 }}
                             </p>
 
                             <div class="tt-btn tt-btn-link">
-                                <a href="dummy-page.html" data-hover="Read More">Read More</a>
+                                <a href="{% url "documents:hall-detail" pinned_hall_4.slug %}" data-hover="{% translate "Read More" %}">{% translate "Read More" %}</a>
                             </div>
                         </div>
                         <!-- /.tt-accordion-content -->
                     </div>
-                    <!-- /.tt-accordion-item -->
                 </div>
                 <!-- End accordion -->
             </div>
