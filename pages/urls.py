@@ -8,5 +8,5 @@ app_name = "pages"
 
 urlpatterns = [
     path("", IndexPageView.as_view(), name="index"),
-    path("about/", IntroductionPageView.as_view(), name="introduction"),
+    path("introduction/", IntroductionPageView.as_view(), name="introduction"),
 ]

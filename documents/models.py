@@ -3,11 +3,12 @@ from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from django.urls import reverse
 from django.utils.html import format_html, mark_safe
+from django.contrib.postgres.search import SearchVector, SearchVectorField
 
 from extensions.utils import persian_datetime_converter, persian_date_converter, kurdish_datetime_converter, kurdish_date_converter
 from accounts.models import UserModel as User
 from engine.models import IPAddress
-from .managers import HallActivatedManager, PostActivatedManager
+from .managers import HallActivatedManager, PostActivatedManager, PostManager
 
 from django_ckeditor_5.fields import CKEditor5Field
 from parler.models import TranslatableModel, TranslatedFields
@@ -275,9 +276,12 @@ class Post(TranslatableModel):
         verbose_name=_("Pinned"),
         blank=True
     )
+
+    # Search vector field for storing the indexed data
+    search_vector = SearchVectorField(null=True, blank=True)
     
     # Managers
-    objects = models.Manager()
+    objects = PostManager()
     activated = PostActivatedManager()
 
     def get_next_post(self):
@@ -331,6 +335,25 @@ class Post(TranslatableModel):
         verbose_name = _("Post")
         verbose_name_plural = _("Posts")
         ordering = ["-publish_datetime"]
+        
+        indexes = [
+            models.Index(fields=["search_vector"]),
+        ]
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        vectors = []
+        for translation in self.translations.all():
+            if translation.title and isinstance(translation.title, str):
+                vectors.append(SearchVector(models.Value(translation.title), weight='A'))
+            if translation.content and isinstance(translation.content, str):
+                vectors.append(SearchVector(models.Value(translation.content), weight='B'))
+        combined_vector = None
+        if vectors:
+            combined_vector = vectors[0]
+            for vector in vectors[1:]:
+                combined_vector += vector
+        Post.objects.filter(pk=self.pk).update(search_vector=combined_vector)
 
     def __str__(self):
         """

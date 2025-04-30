@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import HallDetailView, HallListView, PostDetailView, PostListView
+from .views import HallDetailView, HallListView, PostDetailView, PostListView, PostSearchView
 
 # Create your URLs here.
 
@@ -12,4 +12,5 @@ urlpatterns = [
 
     path("post/<slug:slug>/", PostDetailView.as_view(), name="post-detail"),
     path("posts/", PostListView.as_view(), name="post-list"),
+    path("posts/search/", PostSearchView.as_view(), name="post-search"),
 ]

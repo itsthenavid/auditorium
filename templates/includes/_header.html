@@ -55,10 +55,10 @@
 												* Use class "tt-form-filled" or "tt-form-minimal" to change form style.
 												* Use class "tt-form-sm" or "tt-form-lg" to change form size (no class = default size).
 												-->
-                            <form class="tt-search-form tt-search-appear tt-form-minimal tt-form-lg">
+                            <form action="{% url "documents:post-search" %}" method="get" class="tt-search-form tt-search-appear tt-form-minimal tt-form-lg">
                                 <div class="tt-form-btn-inside">
                                     <input class="tt-form-control" type="text" id="search"
-                                        placeholder="{% translate "Type your keywords to search..." %}" required />
+                                        placeholder="{% translate "Type your keywords to search..." %}" name="q" value="{{ query|default_if_none:'' }}" required />
                                     <button type="submit"><i class="fas fa-search"></i></button>
                                 </div>
                             </form>
@@ -178,14 +178,14 @@
 												* Use class "tt-form-filled" or "tt-form-minimal" to change form style.
 												* Use class "tt-form-sm" or "tt-form-lg" to change form size (no class = default size).
 												-->
-                            <form class="tt-search-form tt-search-appear tt-form-minimal tt-form-lg">
-                                <div class="tt-form-btn-inside">
-                                    <input class="tt-form-control" type="text" id="search"
-                                        placeholder="{% translate "Type your keywords to search..." %}" required />
-                                    <button type="submit"><i class="fas fa-search"></i></button>
-                                </div>
-                            </form>
-                            <!-- End form -->
+                                                <form action="{% url "documents:post-search" %}" method="get" class="tt-search-form tt-search-appear tt-form-minimal tt-form-lg">
+                                                    <div class="tt-form-btn-inside">
+                                                        <input class="tt-form-control" type="text" id="search"
+                                                            placeholder="{% translate "Type your keywords to search..." %}" name="q" value="{{ query|default_if_none:'' }}" required />
+                                                        <button type="submit"><i class="fas fa-search"></i></button>
+                                                    </div>
+                                                </form>
+                                                <!-- End form -->
                         </div>
                         <!-- /.tt-search-inner -->
 

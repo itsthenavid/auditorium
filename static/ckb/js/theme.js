@@ -1,13 +1,3 @@
-/* =================================================================
-* Template Master JS
-* 
-* Template:    Tank - Creative Portfolio Showcase HTML Website Template
-* Author:      Themetorium
-* URL:         https://themetorium.net/
-*
-================================================================= */
-
-
 // Table of Content
 // =================
 // Detect browser
@@ -3245,3 +3235,5 @@ function convertToKurdishDigitsByClass(className) {
         }
     }
 });
+
+})(jQuery);

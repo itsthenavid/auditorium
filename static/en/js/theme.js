@@ -1,13 +1,3 @@
-/* =================================================================
-* Template Master JS
-* 
-* Template:    Tank - Creative Portfolio Showcase HTML Website Template
-* Author:      Themetorium
-* URL:         https://themetorium.net/
-*
-================================================================= */
-
-
 // Table of Content
 // =================
 // Detect browser
@@ -3075,6 +3065,7 @@
 		$(this).trigger("hover");
 	});
 
+
 // Initialize avatar paths and index
 const avatarPaths = Array.from({ length: 10 }, (_, i) => `/static/en/img/avatars/avatar_${i + 1}.webp`);
 let profileAvatarIndex = Math.floor(Math.random() * avatarPaths.length);
@@ -3157,3 +3148,102 @@ window.addEventListener("load", () => {
         console.error("Refresh button missing");
     }
 });
+
+function toKurdishDigits(str) {
+    const kurdishDigits = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+    return str.toString().replace(/\d/g, x => kurdishDigits[x]);
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    const items = document.querySelectorAll('.blog-interactive-item');
+
+    items.forEach((item, index) => {
+        const counterValue = (index + 1).toString().padStart(2, '0');
+        const kurdishCounter = toKurdishDigits(counterValue);
+
+        // Create a custom element or inject a span for the kurdish number
+        let customCounter = document.createElement('span');
+        customCounter.classList.add('bi-counter'); // Add a class if you want to style it
+
+        customCounter.innerText = kurdishCounter;
+
+        // Position it absolutely (like the ::before element)
+        customCounter.style.position = 'absolute';
+        customCounter.style.top = '45%';
+        customCounter.style.left = '0';
+        customCounter.style.lineHeight = '1';
+        customCounter.style.fontSize = 'clamp(40px, 12vw, 220px)';
+        customCounter.style.fontWeight = 'normal';
+        customCounter.style.fontFamily = "'Dana'";
+        customCounter.style.color = '#FFF';
+        customCounter.style.opacity = '0.1';
+        customCounter.style.zIndex = '-1';
+        customCounter.style.transform = 'translateY(-50%)';
+
+        item.appendChild(customCounter);
+    });
+});
+
+function convertToKurdishDigitsByClass(className) {
+	const kurdishDigits = {
+	  '0': '٠',
+	  '1': '١',
+	  '2': '٢',
+	  '3': '٣',
+	  '4': '٤',
+	  '5': '٥',
+	  '6': '٦',
+	  '7': '٧',
+	  '8': '٨',
+	  '9': '٩'
+	};
+  
+	const divs = document.getElementsByClassName(className);
+	for (let div of divs) {
+	  div.textContent = div.textContent.replace(/[0-9]/g, digit => kurdishDigits[digit]);
+	}
+  }
+  
+  document.addEventListener('DOMContentLoaded', () => {
+	convertToKurdishDigitsByClass('to-kurdish-digits');
+  });
+
+  window.addEventListener('DOMContentLoaded', () => {
+    // Check if sidebar is not present and compact blog list exists
+    if (!document.body.classList.contains('tt-sidebar-on')) {
+        const blogList = document.querySelector('#blog-list.bli-compact');
+        if (blogList) {
+            const items = blogList.querySelectorAll('.blog-list-item');
+
+            items.forEach((item, index) => {
+                const counterValue = (index + 1).toString().padStart(2, '0');
+                const kurdishCounter = toKurdishDigits(counterValue);
+
+                // Find the bli-info element within the current blog-list-item
+                const infoElement = item.querySelector('.bli-info');
+                if (infoElement) {
+                    // Create a custom element for the kurdish number
+                    let customCounter = document.createElement('span');
+                    customCounter.classList.add('bli-counter');
+
+                    customCounter.innerText = kurdishCounter;
+
+                    // Apply styles matching the original CSS
+                    customCounter.style.position = 'absolute';
+                    customCounter.style.top = '-20%';
+                    customCounter.style.right = '30%';
+                    customCounter.style.lineHeight = '1';
+                    customCounter.style.fontSize = 'clamp(40px, 37vw, 360px)';
+                    customCounter.style.fontWeight = 'normal';
+                    customCounter.style.color = '#FFF';
+                    customCounter.style.opacity = '0.1';
+                    customCounter.style.zIndex = '-1';
+
+                    infoElement.appendChild(customCounter);
+                }
+            });
+        }
+    }
+});
+
+})(jQuery);

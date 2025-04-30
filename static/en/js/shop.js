@@ -289,12 +289,15 @@
 	});
 
 	// Show loading spinner and open sliding cart on "Add to Cart" button click
-	$(".tt-product-adc-btn").on("click", function () {
+	$(".tt-product-adc-btn").on("click", function() {
 		var $this = $(this);
 		$this.addClass("loading");
-		setTimeout(function () {
+		setTimeout(function(){
 			$("body").addClass("tt-sliding-cart-open");
 			$this.removeClass("loading");
 		}, 400);
 		return false;
-	
+	});
+
+
+})(jQuery); 

@@ -39,7 +39,7 @@ class IntroductionPageView(TemplateView):
     About view for the application.
     """
 
-    template_name = "pages/about.html"
+    template_name = "pages/introduction.html"
 
     def get_context_data(self, **kwargs):
         """
