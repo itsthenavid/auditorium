@@ -1,8 +1,0 @@
-{
-    "disks": [
-        {
-            "name": "audito-disk",
-            "mountTo": "media"
-        }
-    ]
-}

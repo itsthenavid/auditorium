@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-import os
+from os import environ as ENV
 
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
@@ -26,13 +26,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = ENV["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG")
+DEBUG = ENV["DEBUG"]
 
 ALLOWED_HOSTS = [
-    os.getenv("ALLOWED_HOSTS"),
+    ENV["ALLOWED_HOSTS"],
 ]
 
 
@@ -107,7 +107,14 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(default=os.environ.get("DATABASE_URL"))
+    "default": {
+        "ENGINE": ENV["DATABASE_ENGINE"],
+        "NAME": ENV["DATABASE_NAME"],
+        "USER": ENV["DATABASE_USERNAME"],
+        "PASSWORD": ENV["DATABASE_PASSWORD"],
+        "HOST": ENV["DATABASE_HOST"],
+        "PORT": ENV["DATABASE_PORT"],
+    }
 }
 
 
