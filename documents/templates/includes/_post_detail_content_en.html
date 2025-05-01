@@ -197,9 +197,9 @@
                 <div class="tt-blog-post-nav">
                     {% if object.get_previous_post %}
                     <div class="tt-bp-nav-col tt-bp-nav-left">
-                        <div class="tt-bp-nav-text">
+                        <div class="tt-bp-nav-text"><a href="{% url "documents:post-detail" object.get_previous_post.slug %}">
                             <span><i class="fas fa-angle-left"></i></span>{% translate "Prev Post" %}
-                        </div>
+                        </a></div>
                         <h4 class="tt-bp-nav-title"><a href="{% url "documents:post-detail" object.get_previous_post.slug %}">{{ object.get_previous_post }}</a></h4>
                     </div>
                     {% else %}
@@ -212,9 +212,9 @@
                     {% endif %}
                     {% if object.get_next_post %}
                     <div class="tt-bp-nav-col tt-bp-nav-right">
-                        <div class="tt-bp-nav-text">
+                        <div class="tt-bp-nav-text"><a href="{% url 'documents:post-detail' object.get_next_post.slug %}">
                             {% translate "Next Post" %}<span><i class="fas fa-angle-right"></i></span>
-                        </div>
+                        </a></div>
                         <h4 class="tt-bp-nav-title"><a href="{% url 'documents:post-detail' object.get_next_post.slug %}">{{ object.get_next_post }}</a></h4>
                     </div>
                     {% else %}

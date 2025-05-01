@@ -11,10 +11,12 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-from os import environ as env
+import os
 
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
+
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,13 +26,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env["SECRET_KEY"]
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(env["DEBUG"])
+DEBUG = os.getenv("DEBUG")
 
 ALLOWED_HOSTS = [
-    env["ALLOWED_HOSTS"],
+    os.getenv("ALLOWED_HOSTS"),
 ]
 
 
@@ -105,14 +107,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': f'django.db.backends.{env["DATABASE_ENGINE"]}',
-        'NAME': env["DATABASE_NAME"],
-        'USER': env["DATABASE_USERNAME"],
-        'PASSWORD': env["DATABASE_PASSWORD"],
-        'HOST': env["DATABASE_HOST"],
-        'PORT': env["DATABASE_PORT"],
-    }
+    'default': dj_database_url.config(default=os.environ.get("DATABASE_URL"))
 }
 
 

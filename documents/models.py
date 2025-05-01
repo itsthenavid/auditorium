@@ -335,10 +335,6 @@ class Post(TranslatableModel):
         verbose_name = _("Post")
         verbose_name_plural = _("Posts")
         ordering = ["-publish_datetime"]
-        
-        indexes = [
-            models.Index(fields=["search_vector"]),
-        ]
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

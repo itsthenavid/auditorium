@@ -61,6 +61,19 @@
 /* ------------------------------------------------------------- *
  * General
 /* ------------------------------------------------------------- */
+
+.tt-demo-btn {
+    display: none !important;
+}
+
+.tt-demo-btn-img {
+    display: none !important;
+}
+
+.tt-demo-btn-text {
+    display: none !important;
+}
+
 html,
 body,
 div,
