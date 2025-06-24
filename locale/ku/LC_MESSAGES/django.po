@@ -40,11 +40,14 @@ msgstr "Kurdiya Bakûrî (Kurmancî)"
 msgid "Django administration"
 msgstr "Rêveberiya Django"
 
-msgid "Username"
-msgstr "Navê bikarhêner"
-
 msgid "Password"
 msgstr "Şîfre"
 
-msgid "Login | Django admin site"
-msgstr "Têketin | Malpera rêveberiya Django"
+msgid "Django site admin"
+msgstr "Malpera rêveberiya Django"
+
+msgid "Log in"
+msgstr "Têketin"
+
+msgid "Username"
+msgstr "Navê bikarhêner"
