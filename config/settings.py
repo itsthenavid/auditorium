@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # Third-party installed apps
     'django_celery_beat',
     # Developer installed apps
+    "accounts.apps.AccountsConfig",
     "extensions",
 ]
 
@@ -134,7 +135,7 @@ USE_TZ = True
 LANGUAGES = [
     ('en-us', _("English (United States)")),
     ('fa', _("Persian (Farsi)")),
-    ('ckb', 'Central Kurdish (Sorani Kurdish)'),
+    ('ckb', _('Central Kurdish (Sorani Kurdish)')),
     ('ku', _("Northern Kurdish (Kurmanji Kurdish)")),
 ]
 
