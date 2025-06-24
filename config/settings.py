@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 
+from django.utils.translation import gettext_lazy as _
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -40,12 +42,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_celery_beat',  # Added for Celery Beat
+    # Third-party installed apps
+    'django_celery_beat',
+    # Developer installed apps
+    "extensions",
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    # Locale middleware should come after SessionMiddleware and before CommonMiddleware
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -66,6 +73,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # Add i18n context processor for template access to language info
+                'django.template.context_processors.i18n',
             ],
         },
     },
@@ -117,7 +126,22 @@ TIME_ZONE = 'Asia/Tehran'
 
 USE_I18N = True
 
+USE_L10N = True
+
 USE_TZ = True
+
+# Language codes and names for supported languages
+LANGUAGES = [
+    ('en-us', _("English (United States)")),
+    ('fa', _("Persian (Farsi)")),
+    ('ckb', 'Central Kurdish (Sorani Kurdish)'),
+    ('ku', _("Northern Kurdish (Kurmanji Kurdish)")),
+]
+
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
