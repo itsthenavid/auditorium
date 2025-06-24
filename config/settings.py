@@ -168,6 +168,11 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Authentication settings
+# https://docs.djangoproject.com/en/5.1/topics/auth/customizing/
+
+AUTH_USER_MODEL = 'accounts.User'
+
 
 # Django Sites Framework
 # https://docs.djangoproject.com/en/5.1/ref/contrib/sites/
