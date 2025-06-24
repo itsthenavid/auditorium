@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-24 04:38+0330\n"
+"POT-Creation-Date: 2025-06-24 04:55+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,3 +36,15 @@ msgstr "Kurdiya Navendî (Kurdiya Soranî)"
 #: config/settings.py:139
 msgid "Northern Kurdish (Kurmanji Kurdish)"
 msgstr "Kurdiya Bakûrî (Kurmancî)"
+
+msgid "Django administration"
+msgstr "Rêveberiya Django"
+
+msgid "Username"
+msgstr "Navê bikarhêner"
+
+msgid "Password"
+msgstr "Şîfre"
+
+msgid "Login | Django admin site"
+msgstr "Têketin | Malpera rêveberiya Django"
