@@ -121,7 +121,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'Asia/Tehran'
 
@@ -133,7 +133,7 @@ USE_TZ = True
 
 # Language codes and names for supported languages
 LANGUAGES = [
-    ('en-us', _("English (United States)")),
+    ('en', _("English (United States)")),
     ('fa', _("Persian (Farsi)")),
     ('ckb', _('Central Kurdish (Sorani Kurdish)')),
     ('ku', _("Northern Kurdish (Kurmanji Kurdish)")),
