@@ -89,12 +89,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': ENV.get('DATABASE_NAME', 'auditorium'),
-        'USER': ENV.get('DATABASE_USER', 'navid'),
-        'PASSWORD': ENV.get('DATABASE_PASSWORD', 'Nawwvvid.$#.13.@!.866'),
-        'HOST': ENV.get('DATABASE_HOST', 'db'),
-        'PORT': ENV.get('DATABASE_PORT', '5432'),
+        'ENGINE': f'django.db.backends.{ENV.get("DATABASE_ENGINE")}',
+        'NAME': ENV.get('DATABASE_NAME'),
+        'USER': ENV.get('DATABASE_USER'),
+        'PASSWORD': ENV.get('DATABASE_PASSWORD'),
+        'HOST': ENV.get('DATABASE_HOST'),
+        'PORT': ENV.get('DATABASE_PORT'),
     }
 }
 
