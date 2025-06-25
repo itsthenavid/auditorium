@@ -51,3 +51,45 @@ msgstr "Têketin"
 
 msgid "Username"
 msgstr "Navê bikarhêner"
+
+msgid "Site administration"
+msgstr "Rêveberiya Malperê"
+
+msgid "Authentication"
+msgstr "piştrastkirinê"
+
+msgid "And"
+msgstr "û"
+
+msgid "Authorization"
+msgstr "Wekîlkirinî"
+
+msgid "Groups"
+msgstr "Kom"
+
+msgid "AUTHENTICATION AND AUTHORIZATION"
+msgstr "Verastkirin û Destûr"
+
+msgid "Recent actions"
+msgstr "Çalakiyên dawî"
+
+msgid "My actions"
+msgstr "Çalakiyên min"
+
+msgid "None available"
+msgstr "Peyda nîne"
+
+msgid "View site"
+msgstr "Malperê bibînin"
+
+msgid "Change password"
+msgstr "Şîfre biguherînin"
+
+msgid "Log out"
+msgstr "Derkeve"
+
+msgid "Add"
+msgstr "Lêzêdekirin"
+
+msgid "Change"
+msgstr "Gûherrandin"
