@@ -45,14 +45,14 @@ python-crontab==3.2.0
 python-dateutil==2.9.0.post0
 pytz==2025.2
 redis==5.2.1
-requests==2.32.3
-setuptools==78.1.0
+requests==2.32.4
+setuptools==78.1.1
 six==1.17.0
 sqlparse==0.5.3
 typing_extensions==4.13.1
 tzdata==2025.2
 unicorn==2.1.3
-urllib3==2.4.0
+urllib3==2.5.0
 vine==5.1.0
 wcwidth==0.2.13
 wheel==0.45.1
