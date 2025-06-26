@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractUser
-
 from random import choice
 
 # Create your models here.
@@ -12,28 +11,7 @@ def _set_user_random_avatar():
     This can be implemented later to assign a random avatar from a predefined list.
     """
     # Logic to select a random avatar from a predefined list or directory
-    avatars = (
-        "avatar1.webp",
-        "avatar2.webp",
-        "avatar3.webp",
-        "avatar4.webp",
-        "avatar5.webp",
-        "avatar6.webp",
-        "avatar7.webp",
-        "avatar8.webp",
-        "avatar9.webp",
-        "avatar10.webp",
-        "avatar11.webp",
-        "avatar12.webp",
-        "avatar13.webp",
-        "avatar14.webp",
-        "avatar15.webp",
-        "avatar16.webp",
-        "avatar17.webp",
-        "avatar18.webp",
-        "avatar19.webp",
-        "avatar20.webp",
-    )
+    avatars = [f"avatar{i}.webp" for i in range(1, 21)]
 
     return choice(avatars)
 
@@ -62,13 +40,32 @@ class User(AbstractUser):
         upload_to="banners/",
         help_text=_("Upload a banner image for the user profile."),
     )
-    bio = models.CharField(
-        max_length=525,
-        blank=True,
-        null=True,
-        verbose_name=_("Bio"),
-        help_text=_("A short biography for the user."),
-    )
     
     def __str__(self):
         return self.username
+    
+
+class UserProfileI18n(models.Model):
+    """
+    """
+    # 
+    LANG_CHOICES = [
+        ('en', _('English')),
+        ('fa', _('Persian (Farsi)')),
+        ('ckb', _('Central Kurdish (Sorani Kurdish)')),
+        ('ku', _('Northern Kurdish (Kurmanji Kurdish)')),
+    ]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="i18n_profiles")
+    lang_code = models.CharField(max_length=35, choices=LANG_CHOICES)
+
+    name = models.CharField(max_length=255, blank=True)
+    bio = models.TextField(blank=True)
+
+    # Searchable fields
+    # name_vec = VectorField(dimensions=768, null=True, blank=True)
+    # bio_vec = VectorField(dimensions=768, null=True, blank=True)
+    # bio_tsv = models.SearchVectorField(null=True)
+
+    class Meta:
+        unique_together = [("user", "lang_code")]
