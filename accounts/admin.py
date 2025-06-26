@@ -9,6 +9,7 @@ from .models import User
 
 # Register your models here.
 
+
 class UserAdminForm(forms.ModelForm):
     """
     Custom form to handle name and bio for the current language.
