@@ -47,8 +47,11 @@ class User(AbstractUser):
 
 class UserProfileI18n(models.Model):
     """
+    User profile model for internationalization (i18n).
+    This model allows users to have profiles in multiple languages.
+    It includes fields for language code, name, and bio.
     """
-    # 
+    # Language choices for the user profile
     LANG_CHOICES = [
         ('en', _('English')),
         ('fa', _('Persian (Farsi)')),
