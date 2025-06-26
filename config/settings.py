@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Third-party installed apps
     'django_celery_beat',
-    "parler",
     # Developer installed apps
     "accounts.apps.AccountsConfig",
     "extensions",
