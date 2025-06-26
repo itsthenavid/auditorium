@@ -40,35 +40,11 @@ class User(AbstractUser):
         upload_to="banners/",
         help_text=_("Upload a banner image for the user profile."),
     )
+    profiles = models.JSONField(
+        default=dict,
+        verbose_name=_("Name and Bio"),
+        help_text=_("Name and bio for different languages, stored as JSON."),
+    )
     
     def __str__(self):
         return self.username
-    
-
-class UserProfileI18n(models.Model):
-    """
-    User profile model for internationalization (i18n).
-    This model allows users to have profiles in multiple languages.
-    It includes fields for language code, name, and bio.
-    """
-    # Language choices for the user profile
-    LANG_CHOICES = [
-        ('en', _('English')),
-        ('fa', _('Persian (Farsi)')),
-        ('ckb', _('Central Kurdish (Sorani Kurdish)')),
-        ('ku', _('Northern Kurdish (Kurmanji Kurdish)')),
-    ]
-
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="i18n_profiles")
-    lang_code = models.CharField(max_length=35, choices=LANG_CHOICES)
-
-    name = models.CharField(max_length=255, blank=True)
-    bio = models.TextField(blank=True)
-
-    # Searchable fields
-    # name_vec = VectorField(dimensions=768, null=True, blank=True)
-    # bio_vec = VectorField(dimensions=768, null=True, blank=True)
-    # bio_tsv = models.SearchVectorField(null=True)
-
-    class Meta:
-        unique_together = [("user", "lang_code")]
