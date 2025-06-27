@@ -11,7 +11,7 @@ def _set_user_random_avatar():
     This can be implemented later to assign a random avatar from a predefined list.
     """
     # Logic to select a random avatar from a predefined list or directory
-    avatars = [f"avatar{i}.webp" for i in range(1, 21)]
+    avatars = [f"avatar_{i}.webp" for i in range(1, 21)]
 
     return choice(avatars)
 
