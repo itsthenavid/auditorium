@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-24 04:38+0330\n"
+"POT-Creation-Date: 2025-06-27 07:41+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,22 +18,78 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+#: accounts/admin.py:24
+msgid "Personal Info"
+msgstr "اطلاعات شخصی"
+
+#: accounts/admin.py:27
+msgid "Permissions"
+msgstr "دسترسی‌ها"
+
+#: accounts/admin.py:30
+msgid "Important Dates"
+msgstr "تاریخ‌های مهم"
+
+#: accounts/admin.py:43 accounts/models.py:33
+msgid "Avatar"
+msgstr "آواتار"
+
+#: accounts/admin.py:52 accounts/models.py:39
+msgid "Banner"
+msgstr "بنر"
+
 #: accounts/apps.py:12
 msgid "Accounts"
 msgstr "حساب‌ها"
 
-#: config/settings.py:136
+#: accounts/forms.py:15
+msgid "Name"
+msgstr "نام"
+
+#: accounts/forms.py:17
+msgid "User's name in the current language."
+msgstr "نامِ کاربر در زبانِ میزبان."
+
+#: accounts/forms.py:20
+msgid "Bio"
+msgstr "بیوگرافی"
+
+#: accounts/forms.py:23
+msgid "User's bio in the current language."
+msgstr "بیوگرافی کاربر در زبانِ میزبان."
+
+#: accounts/models.py:35
+msgid "Upload a profile picture for the user."
+msgstr "آپلود آواتار برای پروفایل کاربر."
+
+#: accounts/models.py:41
+msgid "Upload a banner image for the user profile."
+msgstr "آپلود بنر برای پروفایل کاربر."
+
+#: accounts/models.py:45
+msgid "Name and Bio"
+msgstr "نام و بیوگرافی"
+
+#: accounts/models.py:46
+msgid "Name and bio for different languages, stored as JSON."
+msgstr "نام و بیوگرافی برای زبان‌های مختلف که با فرمت JSON ذخیره می‌شود."
+
+#: config/settings.py:138
 msgid "English (United States)"
 msgstr "انگلیسی (ایالات متحده)"
 
-#: config/settings.py:137
+#: config/settings.py:139
 msgid "Persian (Farsi)"
 msgstr "فارسی"
 
-#: config/settings.py:138
+#: config/settings.py:140
 msgid "Central Kurdish (Sorani Kurdish)"
 msgstr "کُردیِ مرکزی (کُردیِ سورانی)"
 
-#: config/settings.py:139
+#: config/settings.py:141
 msgid "Northern Kurdish (Kurmanji Kurdish)"
 msgstr "کُردیِ شمالی (کُردیِ کُرمانجی)"
+
+#: pages/apps.py:11
+msgid "Pages"
+msgstr "صفحات"

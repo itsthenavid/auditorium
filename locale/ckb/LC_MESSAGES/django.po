@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-24 04:38+0330\n"
+"POT-Creation-Date: 2025-06-27 07:41+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,22 +18,78 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: accounts/admin.py:24
+msgid "Personal Info"
+msgstr "زانیاری کەسی"
+
+#: accounts/admin.py:27
+msgid "Permissions"
+msgstr "دەستڕاگەیشتنەکان"
+
+#: accounts/admin.py:30
+msgid "Important Dates"
+msgstr "بەروارە گرنگەکان"
+
+#: accounts/admin.py:43 accounts/models.py:33
+msgid "Avatar"
+msgstr "ئاڤاتار"
+
+#: accounts/admin.py:52 accounts/models.py:39
+msgid "Banner"
+msgstr "بانەر"
+
 #: accounts/apps.py:12
 msgid "Accounts"
 msgstr "ئەکاونتەکان"
 
-#: config/settings.py:136
+#: accounts/forms.py:15
+msgid "Name"
+msgstr "ناو"
+
+#: accounts/forms.py:17
+msgid "User's name in the current language."
+msgstr "ناوی بەکارهێنەر بۆ زمانی میواندار."
+
+#: accounts/forms.py:20
+msgid "Bio"
+msgstr "بایۆ"
+
+#: accounts/forms.py:23
+msgid "User's bio in the current language."
+msgstr "بایۆی بەکارهێنەر بە زمانی میواندار."
+
+#: accounts/models.py:35
+msgid "Upload a profile picture for the user."
+msgstr "وێنەی ئاڤاتار بۆ بەکارهێنەر بارئەکات."
+
+#: accounts/models.py:41
+msgid "Upload a banner image for the user profile."
+msgstr "وێنەی بانەر بۆ بەکارهێنەر بارئەکات."
+
+#: accounts/models.py:45
+msgid "Name and Bio"
+msgstr "ناو و بایۆ"
+
+#: accounts/models.py:46
+msgid "Name and bio for different languages, stored as JSON."
+msgstr "ناو و بایۆ بۆ زمانە جیاوازەکان کە بە شێوەی JSON هەڵگیراون."
+
+#: config/settings.py:138
 msgid "English (United States)"
 msgstr "ئینگلیزی (ئەمریکا)"
 
-#: config/settings.py:137
+#: config/settings.py:139
 msgid "Persian (Farsi)"
 msgstr "فارسی"
 
-#: config/settings.py:138
+#: config/settings.py:140
 msgid "Central Kurdish (Sorani Kurdish)"
 msgstr "کوردی ناوەندی (کوردی سۆرانی)"
 
-#: config/settings.py:139
+#: config/settings.py:141
 msgid "Northern Kurdish (Kurmanji Kurdish)"
 msgstr "کوردی باکووری (کوردی کورمانجی)"
+
+#: pages/apps.py:11
+msgid "Pages"
+msgstr "لاپەڕەکان"
