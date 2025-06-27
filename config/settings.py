@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django_celery_beat',
     # Developer installed apps
     "accounts.apps.AccountsConfig",
+    "pages.apps.PagesConfig",
     "extensions",
 ]
 
