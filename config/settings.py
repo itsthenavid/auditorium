@@ -79,6 +79,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 # Add i18n context processor for template access to language info
                 'django.template.context_processors.i18n',
+                # Developer-written context processors
+                'extensions.context_processors.direction_context',
             ],
         },
     },

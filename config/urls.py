@@ -22,6 +22,8 @@ from django.conf.urls.i18n import i18n_patterns
 
 urlpatterns = i18n_patterns(
     path('admin/', admin.site.urls),
+    # Include the pages app URLs
+    path('', include('pages.urls')),
 )
 
 # Serve static and media files in development
