@@ -4,16 +4,16 @@ from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
 from .models import User
-from .forms import UserAdminForm
+# from .forms import UserAdminForm
 
-# Register your models here.
+# # Register your models here.
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
     """
     Custom admin for User model to display avatar, banner, name, and bio.
     """
-    form = UserAdminForm
+    # form = UserAdminForm
     list_display = ('username', 'email', 'display_avatar', 'is_active', 'date_joined')
     list_filter = ('is_active', 'is_staff', 'date_joined')
     search_fields = ('username', 'email', 'profiles__name', 'profiles__bio')
@@ -57,5 +57,6 @@ class UserAdmin(admin.ModelAdmin):
         Pass the request to the form to get the current language.
         """
         form = super().get_form(request, obj, **kwargs)
-        form.request = request  # Attach request to the form
+        # Attach request to the form
+        form.request = request 
         return form
