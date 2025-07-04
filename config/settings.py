@@ -42,14 +42,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Third-party installed apps
-    "allauth",
-    "allauth.account",
-    'django_celery_beat',
     # Developer installed apps
     "accounts.apps.AccountsConfig",
     "pages.apps.PagesConfig",
     "extensions",
+    # Third-party installed apps
+    "allauth",
+    "allauth.account",
+    'django_celery_beat',
+    "crispy_forms",
+    "crispy_bootstrap5",
 ]
 
 MIDDLEWARE = [
@@ -191,6 +193,30 @@ SITE_ID = int(ENV.get('SITE_ID', '1'))
 # Django All-Auth settings
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 
+LOGIN_REDIRECT_URL = ENV.get('LOGIN_REDIRECT_URL', '/')
+
+LOGOUT_REDIRECT_URL = ENV.get('LOGOUT_REDIRECT_URL', '/')
+
+SIGNUP_REDIRECT_URL = ENV.get('SIGNUP_REDIRECT_URL', '/')
+
+ACCOUNT_LOGIN_ON_SIGNUP = True
+
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+ACCOUNT_EMAIL_REQUIRED = False
+
+USER_AUTHENTICATION_BACKENDS = (
+    # Default authentication backend
+    'django.contrib.auth.backends.ModelBackend',
+
+    # All-Auth backend
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+ACCOUNT_FORMS = {
+    'signup': 'accounts.forms.RegisterForm',
+}
+
 
 # Celery Configuration Options
 # https://docs.celeryq.dev/en/stable/userguide/configuration.html
@@ -206,3 +232,12 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
 CELERY_TIMEZONE = 'Asia/Tehran'
+
+# Crispy Forms settings
+# https://django-crispy-forms.readthedocs.io/en/latest/
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = ["bootstrap5"]
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
