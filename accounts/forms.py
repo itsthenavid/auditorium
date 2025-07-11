@@ -9,6 +9,7 @@ from .models import User
 
 # Create your forms here.
 
+
 class RegisterForm(SignupForm):
     """
     Custom signup form for allauth with multilingual name and bio support.
