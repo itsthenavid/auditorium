@@ -1,12 +1,13 @@
 from django.urls import path
 
-from . import views
+from .views import CustomSignupView, ProfileUpdateView, ProfileView
 
-# Create a list of URL patterns here.
+# Create your URLs here.
 
-app_name = "accounts"
+app_name = 'accounts'
 
 urlpatterns = [
-    # path("register/", RegisterView.as_view(), name="register"),
-    path('signup/', views.CustomSignupView.as_view(), name='account_signup'),
+    path('signup/', CustomSignupView.as_view(), name='signup'),
+    path('profile/', ProfileUpdateView.as_view(), name='profile_edit'),
+    path('profile/', ProfileView.as_view(), name='profile_view'),
 ]
