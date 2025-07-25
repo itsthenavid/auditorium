@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 from .models import User
 # from .forms import UserAdminForm
 
-# # Register your models here.
+# Register your models here.
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
@@ -22,7 +22,7 @@ class UserAdmin(admin.ModelAdmin):
             'fields': ('username', 'email', 'password')
         }),
         (_('Personal Info'), {
-            'fields': ('first_name', 'last_name', 'avatar', 'banner', 'display_banner', 'name', 'bio')
+            'fields': ('first_name', 'last_name', 'avatar', 'banner', 'display_banner', "is_verified", )
         }),
         (_('Permissions'), {
             'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')
