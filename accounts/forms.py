@@ -257,3 +257,7 @@ class ProfileInfoForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+
+class EmailVerificationForm(forms.Form):
+    code = forms.CharField(max_length=10, label=_("Email Verify Code"))
