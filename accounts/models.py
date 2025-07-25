@@ -2,6 +2,8 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractUser
 from random import choice
+import datetime
+from django.utils import timezone
 
 # Create your models here.
 
@@ -45,6 +47,35 @@ class User(AbstractUser):
         verbose_name=_("Name and Bio"),
         help_text=_("Name and bio for different languages, stored as JSON."),
     )
+    is_verified = models.BooleanField(
+        default=False,
+        verbose_name=_("Is Verified"),
+        help_text=_("Indicates whether the user has verified their account."),
+    )
     
     def __str__(self):
         return self.username
+
+
+class EmailVerificationCode(models.Model):
+    """
+    Model to store email verification codes for users.
+    This is used to verify the user's email address during registration or changes.
+    """
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='email_verification')
+    code = models.CharField(max_length=64, verbose_name=_("Verification Code"))
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Created At"))
+    expires_at = models.DateTimeField(verbose_name=_("Expires At"))
+    is_for_token = models.BooleanField(default=True)  # True: توکن لینک، False: کد ۱۰ رقمی
+
+    def is_expired(self):
+        return timezone.now() > self.expires_at
+
+    def save(self, *args, **kwargs):
+        if not self.expires_at:
+            duration = 15 if self.is_for_token else 5
+            self.expires_at = timezone.now() + datetime.timedelta(minutes=duration)
+        super().save(*args, **kwargs)
+    
+    def __str__(self):
+        return f"Verification code for {self.user.username} - {self.code}"
