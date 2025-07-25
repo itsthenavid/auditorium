@@ -58,6 +58,7 @@ class RateLimitMixin:
         
         return super().dispatch(request, *args, **kwargs)
 
+
 class RequireGetMixin:
     """
     Mixin to restrict view to GET requests only.
