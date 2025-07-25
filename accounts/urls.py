@@ -1,13 +1,16 @@
 from django.urls import path
 
-from .views import CustomSignupView, ProfileUpdateView, ProfileView
+from . import views
 
 # Create your URLs here.
 
 app_name = 'accounts'
 
 urlpatterns = [
-    path('signup/', CustomSignupView.as_view(), name='signup'),
-    path('profile/', ProfileUpdateView.as_view(), name='profile_edit'),
-    path('profile/', ProfileView.as_view(), name='profile_view'),
+    path('signup/', views.CustomSignupView.as_view(), name='signup'),
+    path('profile/', views.ProfileUpdateView.as_view(), name='profile_edit'),
+    path('profile/', views.ProfileView.as_view(), name='profile_view'),
+    path('email/verify/<str:key>/', views.EmailVerifyLinkView.as_view(), name='email_verify_link'),
+    path('verify-email/', views.VerifyEmailView.as_view(), name='verify_email'),
+    path('email/', views.VerifyEmailView.as_view(), name='account_email'),
 ]
