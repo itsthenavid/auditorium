@@ -10,3 +10,6 @@ class AccountsConfig(AppConfig):
     # This is the verbose name for the app, which will be translated all across the application.
     # It is used in the Django admin interface and other places where the app name is displayed.
     verbose_name = _("Accounts")
+
+    def ready(self):
+      import accounts.signals
