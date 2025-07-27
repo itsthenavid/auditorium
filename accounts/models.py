@@ -4,6 +4,7 @@ from django.contrib.auth.models import AbstractUser
 from random import choice
 import datetime
 from django.utils import timezone
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 
@@ -29,6 +30,7 @@ class User(AbstractUser):
     # Add any additional fields here if needed
     # For example:
     # bio = models.TextField(blank=True, null=True)
+    valid_languages = ['en', 'fa', 'ckb', 'ku']
 
     avatar = models.ImageField(
         default=f"defaults/avatars/{_set_user_random_avatar()}",
@@ -52,6 +54,11 @@ class User(AbstractUser):
         verbose_name=_("Is Verified"),
         help_text=_("Indicates whether the user has verified their account."),
     )
+
+    def clean(self):
+      for lang in self.profiles:
+          if lang not in self.valid_languages:
+              raise ValidationError(f"Invalid language code: {lang}")
     
     def __str__(self):
         return self.username
@@ -66,7 +73,7 @@ class EmailVerificationCode(models.Model):
     code = models.CharField(max_length=64, verbose_name=_("Verification Code"))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Created At"))
     expires_at = models.DateTimeField(verbose_name=_("Expires At"))
-    is_for_token = models.BooleanField(default=True)  # True: توکن لینک، False: کد ۱۰ رقمی
+    is_for_token = models.BooleanField(default=True)
 
     def is_expired(self):
         return timezone.now() > self.expires_at
