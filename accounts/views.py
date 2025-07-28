@@ -296,14 +296,13 @@ class EmailVerifyLinkView(RequireGetMixin, View):
 
 
 class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
-    """Verify email with a 10-digit code."""
     template_name = 'accounts/verify-email.html'
     rate = '3/5m'
     key = 'user'
     rate_limit_methods = ['GET', 'POST']
 
     def get(self, request):
-        logger.debug("Handling GET for VerifyEmailView")
+        logger.debug(f"Handling GET for VerifyEmailView for user {request.user.id}")
         conn = get_redis_connection('default')
         user_key = f"persistent_messages:{request.user.id}"
         try:
@@ -313,6 +312,7 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
             limit = int(self.rate.split('/')[0])
             if count < limit:
                 expires_at = create_and_send_verification_code(request.user, is_for_token=False)
+                logger.debug(f"Verification code sent for user {request.user.id}, expires at {expires_at}")
                 message_id = f"msg-{request.user.id}-{int(now().timestamp())}"
                 message_text = _('A 10-digit verification code has been sent to your email (valid for 5 minutes, remaining: <span class="timer"></span>).')
                 message_data = f"{message_text}|persistent info code-verification {expires_at}|{expires_at}"
@@ -323,7 +323,7 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
                 logger.debug(f"Skipping code send due to rate limit for {user_key}")
                 messages.warning(self.request, _("You have exceeded the request limit. Please try again later."), extra_tags='warning')
         except Exception as e:
-            logger.error(f"Error in create_and_send_verification_code: {str(e)}")
+            logger.error(f"Error in VerifyEmailView GET: {str(e)}")
             message_id = f"msg-{request.user.id}-{int(now().timestamp())}"
             message_text = _('An error occurred while sending the verification code. Please try again.')
             message_data = f"{message_text}|persistent error code-verification|{int(now().timestamp() + 5 * 60 * 1000)}"
@@ -333,7 +333,7 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
         return render(request, self.template_name, {'form': EmailVerificationForm()})
 
     def post(self, request, *args, **kwargs):
-        logger.debug("Handling POST for VerifyEmailView")
+        logger.debug(f"Handling POST for VerifyEmailView for user {request.user.id}")
         full_code = ''.join([request.POST.get(f'code_{i}', '') for i in range(10)])
         form = EmailVerificationForm({'code': full_code})
         conn = get_redis_connection('default')
