@@ -1,47 +1,54 @@
+import logging
 from django.utils import timezone
 from datetime import timedelta
-from django.utils.timezone import datetime
 from django.contrib.auth import get_user_model
-import random
+import uuid
 from django.core.mail import send_mail
-import random
-import string
-from django.utils import timezone
-
 from accounts.models import EmailVerificationCode
-from accounts.forms import EmailVerificationForm
+import random
 
-# Create the helpers functions here.
+# Create the helper functions here.
 
+logger = logging.getLogger(__name__)
 User = get_user_model()
 
 def generate_code(length=10):
     return ''.join(random.choices('0123456789', k=length))
 
-def send_verification_email(user, code):
-    subject = 'کد تایید ایمیل شما - آودیتوریوم'
-    message = f'سلام {user.username} عزیز،\n\nکد تایید ایمیل شما: {code}\nلطفاً این کد را در سایت وارد کنید تا ایمیل شما تأیید شود.\n\nبا احترام، تیم آودیتوریوم'
+def send_verification_email(user, code, is_for_token=True):
+    subject = 'کد یا لینک تأیید ایمیل - آودیتوریوم'
+    if is_for_token:
+        verification_link = f"http://localhost/accounts/verify-email/{user.pk}/{code}/"
+        message = f'سلام {user.username} عزیز،\n\nبرای تأیید ایمیل خود، روی لینک زیر کلیک کنید:\n{verification_link}\nلینک تا ۱۵ دقیقه معتبر است.\n\nیا می‌توانید از کد ۱۰ رقمی که از طریق ایمیل دریافت می‌کنید استفاده کنید.\n\nبا احترام، تیم آودیتوریوم'
+    else:
+        message = f'سلام {user.username} عزیز،\n\nکد تأیید ایمیل شما: {code}\nلطفاً این کد را در سایت وارد کنید تا ایمیل شما تأیید شود. کد تا ۵ دقیقه معتبر است.\n\nبا احترام، تیم آودیتوریوم'
     from_email = 'no-reply@auditorium.com'
     recipient_list = [user.email]
-    send_mail(subject, message, from_email, recipient_list)
+    try:
+        send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+        logger.debug(f"Verification email sent to {user.email} with code: {code}")
+    except Exception as e:
+        logger.error(f"Failed to send verification email to {user.email}: {str(e)}")
+        raise
 
 def create_and_send_verification_code(user, is_for_token=True):
     EmailVerificationCode.objects.filter(user=user).delete()
 
     if is_for_token:
-        code = ''.join(random.choices(string.ascii_letters + string.digits, k=64))
+        code = str(uuid.uuid4())
+        expires_at = timezone.now() + timedelta(minutes=15)
     else:
-        code = ''.join(random.choices(string.digits, k=10))
+        code = generate_code(10)
+        expires_at = timezone.now() + timedelta(minutes=5)
 
     evc = EmailVerificationCode.objects.create(
         user=user,
         code=code,
         is_for_token=is_for_token,
-        expires_at=timezone.now() + timedelta(seconds=15 if is_for_token else 15)
+        email=user.email
     )
 
-    if is_for_token:
-        verification_link = f"http://localhost/accounts/verify-email/{user.pk}/{code}/"
-        print(f"Send email with verification link: {verification_link}")
-    else:
-        print(f"Send email with verification code: {code}")
+    send_verification_email(user, code, is_for_token)
+    expires_at_ms = expires_at.timestamp() * 1000
+    logger.debug(f"Generated verification code for user {user.id}, code: {code}, expires_at: {expires_at_ms}")
+    return expires_at_ms
