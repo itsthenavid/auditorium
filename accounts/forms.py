@@ -5,9 +5,7 @@ import random
 import os
 from django.core.files import File
 from django.conf import settings
-
 from allauth.account.forms import SignupForm
-
 from .models import User
 
 # Create your forms here.
@@ -16,7 +14,6 @@ from .models import User
 class RegisterForm(SignupForm):
     """
     Custom signup form for allauth with multilingual name and bio support.
-    Detects language from URL lang_code or request.LANGUAGE_CODE in save method.
     """
     avatar = forms.ImageField(
         label=_("Avatar"),
@@ -61,7 +58,7 @@ class RegisterForm(SignupForm):
         cleaned_data = super().clean()
         if 'avatar' not in cleaned_data or not cleaned_data['avatar']:
             if not cleaned_data.get('default_avatar'):
-                cleaned_data['default_avatar'] = f"/static/shared/avatars/avatar_{random.randint(1, 20)}.webp"
+                cleaned_data['default_avatar'] = f"{settings.STATIC_URL}shared/avatars/avatar_{random.randint(1, 20)}.webp"
         else:
             cleaned_data['default_avatar'] = ''
         return cleaned_data
@@ -83,7 +80,6 @@ class RegisterForm(SignupForm):
         elif self.cleaned_data.get('default_avatar'):
             user.avatar = self.cleaned_data['default_avatar']
         user.save()
-        print("Saved user avatar:", user.avatar)
         return user
 
 
@@ -115,20 +111,13 @@ class ProfileImageForm(forms.ModelForm):
         avatar = cleaned_data.get('avatar')
         default_avatar = cleaned_data.get('default_avatar')
         
-        print(f"Cleaning form data: avatar={avatar}, default_avatar={default_avatar}")  # Debug
-        
-        # Prioritize default_avatar if provided
         if default_avatar:
             cleaned_data['avatar'] = default_avatar
-        # If no avatar or default_avatar, set a random default
         elif not avatar and not default_avatar:
-            cleaned_data['default_avatar'] = f"/static/shared/avatars/avatar_{random.randint(1, 20)}.webp"
+            cleaned_data['default_avatar'] = f"{settings.STATIC_URL}shared/avatars/avatar_{random.randint(1, 20)}.webp"
             cleaned_data['avatar'] = cleaned_data['default_avatar']
-        # If avatar is uploaded, clear default_avatar
         else:
             cleaned_data['default_avatar'] = ''
-        
-        print(f"Cleaned data: {cleaned_data}")  # Debug
         return cleaned_data
 
     def save(self, commit=True):
@@ -137,31 +126,21 @@ class ProfileImageForm(forms.ModelForm):
         default_avatar = self.cleaned_data.get('default_avatar')
         banner = self.cleaned_data.get('banner')
 
-        print(f"Saving form: avatar={avatar}, default_avatar={default_avatar}, banner={banner}")  # Debug
-
-        # Handle default_avatar (static image path)
         if default_avatar and not avatar:
-            # Convert static path to a File object
-            static_path = default_avatar.lstrip('/static/')  # Remove '/static/' prefix
+            static_path = default_avatar.lstrip(settings.STATIC_URL)
             full_path = os.path.join(settings.STATIC_ROOT, static_path)
-            print(f"Looking for static file: {full_path}")  # Debug
             if os.path.exists(full_path):
                 with open(full_path, 'rb') as f:
                     user.avatar.save(os.path.basename(full_path), File(f), save=False)
-                print(f"Avatar set from default_avatar: {os.path.basename(full_path)}")  # Debug
             else:
-                print(f"Warning: Static file {full_path} not found")  # Debug
+                user.avatar = default_avatar
         elif avatar:
             user.avatar = avatar
-            print(f"Avatar set from uploaded file: {avatar}")  # Debug
         elif not avatar and not default_avatar:
-            # Clear avatar if neither is provided
             user.avatar = None
-            print("Avatar cleared")  # Debug
 
         if banner:
             user.banner = banner
-            print(f"Banner set: {banner}")  # Debug
 
         if commit:
             user.save()
@@ -171,8 +150,6 @@ class ProfileImageForm(forms.ModelForm):
 class ProfileInfoForm(forms.ModelForm):
     """
     Form for editing user username, name, email, and bio with multilingual support.
-    Detects language from request.LANGUAGE_CODE in view.
-    Profiles field is not exposed in UI to prevent direct access.
     """
     username = forms.CharField(
         label=_("Username"),
@@ -188,7 +165,7 @@ class ProfileInfoForm(forms.ModelForm):
     email = forms.EmailField(
         label=_("Email"),
         max_length=100,
-        required=True
+        required=False
     )
     bio = forms.CharField(
         label=_("Bio"),
@@ -209,7 +186,6 @@ class ProfileInfoForm(forms.ModelForm):
         self.fields['name'].label = _(f"Name ({self.get_language_display()})")
         self.fields['bio'].label = _(f"Bio ({self.get_language_display()})")
         
-        # Populate name and bio from profiles JSONField
         if self.instance and self.instance.profiles:
             self.initial['name'] = self.instance.profiles.get(self.language, {}).get('name', '')
             self.initial['bio'] = self.instance.profiles.get(self.language, {}).get('bio', '')
@@ -224,14 +200,11 @@ class ProfileInfoForm(forms.ModelForm):
         }
         return lang_map.get(self.language, 'English')
 
-    def clean(self):
-        cleaned_data = super().clean()
-        username = cleaned_data.get('username')
-        email = cleaned_data.get('email')
-        name = cleaned_data.get('name')
-        bio = cleaned_data.get('bio')
-        print(f"Cleaning info form: username={username}, email={email}, name={name}, bio={bio}")  # Debug
-        return cleaned_data
+    def clean_bio(self):
+        bio = self.cleaned_data.get('bio')
+        if bio and len(bio) > 500:
+            raise forms.ValidationError(_("Bio cannot exceed 500 characters."))
+        return bio
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -240,11 +213,10 @@ class ProfileInfoForm(forms.ModelForm):
         if language not in valid_languages:
             language = 'en'
         
-        # Update username and email
         user.username = self.cleaned_data['username']
-        user.email = self.cleaned_data['email']
+        if self.cleaned_data.get('email'):
+            user.email = self.cleaned_data['email']
         
-        # Update profiles JSONField for multilingual support
         profiles = user.profiles or {}
         profiles[language] = {
             'name': self.cleaned_data['name'],
@@ -252,12 +224,21 @@ class ProfileInfoForm(forms.ModelForm):
         }
         user.profiles = profiles
         
-        print(f"Saving info form: username={user.username}, email={user.email}, profiles={profiles}")  # Debug
-        
         if commit:
             user.save()
         return user
 
 
 class EmailVerificationForm(forms.Form):
-    code = forms.CharField(max_length=10, label=_("Email Verify Code"))
+    code = forms.CharField(
+        max_length=10,
+        min_length=10,
+        label=_("Email Verify Code"),
+        help_text=_("Enter the 10-digit verification code sent to your email.")
+    )
+
+    def clean_code(self):
+        code = self.cleaned_data.get('code')
+        if not code.isdigit():
+            raise forms.ValidationError(_("The verification code must be exactly 10 digits."))
+        return code
