@@ -218,6 +218,10 @@ ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'accounts:profile_view'
 
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'accounts:profile_view'
 
+ACCOUNT_LOGIN_METHODS = ["username", "email"]
+
+ACCOUNT_UNIQUE_EMAIL = True
+
 USER_AUTHENTICATION_BACKENDS = (
     # Default authentication backend
     'django.contrib.auth.backends.ModelBackend',
