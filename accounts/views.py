@@ -1,5 +1,4 @@
-import time
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView, TemplateView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -9,6 +8,8 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model, login
 from django.utils.timezone import now
 from django.conf import settings
+import time
+import uuid
 import logging
 import traceback
 
@@ -68,6 +69,7 @@ class RegisterView(SignupView):
                     conn.hset(user_key, message_id, message_data)
                     conn.expire(user_key, 15 * 60)
                     messages.info(self.request, message_text, extra_tags='persistent info email-verification')
+                    logger.debug(f"[RegisterView] Message added to Redis: {message_id}, data: {message_data}")
                 except Exception as e:
                     logger.error(f"[RegisterView] Error sending email confirmation for user {user.id}: {str(e)}")
                     messages.error(self.request, _("Error sending verification email. Please try again or request a new code."), extra_tags='error')
@@ -86,23 +88,23 @@ class RegisterView(SignupView):
             existing_messages = conn.hgetall(user_key)
             for msg_id, msg_data in existing_messages.items():
                 try:
-                    parts = msg_data.decode('utf-8').split('|')
+                    parts = msg_data.decode('utf-8', errors='ignore').split('|')
                     if len(parts) != 3:
-                        logger.error(f"[RegisterView] Invalid message format in {user_key} for msg_id {msg_id}: {msg_data}")
+                        logger.error(f"[RegisterView] Invalid message format in {user_key} for msg_id {msg_id.decode('utf-8', errors='ignore')}: {msg_data}")
                         conn.hdel(user_key, msg_id)
                         continue
                     tags = parts[1]
                     expires_at = float(parts[2])
                     if expires_at < time.time() * 1000:
                         conn.hdel(user_key, msg_id)
-                        logger.debug(f"[RegisterView] Deleted expired message {msg_id} from {user_key}")
+                        logger.debug(f"[RegisterView] Deleted expired message {msg_id.decode('utf-8', errors='ignore')} from {user_key}")
                         continue
                     if exclude_tags and any(tag in tags for tag in exclude_tags):
                         continue
                     conn.hdel(user_key, msg_id)
-                    logger.debug(f"[RegisterView] Deleted message {msg_id} from {user_key}")
+                    logger.debug(f"[RegisterView] Deleted message {msg_id.decode('utf-8', errors='ignore')} from {user_key}")
                 except (ValueError, IndexError) as e:
-                    logger.error(f"[RegisterView] Invalid message format in {user_key} for msg_id {msg_id}: {str(e)}")
+                    logger.error(f"[RegisterView] Invalid message format in {user_key} for msg_id {msg_id.decode('utf-8', errors='ignore')}: {str(e)}")
                     conn.hdel(user_key, msg_id)
         except Exception as e:
             logger.error(f"[RegisterView] Error clearing old messages from {user_key}: {str(e)}")
@@ -117,7 +119,7 @@ class RegisterView(SignupView):
 
 class CustomLoginView(LoginView):
     def form_invalid(self, form):
-        print("Form errors:", form.errors)
+        logger.debug(f"[CustomLoginView] Form errors: {form.errors}")
         self.request._messages._queued_messages.clear()
         if '__all__' in form.errors:
             for error in form.errors['__all__']:
@@ -158,128 +160,216 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
             instance=self.request.user,
             language=self.request.LANGUAGE_CODE
         )
+        logger.debug(f"[ProfileUpdateView] Context prepared: {context}")
         return context
 
-    def form_valid(self, form):
-        logger.debug(f"[ProfileUpdateView] Form data: {self.request.POST}")
-        logger.debug(f"[ProfileUpdateView] Cleaned data: {form.cleaned_data}")
-        form.instance.form_type = self.request.POST.get('form_type')
-        user = self.request.user
-        old_data = User.objects.get(id=user.id)
-        conn = get_redis_connection('default')
-        user_key = f"persistent_messages:{user.id}"
+    def post(self, request, *args, **kwargs):
         try:
-            if form.__class__ == ProfileInfoForm:
-                if 'username' in form.cleaned_data and form.cleaned_data.get('username') != old_data.username:
-                    logger.debug(f"[ProfileUpdateView] Username changed from '{old_data.username}' to '{form.cleaned_data.get('username')}'")
-                    user.username = form.cleaned_data['username']
-                    messages.success(self.request, _(f"Your username has successfully changed to '{form.cleaned_data.get('username')}'"), extra_tags='success')
+            form_type = request.POST.get('form_type')
+            logger.debug(f"[ProfileUpdateView] POST request received, form_type={form_type}, is_ajax={request.headers.get('X-Requested-With') == 'XMLHttpRequest'}")
+            
+            self.object = self.get_object()
+            form_class = self.get_form_class()
+            form = form_class(request.POST, request.FILES, instance=self.object)
+            
+            if form.is_valid():
+                response = self.form_valid(form)
+                if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                    return JsonResponse({'status': 'success'})
+                return response
+            else:
+                if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                    errors = form.errors.as_json()
+                    logger.debug(f"[ProfileUpdateView] Form errors for AJAX: {errors}")
+                    return JsonResponse({'status': 'error', 'errors': errors}, status=400)
+                return self.form_invalid(form)
+        except Exception as e:
+            logger.error(f"[ProfileUpdateView] Unexpected error in POST: {str(e)}\n{traceback.format_exc()}")
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return JsonResponse({'status': 'error', 'error': str(e)}, status=500)
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        logger.debug(f"[ProfileUpdateView] Form data: {self.request.POST}, Files: {self.request.FILES}")
+        try:
+            user = form.save(commit=False)
+            old_user = User.objects.get(id=user.id)
+            user._request = self.request
+            logger.debug(f"[ProfileUpdateView] Set user._request for user {user.id}")
+
+            conn = get_redis_connection('default')
+            user_key = f"persistent_messages:{user.id}"
+            self._clear_old_messages(conn, user_key, exclude_tags=['email-verification'])
+
+            if form.__class__ == ProfileImageForm:
+                avatar_changed = False
+                banner_changed = False
+
+                new_avatar = form.cleaned_data.get('avatar')
+                new_default_avatar = form.cleaned_data.get('default_avatar', '')
+                old_avatar = old_user.avatar.url if old_user.avatar and hasattr(old_user.avatar, 'url') else old_user.default_avatar or f"{settings.STATIC_URL}shared/avatars/avatar_1.webp"
+                avatar_changed_flag = self.request.POST.get('avatar_changed') == 'true'
+
+                logger.debug(f"[ProfileUpdateView] Avatar comparison: new_avatar={new_avatar}, new_default_avatar={new_default_avatar}, old_avatar={old_avatar}, avatar_changed={avatar_changed_flag}")
+
+                # Check if a new avatar file is uploaded or default avatar is explicitly changed
+                if new_avatar and isinstance(new_avatar, str) and (new_avatar != old_avatar or avatar_changed_flag):
+                    avatar_changed = True
+                    logger.debug(f"[ProfileUpdateView] Avatar changed to default: {new_avatar}")
+                    messages.success(self.request, _("Your avatar has been changed"), extra_tags='success avatar transient', fail_silently=True)
+                elif new_avatar and not isinstance(new_avatar, str) and (not old_user.avatar or new_avatar != old_user.avatar):
+                    avatar_changed = True
+                    logger.debug(f"[ProfileUpdateView] Avatar changed to uploaded file: {new_avatar}")
+                    messages.success(self.request, _("Your avatar has been changed"), extra_tags='success avatar transient', fail_silently=True)
+
+                new_banner = form.cleaned_data.get('banner')
+                old_banner = old_user.banner.url if old_user.banner and hasattr(old_user.banner, 'url') else old_user.banner or f"{settings.STATIC_URL}shared/banners/default_banner.webp"
                 
+                logger.debug(f"[ProfileUpdateView] Banner comparison: new_banner={new_banner}, old_banner={old_banner}")
+
+                if new_banner and (not old_user.banner or new_banner != old_user.banner):
+                    banner_changed = True
+                    logger.debug(f"[ProfileUpdateView] Banner changed to uploaded file: {new_banner}")
+                    messages.success(self.request, _("Your banner has been changed"), extra_tags='success banner transient', fail_silently=True)
+
+                if not avatar_changed and not banner_changed:
+                    logger.debug(f"[ProfileUpdateView] No changes detected for user {user.id}")
+                    messages.info(self.request, _("No changes were made to your profile image or banner."), extra_tags='info transient', fail_silently=True)
+
+            elif form.__class__ == ProfileInfoForm:
                 language = self.request.LANGUAGE_CODE
                 valid_languages = ['en', 'fa', 'ckb', 'ku']
                 if language not in valid_languages:
                     language = 'en'
-                old_profile = old_data.profiles.get(language, {})
-                profiles = user.profiles or {}
-                
-                if 'name' in form.cleaned_data and form.cleaned_data.get('name') != (old_profile.get('name') or ''):
-                    logger.debug(f"[ProfileUpdateView] Name changed from '{old_profile.get('name') or ''}' to '{form.cleaned_data.get('name')}'")
-                    profiles[language] = profiles.get(language, {})
-                    profiles[language]['name'] = form.cleaned_data['name']
-                    messages.success(self.request, _(f"Your name has been successfully updated to '{form.cleaned_data.get('name')}'"), extra_tags='success')
-                
-                if 'bio' in form.cleaned_data and form.cleaned_data.get('bio') != (old_profile.get('bio') or ''):
-                    logger.debug(f"[ProfileUpdateView] Bio changed from '{old_profile.get('bio') or ''}' to '{form.cleaned_data.get('bio')}'")
-                    profiles[language] = profiles.get(language, {})
-                    profiles[language]['bio'] = form.cleaned_data['bio']
-                    messages.success(self.request, _("Your bio has been successfully updated."), extra_tags='success')
-                
-                user.profiles = profiles
-                user.save()
-                
-                email_changed = 'email' in form.cleaned_data and form.cleaned_data.get('email') and form.cleaned_data.get('email') != old_data.email
-                if email_changed:
-                    logger.debug(f"[ProfileUpdateView] Email changed from '{old_data.email}' to '{form.cleaned_data.get('email')}'")
-                    user.email = form.cleaned_data['email']
-                    user.is_verified = False
-                    user.save()
-                    email_address, created = EmailAddress.objects.get_or_create(
-                        user=user, email=form.cleaned_data.get('email'), defaults={'verified': False, 'primary': True}
-                    )
-                    email_address.send_confirmation(self.request)
-                    expires_at = int((now().timestamp() + 15 * 60) * 1000)
-                    message_id = f"msg-email-verification-{user.id}-{int(now().timestamp())}"
-                    message_text = _('A verification link has been sent to your new email (valid for 15 minutes, remaining: <span class="timer"></span>).')
-                    message_data = f"{message_text}|persistent success email-verification|{expires_at}"
-                    conn.hset(user_key, message_id, message_data)
-                    conn.expire(user_key, 15 * 60)
-                    messages.success(self.request, message_text, extra_tags=f'persistent success email-verification')
-                    return redirect('accounts:verify_email')
-                
-                return super().form_valid(form)
-            
-            elif form.__class__ == ProfileImageForm:
-                if 'avatar' in form.cleaned_data and form.cleaned_data.get('avatar'):
-                    if not old_data.avatar or form.cleaned_data.get('avatar') != old_data.avatar:
-                        logger.debug(f"[ProfileUpdateView] Avatar changed from '{old_data.avatar}' to '{form.cleaned_data.get('avatar')}'")
-                        messages.success(self.request, _("Your avatar has been changed"), extra_tags='success')
-                if 'banner' in form.cleaned_data and form.cleaned_data.get('banner'):
-                    if not old_data.banner or form.cleaned_data.get('banner') != old_data.banner:
-                        logger.debug(f"[ProfileUpdateView] Banner changed from '{old_data.banner}' to '{form.cleaned_data.get('banner')}'")
-                        messages.success(self.request, _("Your banner has been changed"), extra_tags='success')
-            
+                old_profile = old_user.profiles.get(language, {})
+
+                changes_detected = False
+
+                if 'username' in form.cleaned_data and form.cleaned_data.get('username') != old_user.username:
+                    logger.debug(f"[ProfileUpdateView] Username changed from '{old_user.username}' to '{form.cleaned_data.get('username')}'")
+                    messages.success(self.request, _(f"Your username has successfully changed to '{form.cleaned_data.get('username')}'"), extra_tags='success transient', fail_silently=True)
+                    changes_detected = True
+
+                if 'name' in form.cleaned_data and form.cleaned_data.get('name') != old_profile.get('name', ''):
+                    logger.debug(f"[ProfileUpdateView] Name changed from '{old_profile.get('name', '')}' to '{form.cleaned_data.get('name')}'")
+                    messages.success(self.request, _(f"Your name has been successfully updated to '{form.cleaned_data.get('name')}'"), extra_tags='success transient', fail_silently=True)
+                    changes_detected = True
+
+                if 'bio' in form.cleaned_data and form.cleaned_data.get('bio') != old_profile.get('bio', ''):
+                    logger.debug(f"[ProfileUpdateView] Bio changed from '{old_profile.get('bio', '')}' to '{form.cleaned_data.get('bio')}'")
+                    messages.success(self.request, _("Your bio has been successfully updated."), extra_tags='success transient', fail_silently=True)
+                    changes_detected = True
+
+                if 'email' in form.cleaned_data and form.cleaned_data.get('email') and form.cleaned_data.get('email') != old_user.email:
+                    logger.debug(f"[ProfileUpdateView] Email changed from '{old_user.email}' to '{form.cleaned_data.get('email')}'")
+                    messages.success(self.request, _("Your email has been updated. Please verify your new email."), extra_tags='success transient', fail_silently=True)
+                    changes_detected = True
+
+                if not changes_detected:
+                    logger.debug(f"[ProfileUpdateView] No changes detected for user {user.id}")
+                    messages.info(self.request, _("No changes were made to your profile information."), extra_tags='info transient', fail_silently=True)
+
+            user.save()
+            logger.debug(f"[ProfileUpdateView] User {user.id} saved with avatar={user.avatar}, banner={user.banner}, default_avatar={getattr(user, 'default_avatar', '')}")
             return super().form_valid(form)
-        
         except Exception as e:
             logger.error(f"[ProfileUpdateView] Error in form_valid for user {user.id}: {str(e)}\n{traceback.format_exc()}")
-            messages.error(self.request, _("An unexpected error occurred. Please try again or contact support."), extra_tags='error')
+            if self.request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return JsonResponse({'status': 'error', 'error': str(e)}, status=500)
+            messages.error(self.request, _("An unexpected error occurred. Please try again or contact support."), extra_tags='error transient', fail_silently=True)
             return self.form_invalid(form)
+
+    def _clear_old_messages(self, conn, user_key, exclude_tags=None):
+        try:
+            existing_messages = conn.hgetall(user_key)
+            for msg_id, msg_data in existing_messages.items():
+                try:
+                    parts = msg_data.decode('utf-8', errors='ignore').split('|')
+                    if len(parts) != 3:
+                        logger.error(f"[ProfileUpdateView] Invalid message format in {user_key} for msg_id {msg_id.decode('utf-8', errors='ignore')}: {msg_data}")
+                        conn.hdel(user_key, msg_id)
+                        continue
+                    tags = parts[1]
+                    expires_at = float(parts[2])
+                    if expires_at < time.time() * 1000:
+                        conn.hdel(user_key, msg_id)
+                        logger.debug(f"[ProfileUpdateView] Deleted expired message {msg_id.decode('utf-8', errors='ignore')} from {user_key}")
+                        continue
+                    if exclude_tags and any(tag in tags for tag in exclude_tags):
+                        continue
+                    if 'transient' not in tags:
+                        conn.hdel(user_key, msg_id)
+                        logger.debug(f"[ProfileUpdateView] Deleted message {msg_id.decode('utf-8', errors='ignore')} from {user_key}")
+                except (ValueError, IndexError) as e:
+                    logger.error(f"[ProfileUpdateView] Invalid message format in {user_key} for msg_id {msg_id.decode('utf-8', errors='ignore')}: {str(e)}")
+                    conn.hdel(user_key, msg_id)
+        except Exception as e:
+            logger.error(f"[ProfileUpdateView] Error clearing old messages from {user_key}: {str(e)}")
+            messages.error(self.request, _("An unexpected error occurred. Please try again or contact support."), extra_tags='error transient', fail_silently=True)
 
     def form_invalid(self, form):
         logger.debug(f"[ProfileUpdateView] Form errors: {form.errors}")
         form_type = self.request.POST.get('form_type')
+        conn = get_redis_connection('default')
+        user_key = f"persistent_messages:{self.request.user.id}"
         try:
             if form_type == 'image':
                 for field, errors in form.errors.items():
                     for error in errors:
+                        message_text = ""
                         if field == 'avatar':
-                            messages.error(self.request, _("Invalid avatar image. Please upload a valid image (e.g., JPG, PNG)."), extra_tags='error')
+                            message_text = _("Invalid avatar image. Please upload a valid image (e.g., JPG, PNG).")
+                            message_id = f"msg-avatar-error-{self.request.user.id}-{int(now().timestamp())}"
                         elif field == 'banner':
-                            messages.error(self.request, _("Invalid banner image. Please upload a valid image (e.g., JPG, PNG)."), extra_tags='error')
+                            message_text = _("Invalid banner image. Please upload a valid image (e.g., JPG, PNG).")
+                            message_id = f"msg-banner-error-{self.request.user.id}-{int(now().timestamp())}"
                         else:
-                            messages.error(self.request, _(f"Error in {field}: {error}"), extra_tags='error')
+                            message_text = _(f"Error in {field}: {error}")
+                            message_id = f"msg-field-error-{self.request.user.id}-{int(now().timestamp())}"
+                        messages.error(self.request, message_text, extra_tags=f'error {field} transient', fail_silently=True)
             else:
                 for field, errors in form.errors.items():
                     for error in errors:
+                        message_id = f"msg-{field}-error-{self.request.user.id}-{int(now().timestamp())}"
                         if field == 'username':
                             if 'required' in error.lower():
-                                messages.error(self.request, _("Username is required. Please enter a username."), extra_tags='error')
+                                message_text = _("Username is required. Please enter a username.")
                             elif 'unique' in error.lower():
-                                messages.error(self.request, _("This username is already taken. Please choose a different one."), extra_tags='error')
+                                message_text = _("This username is already taken. Please choose a different one.")
                             else:
-                                messages.error(self.request, _("Invalid username. It must be 3-30 characters and contain only letters, numbers, or underscores."), extra_tags='error')
+                                message_text = _("Invalid username. It must be 3-30 characters and contain only letters, numbers, or underscores.")
                         elif field == 'email':
                             if 'invalid' in error.lower():
-                                messages.error(self.request, _("Email format is invalid. Please enter a valid email like example@domain.com."), extra_tags='error')
+                                message_text = _("Email format is invalid. Please enter a valid email like example@domain.com.")
                             elif 'unique' in error.lower():
-                                messages.error(self.request, _("This email is already registered. Please use a different email."), extra_tags='error')
+                                message_text = _("This email is already registered. Please use a different email.")
                             else:
-                                messages.error(self.request, _("Invalid email address. Please check and try again."), extra_tags='error')
+                                message_text = _("Invalid email address. Please check and try again.")
                         elif field == 'name':
-                            messages.error(self.request, _("Invalid name. Please use valid characters."), extra_tags='error')
+                            message_text = _("Invalid name. Please use valid characters.")
                         elif field == 'bio':
-                            messages.error(self.request, _("Invalid bio. Please use valid characters and keep it under 500 characters."), extra_tags='error')
+                            message_text = _("Invalid bio. Please use valid characters and keep it under 500 characters.")
                         else:
-                            messages.error(self.request, _(f"Error in {field}: {error}"), extra_tags='error')
-            messages.error(self.request, _("Please correct the errors below and try again."), extra_tags='error')
+                            message_text = _(f"Error in {field}: {error}")
+                        messages.error(self.request, message_text, extra_tags='error transient', fail_silently=True)
+            message_id = f"msg-form-error-{self.request.user.id}-{int(now().timestamp())}"
+            message_text = _("Please correct the errors below and try again.")
+            messages.error(self.request, message_text, extra_tags='error transient', fail_silently=True)
+            if self.request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return JsonResponse({'status': 'error', 'errors': form.errors.as_json()}, status=400)
+            return super().form_invalid(form)
         except Exception as e:
             logger.error(f"[ProfileUpdateView] Error in form_invalid: {str(e)}\n{traceback.format_exc()}")
-            messages.error(self.request, _("An unexpected error occurred. Please try again or contact support."), extra_tags='error')
-        return super().form_invalid(form)
+            message_id = f"msg-error-{self.request.user.id}-{int(now().timestamp())}"
+            message_text = _("An unexpected error occurred. Please try again or contact support.")
+            messages.error(self.request, message_text, extra_tags='error transient', fail_silently=True)
+            if self.request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return JsonResponse({'status': 'error', 'error': str(e)}, status=500)
+            return super().form_invalid(form)
 
 
 class ProfileView(LoginRequiredMixin, TemplateView):
-    template_name = 'accounts/profile_view.html'
+    template_name = 'accounts/profile.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -288,13 +378,14 @@ class ProfileView(LoginRequiredMixin, TemplateView):
         valid_languages = ['en', 'fa', 'ckb', 'ku']
         if language not in valid_languages:
             language = 'en'
-        context['avatar'] = user.avatar.url if user.avatar else f"{settings.STATIC_URL}shared/avatars/avatar_1.webp"
-        context['banner'] = user.banner.url if user.banner else f"{settings.STATIC_URL}shared/banners/default_banner.webp"
+        context['avatar'] = user.avatar.url if user.avatar and hasattr(user.avatar, 'url') else (user.default_avatar or f"{settings.STATIC_URL}shared/avatars/avatar_1.webp")
+        context['banner'] = user.banner.url if user.banner and hasattr(user.banner, 'url') else (user.banner or f"{settings.STATIC_URL}shared/banners/default_banner.webp")
         context['username'] = user.username
         context['email'] = user.email
         context['name'] = user.profiles.get(language, {}).get('name', user.username)
         context['bio'] = user.profiles.get(language, {}).get('bio', '')
         context['language'] = language
+        logger.debug(f"[ProfileView] Context prepared for user {user.id}: {context}")
         return context
 
 
@@ -313,29 +404,42 @@ class EmailVerifyLinkView(RequireGetMixin, View):
             if confirmation:
                 time_diff = (now() - confirmation.sent).total_seconds()
                 if time_diff > 15 * 60:
-                    self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt'])
+                    self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'email-verification'])
                     message_id = f"msg-link-expired-{request.user.id}-{int(now().timestamp())}"
                     message_text = _('The verification link has expired. Please request a 10-digit code <a href="%s">here</a>.') % reverse_lazy('accounts:verify_email')
                     message_data = f"{message_text}|persistent error email-verification|{int(now().timestamp() + 15 * 60 * 1000)}"
                     conn.hset(user_key, message_id, message_data)
                     conn.expire(user_key, 15 * 60)
                     messages.error(self.request, message_text, extra_tags=f'persistent error email-verification')
+                    logger.debug(f"[EmailVerifyLinkView] Link expired for user {request.user.id}, message added: {message_id}")
                     return redirect('accounts:verify_email')
                 confirmation.confirm(self.request)
-                self._clear_old_messages(conn, user_key)
-                messages.success(self.request, _("Your email has been verified successfully. You're awesome!"), extra_tags='success')
+                self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'email-verification'])
+                message_id = f"msg-email-success-{request.user.id}-{int(now().timestamp())}"
+                message_text = _("Your email has been verified successfully. You're awesome!")
+                message_data = f"{message_text}|persistent success|{int(now().timestamp() + 5 * 60 * 1000)}"
+                conn.hset(user_key, message_id, message_data)
+                conn.expire(user_key, 5 * 60)
+                messages.success(self.request, message_text, extra_tags='persistent success')
+                logger.debug(f"[EmailVerifyLinkView] Email verified for user {request.user.id}")
                 return redirect('accounts:profile_view')
-            self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt'])
+            self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'email-verification'])
             message_id = f"msg-invalid-link-{request.user.id}-{int(now().timestamp())}"
             message_text = _('The verification link is invalid. Please request a 10-digit code <a href="%s">here</a>.') % reverse_lazy('accounts:verify_email')
             message_data = f"{message_text}|persistent error email-verification|{int(now().timestamp() + 15 * 60 * 1000)}"
             conn.hset(user_key, message_id, message_data)
             conn.expire(user_key, 15 * 60)
             messages.error(self.request, message_text, extra_tags=f'persistent error email-verification')
+            logger.debug(f"[EmailVerifyLinkView] Invalid link for user {request.user.id}, message added: {message_id}")
             return redirect('accounts:verify_email')
         except Exception as e:
             logger.error(f"[EmailVerifyLinkView] Error: {str(e)}\n{traceback.format_exc()}")
-            messages.error(self.request, _("An unexpected error occurred. Please try again or contact support."), extra_tags='error')
+            message_id = f"msg-error-{request.user.id}-{int(now().timestamp())}"
+            message_text = _("An unexpected error occurred. Please try again or contact support.")
+            message_data = f"{message_text}|persistent error|{int(now().timestamp() + 5 * 60 * 1000)}"
+            conn.hset(user_key, message_id, message_data)
+            conn.expire(user_key, 5 * 60)
+            messages.error(self.request, message_text, extra_tags='persistent error')
             return redirect('accounts:verify_email')
 
     def _clear_old_messages(self, conn, user_key, exclude_tags=None):
@@ -356,8 +460,9 @@ class EmailVerifyLinkView(RequireGetMixin, View):
                         continue
                     if exclude_tags and any(tag in tags for tag in exclude_tags):
                         continue
-                    conn.hdel(user_key, msg_id)
-                    logger.debug(f"[EmailVerifyLinkView] Deleted message {msg_id.decode('utf-8', errors='ignore')} from {user_key}")
+                    if 'transient' not in tags:
+                        conn.hdel(user_key, msg_id)
+                        logger.debug(f"[EmailVerifyLinkView] Deleted message {msg_id.decode('utf-8', errors='ignore')} from {user_key}")
                 except (UnicodeDecodeError, IndexError, ValueError) as e:
                     logger.error(f"[EmailVerifyLinkView] Invalid message format in {user_key} for msg_id {msg_id.decode('utf-8', errors='ignore')}: {str(e)}")
                     conn.hdel(user_key, msg_id)
@@ -389,18 +494,24 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
                         continue
                     if exclude_tags and any(tag in tags for tag in exclude_tags):
                         continue
-                    conn.hdel(user_key, msg_id)
-                    logger.debug(f"[VerifyEmailView] Deleted message {msg_id} from {user_key}")
+                    if 'transient' not in tags:
+                        conn.hdel(user_key, msg_id)
+                        logger.debug(f"[VerifyEmailView] Deleted message {msg_id} from {user_key}")
                 except (ValueError, IndexError) as e:
                     logger.error(f"[VerifyEmailView] Invalid message format in {user_key} for msg_id {msg_id}: {str(e)}")
                     conn.hdel(user_key, msg_id)
         except Exception as e:
             logger.error(f"[VerifyEmailView] Error clearing old messages from {user_key}: {str(e)}")
-            messages.error(self.request, _("An unexpected error occurred. Please try again or contact support."), extra_tags='error')
+            message_id = f"msg-error-{self.request.user.id}-{int(now().timestamp())}"
+            message_text = _("An unexpected error occurred. Please try again or contact support.")
+            message_data = f"{message_text}|persistent error|{int(now().timestamp() + 5 * 60 * 1000)}"
+            conn.hset(user_key, message_id, message_data)
+            conn.expire(user_key, 5 * 60)
+            messages.error(self.request, message_text, extra_tags='persistent error')
 
     def _add_error_message(self, conn, user_key, message_text, error_details=""):
         try:
-            self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt'])
+            self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'email-verification'])
             message_id = f"msg-error-{self.request.user.id}-{int(time.time())}"
             expires_at = int((time.time() + 5 * 60) * 1000)
             message_data = f"{message_text}|persistent error|{expires_at}"
@@ -410,7 +521,7 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
             logger.error(f"[VerifyEmailView] Error message added: {message_text}, Details: {error_details}")
         except Exception as e:
             logger.error(f"[VerifyEmailView] Error adding error message to {user_key}: {str(e)}")
-            messages.error(self.request, message_text, extra_tags='error')
+            messages.error(self.request, message_text, extra_tags='persistent error')
 
     def get(self, request):
         logger.debug(f"[VerifyEmailView] Handling GET for user {request.user.id}")
@@ -418,7 +529,7 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
             if not request.user.is_authenticated:
                 logger.error("[VerifyEmailView] User is not authenticated")
                 return HttpResponseRedirect(reverse_lazy('account_login'))
-            user_key = f"persistent_messages:{request.user.id}"  # Define user_key here
+            user_key = f"persistent_messages:{request.user.id}"
             conn = get_redis_connection('default')
             try:
                 conn.ping()
@@ -439,7 +550,7 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
             if existing_code and existing_code.is_locked_out():
                 ttl = int((existing_code.lockout_until - now()).total_seconds())
                 expires_at = int((time.time() + ttl) * 1000)
-                self._clear_old_messages(conn, user_key, exclude_tags=['retry-attempt'])
+                self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'email-verification'])
                 message_id = f"msg-rate-limit-{request.user.id}-{int(time.time())}"
                 message_text = _("Too many incorrect attempts. Please try again in <span class='timer'></span>.")
                 message_data = f"{message_text}|persistent warning rate-limit|{expires_at}"
@@ -452,13 +563,14 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
                 try:
                     expires_at = create_and_send_verification_code(request.user, is_for_token=False)
                     logger.debug(f"[VerifyEmailView] Verification code sent for user {request.user.id}, expires at {expires_at}")
-                    self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt'])
+                    self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'email-verification'])
                     message_id = f"msg-code-sent-{request.user.id}-{int(time.time())}"
                     message_text = _('A 10-digit verification code has been sent to your email (valid for 5 minutes, remaining: <span class="timer"></span>).')
                     message_data = f"{message_text}|persistent info code-verification|{expires_at}"
                     conn.hset(user_key, message_id, message_data)
                     conn.expire(user_key, int((expires_at - time.time() * 1000) / 1000))
                     messages.info(self.request, message_text, extra_tags='persistent info code-verification')
+                    logger.debug(f"[VerifyEmailView] Message added to Redis: {message_id}, data: {message_data}")
                 except ValueError as e:
                     logger.debug(f"[VerifyEmailView] Cannot send code for user {request.user.id}: {str(e)}")
                     self._add_error_message(conn, user_key, str(e), str(e))
@@ -470,13 +582,14 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
             else:
                 expires_at = int(existing_code.expires_at.timestamp() * 1000)
                 logger.debug(f"[VerifyEmailView] Existing verification code found for user {request.user.id}, expires at {expires_at}")
-                self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt'])
+                self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'email-verification'])
                 message_id = f"msg-code-existing-{request.user.id}-{int(time.time())}"
                 message_text = _('A 10-digit verification code has been sent to your email (valid for 5 minutes, remaining: <span class="timer"></span>).')
                 message_data = f"{message_text}|persistent info code-verification|{expires_at}"
                 conn.hset(user_key, message_id, message_data)
                 conn.expire(user_key, int((expires_at - time.time() * 1000) / 1000))
                 messages.info(self.request, message_text, extra_tags='persistent info code-verification')
+                logger.debug(f"[VerifyEmailView] Message added to Redis: {message_id}, data: {message_data}")
             return render(request, self.template_name, {'form': EmailVerificationForm()})
         except Exception as e:
             logger.error(f"[VerifyEmailView] Unexpected error in GET: {str(e)}")
@@ -485,7 +598,7 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
                 conn = get_redis_connection('default')
                 self._add_error_message(conn, user_key, _("An unexpected error occurred. Please try again or contact support."), str(e))
             except:
-                messages.error(self.request, _("An unexpected error occurred. Please try again or contact support."), extra_tags='error')
+                messages.error(self.request, _("An unexpected error occurred. Please try again or contact support."), extra_tags='persistent error')
             return render(request, self.template_name, {'form': EmailVerificationForm()})
 
     def post(self, request, *args, **kwargs):
@@ -499,19 +612,19 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
             try:
                 evc = EmailVerificationCode.objects.filter(user=user, is_for_token=False).first()
                 if not evc:
-                    self._clear_old_messages(conn, user_key)
+                    self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'email-verification'])
                     message_id = f"msg-no-code-{user.id}-{int(time.time())}"
                     message_text = _("No verification code found. Please request a new one <a href='%s'>here</a>.") % reverse_lazy('accounts:verify_email')
                     message_data = f"{message_text}|persistent error code-verification|{int(time.time() * 1000 + 5 * 60 * 1000)}"
                     conn.hset(user_key, message_id, message_data)
                     conn.expire(user_key, 5 * 60)
                     messages.error(self.request, message_text, extra_tags='persistent error code-verification')
-                    logger.debug(f"[VerifyEmailView] User {user.id}: No verification code found")
+                    logger.debug(f"[VerifyEmailView] User {user.id}: No verification code found, message added: {message_id}")
                     return render(request, self.template_name, {'form': form})
                 if evc.is_locked_out():
                     ttl = int((evc.lockout_until - now()).total_seconds())
                     expires_at = int((time.time() + ttl) * 1000)
-                    self._clear_old_messages(conn, user_key)
+                    self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'email-verification'])
                     message_id = f"msg-rate-limit-{user.id}-{int(time.time())}"
                     message_text = _("Too many incorrect attempts. Please try again in <span class='timer'></span>.")
                     message_data = f"{message_text}|persistent warning rate-limit|{expires_at}"
@@ -524,7 +637,7 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
                     input_code = form.cleaned_data['code']
                     logger.debug(f"[VerifyEmailView] User {user.id}: Input code={input_code}")
                     if evc.is_for_token:
-                        self._clear_old_messages(conn, user_key)
+                        self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'email-verification'])
                         message_id = f"msg-wrong-type-{user.id}-{int(time.time())}"
                         message_text = _("This code is for token verification. Please request a 10-digit code <a href='%s'>here</a>.") % reverse_lazy('accounts:verify_email')
                         message_data = f"{message_text}|persistent error code-verification|{int(time.time() * 1000 + 5 * 60 * 1000)}"
@@ -534,7 +647,7 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
                         logger.debug(f"[VerifyEmailView] User {user.id}: Wrong code type")
                         return render(request, self.template_name, {'form': form})
                     if evc.is_expired():
-                        self._clear_old_messages(conn, user_key)
+                        self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'email-verification'])
                         message_id = f"msg-code-expired-{user.id}-{int(time.time())}"
                         message_text = _("The verification code has expired. Please request a new one <a href='%s'>here</a>.") % reverse_lazy('accounts:verify_email')
                         message_data = f"{message_text}|persistent error code-verification|{int(time.time() * 1000 + 5 * 60 * 1000)}"
@@ -550,7 +663,7 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
                         if evc.is_locked_out():
                             ttl = int((evc.lockout_until - now()).total_seconds())
                             expires_at = int((time.time() + ttl) * 1000)
-                            self._clear_old_messages(conn, user_key)
+                            self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'email-verification'])
                             message_id = f"msg-rate-limit-{user.id}-{int(time.time())}"
                             message_text = _("Too many incorrect attempts. Please try again in <span class='timer'></span>.")
                             message_data = f"{message_text}|persistent warning rate-limit|{expires_at}"
@@ -560,7 +673,7 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
                             logger.debug(f"[VerifyEmailView] User {user.id}: Lockout triggered after incorrect code")
                             return render(request, self.template_name, {'form': None})
                         if remaining_attempts > 0:
-                            self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit'])
+                            self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'email-verification'])
                             message_id_error = f"msg-invalid-code-{user.id}-{int(time.time())}"
                             message_text_error = _("The entered code is invalid.")
                             message_data_error = f"{message_text_error}|persistent error|{int(time.time() * 1000 + 5 * 60 * 1000)}"
@@ -586,8 +699,13 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
                         user.is_verified = True
                         user.save()
                         evc.delete()
-                        self._clear_old_messages(conn, user_key)
-                        messages.success(self.request, _("Your email has been verified successfully. You're awesome!"), extra_tags='success')
+                        self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'email-verification'])
+                        message_id = f"msg-email-success-{user.id}-{int(now().timestamp())}"
+                        message_text = _("Your email has been verified successfully. You're awesome!")
+                        message_data = f"{message_text}|persistent success|{int(now().timestamp() + 5 * 60 * 1000)}"
+                        conn.hset(user_key, message_id, message_data)
+                        conn.expire(user_key, 5 * 60)
+                        messages.success(self.request, message_text, extra_tags='persistent success')
                         logger.debug(f"[VerifyEmailView] User {user.id}: Email verified successfully")
                         return HttpResponseRedirect(reverse_lazy('accounts:profile_view'))
                 else:
@@ -597,7 +715,7 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
                     if evc.is_locked_out():
                         ttl = int((evc.lockout_until - now()).total_seconds())
                         expires_at = int((time.time() + ttl) * 1000)
-                        self._clear_old_messages(conn, user_key)
+                        self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'email-verification'])
                         message_id = f"msg-rate-limit-{user.id}-{int(time.time())}"
                         message_text = _("Too many incorrect attempts. Please try again in <span class='timer'></span>.")
                         message_data = f"{message_text}|persistent warning rate-limit|{expires_at}"
@@ -606,7 +724,7 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
                         messages.warning(self.request, message_text, extra_tags='persistent warning rate-limit')
                         logger.debug(f"[VerifyEmailView] User {user.id}: Lockout triggered after invalid form")
                         return render(request, self.template_name, {'form': None})
-                    self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit'])
+                    self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'email-verification'])
                     message_id_error = f"msg-invalid-code-{user.id}-{int(time.time())}"
                     message_text_error = _("The entered code is invalid.")
                     message_data_error = f"{message_text_error}|persistent error|{int(time.time() * 1000 + 5 * 60 * 1000)}"
@@ -626,8 +744,56 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
                         conn.hset(user_key, message_id, message_data)
                         conn.expire(user_key, int((evc.expires_at - now()).total_seconds()))
                         messages.info(self.request, message_text, extra_tags='persistent info code-verification')
+                    logger.debug(f"[VerifyEmailView] User {user.id}: Invalid form messages sent, remaining_attempts={remaining_attempts}")
                     return render(request, self.template_name, {'form': form})
             except Exception as e:
                 logger.error(f"[VerifyEmailView] Unexpected error in POST: {str(e)}")
                 self._add_error_message(conn, user_key, _("An unexpected error occurred. Please try again or contact support."), str(e))
                 return render(request, self.template_name, {'form': form})
+
+
+class GetMessagesView(LoginRequiredMixin, View):
+    def get(self, request):
+        try:
+            user_key = f"persistent_messages:{request.user.id}"
+            conn = get_redis_connection('default')
+            try:
+                conn.ping()
+                logger.debug("[GetMessagesView] Redis connection successful")
+            except Exception as e:
+                logger.error(f"[GetMessagesView] Redis connection failed: {str(e)}")
+                return JsonResponse({'error': 'Failed to connect to Redis'}, status=500)
+
+            messages_data = []
+            existing_messages = conn.hgetall(user_key)
+            current_time = time.time() * 1000
+
+            for msg_id, msg_data in existing_messages.items():
+                try:
+                    parts = msg_data.decode('utf-8', errors='ignore').split('|')
+                    if len(parts) != 3:
+                        logger.error(f"[GetMessagesView] Invalid message format in {user_key} for msg_id {msg_id.decode('utf-8', errors='ignore')}: {msg_data}")
+                        conn.hdel(user_key, msg_id)
+                        continue
+                    message_text, tags, expires_at = parts
+                    expires_at = float(expires_at)
+                    if expires_at < current_time:
+                        conn.hdel(user_key, msg_id)
+                        logger.debug(f"[GetMessagesView] Deleted expired message {msg_id.decode('utf-8', errors='ignore')} from {user_key}")
+                        continue
+                    if 'transient' not in tags:
+                        messages_data.append({
+                            'id': msg_id.decode('utf-8', errors='ignore'),
+                            'text': message_text,
+                            'tags': tags.split(),
+                            'expires_at': expires_at
+                        })
+                except (ValueError, IndexError) as e:
+                    logger.error(f"[GetMessagesView] Invalid message format in {user_key} for msg_id {msg_id.decode('utf-8', errors='ignore')}: {str(e)}")
+                    conn.hdel(user_key, msg_id)
+
+            logger.debug(f"[GetMessagesView] Retrieved messages for user {request.user.id}: {messages_data}")
+            return JsonResponse({'messages': messages_data}, status=200)
+        except Exception as e:
+            logger.error(f"[GetMessagesView] Error retrieving messages: {str(e)}\n{traceback.format_exc()}")
+            return JsonResponse({'error': 'Failed to load notifications'}, status=500)

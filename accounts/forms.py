@@ -1,12 +1,15 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 import random
+import logging
 
 from allauth.account.forms import SignupForm
 
 from .models import User
 
 # Create your forms here.
+
+logger = logging.getLogger(__name__)
 
 class RegisterForm(SignupForm):
     avatar = forms.ImageField(
@@ -37,7 +40,6 @@ class RegisterForm(SignupForm):
             self.language = 'en'
         self.fields['name'].label = _(f"Name ({self.get_language_display()})")
         self.fields['bio'].label = _(f"Bio ({self.get_language_display()})")
-        # Set initial default avatar if none provided
         if not self.initial.get('default_avatar') and not self.initial.get('avatar'):
             self.initial['default_avatar'] = f"/static/shared/avatars/avatar_{random.randint(1, 20)}.webp"
 
@@ -54,13 +56,12 @@ class RegisterForm(SignupForm):
         cleaned_data = super().clean()
         avatar = cleaned_data.get('avatar')
         default_avatar = cleaned_data.get('default_avatar')
-        # Only generate a new random avatar if both avatar and default_avatar are empty
         if not avatar and not default_avatar:
             cleaned_data['default_avatar'] = f"/static/shared/avatars/avatar_{random.randint(1, 20)}.webp"
         elif not avatar and default_avatar:
-            cleaned_data['avatar'] = default_avatar  # Use existing default_avatar
+            cleaned_data['avatar'] = default_avatar
         else:
-            cleaned_data['default_avatar'] = ''  # Clear default_avatar if a custom avatar is uploaded
+            cleaned_data['default_avatar'] = ''
         return cleaned_data
 
     def save(self, request):
@@ -80,10 +81,8 @@ class RegisterForm(SignupForm):
         if avatar:
             user.avatar = avatar
         elif default_avatar:
-            # Use the default_avatar path directly
             user.avatar = default_avatar
         else:
-            # Fallback in case neither is provided (shouldn't happen due to clean())
             user.avatar = f"/static/shared/avatars/avatar_{random.randint(1, 20)}.webp"
         user.save()
         return user
@@ -107,37 +106,104 @@ class ProfileImageForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['avatar', 'banner']
+        fields = ['avatar', 'banner', 'default_avatar']
 
     def clean(self):
         cleaned_data = super().clean()
         avatar = cleaned_data.get('avatar')
-        default_avatar = cleaned_data.get('default_avatar')
-        if default_avatar:
-            cleaned_data['avatar'] = default_avatar
-        elif not avatar and not default_avatar:
-            cleaned_data['default_avatar'] = f"/static/shared/avatars/avatar_{random.randint(1, 20)}.webp"
-            cleaned_data['avatar'] = cleaned_data['default_avatar']
-        else:
-            cleaned_data['default_avatar'] = ''
-        return cleaned_data
+        default_avatar = cleaned_data.get('default_avatar', '')
+        banner = cleaned_data.get('banner')
+        logger.debug(f"[ProfileImageForm.clean] Start cleaning: avatar={avatar}, default_avatar={default_avatar}, banner={banner}")
+
+        try:
+            # Preserve existing avatar if no changes are made
+            if not avatar and not default_avatar and self.instance:
+                logger.debug(f"[ProfileImageForm.clean] No new avatar or default_avatar provided, preserving existing")
+                if self.instance.avatar:
+                    cleaned_data['avatar'] = self.instance.avatar
+                    cleaned_data['default_avatar'] = ''
+                elif self.instance.default_avatar:
+                    cleaned_data['avatar'] = self.instance.default_avatar
+                    cleaned_data['default_avatar'] = self.instance.default_avatar
+                else:
+                    random_avatar = f"/static/shared/avatars/avatar_{random.randint(1, 20)}.webp"
+                    cleaned_data['avatar'] = random_avatar
+                    cleaned_data['default_avatar'] = random_avatar
+            # If a new avatar is uploaded
+            elif avatar:
+                logger.debug(f"[ProfileImageForm.clean] New avatar uploaded: {avatar}")
+                cleaned_data['default_avatar'] = ''
+            # If a default avatar is selected
+            elif default_avatar:
+                logger.debug(f"[ProfileImageForm.clean] Using default_avatar: {default_avatar}")
+                cleaned_data['avatar'] = default_avatar
+            # Fallback (shouldn't reach here, but just in case)
+            else:
+                logger.debug(f"[ProfileImageForm.clean] Fallback to random default avatar")
+                random_avatar = f"/static/shared/avatars/avatar_{random.randint(1, 20)}.webp"
+                cleaned_data['avatar'] = random_avatar
+                cleaned_data['default_avatar'] = random_avatar
+
+            # Preserve existing banner if no new banner is provided
+            if not banner and self.instance and self.instance.banner:
+                logger.debug(f"[ProfileImageForm.clean] Preserving existing banner: {self.instance.banner}")
+                cleaned_data['banner'] = self.instance.banner
+
+            # Clean paths to avoid /media/media/ issues
+            if cleaned_data.get('avatar') and isinstance(cleaned_data['avatar'], str):
+                cleaned_data['avatar'] = cleaned_data['avatar'].replace('/media/media/', '/media/').replace('/static/static/', '/static/')
+                cleaned_data['default_avatar'] = cleaned_data['default_avatar'].replace('/media/media/', '/media/').replace('/static/static/', '/static/')
+                logger.debug(f"[ProfileImageForm.clean] Cleaned avatar path: {cleaned_data['avatar']}")
+
+            logger.debug(f"[ProfileImageForm.clean] Final cleaned data: {cleaned_data}")
+            return cleaned_data
+        except Exception as e:
+            logger.error(f"[ProfileImageForm.clean] Error during cleaning: {str(e)}", exc_info=True)
+            raise forms.ValidationError(_("An error occurred while processing the form."))
 
     def save(self, commit=True):
-        user = super().save(commit=False)
-        avatar = self.cleaned_data.get('avatar')
-        default_avatar = self.cleaned_data.get('default_avatar')
-        banner = self.cleaned_data.get('banner')
-        if default_avatar and not avatar:
-            user.avatar = default_avatar
-        elif avatar:
-            user.avatar = avatar
-        elif not avatar and not default_avatar:
-            user.avatar = None
-        if banner:
-            user.banner = banner
-        if commit:
-            user.save()
-        return user
+        try:
+            user = super().save(commit=False)
+            avatar = self.cleaned_data.get('avatar')
+            default_avatar = self.cleaned_data.get('default_avatar')
+            banner = self.cleaned_data.get('banner')
+            logger.debug(f"[ProfileImageForm.save] avatar={avatar}, default_avatar={default_avatar}, banner={banner}")
+
+            # Update avatar only if changed
+            if avatar:
+                if isinstance(avatar, str):
+                    user.default_avatar = avatar
+                    user.avatar = None
+                    logger.debug(f"[ProfileImageForm.save] Set default_avatar to: {avatar}")
+                else:
+                    user.avatar = avatar
+                    user.default_avatar = ''
+                    logger.debug(f"[ProfileImageForm.save] Set avatar to uploaded file: {avatar}")
+            elif default_avatar:
+                user.avatar = None
+                user.default_avatar = default_avatar
+                logger.debug(f"[ProfileImageForm.save] Set default_avatar to: {default_avatar}")
+            else:
+                # Preserve existing avatar if no changes
+                user.avatar = self.instance.avatar
+                user.default_avatar = self.instance.default_avatar
+                logger.debug(f"[ProfileImageForm.save] Preserved avatar: {user.avatar}, default_avatar: {user.default_avatar}")
+
+            # Update banner only if changed
+            if banner:
+                user.banner = banner
+                logger.debug(f"[ProfileImageForm.save] Set banner to: {banner}")
+            else:
+                user.banner = self.instance.banner
+                logger.debug(f"[ProfileImageForm.save] Preserved banner: {user.banner}")
+
+            if commit:
+                user.save()
+                logger.debug(f"[ProfileImageForm.save] User {user.id} saved with avatar={user.avatar}, banner={user.banner}, default_avatar={user.default_avatar}")
+            return user
+        except Exception as e:
+            logger.error(f"[ProfileImageForm.save] Error during saving: {str(e)}", exc_info=True)
+            raise forms.ValidationError(_("An error occurred while saving the form."))
 
 
 class ProfileInfoForm(forms.ModelForm):
