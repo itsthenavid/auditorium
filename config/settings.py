@@ -200,6 +200,10 @@ LOGOUT_REDIRECT_URL = ENV.get('LOGOUT_REDIRECT_URL', '/')
 
 SIGNUP_REDIRECT_URL = ENV.get('SIGNUP_REDIRECT_URL', '/')
 
+ACCOUNT_USER_MODEL_EMAIL_FIELD = 'email'
+
+ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'
+
 ACCOUNT_LOGIN_ON_SIGNUP = True
 
 ACCOUNT_EMAIL_CONFIRMATION_HMAC = True
@@ -218,11 +222,15 @@ ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'accounts:profile_view'
 
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'accounts:profile_view'
 
-ACCOUNT_LOGIN_METHODS = ["username", "email"]
+ACCOUNT_SIGNUP_FIELDS = ['username*', 'email', 'password1*', 'password2*']
+
+ACCOUNT_LOGIN_METHODS = {"email", "username", }
 
 ACCOUNT_UNIQUE_EMAIL = True
 
-USER_AUTHENTICATION_BACKENDS = (
+ACCOUNT_UNIQUE_USERNAME = True
+
+AUTHENTICATION_BACKENDS = (
     # Default authentication backend
     'django.contrib.auth.backends.ModelBackend',
 
@@ -272,3 +280,9 @@ CACHES = {
 }
 
 RATELIMIT_USE_CACHE = 'default'
+
+
+# Messages settings
+# https://docs.djangoproject.com/en/5.1/ref/contrib/messages/
+
+MESSAGE_STORAGE_FORMAT = 'json'
