@@ -6,6 +6,10 @@ import datetime
 from django.utils import timezone
 from django.core.exceptions import ValidationError
 from django.conf import settings
+import random
+import string
+from django.utils import timezone
+from datetime import timedelta
 
 # Create your models here.
 
@@ -96,3 +100,34 @@ class EmailVerificationCode(models.Model):
     
     def __str__(self):
         return f"Verification code for {self.user.username} - {self.code}"
+
+
+class LoginCode(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    code = models.CharField(max_length=15, unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_used = models.BooleanField(default=False)
+    expires_at = models.DateTimeField()
+    
+    def save(self, *args, **kwargs):
+        if not self.code:
+            self.code = self.generate_code()
+        if not self.expires_at:
+            self.expires_at = timezone.now() + timedelta(minutes=10)  # 10 دقیقه اعتبار
+        super().save(*args, **kwargs)
+    
+    @staticmethod
+    def generate_code():
+        """تولید کد 15 رقمی شامل اعداد و حروف انگلیسی"""
+        characters = string.ascii_uppercase + string.digits
+        while True:
+            code = ''.join(random.choice(characters) for _ in range(15))
+            if not LoginCode.objects.filter(code=code).exists():
+                return code
+    
+    def is_valid(self):
+        """چک کردن معتبر بودن کد"""
+        return not self.is_used and self.expires_at > timezone.now()
+    
+    def __str__(self):
+        return f"{self.user.username} - {self.code}"

@@ -9,9 +9,10 @@ from django.contrib.auth import get_user_model, login
 from django.utils.timezone import now
 from django.conf import settings
 import time
-import uuid
 import logging
 import traceback
+from django.core.mail import send_mail
+import re
 
 from django_redis import get_redis_connection
 from allauth.account.views import SignupView, LoginView
@@ -21,7 +22,7 @@ from allauth.account.utils import send_email_confirmation
 from extensions.mixins import RateLimitMixin, RequireGetMixin
 from extensions.utils import create_and_send_verification_code
 from .forms import RegisterForm, ProfileImageForm, ProfileInfoForm, EmailVerificationForm
-from .models import User, EmailVerificationCode
+from .models import User, EmailVerificationCode, LoginCode
 
 # Create your views here.
 
@@ -29,15 +30,21 @@ logger = logging.getLogger(__name__)
 User = get_user_model()
 
 class RegisterView(SignupView):
+    """
+    Handles user registration, extending allauth's SignupView.
+    Creates a new user, logs them in, and sends an email verification link.
+    """
     template_name = 'account/signup.html'
     form_class = RegisterForm
 
     def get_form_kwargs(self):
+        """Pass the request's language code to the form."""
         kwargs = super().get_form_kwargs()
         kwargs['language'] = self.request.LANGUAGE_CODE or 'en'
         return kwargs
 
     def form_valid(self, form):
+        """Process valid form submission, create user, and send email verification."""
         try:
             logger.debug(f"[RegisterView] Processing signup for email: {form.cleaned_data['email']}")
             user = form.save(self.request)
@@ -84,6 +91,7 @@ class RegisterView(SignupView):
             return self.form_invalid(form)
 
     def _clear_old_messages(self, conn, user_key, exclude_tags=None):
+        """Remove expired or non-excluded messages from Redis for the given user key."""
         try:
             existing_messages = conn.hgetall(user_key)
             for msg_id, msg_data in existing_messages.items():
@@ -111,14 +119,16 @@ class RegisterView(SignupView):
             messages.error(self.request, _("An unexpected error occurred. Please try again or contact support."), extra_tags='error')
 
     def get(self, request, *args, **kwargs):
+        """Redirect authenticated users to profile view, otherwise render signup form."""
         if request.user.is_authenticated:
             logger.debug(f"[RegisterView] User {request.user.id} is already authenticated, redirecting to profile")
             return HttpResponseRedirect(reverse_lazy('accounts:profile_view'))
         return super().get(request, *args, **kwargs)
 
-
 class CustomLoginView(LoginView):
+    """Custom login view to handle form errors with detailed messaging."""
     def form_invalid(self, form):
+        """Handle invalid form submission with custom error messages."""
         logger.debug(f"[CustomLoginView] Form errors: {form.errors}")
         self.request._messages._queued_messages.clear()
         if '__all__' in form.errors:
@@ -131,29 +141,38 @@ class CustomLoginView(LoginView):
         return super().form_invalid(form)
 
     def form_valid(self, form):
+        """Process valid form submission for login."""
         return super().form_valid(form)
 
 
 class ProfileUpdateView(LoginRequiredMixin, UpdateView):
+    """
+    Handles updating user profile information or images.
+    Supports both ProfileImageForm and ProfileInfoForm based on request data.
+    """
     model = User
     template_name = 'accounts/profile.html'
     success_url = reverse_lazy('accounts:profile_view')
 
     def get_form_class(self):
+        """Determine which form class to use based on form_type in POST data."""
         form_type = self.request.POST.get('form_type')
         logger.debug(f"[ProfileUpdateView] Form type received: {form_type}")
         return ProfileImageForm if form_type == 'image' else ProfileInfoForm
 
     def get_form_kwargs(self):
+        """Pass language to ProfileInfoForm if applicable."""
         kwargs = super().get_form_kwargs()
         if self.get_form_class() == ProfileInfoForm:
             kwargs['language'] = self.request.LANGUAGE_CODE
         return kwargs
 
     def get_object(self):
+        """Return the current authenticated user as the object to update."""
         return self.request.user
 
     def get_context_data(self, **kwargs):
+        """Add both image and info forms to the context."""
         context = super().get_context_data(**kwargs)
         context['image_form'] = ProfileImageForm(instance=self.request.user)
         context['info_form'] = ProfileInfoForm(
@@ -164,6 +183,7 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
         return context
 
     def post(self, request, *args, **kwargs):
+        """Handle POST requests, supporting both AJAX and standard submissions."""
         try:
             form_type = request.POST.get('form_type')
             logger.debug(f"[ProfileUpdateView] POST request received, form_type={form_type}, is_ajax={request.headers.get('X-Requested-With') == 'XMLHttpRequest'}")
@@ -190,6 +210,7 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
             return self.form_invalid(form)
 
     def form_valid(self, form):
+        """Process valid form submission, handle changes, and store messages in Redis."""
         logger.debug(f"[ProfileUpdateView] Form data: {self.request.POST}, Files: {self.request.FILES}")
         try:
             user = form.save(commit=False)
@@ -212,7 +233,6 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
 
                 logger.debug(f"[ProfileUpdateView] Avatar comparison: new_avatar={new_avatar}, new_default_avatar={new_default_avatar}, old_avatar={old_avatar}, avatar_changed={avatar_changed_flag}")
 
-                # Check if a new avatar file is uploaded or default avatar is explicitly changed
                 if new_avatar and isinstance(new_avatar, str) and (new_avatar != old_avatar or avatar_changed_flag):
                     avatar_changed = True
                     logger.debug(f"[ProfileUpdateView] Avatar changed to default: {new_avatar}")
@@ -280,6 +300,7 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
             return self.form_invalid(form)
 
     def _clear_old_messages(self, conn, user_key, exclude_tags=None):
+        """Remove expired or non-excluded messages from Redis for the given user key."""
         try:
             existing_messages = conn.hgetall(user_key)
             for msg_id, msg_data in existing_messages.items():
@@ -308,6 +329,7 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
             messages.error(self.request, _("An unexpected error occurred. Please try again or contact support."), extra_tags='error transient', fail_silently=True)
 
     def form_invalid(self, form):
+        """Handle invalid form submission with detailed error messages."""
         logger.debug(f"[ProfileUpdateView] Form errors: {form.errors}")
         form_type = self.request.POST.get('form_type')
         conn = get_redis_connection('default')
@@ -369,9 +391,14 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class ProfileView(LoginRequiredMixin, TemplateView):
+    """
+    Displays the user's profile information.
+    Fetches user data based on the current language and prepares context for rendering.
+    """
     template_name = 'accounts/profile.html'
 
     def get_context_data(self, **kwargs):
+        """Prepare context with user profile data for the current language."""
         context = super().get_context_data(**kwargs)
         user = self.request.user
         language = self.request.LANGUAGE_CODE
@@ -390,7 +417,12 @@ class ProfileView(LoginRequiredMixin, TemplateView):
 
 
 class EmailVerifyLinkView(RequireGetMixin, View):
+    """
+    Handles email verification via a link provided in an email.
+    Validates the link and updates the user's email verification status.
+    """
     def get(self, request, key):
+        """Process the verification link and confirm the user's email."""
         logger.debug(f"[EmailVerifyLinkView] Handling with key: {key}")
         try:
             confirmation = EmailConfirmationHMAC.from_key(key)
@@ -443,6 +475,7 @@ class EmailVerifyLinkView(RequireGetMixin, View):
             return redirect('accounts:verify_email')
 
     def _clear_old_messages(self, conn, user_key, exclude_tags=None):
+        """Remove expired or non-excluded messages from Redis for the given user key."""
         try:
             existing_messages = conn.hgetall(user_key)
             for msg_id, msg_data in existing_messages.items():
@@ -471,12 +504,17 @@ class EmailVerifyLinkView(RequireGetMixin, View):
 
 
 class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
+    """
+    Handles email verification via a 10-digit code sent to the user's email.
+    Supports both GET (to request a code) and POST (to verify the code).
+    """
     template_name = 'accounts/verify-email.html'
     rate = '3/5m'
     key = 'user'
     rate_limit_methods = ['POST']
 
     def _clear_old_messages(self, conn, user_key, exclude_tags=None):
+        """Remove expired or non-excluded messages from Redis for the given user key."""
         try:
             existing_messages = conn.hgetall(user_key)
             for msg_id, msg_data in existing_messages.items():
@@ -510,6 +548,7 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
             messages.error(self.request, message_text, extra_tags='persistent error')
 
     def _add_error_message(self, conn, user_key, message_text, error_details=""):
+        """Add an error message to Redis and Django messages framework."""
         try:
             self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'email-verification'])
             message_id = f"msg-error-{self.request.user.id}-{int(time.time())}"
@@ -524,6 +563,7 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
             messages.error(self.request, message_text, extra_tags='persistent error')
 
     def get(self, request):
+        """Handle GET requests to display the verification form or send a new code."""
         logger.debug(f"[VerifyEmailView] Handling GET for user {request.user.id}")
         try:
             if not request.user.is_authenticated:
@@ -602,6 +642,7 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
             return render(request, self.template_name, {'form': EmailVerificationForm()})
 
     def post(self, request, *args, **kwargs):
+        """Handle POST requests to verify the submitted email verification code."""
         user = request.user
         if not user.is_authenticated:
             logger.error("[VerifyEmailView] User is not authenticated")
@@ -751,9 +792,13 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
                 self._add_error_message(conn, user_key, _("An unexpected error occurred. Please try again or contact support."), str(e))
                 return render(request, self.template_name, {'form': form})
 
-
 class GetMessagesView(LoginRequiredMixin, View):
+    """
+    Retrieves persistent messages for the authenticated user from Redis.
+    Returns messages as a JSON response for client-side processing.
+    """
     def get(self, request):
+        """Fetch and return persistent messages for the user."""
         try:
             user_key = f"persistent_messages:{request.user.id}"
             conn = get_redis_connection('default')
@@ -797,3 +842,397 @@ class GetMessagesView(LoginRequiredMixin, View):
         except Exception as e:
             logger.error(f"[GetMessagesView] Error retrieving messages: {str(e)}\n{traceback.format_exc()}")
             return JsonResponse({'error': 'Failed to load notifications'}, status=500)
+
+
+class SendLoginCodeView(View):
+    """
+    Handles the first step of login code authentication.
+    Accepts a username or email, validates it, generates a login code, and sends it via email.
+    """
+    template_name = 'accounts/send_code.html'
+
+    def _is_valid_email(self, email):
+      """Validate email format using a regular expression."""
+      pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+      return re.match(pattern, email) is not None
+
+    def _clear_old_messages(self, conn, user_key, exclude_tags=None):
+        """Remove expired or non-excluded messages from Redis for the given user key."""
+        try:
+            existing_messages = conn.hgetall(user_key)
+            for msg_id, msg_data in existing_messages.items():
+                try:
+                    parts = msg_data.decode('utf-8', errors='ignore').split('|')
+                    if len(parts) != 3:
+                        logger.error(f"[SendLoginCodeView] Invalid message format in {user_key} for msg_id {msg_id.decode('utf-8', errors='ignore')}: {msg_data}")
+                        conn.hdel(user_key, msg_id)
+                        continue
+                    tags = parts[1]
+                    expires_at = float(parts[2])
+                    if expires_at < time.time() * 1000:
+                        conn.hdel(user_key, msg_id)
+                        logger.debug(f"[SendLoginCodeView] Deleted expired message {msg_id.decode('utf-8', errors='ignore')} from {user_key}")
+                        continue
+                    if exclude_tags and any(tag in tags for tag in exclude_tags):
+                        continue
+                    if 'transient' not in tags:
+                        conn.hdel(user_key, msg_id)
+                        logger.debug(f"[SendLoginCodeView] Deleted message {msg_id.decode('utf-8', errors='ignore')} from {user_key}")
+                except (ValueError, IndexError) as e:
+                    logger.error(f"[SendLoginCodeView] Invalid message format in {user_key} for msg_id {msg_id.decode('utf-8', errors='ignore')}: {str(e)}")
+                    conn.hdel(user_key, msg_id)
+        except Exception as e:
+            logger.error(f"[SendLoginCodeView] Error clearing old messages from {user_key}: {str(e)}")
+            messages.error(self.request, _("An unexpected error occurred. Please try again or contact support."), extra_tags='error transient')
+
+    def _add_error_message(self, conn, user_key, message_text, error_details=""):
+        """Add an error message to Redis and Django messages framework."""
+        try:
+            self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt'])
+            message_id = f"msg-error-{self.request.user.id if self.request.user.is_authenticated else 'anonymous'}-{int(time.time())}"
+            expires_at = int((time.time() + 5 * 60) * 1000)
+            message_data = f"{message_text}|persistent error|{expires_at}"
+            conn.hset(user_key, message_id, message_data)
+            conn.expire(user_key, 5 * 60)
+            messages.error(self.request, message_text, extra_tags='persistent error')
+            logger.error(f"[SendLoginCodeView] Error message added: {message_text}, Details: {error_details}")
+        except Exception as e:
+            logger.error(f"[SendLoginCodeView] Error adding error message to {user_key}: {str(e)}")
+            messages.error(self.request, message_text, extra_tags='persistent error')
+
+    def get(self, request):
+        """Render the form for entering username or email."""
+        logger.debug("[SendLoginCodeView] Handling GET request")
+        return render(request, self.template_name)
+
+    def post(self, request):
+        """Process username or email, generate and send a login code."""
+        logger.debug("[SendLoginCodeView] Handling POST request")
+        try:
+            identifier = request.POST.get('identifier', '').strip()
+            user_key = f"persistent_messages:{request.user.id if request.user.is_authenticated else 'anonymous'}"
+            conn = get_redis_connection('default')
+
+            if not identifier:
+                self._add_error_message(conn, user_key, _("Please enter your username or email."))
+                return render(request, self.template_name)
+
+            user = None
+            if self._is_valid_email(identifier):
+                try:
+                    user = User.objects.get(email=identifier)
+                    logger.debug(f"[SendLoginCodeView] Found user by email: {identifier}")
+                except User.DoesNotExist:
+                    self._add_error_message(conn, user_key, _("No user found with this email."))
+                    return render(request, self.template_name)
+            else:
+                try:
+                    user = User.objects.get(username=identifier)
+                    if not user.email:
+                        self._add_error_message(conn, user_key, _("This user has not registered an email."))
+                        return render(request, self.template_name)
+                    logger.debug(f"[SendLoginCodeView] Found user by username: {identifier}")
+                except User.DoesNotExist:
+                    self._add_error_message(conn, user_key, _("No user found with this username."))
+                    return render(request, self.template_name)
+
+            # Delete any unused login codes for the user
+            LoginCode.objects.filter(user=user, is_used=False).delete()
+            logger.debug(f"[SendLoginCodeView] Deleted unused login codes for user {user.id}")
+
+            # Generate a new login code
+            login_code = LoginCode.objects.create(user=user)
+            logger.debug(f"[SendLoginCodeView] Created login code for user {user.id}: {login_code.code}")
+
+            # Send the login code via email
+            try:
+                send_mail(
+                    subject=_('Your Login Code'),
+                    message=_(
+                        f'Hello {user.username},\n\n'
+                        f'Your login code is: {login_code.code}\n\n'
+                        f'This code is valid for 10 minutes.\n\n'
+                        f'If you did not request this code, please ignore this email.'
+                    ),
+                    from_email=settings.EMAIL_HOST_USER,
+                    recipient_list=[user.email],
+                    fail_silently=False,
+                )
+                logger.debug(f"[SendLoginCodeView] Login code sent to {user.email}")
+
+                # Store user ID in session
+                request.session['login_user_id'] = user.id
+                self._clear_old_messages(conn, user_key)
+                message_id = f"msg-code-sent-{user.id}-{int(time.time())}"
+                message_text = _(f'A login code has been sent to {user.email}.')
+                message_data = f"{message_text}|persistent success code-verification|{int(time.time() * 1000 + 5 * 60 * 1000)}"
+                conn.hset(user_key, message_id, message_data)
+                conn.expire(user_key, 5 * 60)
+                messages.success(self.request, message_text, extra_tags='persistent success code-verification')
+                logger.debug(f"[SendLoginCodeView] Success message added to Redis: {message_id}")
+                return redirect('accounts:verify_login_code')
+            except Exception as e:
+                logger.error(f"[SendLoginCodeView] Error sending login code to {user.email}: {str(e)}")
+                self._add_error_message(conn, user_key, _("Error sending login code. Please try again."), str(e))
+                return render(request, self.template_name)
+        except Exception as e:
+            logger.error(f"[SendLoginCodeView] Unexpected error in POST: {str(e)}\n{traceback.format_exc()}")
+            user_key = f"persistent_messages:{request.user.id if request.user.is_authenticated else 'anonymous'}"
+            try:
+                conn = get_redis_connection('default')
+                self._add_error_message(conn, user_key, _("An unexpected error occurred. Please try again or contact support."), str(e))
+            except:
+                messages.error(self.request, _("An unexpected error occurred. Please try again or contact support."), extra_tags='persistent error')
+            return render(request, self.template_name)
+
+
+class VerifyLoginCodeView(View):
+    """
+    Handles the second step of login code authentication.
+    Validates the submitted login code and logs in the user if valid.
+    """
+    template_name = 'accounts/verify_code.html'
+
+    def _clear_old_messages(self, conn, user_key, exclude_tags=None):
+        """Remove expired or non-excluded messages from Redis for the given user key."""
+        try:
+            existing_messages = conn.hgetall(user_key)
+            for msg_id, msg_data in existing_messages.items():
+                try:
+                    parts = msg_data.decode('utf-8', errors='ignore').split('|')
+                    if len(parts) != 3:
+                        logger.error(f"[VerifyLoginCodeView] Invalid message format in {user_key} for msg_id {msg_id.decode('utf-8', errors='ignore')}: {msg_data}")
+                        conn.hdel(user_key, msg_id)
+                        continue
+                    tags = parts[1]
+                    expires_at = float(parts[2])
+                    if expires_at < time.time() * 1000:
+                        conn.hdel(user_key, msg_id)
+                        logger.debug(f"[VerifyLoginCodeView] Deleted expired message {msg_id.decode('utf-8', errors='ignore')} from {user_key}")
+                        continue
+                    if exclude_tags and any(tag in tags for tag in exclude_tags):
+                        continue
+                    if 'transient' not in tags:
+                        conn.hdel(user_key, msg_id)
+                        logger.debug(f"[VerifyLoginCodeView] Deleted message {msg_id.decode('utf-8', errors='ignore')} from {user_key}")
+                except (ValueError, IndexError) as e:
+                    logger.error(f"[VerifyLoginCodeView] Invalid message format in {user_key} for msg_id {msg_id.decode('utf-8', errors='ignore')}: {str(e)}")
+                    conn.hdel(user_key, msg_id)
+        except Exception as e:
+            logger.error(f"[VerifyLoginCodeView] Error clearing old messages from {user_key}: {str(e)}")
+            messages.error(self.request, _("An unexpected error occurred. Please try again or contact support."), extra_tags='error transient')
+
+    def _add_error_message(self, conn, user_key, message_text, error_details=""):
+        """Add an error message to Redis and Django messages framework."""
+        try:
+            self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt'])
+            message_id = f"msg-error-{self.request.user.id if self.request.user.is_authenticated else 'anonymous'}-{int(time.time())}"
+            expires_at = int((time.time() + 5 * 60) * 1000)
+            message_data = f"{message_text}|persistent error|{expires_at}"
+            conn.hset(user_key, message_id, message_data)
+            conn.expire(user_key, 5 * 60)
+            messages.error(self.request, message_text, extra_tags='persistent error')
+            logger.error(f"[VerifyLoginCodeView] Error message added: {message_text}, Details: {error_details}")
+        except Exception as e:
+            logger.error(f"[VerifyLoginCodeView] Error adding error message to {user_key}: {str(e)}")
+            messages.error(self.request, message_text, extra_tags='persistent error')
+
+    def get(self, request):
+        """Render the form for entering the login code."""
+        logger.debug("[VerifyLoginCodeView] Handling GET request")
+        user_id = request.session.get('login_user_id')
+        if not user_id:
+            user_key = f"persistent_messages:{request.user.id if request.user.is_authenticated else 'anonymous'}"
+            try:
+                conn = get_redis_connection('default')
+                self._add_error_message(conn, user_key, _("Please enter your email or username first."))
+            except:
+                messages.error(self.request, _("Please enter your email or username first."), extra_tags='persistent error')
+            return redirect('accounts:send_login_code')
+        try:
+            user = User.objects.get(id=user_id)
+            logger.debug(f"[VerifyLoginCodeView] User found for ID {user_id}")
+            return render(request, self.template_name, {'user_email': user.email})
+        except User.DoesNotExist:
+            user_key = f"persistent_messages:{request.user.id if request.user.is_authenticated else 'anonymous'}"
+            try:
+                conn = get_redis_connection('default')
+                self._add_error_message(conn, user_key, _("Error processing request. Please try again."))
+            except:
+                messages.error(self.request, _("Error processing request. Please try again."), extra_tags='persistent error')
+            return redirect('accounts:send_login_code')
+
+    def post(self, request):
+        """Validate the submitted login code and log in the user if valid."""
+        logger.debug("[VerifyLoginCodeView] Handling POST request")
+        user_id = request.session.get('login_user_id')
+        user_key = f"persistent_messages:{request.user.id if request.user.is_authenticated else 'anonymous'}"
+        conn = get_redis_connection('default')
+
+        if not user_id:
+            self._add_error_message(conn, user_key, _("Please enter your email or username first."))
+            return redirect('accounts:send_login_code')
+
+        try:
+            user = User.objects.get(id=user_id)
+            logger.debug(f"[VerifyLoginCodeView] User found for ID {user_id}")
+        except User.DoesNotExist:
+            self._add_error_message(conn, user_key, _("Error processing request. Please try again."))
+            return redirect('accounts:send_login_code')
+
+        entered_code = request.POST.get('code', '').strip().upper()
+        if not entered_code:
+            self._add_error_message(conn, user_key, _("Please enter the login code."))
+            return render(request, self.template_name, {'user_email': user.email})
+
+        try:
+            login_code = LoginCode.objects.get(
+                user=user,
+                code=entered_code,
+                is_used=False
+            )
+            logger.debug(f"[VerifyLoginCodeView] Login code found for user {user.id}: {entered_code}")
+
+            if login_code.is_valid():
+                login_code.is_used = True
+                login_code.save()
+                logger.debug(f"[VerifyLoginCodeView] Login code marked as used for user {user.id}")
+
+                login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+                logger.debug(f"[VerifyLoginCodeView] User {user.id} logged in successfully")
+
+                if 'login_user_id' in request.session:
+                    del request.session['login_user_id']
+                    logger.debug("[VerifyLoginCodeView] Cleared login_user_id from session")
+
+                self._clear_old_messages(conn, user_key)
+                message_id = f"msg-login-success-{user.id}-{int(time.time())}"
+                message_text = _(f'Welcome back, {user.username}!')
+                message_data = f"{message_text}|persistent success|{int(time.time() * 1000 + 5 * 60 * 1000)}"
+                conn.hset(user_key, message_id, message_data)
+                conn.expire(user_key, 5 * 60)
+                messages.success(self.request, message_text, extra_tags='persistent success')
+                logger.debug(f"[VerifyLoginCodeView] Success message added to Redis: {message_id}")
+                return redirect('accounts:profile_view')
+            else:
+                self._add_error_message(conn, user_key, _("The login code has expired. Please request a new one."))
+                return redirect('accounts:send_login_code')
+        except LoginCode.DoesNotExist:
+            self._add_error_message(conn, user_key, _("The entered code is invalid."))
+            return render(request, self.template_name, {'user_email': user.email})
+        except Exception as e:
+            logger.error(f"[VerifyLoginCodeView] Unexpected error in POST: {str(e)}\n{traceback.format_exc()}")
+            self._add_error_message(conn, user_key, _("An unexpected error occurred. Please try again or contact support."), str(e))
+            return render(request, self.template_name, {'user_email': user.email})
+
+
+class ResendLoginCodeView(View):
+    """
+    Handles resending a login code to the user's email.
+    Deletes old codes, generates a new one, and sends it via email.
+    Returns a JSON response for AJAX requests.
+    """
+    def get(self, request):
+        """Handle GET requests by redirecting to the send login code view."""
+        logger.debug("[ResendLoginCodeView] GET request redirected to send_login_code")
+        return redirect('accounts:send_login_code')
+
+    def post(self, request):
+        """Generate and send a new login code to the user's email."""
+        logger.debug("[ResendLoginCodeView] Handling POST request")
+        user_id = request.session.get('login_user_id')
+        user_key = f"persistent_messages:{request.user.id if request.user.is_authenticated else 'anonymous'}"
+        conn = get_redis_connection('default')
+
+        if not user_id:
+            logger.error("[ResendLoginCodeView] No user_id in session")
+            return JsonResponse({'success': False, 'message': _('Error processing request.')}, status=400)
+
+        try:
+            user = User.objects.get(id=user_id)
+            logger.debug(f"[ResendLoginCodeView] User found for ID {user_id}")
+        except User.DoesNotExist:
+            logger.error(f"[ResendLoginCodeView] User not found for ID {user_id}")
+            self._add_error_message(conn, user_key, _("Error processing request."))
+            return JsonResponse({'success': False, 'message': _('Error processing request.')}, status=400)
+
+        try:
+            # Delete any unused login codes
+            LoginCode.objects.filter(user=user, is_used=False).delete()
+            logger.debug(f"[ResendLoginCodeView] Deleted unused login codes for user {user.id}")
+
+            # Generate a new login code
+            login_code = LoginCode.objects.create(user=user)
+            logger.debug(f"[ResendLoginCodeView] Created new login code for user {user.id}: {login_code.code}")
+
+            # Send the login code via email
+            send_mail(
+                subject=_('Your New Login Code'),
+                message=_(
+                    f'Hello {user.username},\n\n'
+                    f'Your new login code is: {login_code.code}\n\n'
+                    f'This code is valid for 10 minutes.'
+                ),
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[user.email],
+                fail_silently=False,
+            )
+            logger.debug(f"[ResendLoginCodeView] New login code sent to {user.email}")
+
+            self._clear_old_messages(conn, user_key)
+            message_id = f"msg-code-resent-{user.id}-{int(time.time())}"
+            message_text = _('A new login code has been sent to your email.')
+            message_data = f"{message_text}|persistent success code-verification|{int(time.time() * 1000 + 5 * 60 * 1000)}"
+            conn.hset(user_key, message_id, message_data)
+            conn.expire(user_key, 5 * 60)
+            messages.success(self.request, message_text, extra_tags='persistent success code-verification')
+            logger.debug(f"[ResendLoginCodeView] Success message added to Redis: {message_id}")
+            return JsonResponse({'success': True, 'message': message_text}, status=200)
+        except Exception as e:
+            logger.error(f"[ResendLoginCodeView] Error sending new login code: {str(e)}\n{traceback.format_exc()}")
+            self._add_error_message(conn, user_key, _("Error sending new login code."), str(e))
+            return JsonResponse({'success': False, 'message': _('Error sending new login code.')}, status=500)
+
+    def _clear_old_messages(self, conn, user_key, exclude_tags=None):
+        """Remove expired or non-excluded messages from Redis for the given user key."""
+        try:
+            existing_messages = conn.hgetall(user_key)
+            for msg_id, msg_data in existing_messages.items():
+                try:
+                    parts = msg_data.decode('utf-8', errors='ignore').split('|')
+                    if len(parts) != 3:
+                        logger.error(f"[ResendLoginCodeView] Invalid message format in {user_key} for msg_id {msg_id.decode('utf-8', errors='ignore')}: {msg_data}")
+                        conn.hdel(user_key, msg_id)
+                        continue
+                    tags = parts[1]
+                    expires_at = float(parts[2])
+                    if expires_at < time.time() * 1000:
+                        conn.hdel(user_key, msg_id)
+                        logger.debug(f"[ResendLoginCodeView] Deleted expired message {msg_id.decode('utf-8', errors='ignore')} from {user_key}")
+                        continue
+                    if exclude_tags and any(tag in tags for tag in exclude_tags):
+                        continue
+                    if 'transient' not in tags:
+                        conn.hdel(user_key, msg_id)
+                        logger.debug(f"[ResendLoginCodeView] Deleted message {msg_id.decode('utf-8', errors='ignore')} from {user_key}")
+                except (ValueError, IndexError) as e:
+                    logger.error(f"[ResendLoginCodeView] Invalid message format in {user_key} for msg_id {msg_id.decode('utf-8', errors='ignore')}: {str(e)}")
+                    conn.hdel(user_key, msg_id)
+        except Exception as e:
+            logger.error(f"[ResendLoginCodeView] Error clearing old messages from {user_key}: {str(e)}")
+            messages.error(self.request, _("An unexpected error occurred. Please try again or contact support."), extra_tags='error transient')
+
+    def _add_error_message(self, conn, user_key, message_text, error_details=""):
+        """Add an error message to Redis and Django messages framework."""
+        try:
+            self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt'])
+            message_id = f"msg-error-{self.request.user.id if self.request.user.is_authenticated else 'anonymous'}-{int(time.time())}"
+            expires_at = int((time.time() + 5 * 60) * 1000)
+            message_data = f"{message_text}|persistent error|{expires_at}"
+            conn.hset(user_key, message_id, message_data)
+            conn.expire(user_key, 5 * 60)
+            messages.error(self.request, message_text, extra_tags='persistent error')
+            logger.error(f"[ResendLoginCodeView] Error message added: {message_text}, Details: {error_details}")
+        except Exception as e:
+            logger.error(f"[ResendLoginCodeView] Error adding error message to Redis: {str(e)}")
+            messages.error(self.request, _("An unexpected error occurred. Please try again or contact support."), extra_tags='error transient')
