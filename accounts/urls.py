@@ -5,6 +5,8 @@ from . import api
 
 app_name = 'accounts'
 
+# Create your URLs here.
+
 urlpatterns = [
     path('signup/', views.RegisterView.as_view(), name='signup'),
     path('login/', views.CustomLoginView.as_view(), name='account_login'),
