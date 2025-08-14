@@ -32,40 +32,45 @@ User = get_user_model()
 class RegisterView(SignupView):
     """
     Handles user registration, extending allauth's SignupView.
-    Creates a new user, logs them in, and sends an email verification link.
+    Creates a new user, logs them in, and sends an email verification link only if email is provided.
     """
     template_name = 'account/signup.html'
     form_class = RegisterForm
 
     def get_form_kwargs(self):
-        """Pass the request's language code to the form."""
         kwargs = super().get_form_kwargs()
         kwargs['language'] = self.request.LANGUAGE_CODE or 'en'
         return kwargs
 
     def form_valid(self, form):
-        """Process valid form submission, create user, and send email verification."""
         try:
-            logger.debug(f"[RegisterView] Processing signup for email: {form.cleaned_data['email']}")
+            logger.debug(f"[RegisterView] Processing signup for email: {form.cleaned_data.get('email')}")
             user = form.save(self.request)
-            if user:
-                logger.debug(f"[RegisterView] User created: {user.username}, ID: {user.id}")
-                login(self.request, user, backend='django.contrib.auth.backends.ModelBackend')
-                logger.debug(f"[RegisterView] User {user.username} logged in successfully")
+            if not user:
+                logger.error("[RegisterView] User creation failed: form.save returned None")
+                messages.error(self.request, _("Failed to create account. Please try again."), extra_tags='error')
+                return self.form_invalid(form)
+
+            logger.debug(f"[RegisterView] User created: {user.username}, ID: {user.id}")
+            login(self.request, user, backend='django.contrib.auth.backends.ModelBackend')
+            logger.debug(f"[RegisterView] User {user.username} logged in successfully")
+
+            if user.email:
                 try:
                     email_confirmation = send_email_confirmation(self.request, user, signup=True)
-                    expires_at = None
+
                     if isinstance(email_confirmation, EmailConfirmationHMAC):
                         expires_at = int(email_confirmation.expires_at.timestamp() * 1000)
                         logger.debug(f"[RegisterView] Email confirmation sent for user {user.id}, expires at {expires_at}")
                     else:
-                        logger.warning(f"[RegisterView] email_confirmation is not an EmailConfirmation object: {email_confirmation}")
                         confirmation_timeout = getattr(settings, 'ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS', 15 / (24 * 60)) * 24 * 60 * 60
                         expires_at = int((time.time() + confirmation_timeout) * 1000)
-                        logger.debug(f"[RegisterView] Fallback expires_at calculated for user {user.id}: {expires_at}")
+                        logger.warning(f"[RegisterView] EmailConfirmation object not returned, fallback expires_at={expires_at}")
+
                     conn = get_redis_connection('default')
                     user_key = f"persistent_messages:{user.id}"
                     self._clear_old_messages(conn, user_key)
+
                     message_id = f"msg-email-verification-{user.id}-{int(time.time())}"
                     message_text = _(
                         'A verification email with a link has been sent to your email '
@@ -75,25 +80,31 @@ class RegisterView(SignupView):
                     message_data = f"{message_text}|persistent info email-verification|{expires_at}"
                     conn.hset(user_key, message_id, message_data)
                     conn.expire(user_key, 15 * 60)
+
                     messages.info(self.request, message_text, extra_tags='persistent info email-verification')
+                    messages.success(self.request, _("You have successfully signed up, welcome to Auditorium."), extra_tags='success')
                     logger.debug(f"[RegisterView] Message added to Redis: {message_id}, data: {message_data}")
+
                 except Exception as e:
                     logger.error(f"[RegisterView] Error sending email confirmation for user {user.id}: {str(e)}")
+                    messages.success(self.request, _("You have successfully signed up, welcome to Auditorium."), extra_tags='success')
+                    messages.warning(self.request, _("Yeah! You have successfully signed up, but be careful! You have not entered an email yet."), extra_tags='retry-attempt')
                     messages.error(self.request, _("Error sending verification email. Please try again or request a new code."), extra_tags='error')
-                return HttpResponseRedirect(reverse_lazy('accounts:profile_view'))
             else:
-                logger.error("[RegisterView] User creation failed: form.save returned None")
-                messages.error(self.request, _("Failed to create account. Please try again."), extra_tags='error')
-                return self.form_invalid(form)
+                logger.debug(f"[RegisterView] No email provided for user {user.id}, skipping email confirmation.")
+                messages.success(self.request, _("You have successfully signed up, welcome to Auditorium."), extra_tags='success')
+                messages.warning(self.request, _("Yeah! You have successfully signed up, but be careful! You have not entered an email yet."), extra_tags='retry-attempt')
+
+            return HttpResponseRedirect(reverse_lazy('accounts:profile_view'))
+
         except Exception as e:
             logger.error(f"[RegisterView] Unexpected error during signup: {str(e)}")
             messages.error(self.request, _("An unexpected error occurred. Please try again or contact support."), extra_tags='error')
             return self.form_invalid(form)
 
     def form_invalid(self, form):
-        """Handle invalid form submission with custom error messages for username and email, preventing default form errors from rendering."""
         logger.debug(f"[RegisterView] Form errors: {form.errors}")
-        self.request._messages._queued_messages.clear()  # Clear previous messages
+        self.request._messages._queued_messages.clear()
         if '__all__' in form.errors:
             for error in form.errors['__all__']:
                 messages.error(self.request, error, extra_tags='error')
@@ -101,55 +112,44 @@ class RegisterView(SignupView):
             for field, errors in form.errors.items():
                 for error in errors:
                     if field == 'username':
-                        # Specific messages for username errors
-                        if 'already exists' in error.lower():
-                            message = _("This username is already in use.")
-                        else:
-                            message = _("The username is not valid/already in use.")
+                        message = _("This username is already in use.") if 'already exists' in error.lower() else _("The username is not valid/already in use.")
                         messages.warning(self.request, f"{form.fields[field].label}: {message}", extra_tags='warning')
                     elif field == 'email':
-                        # Specific messages for email errors
-                        if 'already exists' in error.lower():
-                            message = _("This email is already in use.")
-                        else:
-                            message = _("The email address is not valid/already in use.")
+                        message = _("This email is already in use.") if 'already exists' in error.lower() else _("The email address is not valid/already in use.")
                         messages.warning(self.request, f"{form.fields[field].label}: {message}", extra_tags='warning')
                     else:
-                        # Errors for other fields
                         messages.error(self.request, f"{form.fields[field].label}: {error}", extra_tags='error')
-        form.errors.clear()  # Prevent default form errors from rendering in the template
+        form.errors.clear()
         return super().form_invalid(form)
 
     def _clear_old_messages(self, conn, user_key, exclude_tags=None):
-        """Remove expired or non-excluded messages from Redis for the given user key."""
         try:
             existing_messages = conn.hgetall(user_key)
             for msg_id, msg_data in existing_messages.items():
                 try:
                     parts = msg_data.decode('utf-8', errors='ignore').split('|')
                     if len(parts) != 3:
-                        logger.error(f"[RegisterView] Invalid message format in {user_key} for msg_id {msg_id.decode('utf-8', errors='ignore')}: {msg_data}")
+                        logger.error(f"[RegisterView] Invalid message format in {user_key} for msg_id {msg_id.decode('utf-8')}: {msg_data}")
                         conn.hdel(user_key, msg_id)
                         continue
                     tags = parts[1]
                     expires_at = float(parts[2])
                     if expires_at < time.time() * 1000:
                         conn.hdel(user_key, msg_id)
-                        logger.debug(f"[RegisterView] Deleted expired message {msg_id.decode('utf-8', errors='ignore')} from {user_key}")
+                        logger.debug(f"[RegisterView] Deleted expired message {msg_id.decode('utf-8')} from {user_key}")
                         continue
                     if exclude_tags and any(tag in tags for tag in exclude_tags):
                         continue
                     conn.hdel(user_key, msg_id)
-                    logger.debug(f"[RegisterView] Deleted message {msg_id.decode('utf-8', errors='ignore')} from {user_key}")
+                    logger.debug(f"[RegisterView] Deleted message {msg_id.decode('utf-8')} from {user_key}")
                 except (ValueError, IndexError) as e:
-                    logger.error(f"[RegisterView] Invalid message format in {user_key} for msg_id {msg_id.decode('utf-8', errors='ignore')}: {str(e)}")
+                    logger.error(f"[RegisterView] Invalid message format in {user_key} for msg_id {msg_id.decode('utf-8')}: {str(e)}")
                     conn.hdel(user_key, msg_id)
         except Exception as e:
             logger.error(f"[RegisterView] Error clearing old messages from {user_key}: {str(e)}")
             messages.error(self.request, _("An unexpected error occurred. Please try again or contact support."), extra_tags='error')
 
     def get(self, request, *args, **kwargs):
-        """Redirect authenticated users to profile view, otherwise render signup form."""
         if request.user.is_authenticated:
             logger.debug(f"[RegisterView] User {request.user.id} is already authenticated, redirecting to profile")
             return HttpResponseRedirect(reverse_lazy('accounts:profile_view'))
@@ -394,7 +394,7 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
                         elif field == 'email':
                             if 'invalid' in error.lower():
                                 message_text = _("Email format is invalid. Please enter a valid email like example@domain.com.")
-                            elif 'unique' in error.lower():
+                            elif 'already exists' in error.lower():
                                 message_text = _("This email is already registered. Please use a different email.")
                             else:
                                 message_text = _("Invalid email address. Please check and try again.")
@@ -450,6 +450,20 @@ class EmailVerifyLinkView(RequireGetMixin, View):
     Handles email verification via a link provided in an email.
     Validates the link and updates the user's email verification status.
     """
+    
+    def dispatch(self, request, *args, **kwargs):
+        """Dispatch method to handle rate limiting and user authentication."""
+        if request.user.is_authenticated and request.user.is_verified:
+            logger.debug(f"[EmailVerifyLinkView] User {request.user.id} is already verified, redirecting to profile")
+            messages.info(request, _("Your email is already verified."), extra_tags='info')
+            return HttpResponseRedirect(reverse_lazy('accounts:profile_view'))
+        elif request.user.email == "" or request.user.email is None:
+            logger.debug(f"[EmailVerifyLinkView] User {request.user.id} has no email, redirecting to verify email")
+            messages.warning(request, _("You have not entered an email yet. Please enter your email to verify it."), extra_tags='warning')
+            return HttpResponseRedirect(reverse_lazy('accounts:profile_edit'))
+        
+        return super().dispatch(request, *args, **kwargs)
+
     def get(self, request, key):
         """Process the verification link and confirm the user's email."""
         logger.debug(f"[EmailVerifyLinkView] Handling with key: {key}")
@@ -537,10 +551,24 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
     Handles email verification via a 10-digit code sent to the user's email.
     Supports both GET (to request a code) and POST (to verify the code).
     """
+
     template_name = 'accounts/verify-email.html'
     rate = '3/5m'
     key = 'user'
     rate_limit_methods = ['POST']
+
+    def dispatch(self, request, *args, **kwargs):
+        """Dispatch method to handle rate limiting and user authentication."""
+        if request.user.is_authenticated and request.user.is_verified:
+            logger.debug(f"[EmailVerifyLinkView] User {request.user.id} is already verified, redirecting to profile")
+            messages.info(request, _("Your email is already verified."), extra_tags='info')
+            return HttpResponseRedirect(reverse_lazy('accounts:profile_view'))
+        elif request.user.email == "" or request.user.email is None:
+            logger.debug(f"[EmailVerifyLinkView] User {request.user.id} has no email, redirecting to verify email")
+            messages.warning(request, _("You have not entered an email yet. Please enter your email to verify it."), extra_tags='warning')
+            return HttpResponseRedirect(reverse_lazy('accounts:profile_edit'))
+        
+        return super().dispatch(request, *args, **kwargs)
 
     def _clear_old_messages(self, conn, user_key, exclude_tags=None):
         """Remove expired or non-excluded messages from Redis for the given user key."""

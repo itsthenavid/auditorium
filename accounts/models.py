@@ -49,7 +49,7 @@ class User(AbstractUser):
 
     email = models.EmailField(
         _("Email Address"),
-        unique=True,
+        # unique=True,
         help_text=_("Enter a valid email address. This will be used for account verification and notifications."),
         blank=True,
         null=True
@@ -61,6 +61,9 @@ class User(AbstractUser):
         for lang in self.profiles:
             if lang not in self.valid_languages:
                 raise ValidationError(f"Invalid language code: {lang}")
+        if self.email:
+          if User.objects.exclude(pk=self.pk).filter(email__iexact=self.email).exists():
+            raise ValidationError({"email": _("This email is already in use / already exists.")})
     
     def clean_bio(self):
         for lang, profile in self.profiles.items():

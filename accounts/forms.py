@@ -24,7 +24,12 @@ class RegisterForm(SignupForm):
     name = forms.CharField(
         label=_("Name"),
         max_length=100,
-        required=True
+        required=False,
+    )
+    email = forms.EmailField(
+        label=_("Email"),
+        max_length=100,
+        required=False,
     )
     bio = forms.CharField(
         label=_("Bio"),
