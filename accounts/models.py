@@ -47,6 +47,16 @@ class User(AbstractUser):
         help_text=_("Indicates whether the user has verified their account.")
     )
 
+    email = models.EmailField(
+        _("Email Address"),
+        unique=True,
+        help_text=_("Enter a valid email address. This will be used for account verification and notifications."),
+        blank=True,
+        null=True
+    )
+
+    EMAIL_FIELD = 'email'
+
     def clean(self):
         for lang in self.profiles:
             if lang not in self.valid_languages:

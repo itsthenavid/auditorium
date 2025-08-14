@@ -8,6 +8,8 @@ app_name = 'accounts'
 # Create your URLs here.
 
 urlpatterns = [
+    path('', views.ProfileUpdateView.as_view(), name='profile_edit_accounts'),
+    path('', views.ProfileView.as_view(), name='profile_view_accounts'),
     path('signup/', views.RegisterView.as_view(), name='signup'),
     path('login/', views.CustomLoginView.as_view(), name='account_login'),
     path('profile/', views.ProfileUpdateView.as_view(), name='profile_edit'),

@@ -90,6 +90,36 @@ class RegisterView(SignupView):
             messages.error(self.request, _("An unexpected error occurred. Please try again or contact support."), extra_tags='error')
             return self.form_invalid(form)
 
+    def form_invalid(self, form):
+        """Handle invalid form submission with custom error messages for username and email, preventing default form errors from rendering."""
+        logger.debug(f"[RegisterView] Form errors: {form.errors}")
+        self.request._messages._queued_messages.clear()  # Clear previous messages
+        if '__all__' in form.errors:
+            for error in form.errors['__all__']:
+                messages.error(self.request, error, extra_tags='error')
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    if field == 'username':
+                        # Specific messages for username errors
+                        if 'already exists' in error.lower():
+                            message = _("This username is already in use.")
+                        else:
+                            message = _("The username is not valid/already in use.")
+                        messages.warning(self.request, f"{form.fields[field].label}: {message}", extra_tags='warning')
+                    elif field == 'email':
+                        # Specific messages for email errors
+                        if 'already exists' in error.lower():
+                            message = _("This email is already in use.")
+                        else:
+                            message = _("The email address is not valid/already in use.")
+                        messages.warning(self.request, f"{form.fields[field].label}: {message}", extra_tags='warning')
+                    else:
+                        # Errors for other fields
+                        messages.error(self.request, f"{form.fields[field].label}: {error}", extra_tags='error')
+        form.errors.clear()  # Prevent default form errors from rendering in the template
+        return super().form_invalid(form)
+
     def _clear_old_messages(self, conn, user_key, exclude_tags=None):
         """Remove expired or non-excluded messages from Redis for the given user key."""
         try:
@@ -357,7 +387,7 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
                         if field == 'username':
                             if 'required' in error.lower():
                                 message_text = _("Username is required. Please enter a username.")
-                            elif 'unique' in error.lower():
+                            elif 'already exists' in error.lower():
                                 message_text = _("This username is already taken. Please choose a different one.")
                             else:
                                 message_text = _("Invalid username. It must be 3-30 characters and contain only letters, numbers, or underscores.")
@@ -376,8 +406,6 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
                             message_text = _(f"Error in {field}: {error}")
                         messages.error(self.request, message_text, extra_tags='error transient', fail_silently=True)
             message_id = f"msg-form-error-{self.request.user.id}-{int(now().timestamp())}"
-            message_text = _("Please correct the errors below and try again.")
-            messages.error(self.request, message_text, extra_tags='error transient', fail_silently=True)
             if self.request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                 return JsonResponse({'status': 'error', 'errors': form.errors.as_json()}, status=400)
             return super().form_invalid(form)
