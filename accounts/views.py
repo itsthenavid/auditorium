@@ -125,6 +125,7 @@ class RegisterView(SignupView):
             return HttpResponseRedirect(reverse_lazy('accounts:profile_view'))
         return super().get(request, *args, **kwargs)
 
+
 class CustomLoginView(LoginView):
     """Custom login view to handle form errors with detailed messaging."""
     def form_invalid(self, form):
@@ -532,9 +533,8 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
                         continue
                     if exclude_tags and any(tag in tags for tag in exclude_tags):
                         continue
-                    if 'transient' not in tags:
-                        conn.hdel(user_key, msg_id)
-                        logger.debug(f"[VerifyEmailView] Deleted message {msg_id} from {user_key}")
+                    conn.hdel(user_key, msg_id)
+                    logger.debug(f"[VerifyEmailView] Deleted message {msg_id} from {user_key}")
                 except (ValueError, IndexError) as e:
                     logger.error(f"[VerifyEmailView] Invalid message format in {user_key} for msg_id {msg_id}: {str(e)}")
                     conn.hdel(user_key, msg_id)
@@ -550,7 +550,7 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
     def _add_error_message(self, conn, user_key, message_text, error_details=""):
         """Add an error message to Redis and Django messages framework."""
         try:
-            self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'email-verification'])
+            self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit'])
             message_id = f"msg-error-{self.request.user.id}-{int(time.time())}"
             expires_at = int((time.time() + 5 * 60) * 1000)
             message_data = f"{message_text}|persistent error|{expires_at}"
@@ -590,7 +590,7 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
             if existing_code and existing_code.is_locked_out():
                 ttl = int((existing_code.lockout_until - now()).total_seconds())
                 expires_at = int((time.time() + ttl) * 1000)
-                self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'email-verification'])
+                self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit'])
                 message_id = f"msg-rate-limit-{request.user.id}-{int(time.time())}"
                 message_text = _("Too many incorrect attempts. Please try again in <span class='timer'></span>.")
                 message_data = f"{message_text}|persistent warning rate-limit|{expires_at}"
@@ -603,7 +603,7 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
                 try:
                     expires_at = create_and_send_verification_code(request.user, is_for_token=False)
                     logger.debug(f"[VerifyEmailView] Verification code sent for user {request.user.id}, expires at {expires_at}")
-                    self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'email-verification'])
+                    self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit'])
                     message_id = f"msg-code-sent-{request.user.id}-{int(time.time())}"
                     message_text = _('A 10-digit verification code has been sent to your email (valid for 5 minutes, remaining: <span class="timer"></span>).')
                     message_data = f"{message_text}|persistent info code-verification|{expires_at}"
@@ -622,7 +622,7 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
             else:
                 expires_at = int(existing_code.expires_at.timestamp() * 1000)
                 logger.debug(f"[VerifyEmailView] Existing verification code found for user {request.user.id}, expires at {expires_at}")
-                self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'email-verification'])
+                self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit'])
                 message_id = f"msg-code-existing-{request.user.id}-{int(time.time())}"
                 message_text = _('A 10-digit verification code has been sent to your email (valid for 5 minutes, remaining: <span class="timer"></span>).')
                 message_data = f"{message_text}|persistent info code-verification|{expires_at}"
@@ -653,7 +653,7 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
             try:
                 evc = EmailVerificationCode.objects.filter(user=user, is_for_token=False).first()
                 if not evc:
-                    self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'email-verification'])
+                    self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit'])
                     message_id = f"msg-no-code-{user.id}-{int(time.time())}"
                     message_text = _("No verification code found. Please request a new one <a href='%s'>here</a>.") % reverse_lazy('accounts:verify_email')
                     message_data = f"{message_text}|persistent error code-verification|{int(time.time() * 1000 + 5 * 60 * 1000)}"
@@ -665,7 +665,7 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
                 if evc.is_locked_out():
                     ttl = int((evc.lockout_until - now()).total_seconds())
                     expires_at = int((time.time() + ttl) * 1000)
-                    self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'email-verification'])
+                    self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit'])
                     message_id = f"msg-rate-limit-{user.id}-{int(time.time())}"
                     message_text = _("Too many incorrect attempts. Please try again in <span class='timer'></span>.")
                     message_data = f"{message_text}|persistent warning rate-limit|{expires_at}"
@@ -678,7 +678,7 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
                     input_code = form.cleaned_data['code']
                     logger.debug(f"[VerifyEmailView] User {user.id}: Input code={input_code}")
                     if evc.is_for_token:
-                        self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'email-verification'])
+                        self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit'])
                         message_id = f"msg-wrong-type-{user.id}-{int(time.time())}"
                         message_text = _("This code is for token verification. Please request a 10-digit code <a href='%s'>here</a>.") % reverse_lazy('accounts:verify_email')
                         message_data = f"{message_text}|persistent error code-verification|{int(time.time() * 1000 + 5 * 60 * 1000)}"
@@ -688,7 +688,7 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
                         logger.debug(f"[VerifyEmailView] User {user.id}: Wrong code type")
                         return render(request, self.template_name, {'form': form})
                     if evc.is_expired():
-                        self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'email-verification'])
+                        self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit'])
                         message_id = f"msg-code-expired-{user.id}-{int(time.time())}"
                         message_text = _("The verification code has expired. Please request a new one <a href='%s'>here</a>.") % reverse_lazy('accounts:verify_email')
                         message_data = f"{message_text}|persistent error code-verification|{int(time.time() * 1000 + 5 * 60 * 1000)}"
@@ -704,7 +704,7 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
                         if evc.is_locked_out():
                             ttl = int((evc.lockout_until - now()).total_seconds())
                             expires_at = int((time.time() + ttl) * 1000)
-                            self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'email-verification'])
+                            self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit'])
                             message_id = f"msg-rate-limit-{user.id}-{int(time.time())}"
                             message_text = _("Too many incorrect attempts. Please try again in <span class='timer'></span>.")
                             message_data = f"{message_text}|persistent warning rate-limit|{expires_at}"
@@ -714,7 +714,7 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
                             logger.debug(f"[VerifyEmailView] User {user.id}: Lockout triggered after incorrect code")
                             return render(request, self.template_name, {'form': None})
                         if remaining_attempts > 0:
-                            self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'email-verification'])
+                            self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit'])
                             message_id_error = f"msg-invalid-code-{user.id}-{int(time.time())}"
                             message_text_error = _("The entered code is invalid.")
                             message_data_error = f"{message_text_error}|persistent error|{int(time.time() * 1000 + 5 * 60 * 1000)}"
@@ -727,7 +727,14 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
                             conn.hset(user_key, message_id_retry, message_data_retry)
                             conn.expire(user_key, 5 * 60)
                             messages.info(self.request, message_text_retry, extra_tags='persistent retry-attempt')
-                            if not evc.is_expired():
+                            # Only add code-verification message if code is still valid and no recent code-verification message exists
+                            existing_messages = conn.hgetall(user_key)
+                            has_recent_code_message = any(
+                                msg_data.decode('utf-8').split('|')[1].startswith('persistent info code-verification')
+                                and float(msg_data.decode('utf-8').split('|')[2]) > time.time() * 1000
+                                for msg_data in existing_messages.values()
+                            )
+                            if not evc.is_expired() and not has_recent_code_message:
                                 message_id = f"msg-code-existing-{user.id}-{int(time.time() + 2)}"
                                 message_text = _("A 10-digit verification code has been sent to your email (valid for <span class='timer'></span>).")
                                 message_data = f"{message_text}|persistent info code-verification|{int(evc.expires_at.timestamp() * 1000)}"
@@ -740,7 +747,7 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
                         user.is_verified = True
                         user.save()
                         evc.delete()
-                        self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'email-verification'])
+                        self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit'])
                         message_id = f"msg-email-success-{user.id}-{int(now().timestamp())}"
                         message_text = _("Your email has been verified successfully. You're awesome!")
                         message_data = f"{message_text}|persistent success|{int(now().timestamp() + 5 * 60 * 1000)}"
@@ -756,7 +763,7 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
                     if evc.is_locked_out():
                         ttl = int((evc.lockout_until - now()).total_seconds())
                         expires_at = int((time.time() + ttl) * 1000)
-                        self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'email-verification'])
+                        self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit'])
                         message_id = f"msg-rate-limit-{user.id}-{int(time.time())}"
                         message_text = _("Too many incorrect attempts. Please try again in <span class='timer'></span>.")
                         message_data = f"{message_text}|persistent warning rate-limit|{expires_at}"
@@ -765,7 +772,7 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
                         messages.warning(self.request, message_text, extra_tags='persistent warning rate-limit')
                         logger.debug(f"[VerifyEmailView] User {user.id}: Lockout triggered after invalid form")
                         return render(request, self.template_name, {'form': None})
-                    self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'email-verification'])
+                    self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit'])
                     message_id_error = f"msg-invalid-code-{user.id}-{int(time.time())}"
                     message_text_error = _("The entered code is invalid.")
                     message_data_error = f"{message_text_error}|persistent error|{int(time.time() * 1000 + 5 * 60 * 1000)}"
@@ -778,7 +785,14 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
                     conn.hset(user_key, message_id_retry, message_data_retry)
                     conn.expire(user_key, 5 * 60)
                     messages.info(self.request, message_text_retry, extra_tags='persistent retry-attempt')
-                    if not evc.is_expired():
+                    # Only add code-verification message if code is still valid and no recent code-verification message exists
+                    existing_messages = conn.hgetall(user_key)
+                    has_recent_code_message = any(
+                        msg_data.decode('utf-8').split('|')[1].startswith('persistent info code-verification')
+                        and float(msg_data.decode('utf-8').split('|')[2]) > time.time() * 1000
+                        for msg_data in existing_messages.values()
+                    )
+                    if not evc.is_expired() and not has_recent_code_message:
                         message_id = f"msg-code-existing-{user.id}-{int(time.time() + 2)}"
                         message_text = _("A 10-digit verification code has been sent to your email (valid for <span class='timer'></span>).")
                         message_data = f"{message_text}|persistent info code-verification|{int(evc.expires_at.timestamp() * 1000)}"
@@ -791,6 +805,7 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
                 logger.error(f"[VerifyEmailView] Unexpected error in POST: {str(e)}")
                 self._add_error_message(conn, user_key, _("An unexpected error occurred. Please try again or contact support."), str(e))
                 return render(request, self.template_name, {'form': form})
+
 
 class GetMessagesView(LoginRequiredMixin, View):
     """
@@ -852,12 +867,18 @@ class SendLoginCodeView(View):
     template_name = 'accounts/send_code.html'
 
     def _is_valid_email(self, email):
-      """Validate email format using a regular expression."""
-      pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-      return re.match(pattern, email) is not None
+        """Validate email format using a regular expression."""
+        pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        return re.match(pattern, email) is not None
 
-    def _clear_old_messages(self, conn, user_key, exclude_tags=None):
-        """Remove expired or non-excluded messages from Redis for the given user key."""
+    def _clear_old_messages(self, conn, user_key, exclude_tags=None, force_clear_tags=None):
+        """Remove expired or non-excluded messages from Redis for the given user key.
+        Args:
+            conn: Redis connection object
+            user_key: Redis key for storing messages
+            exclude_tags: Tags to preserve (if not expired)
+            force_clear_tags: Tags to always remove, regardless of exclude_tags
+        """
         try:
             existing_messages = conn.hgetall(user_key)
             for msg_id, msg_data in existing_messages.items():
@@ -869,15 +890,19 @@ class SendLoginCodeView(View):
                         continue
                     tags = parts[1]
                     expires_at = float(parts[2])
+                    # Modified: Force clear messages with force_clear_tags (e.g., code-verification)
+                    if force_clear_tags and any(tag in tags for tag in force_clear_tags):
+                        conn.hdel(user_key, msg_id)
+                        logger.debug(f"[SendLoginCodeView] Force deleted message {msg_id.decode('utf-8', errors='ignore')} with tags {tags} from {user_key}")
+                        continue
                     if expires_at < time.time() * 1000:
                         conn.hdel(user_key, msg_id)
                         logger.debug(f"[SendLoginCodeView] Deleted expired message {msg_id.decode('utf-8', errors='ignore')} from {user_key}")
                         continue
                     if exclude_tags and any(tag in tags for tag in exclude_tags):
                         continue
-                    if 'transient' not in tags:
-                        conn.hdel(user_key, msg_id)
-                        logger.debug(f"[SendLoginCodeView] Deleted message {msg_id.decode('utf-8', errors='ignore')} from {user_key}")
+                    conn.hdel(user_key, msg_id)
+                    logger.debug(f"[SendLoginCodeView] Deleted message {msg_id.decode('utf-8', errors='ignore')} from {user_key}")
                 except (ValueError, IndexError) as e:
                     logger.error(f"[SendLoginCodeView] Invalid message format in {user_key} for msg_id {msg_id.decode('utf-8', errors='ignore')}: {str(e)}")
                     conn.hdel(user_key, msg_id)
@@ -888,8 +913,9 @@ class SendLoginCodeView(View):
     def _add_error_message(self, conn, user_key, message_text, error_details=""):
         """Add an error message to Redis and Django messages framework."""
         try:
-            self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt'])
-            message_id = f"msg-error-{self.request.user.id if self.request.user.is_authenticated else 'anonymous'}-{int(time.time())}"
+            # Modified: Pass code-verification to force_clear_tags to avoid duplicates
+            self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'code-verification'], force_clear_tags=['code-verification'])
+            message_id = f"msg-error-{int(time.time())}"
             expires_at = int((time.time() + 5 * 60) * 1000)
             message_data = f"{message_text}|persistent error|{expires_at}"
             conn.hset(user_key, message_id, message_data)
@@ -901,16 +927,66 @@ class SendLoginCodeView(View):
             messages.error(self.request, message_text, extra_tags='persistent error')
 
     def get(self, request):
-        """Render the form for entering username or email."""
+        """Check for existing valid login code or render the form for entering username or email."""
         logger.debug("[SendLoginCodeView] Handling GET request")
+        # Use session_key for anonymous users to ensure unique Redis key
+        if not request.user.is_authenticated:
+            if not request.session.session_key:
+                request.session.create()
+            user_key = f"persistent_messages:{request.session.session_key}"
+        else:
+            user_key = f"persistent_messages:{request.user.id}"
+        
+        conn = get_redis_connection('default')
+        
+        if request.user.is_authenticated:
+            logger.debug(f"[SendLoginCodeView] User {request.user.id} is already authenticated, redirecting to profile")
+            return HttpResponseRedirect(reverse_lazy('accounts:profile_view'))
+        
+        user_id = request.session.get('login_user_id')
+        if user_id:
+            try:
+                user = User.objects.get(id=user_id)
+                existing_code = LoginCode.objects.filter(user=user, is_used=False).first()
+                
+                if existing_code and existing_code.is_valid():
+                    expires_at = int(existing_code.expires_at.timestamp() * 1000)
+                    logger.debug(f"[SendLoginCodeView] Existing valid login code found for user {user.id}, expires at {expires_at}")
+                    
+                    # Modified: Force clear old code-verification messages
+                    self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'code-verification'], force_clear_tags=['code-verification'])
+                    message_id = f"msg-code-existing-{user.id}-{int(time.time())}"
+                    message_text = _(f'A login code has been sent to {user.email} (valid for 10 minutes, remaining: <span class="timer"></span>).')
+                    message_data = f"{message_text}|persistent info code-verification|{expires_at}"
+                    conn.hset(user_key, message_id, message_data)
+                    conn.expire(user_key, int((expires_at - time.time() * 1000) / 1000))
+                    messages.info(self.request, message_text, extra_tags=f'persistent info code-verification {expires_at}')
+                    logger.debug(f"[SendLoginCodeView] Message added to Redis: {message_id}, data: {message_data}")
+                    
+                    return redirect('accounts:verify_login_code')
+                else:
+                    if existing_code:
+                        existing_code.delete()
+                        logger.debug(f"[SendLoginCodeView] Deleted expired login code for user {user.id}")
+            except User.DoesNotExist:
+                del request.session['login_user_id']
+                logger.debug("[SendLoginCodeView] Invalid user_id in session, cleared")
+        
         return render(request, self.template_name)
 
     def post(self, request):
         """Process username or email, generate and send a login code."""
         logger.debug("[SendLoginCodeView] Handling POST request")
+        # Use session_key for anonymous users
+        if not request.user.is_authenticated:
+            if not request.session.session_key:
+                request.session.create()
+            user_key = f"persistent_messages:{request.session.session_key}"
+        else:
+            user_key = f"persistent_messages:{request.user.id}"
+        
         try:
             identifier = request.POST.get('identifier', '').strip()
-            user_key = f"persistent_messages:{request.user.id if request.user.is_authenticated else 'anonymous'}"
             conn = get_redis_connection('default')
 
             if not identifier:
@@ -936,15 +1012,29 @@ class SendLoginCodeView(View):
                     self._add_error_message(conn, user_key, _("No user found with this username."))
                     return render(request, self.template_name)
 
-            # Delete any unused login codes for the user
-            LoginCode.objects.filter(user=user, is_used=False).delete()
-            logger.debug(f"[SendLoginCodeView] Deleted unused login codes for user {user.id}")
+            existing_code = LoginCode.objects.filter(user=user, is_used=False).first()
+            if existing_code and existing_code.is_valid():
+                expires_at = int(existing_code.expires_at.timestamp() * 1000)
+                logger.debug(f"[SendLoginCodeView] Valid login code already exists for user {user.id}, expires at {expires_at}")
+                
+                request.session['login_user_id'] = user.id
+                # Modified: Force clear old code-verification messages
+                self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'code-verification'], force_clear_tags=['code-verification'])
+                message_id = f"msg-code-existing-{user.id}-{int(time.time())}"
+                message_text = _(f'A login code has been sent to {user.email} (valid for 10 minutes, remaining: <span class="timer"></span>).')
+                message_data = f"{message_text}|persistent info code-verification|{expires_at}"
+                conn.hset(user_key, message_id, message_data)
+                conn.expire(user_key, int((expires_at - time.time() * 1000) / 1000))
+                messages.info(request, message_text, extra_tags=f'persistent info code-verification {expires_at}')
+                logger.debug(f"[SendLoginCodeView] Existing code message added to Redis: {message_id}")
+                return redirect('accounts:verify_login_code')
 
-            # Generate a new login code
+            LoginCode.objects.filter(user=user, is_used=False).delete()
+            logger.debug(f"[SendLoginCodeView] Deleted expired login codes for user {user.id}")
+
             login_code = LoginCode.objects.create(user=user)
             logger.debug(f"[SendLoginCodeView] Created login code for user {user.id}: {login_code.code}")
 
-            # Send the login code via email
             try:
                 send_mail(
                     subject=_('Your Login Code'),
@@ -960,15 +1050,16 @@ class SendLoginCodeView(View):
                 )
                 logger.debug(f"[SendLoginCodeView] Login code sent to {user.email}")
 
-                # Store user ID in session
                 request.session['login_user_id'] = user.id
-                self._clear_old_messages(conn, user_key)
+                expires_at = int(login_code.expires_at.timestamp() * 1000)
+                # Modified: Force clear old code-verification messages
+                self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'code-verification'], force_clear_tags=['code-verification'])
                 message_id = f"msg-code-sent-{user.id}-{int(time.time())}"
-                message_text = _(f'A login code has been sent to {user.email}.')
-                message_data = f"{message_text}|persistent success code-verification|{int(time.time() * 1000 + 5 * 60 * 1000)}"
+                message_text = _(f'A login code has been sent to {user.email} (valid for 10 minutes, remaining: <span class="timer"></span>).')
+                message_data = f"{message_text}|persistent info code-verification|{expires_at}"
                 conn.hset(user_key, message_id, message_data)
-                conn.expire(user_key, 5 * 60)
-                messages.success(self.request, message_text, extra_tags='persistent success code-verification')
+                conn.expire(user_key, int((expires_at - time.time() * 1000) / 1000))
+                messages.info(request, message_text, extra_tags=f'persistent info code-verification {expires_at}')
                 logger.debug(f"[SendLoginCodeView] Success message added to Redis: {message_id}")
                 return redirect('accounts:verify_login_code')
             except Exception as e:
@@ -977,12 +1068,11 @@ class SendLoginCodeView(View):
                 return render(request, self.template_name)
         except Exception as e:
             logger.error(f"[SendLoginCodeView] Unexpected error in POST: {str(e)}\n{traceback.format_exc()}")
-            user_key = f"persistent_messages:{request.user.id if request.user.is_authenticated else 'anonymous'}"
             try:
                 conn = get_redis_connection('default')
                 self._add_error_message(conn, user_key, _("An unexpected error occurred. Please try again or contact support."), str(e))
             except:
-                messages.error(self.request, _("An unexpected error occurred. Please try again or contact support."), extra_tags='persistent error')
+                messages.error(request, _("An unexpected error occurred. Please try again or contact support."), extra_tags='persistent error')
             return render(request, self.template_name)
 
 
@@ -993,8 +1083,14 @@ class VerifyLoginCodeView(View):
     """
     template_name = 'accounts/verify_code.html'
 
-    def _clear_old_messages(self, conn, user_key, exclude_tags=None):
-        """Remove expired or non-excluded messages from Redis for the given user key."""
+    def _clear_old_messages(self, conn, user_key, exclude_tags=None, force_clear_tags=None):
+        """Remove expired or non-excluded messages from Redis for the given user key.
+        Args:
+            conn: Redis connection object
+            user_key: Redis key for storing messages
+            exclude_tags: Tags to preserve (if not expired)
+            force_clear_tags: Tags to always remove, regardless of exclude_tags
+        """
         try:
             existing_messages = conn.hgetall(user_key)
             for msg_id, msg_data in existing_messages.items():
@@ -1006,15 +1102,19 @@ class VerifyLoginCodeView(View):
                         continue
                     tags = parts[1]
                     expires_at = float(parts[2])
+                    # Modified: Force clear messages with force_clear_tags (e.g., code-verification)
+                    if force_clear_tags and any(tag in tags for tag in force_clear_tags):
+                        conn.hdel(user_key, msg_id)
+                        logger.debug(f"[VerifyLoginCodeView] Force deleted message {msg_id.decode('utf-8', errors='ignore')} with tags {tags} from {user_key}")
+                        continue
                     if expires_at < time.time() * 1000:
                         conn.hdel(user_key, msg_id)
                         logger.debug(f"[VerifyLoginCodeView] Deleted expired message {msg_id.decode('utf-8', errors='ignore')} from {user_key}")
                         continue
                     if exclude_tags and any(tag in tags for tag in exclude_tags):
                         continue
-                    if 'transient' not in tags:
-                        conn.hdel(user_key, msg_id)
-                        logger.debug(f"[VerifyLoginCodeView] Deleted message {msg_id.decode('utf-8', errors='ignore')} from {user_key}")
+                    conn.hdel(user_key, msg_id)
+                    logger.debug(f"[VerifyLoginCodeView] Deleted message {msg_id.decode('utf-8', errors='ignore')} from {user_key}")
                 except (ValueError, IndexError) as e:
                     logger.error(f"[VerifyLoginCodeView] Invalid message format in {user_key} for msg_id {msg_id.decode('utf-8', errors='ignore')}: {str(e)}")
                     conn.hdel(user_key, msg_id)
@@ -1025,8 +1125,9 @@ class VerifyLoginCodeView(View):
     def _add_error_message(self, conn, user_key, message_text, error_details=""):
         """Add an error message to Redis and Django messages framework."""
         try:
-            self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt'])
-            message_id = f"msg-error-{self.request.user.id if self.request.user.is_authenticated else 'anonymous'}-{int(time.time())}"
+            # Modified: Pass code-verification to force_clear_tags to avoid duplicates
+            self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'code-verification'], force_clear_tags=['code-verification'])
+            message_id = f"msg-error-{int(time.time())}"
             expires_at = int((time.time() + 5 * 60) * 1000)
             message_data = f"{message_text}|persistent error|{expires_at}"
             conn.hset(user_key, message_id, message_data)
@@ -1040,35 +1141,61 @@ class VerifyLoginCodeView(View):
     def get(self, request):
         """Render the form for entering the login code."""
         logger.debug("[VerifyLoginCodeView] Handling GET request")
+        # Use session_key for anonymous users
+        if not request.user.is_authenticated:
+            if not request.session.session_key:
+                request.session.create()
+            user_key = f"persistent_messages:{request.session.session_key}"
+        else:
+            user_key = f"persistent_messages:{request.user.id}"
+        
+        conn = get_redis_connection('default')
+        
         user_id = request.session.get('login_user_id')
         if not user_id:
-            user_key = f"persistent_messages:{request.user.id if request.user.is_authenticated else 'anonymous'}"
-            try:
-                conn = get_redis_connection('default')
-                self._add_error_message(conn, user_key, _("Please enter your email or username first."))
-            except:
-                messages.error(self.request, _("Please enter your email or username first."), extra_tags='persistent error')
+            self._add_error_message(conn, user_key, _("Please enter your email or username first."))
             return redirect('accounts:send_login_code')
+            
         try:
             user = User.objects.get(id=user_id)
+            existing_code = LoginCode.objects.filter(user=user, is_used=False).first()
+            
+            if not existing_code or not existing_code.is_valid():
+                self._add_error_message(conn, user_key, _("Login code has expired. Please request a new one."))
+                return redirect('accounts:send_login_code')
+            
+            expires_at = int(existing_code.expires_at.timestamp() * 1000)
+            logger.debug(f"[VerifyLoginCodeView] Valid login code found for user {user.id}, expires at {expires_at}")
+            
+            # Modified: Force clear old code-verification messages
+            self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'code-verification'], force_clear_tags=['code-verification'])
+            message_id = f"msg-code-timer-{user.id}-{int(time.time())}"
+            message_text = _(f'Login code sent to {user.email} (valid for 10 minutes, remaining: <span class="timer"></span>).')
+            message_data = f"{message_text}|persistent info code-verification|{expires_at}"
+            conn.hset(user_key, message_id, message_data)
+            conn.expire(user_key, int((expires_at - time.time() * 1000) / 1000))
+            messages.info(request, message_text, extra_tags=f'persistent info code-verification {expires_at}')
+            
             logger.debug(f"[VerifyLoginCodeView] User found for ID {user_id}")
             return render(request, self.template_name, {'user_email': user.email})
         except User.DoesNotExist:
-            user_key = f"persistent_messages:{request.user.id if request.user.is_authenticated else 'anonymous'}"
-            try:
-                conn = get_redis_connection('default')
-                self._add_error_message(conn, user_key, _("Error processing request. Please try again."))
-            except:
-                messages.error(self.request, _("Error processing request. Please try again."), extra_tags='persistent error')
+            self._add_error_message(conn, user_key, _("Error processing request. Please try again."))
             return redirect('accounts:send_login_code')
 
     def post(self, request):
         """Validate the submitted login code and log in the user if valid."""
         logger.debug("[VerifyLoginCodeView] Handling POST request")
-        user_id = request.session.get('login_user_id')
-        user_key = f"persistent_messages:{request.user.id if request.user.is_authenticated else 'anonymous'}"
+        # Use session_key for anonymous users
+        if not request.user.is_authenticated:
+            if not request.session.session_key:
+                request.session.create()
+            user_key = f"persistent_messages:{request.session.session_key}"
+        else:
+            user_key = f"persistent_messages:{request.user.id}"
+        
         conn = get_redis_connection('default')
 
+        user_id = request.session.get('login_user_id')
         if not user_id:
             self._add_error_message(conn, user_key, _("Please enter your email or username first."))
             return redirect('accounts:send_login_code')
@@ -1101,18 +1228,22 @@ class VerifyLoginCodeView(View):
                 login(request, user, backend='django.contrib.auth.backends.ModelBackend')
                 logger.debug(f"[VerifyLoginCodeView] User {user.id} logged in successfully")
 
+                # Delete old session-based Redis key after successful login
+                old_key = f"persistent_messages:{request.session.session_key}"
+                conn.delete(old_key)
+                logger.debug(f"[VerifyLoginCodeView] Deleted old Redis key {old_key} after login")
+
                 if 'login_user_id' in request.session:
                     del request.session['login_user_id']
                     logger.debug("[VerifyLoginCodeView] Cleared login_user_id from session")
 
-                self._clear_old_messages(conn, user_key)
-                message_id = f"msg-login-success-{user.id}-{int(time.time())}"
+                self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'code-verification'])
+                message_id = f"msg-success-{user.id}-{int(time.time())}"
                 message_text = _(f'Welcome back, {user.username}!')
-                message_data = f"{message_text}|persistent success|{int(time.time() * 1000 + 5 * 60 * 1000)}"
+                message_data = f"{message_text}|transient success|{int(time.time() * 1000 + 5 * 60 * 1000)}"
                 conn.hset(user_key, message_id, message_data)
                 conn.expire(user_key, 5 * 60)
-                messages.success(self.request, message_text, extra_tags='persistent success')
-                logger.debug(f"[VerifyLoginCodeView] Success message added to Redis: {message_id}")
+                messages.success(self.request, message_text, extra_tags='transient success')
                 return redirect('accounts:profile_view')
             else:
                 self._add_error_message(conn, user_key, _("The login code has expired. Please request a new one."))
@@ -1140,10 +1271,17 @@ class ResendLoginCodeView(View):
     def post(self, request):
         """Generate and send a new login code to the user's email."""
         logger.debug("[ResendLoginCodeView] Handling POST request")
-        user_id = request.session.get('login_user_id')
-        user_key = f"persistent_messages:{request.user.id if request.user.is_authenticated else 'anonymous'}"
+        # Use session_key for anonymous users
+        if not request.user.is_authenticated:
+            if not request.session.session_key:
+                request.session.create()
+            user_key = f"persistent_messages:{request.session.session_key}"
+        else:
+            user_key = f"persistent_messages:{request.user.id}"
+        
         conn = get_redis_connection('default')
 
+        user_id = request.session.get('login_user_id')
         if not user_id:
             logger.error("[ResendLoginCodeView] No user_id in session")
             return JsonResponse({'success': False, 'message': _('Error processing request.')}, status=400)
@@ -1157,15 +1295,12 @@ class ResendLoginCodeView(View):
             return JsonResponse({'success': False, 'message': _('Error processing request.')}, status=400)
 
         try:
-            # Delete any unused login codes
             LoginCode.objects.filter(user=user, is_used=False).delete()
             logger.debug(f"[ResendLoginCodeView] Deleted unused login codes for user {user.id}")
 
-            # Generate a new login code
             login_code = LoginCode.objects.create(user=user)
             logger.debug(f"[ResendLoginCodeView] Created new login code for user {user.id}: {login_code.code}")
 
-            # Send the login code via email
             send_mail(
                 subject=_('Your New Login Code'),
                 message=_(
@@ -1179,60 +1314,21 @@ class ResendLoginCodeView(View):
             )
             logger.debug(f"[ResendLoginCodeView] New login code sent to {user.email}")
 
-            self._clear_old_messages(conn, user_key)
-            message_id = f"msg-code-resent-{user.id}-{int(time.time())}"
-            message_text = _('A new login code has been sent to your email.')
-            message_data = f"{message_text}|persistent success code-verification|{int(time.time() * 1000 + 5 * 60 * 1000)}"
-            conn.hset(user_key, message_id, message_data)
-            conn.expire(user_key, 5 * 60)
-            messages.success(self.request, message_text, extra_tags='persistent success code-verification')
-            logger.debug(f"[ResendLoginCodeView] Success message added to Redis: {message_id}")
-            return JsonResponse({'success': True, 'message': message_text}, status=200)
+            # Modified: Force clear old code-verification messages
+            self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'code-verification'], force_clear_tags=['code-verification'])
+            
+            message_text_success = _('A new login code has been sent to your email.')
+            expires_at = int(login_code.expires_at.timestamp() * 1000)
+            message_id_timer = f"msg-code-resent-{user.id}-{int(time.time())}"
+            message_text_timer = _(f'A new login code has been sent to {user.email} (valid for 10 minutes, remaining: <span class="timer"></span>).')
+            message_data_timer = f"{message_text_timer}|persistent info code-verification|{expires_at}"
+            conn.hset(user_key, message_id_timer, message_data_timer)
+            conn.expire(user_key, int((expires_at - time.time() * 1000) / 1000))
+            messages.info(request, message_text_timer, extra_tags=f'persistent info code-verification {expires_at}')
+            
+            logger.debug(f"[ResendLoginCodeView] Success message added to Redis: {message_id_timer}")
+            return JsonResponse({'success': True, 'message': message_text_success}, status=200)
         except Exception as e:
             logger.error(f"[ResendLoginCodeView] Error sending new login code: {str(e)}\n{traceback.format_exc()}")
             self._add_error_message(conn, user_key, _("Error sending new login code."), str(e))
             return JsonResponse({'success': False, 'message': _('Error sending new login code.')}, status=500)
-
-    def _clear_old_messages(self, conn, user_key, exclude_tags=None):
-        """Remove expired or non-excluded messages from Redis for the given user key."""
-        try:
-            existing_messages = conn.hgetall(user_key)
-            for msg_id, msg_data in existing_messages.items():
-                try:
-                    parts = msg_data.decode('utf-8', errors='ignore').split('|')
-                    if len(parts) != 3:
-                        logger.error(f"[ResendLoginCodeView] Invalid message format in {user_key} for msg_id {msg_id.decode('utf-8', errors='ignore')}: {msg_data}")
-                        conn.hdel(user_key, msg_id)
-                        continue
-                    tags = parts[1]
-                    expires_at = float(parts[2])
-                    if expires_at < time.time() * 1000:
-                        conn.hdel(user_key, msg_id)
-                        logger.debug(f"[ResendLoginCodeView] Deleted expired message {msg_id.decode('utf-8', errors='ignore')} from {user_key}")
-                        continue
-                    if exclude_tags and any(tag in tags for tag in exclude_tags):
-                        continue
-                    if 'transient' not in tags:
-                        conn.hdel(user_key, msg_id)
-                        logger.debug(f"[ResendLoginCodeView] Deleted message {msg_id.decode('utf-8', errors='ignore')} from {user_key}")
-                except (ValueError, IndexError) as e:
-                    logger.error(f"[ResendLoginCodeView] Invalid message format in {user_key} for msg_id {msg_id.decode('utf-8', errors='ignore')}: {str(e)}")
-                    conn.hdel(user_key, msg_id)
-        except Exception as e:
-            logger.error(f"[ResendLoginCodeView] Error clearing old messages from {user_key}: {str(e)}")
-            messages.error(self.request, _("An unexpected error occurred. Please try again or contact support."), extra_tags='error transient')
-
-    def _add_error_message(self, conn, user_key, message_text, error_details=""):
-        """Add an error message to Redis and Django messages framework."""
-        try:
-            self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt'])
-            message_id = f"msg-error-{self.request.user.id if self.request.user.is_authenticated else 'anonymous'}-{int(time.time())}"
-            expires_at = int((time.time() + 5 * 60) * 1000)
-            message_data = f"{message_text}|persistent error|{expires_at}"
-            conn.hset(user_key, message_id, message_data)
-            conn.expire(user_key, 5 * 60)
-            messages.error(self.request, message_text, extra_tags='persistent error')
-            logger.error(f"[ResendLoginCodeView] Error message added: {message_text}, Details: {error_details}")
-        except Exception as e:
-            logger.error(f"[ResendLoginCodeView] Error adding error message to Redis: {str(e)}")
-            messages.error(self.request, _("An unexpected error occurred. Please try again or contact support."), extra_tags='error transient')

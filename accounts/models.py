@@ -113,12 +113,12 @@ class LoginCode(models.Model):
         if not self.code:
             self.code = self.generate_code()
         if not self.expires_at:
-            self.expires_at = timezone.now() + timedelta(minutes=10)  # 10 دقیقه اعتبار
+            self.expires_at = timezone.now() + timedelta(minutes=10)
         super().save(*args, **kwargs)
     
     @staticmethod
     def generate_code():
-        """تولید کد 15 رقمی شامل اعداد و حروف انگلیسی"""
+
         characters = string.ascii_uppercase + string.digits
         while True:
             code = ''.join(random.choice(characters) for _ in range(15))
@@ -126,7 +126,7 @@ class LoginCode(models.Model):
                 return code
     
     def is_valid(self):
-        """چک کردن معتبر بودن کد"""
+
         return not self.is_used and self.expires_at > timezone.now()
     
     def __str__(self):

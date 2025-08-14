@@ -287,3 +287,18 @@ class EmailVerificationForm(forms.Form):
         if not code.isdigit():
             raise forms.ValidationError(_("The verification code must be exactly 10 digits."))
         return code
+
+
+class LoginCodeForm(forms.Form):
+    code = forms.CharField(
+        max_length=15,
+        min_length=15,
+        label=_("Login Code"),
+        help_text=_("Enter the 15-character login code sent to your email.")
+    )
+
+    def clean_code(self):
+        code = self.cleaned_data.get('code').upper()
+        if len(code) != 15 or not code.isalnum():
+            raise forms.ValidationError(_("The login code must be exactly 15 alphanumeric characters."))
+        return code
