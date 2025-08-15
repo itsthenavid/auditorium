@@ -21,7 +21,7 @@ from allauth.account.utils import send_email_confirmation
 
 from extensions.mixins import RateLimitMixin, RequireGetMixin
 from extensions.utils import create_and_send_verification_code
-from .forms import RegisterForm, ProfileImageForm, ProfileInfoForm, EmailVerificationForm
+from .forms import RegisterForm, ProfileImageForm, ProfileInfoForm, EmailVerificationForm, ProfilePasswordChangeForm
 from .models import User, EmailVerificationCode, LoginCode
 
 # Create your views here.
@@ -178,8 +178,8 @@ class CustomLoginView(LoginView):
 
 class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     """
-    Handles updating user profile information or images.
-    Supports both ProfileImageForm and ProfileInfoForm based on request data.
+    Handles updating user profile information, images, or password.
+    Supports ProfileImageForm, ProfileInfoForm, and ProfilePasswordChangeForm based on request data.
     """
     model = User
     template_name = 'accounts/profile.html'
@@ -189,13 +189,25 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
         """Determine which form class to use based on form_type in POST data."""
         form_type = self.request.POST.get('form_type')
         logger.debug(f"[ProfileUpdateView] Form type received: {form_type}")
-        return ProfileImageForm if form_type == 'image' else ProfileInfoForm
+        
+        if form_type == 'image':
+            return ProfileImageForm
+        elif form_type == 'password':
+            return ProfilePasswordChangeForm
+        else:
+            return ProfileInfoForm
 
     def get_form_kwargs(self):
-        """Pass language to ProfileInfoForm if applicable."""
+        """Pass appropriate kwargs to different form types."""
         kwargs = super().get_form_kwargs()
-        if self.get_form_class() == ProfileInfoForm:
+        form_class = self.get_form_class()
+        
+        if form_class == ProfileInfoForm:
             kwargs['language'] = self.request.LANGUAGE_CODE
+        elif form_class == ProfilePasswordChangeForm:
+            kwargs.pop('instance', None)  # حذف instance
+            kwargs['user'] = self.request.user
+            
         return kwargs
 
     def get_object(self):
@@ -203,26 +215,31 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
         return self.request.user
 
     def get_context_data(self, **kwargs):
-        """Add both image and info forms to the context."""
+        """Add all three forms to the context."""
         context = super().get_context_data(**kwargs)
         context['image_form'] = ProfileImageForm(instance=self.request.user)
         context['info_form'] = ProfileInfoForm(
             instance=self.request.user,
             language=self.request.LANGUAGE_CODE
         )
-        logger.debug(f"[ProfileUpdateView] Context prepared: {context}")
+        context['password_form'] = ProfilePasswordChangeForm(user=self.request.user)
+        logger.debug(f"[ProfileUpdateView] Context prepared with all forms")
         return context
 
     def post(self, request, *args, **kwargs):
-        """Handle POST requests, supporting both AJAX and standard submissions."""
+        """Handle POST requests for all form types."""
         try:
             form_type = request.POST.get('form_type')
-            logger.debug(f"[ProfileUpdateView] POST request received, form_type={form_type}, is_ajax={request.headers.get('X-Requested-With') == 'XMLHttpRequest'}")
+            logger.debug(f"[ProfileUpdateView] POST request received, form_type={form_type}")
             
             self.object = self.get_object()
             form_class = self.get_form_class()
-            form = form_class(request.POST, request.FILES, instance=self.object)
             
+            if form_class == ProfilePasswordChangeForm:
+                form = form_class(user=self.object, data=request.POST)
+            else:
+                form = form_class(request.POST, request.FILES, instance=self.object)
+                
             if form.is_valid():
                 response = self.form_valid(form)
                 if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
@@ -241,19 +258,36 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
             return self.form_invalid(form)
 
     def form_valid(self, form):
-        """Process valid form submission, handle changes, and store messages in Redis."""
-        logger.debug(f"[ProfileUpdateView] Form data: {self.request.POST}, Files: {self.request.FILES}")
+        """Process valid form submission based on form type."""
+        logger.debug(f"[ProfileUpdateView] Form data: {self.request.POST}")
         try:
-            user = form.save(commit=False)
-            old_user = User.objects.get(id=user.id)
-            user._request = self.request
-            logger.debug(f"[ProfileUpdateView] Set user._request for user {user.id}")
-
+            form_type = self.request.POST.get('form_type')
+            
             conn = get_redis_connection('default')
-            user_key = f"persistent_messages:{user.id}"
+            user_key = f"persistent_messages:{self.request.user.id}"
             self._clear_old_messages(conn, user_key, exclude_tags=['email-verification'])
 
-            if form.__class__ == ProfileImageForm:
+            if form_type == 'password':
+                form.save()
+                logger.debug(f"[ProfileUpdateView] Password changed for user {self.request.user.id}")
+                
+                from django.contrib.auth import update_session_auth_hash
+                update_session_auth_hash(self.request, self.request.user)
+                
+                messages.success(
+                    self.request, 
+                    _("Your password has been successfully changed."), 
+                    extra_tags='success password transient', 
+                    fail_silently=True
+                )
+                
+                return HttpResponseRedirect(self.success_url)
+                
+            elif form_type == 'image':
+                user = form.save(commit=False)
+                old_user = User.objects.get(id=user.id)
+                user._request = self.request
+                
                 avatar_changed = False
                 banner_changed = False
 
@@ -262,32 +296,30 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
                 old_avatar = old_user.avatar.url if old_user.avatar and hasattr(old_user.avatar, 'url') else old_user.default_avatar or f"{settings.STATIC_URL}shared/avatars/avatar_1.webp"
                 avatar_changed_flag = self.request.POST.get('avatar_changed') == 'true'
 
-                logger.debug(f"[ProfileUpdateView] Avatar comparison: new_avatar={new_avatar}, new_default_avatar={new_default_avatar}, old_avatar={old_avatar}, avatar_changed={avatar_changed_flag}")
-
                 if new_avatar and isinstance(new_avatar, str) and (new_avatar != old_avatar or avatar_changed_flag):
                     avatar_changed = True
-                    logger.debug(f"[ProfileUpdateView] Avatar changed to default: {new_avatar}")
                     messages.success(self.request, _("Your avatar has been changed"), extra_tags='success avatar transient', fail_silently=True)
                 elif new_avatar and not isinstance(new_avatar, str) and (not old_user.avatar or new_avatar != old_user.avatar):
                     avatar_changed = True
-                    logger.debug(f"[ProfileUpdateView] Avatar changed to uploaded file: {new_avatar}")
                     messages.success(self.request, _("Your avatar has been changed"), extra_tags='success avatar transient', fail_silently=True)
 
                 new_banner = form.cleaned_data.get('banner')
                 old_banner = old_user.banner.url if old_user.banner and hasattr(old_user.banner, 'url') else old_user.banner or f"{settings.STATIC_URL}shared/banners/default_banner.webp"
-                
-                logger.debug(f"[ProfileUpdateView] Banner comparison: new_banner={new_banner}, old_banner={old_banner}")
 
                 if new_banner and (not old_user.banner or new_banner != old_user.banner):
                     banner_changed = True
-                    logger.debug(f"[ProfileUpdateView] Banner changed to uploaded file: {new_banner}")
                     messages.success(self.request, _("Your banner has been changed"), extra_tags='success banner transient', fail_silently=True)
 
                 if not avatar_changed and not banner_changed:
-                    logger.debug(f"[ProfileUpdateView] No changes detected for user {user.id}")
                     messages.info(self.request, _("No changes were made to your profile image or banner."), extra_tags='info transient', fail_silently=True)
 
-            elif form.__class__ == ProfileInfoForm:
+                user.save()
+                
+            else:
+                user = form.save(commit=False)
+                old_user = User.objects.get(id=user.id)
+                user._request = self.request
+                
                 language = self.request.LANGUAGE_CODE
                 valid_languages = ['en', 'fa', 'ckb', 'ku']
                 if language not in valid_languages:
@@ -297,20 +329,16 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
                 changes_detected = False
 
                 if 'username' in form.cleaned_data and form.cleaned_data.get('username') != old_user.username:
-                    logger.debug(f"[ProfileUpdateView] Username changed from '{old_user.username}' to '{form.cleaned_data.get('username')}'")
                     messages.success(self.request, _(f"Your username has successfully changed to '{form.cleaned_data.get('username')}'"), extra_tags='success transient', fail_silently=True)
                     changes_detected = True
 
                 if 'name' in form.cleaned_data and form.cleaned_data.get('name') != old_profile.get('name', ''):
-                    logger.debug(f"[ProfileUpdateView] Name changed from '{old_profile.get('name', '')}' to '{form.cleaned_data.get('name')}'")
                     messages.success(self.request, _(f"Your name has been successfully updated to '{form.cleaned_data.get('name')}'"), extra_tags='success transient', fail_silently=True)
                     changes_detected = True
 
                 if 'bio' in form.cleaned_data and form.cleaned_data.get('bio') != old_profile.get('bio', ''):
-                    logger.debug(f"[ProfileUpdateView] Bio changed from '{old_profile.get('bio', '')}' to '{form.cleaned_data.get('bio')}'")
                     messages.success(self.request, _("Your bio has been successfully updated."), extra_tags='success transient', fail_silently=True)
                     changes_detected = True
-
 
                 if 'email' in form.cleaned_data:
                     new_email = form.cleaned_data.get('email', '')
@@ -318,26 +346,96 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
                     
                     if new_email != old_email:
                         if new_email:
-                            logger.debug(f"[ProfileUpdateView] Email changed from '{old_email}' to '{new_email}'")
                             messages.success(self.request, _("Your email has been updated. Please verify your new email."), extra_tags='success transient', fail_silently=True)
                         else:
-                            logger.debug(f"[ProfileUpdateView] Email cleared from '{old_email}' to empty")
                             messages.warning(self.request, _("Your email has been removed from your profile."), extra_tags='warning transient', fail_silently=True)
                         changes_detected = True
 
                 if not changes_detected:
-                    logger.debug(f"[ProfileUpdateView] No changes detected for user {user.id}")
                     messages.info(self.request, _("No changes were made to your profile information."), extra_tags='info transient', fail_silently=True)
 
-            user.save()
-            logger.debug(f"[ProfileUpdateView] User {user.id} saved with avatar={user.avatar}, banner={user.banner}, default_avatar={getattr(user, 'default_avatar', '')}")
+                user.save()
+                
             return super().form_valid(form)
+            
         except Exception as e:
-            logger.error(f"[ProfileUpdateView] Error in form_valid for user {user.id}: {str(e)}\n{traceback.format_exc()}")
+            logger.error(f"[ProfileUpdateView] Error in form_valid: {str(e)}\n{traceback.format_exc()}")
             if self.request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                 return JsonResponse({'status': 'error', 'error': str(e)}, status=500)
             messages.error(self.request, _("An unexpected error occurred. Please try again or contact support."), extra_tags='error transient', fail_silently=True)
             return self.form_invalid(form)
+
+    def form_invalid(self, form):
+        """Handle invalid form submission with detailed error messages."""
+        logger.debug(f"[ProfileUpdateView] Form errors: {form.errors}")
+        form_type = self.request.POST.get('form_type')
+        
+        try:
+            if form_type == 'password':
+                for field, errors in form.errors.items():
+                    for error in errors:
+                        if field == 'current_password':
+                            message_text = _("Current password is incorrect. Please try again.")
+                        elif field == 'new_password':
+                            message_text = _("New password is invalid. Please check the requirements.")
+                        elif field == 'confirm_password':
+                            message_text = _("Password confirmation does not match.")
+                        elif field == '__all__':
+                            message_text = error
+                        else:
+                            message_text = _(f"Error in {field}: {error}")
+                        
+                        messages.error(
+                            self.request, 
+                            message_text, 
+                            extra_tags='error password transient', 
+                            fail_silently=True
+                        )
+                        
+            elif form_type == 'image':
+                for field, errors in form.errors.items():
+                    for error in errors:
+                        if field == 'avatar':
+                            message_text = _("Invalid avatar image. Please upload a valid image (e.g., JPG, PNG).")
+                        elif field == 'banner':
+                            message_text = _("Invalid banner image. Please upload a valid image (e.g., JPG, PNG).")
+                        else:
+                            message_text = _(f"Error in {field}: {error}")
+                        messages.error(self.request, message_text, extra_tags=f'error {field} transient', fail_silently=True)
+                        
+            else:
+                # مدیریت خطاهای فرم اطلاعات (کد قبلی)
+                for field, errors in form.errors.items():
+                    for error in errors:
+                        if field == 'username':
+                            if 'required' in error.lower():
+                                message_text = _("Username is required. Please enter a username.")
+                            elif 'already exists' in error.lower():
+                                message_text = _("This username is already taken. Please choose a different one.")
+                            else:
+                                message_text = _("Invalid username. It must be 3-30 characters and contain only letters, numbers, or underscores.")
+                        elif field == 'email':
+                            if 'invalid' in error.lower():
+                                message_text = _("Email format is invalid. Please enter a valid email like example@domain.com.")
+                            elif 'already exists' in error.lower():
+                                message_text = _("This email is already registered. Please use a different email.")
+                            else:
+                                message_text = _("Invalid email address. Please check and try again.")
+                        else:
+                            message_text = _(f"Error in {field}: {error}")
+                        messages.error(self.request, message_text, extra_tags='error transient', fail_silently=True)
+
+            if self.request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return JsonResponse({'status': 'error', 'errors': form.errors.as_json()}, status=400)
+            return super().form_invalid(form)
+            
+        except Exception as e:
+            logger.error(f"[ProfileUpdateView] Error in form_invalid: {str(e)}\n{traceback.format_exc()}")
+            message_text = _("An unexpected error occurred. Please try again or contact support.")
+            messages.error(self.request, message_text, extra_tags='error transient', fail_silently=True)
+            if self.request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return JsonResponse({'status': 'error', 'error': str(e)}, status=500)
+            return super().form_invalid(form)
 
     def _clear_old_messages(self, conn, user_key, exclude_tags=None):
         """Remove expired or non-excluded messages from Redis for the given user key."""

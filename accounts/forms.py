@@ -283,6 +283,88 @@ class ProfileInfoForm(forms.ModelForm):
         return user
 
 
+class ProfilePasswordChangeForm(forms.Form):
+    """
+    
+    """
+    current_password = forms.CharField(
+        label=_("Current Password"),
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control',
+            'placeholder': _('Enter your current password')
+        }),
+        required=True,
+        help_text=_("Enter your current password to verify your identity.")
+    )
+    new_password = forms.CharField(
+        label=_("New Password"),
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control',
+            'placeholder': _('Enter new password')
+        }),
+        required=True,
+        min_length=8,
+        help_text=_("Password must be at least 8 characters long and contain letters and numbers.")
+    )
+    confirm_password = forms.CharField(
+        label=_("Confirm New Password"),
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control',
+            'placeholder': _('Confirm your new password')
+        }),
+        required=True,
+        help_text=_("Enter the same password as above for verification.")
+    )
+
+    def __init__(self, user, *args, **kwargs):
+        self.user = user
+        super().__init__(*args, **kwargs)
+
+    def clean_current_password(self):
+        current_password = self.cleaned_data.get('current_password')
+        if current_password and not self.user.check_password(current_password):
+            raise forms.ValidationError(_("Current password is incorrect."))
+        return current_password
+
+    def clean_new_password(self):
+        new_password = self.cleaned_data.get('new_password')
+        if new_password:
+            if len(new_password) < 8:
+                raise forms.ValidationError(_("Password must be at least 8 characters long."))
+            
+            has_letter = any(c.isalpha() for c in new_password)
+            has_digit = any(c.isdigit() for c in new_password)
+            
+            if not has_letter:
+                raise forms.ValidationError(_("Password must contain at least one letter."))
+            if not has_digit:
+                raise forms.ValidationError(_("Password must contain at least one number."))
+                
+        return new_password
+
+    def clean(self):
+        cleaned_data = super().clean()
+        new_password = cleaned_data.get('new_password')
+        confirm_password = cleaned_data.get('confirm_password')
+        current_password = cleaned_data.get('current_password')
+
+        if new_password and confirm_password:
+            if new_password != confirm_password:
+                raise forms.ValidationError(_("The new passwords do not match."))
+
+        if new_password and current_password:
+            if new_password == current_password:
+                raise forms.ValidationError(_("New password cannot be the same as the current password."))
+
+        return cleaned_data
+
+    def save(self):
+        new_password = self.cleaned_data['new_password']
+        self.user.set_password(new_password)
+        self.user.save()
+        return self.user
+
+
 class EmailVerificationForm(forms.Form):
     code = forms.CharField(
         max_length=10,
