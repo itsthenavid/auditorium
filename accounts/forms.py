@@ -265,9 +265,13 @@ class ProfileInfoForm(forms.ModelForm):
         valid_languages = ['en', 'fa', 'ckb', 'ku']
         if language not in valid_languages:
             language = 'en'
+        
         user.username = self.cleaned_data['username']
-        if self.cleaned_data.get('email'):
-            user.email = self.cleaned_data['email']
+        
+
+        new_email = self.cleaned_data.get('email', '')
+        user.email = new_email
+
         profiles = user.profiles or {}
         profiles[language] = {
             'name': self.cleaned_data['name'],

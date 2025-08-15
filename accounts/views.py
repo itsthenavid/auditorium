@@ -311,10 +311,19 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
                     messages.success(self.request, _("Your bio has been successfully updated."), extra_tags='success transient', fail_silently=True)
                     changes_detected = True
 
-                if 'email' in form.cleaned_data and form.cleaned_data.get('email') and form.cleaned_data.get('email') != old_user.email:
-                    logger.debug(f"[ProfileUpdateView] Email changed from '{old_user.email}' to '{form.cleaned_data.get('email')}'")
-                    messages.success(self.request, _("Your email has been updated. Please verify your new email."), extra_tags='success transient', fail_silently=True)
-                    changes_detected = True
+
+                if 'email' in form.cleaned_data:
+                    new_email = form.cleaned_data.get('email', '')
+                    old_email = old_user.email or ''
+                    
+                    if new_email != old_email:
+                        if new_email:
+                            logger.debug(f"[ProfileUpdateView] Email changed from '{old_email}' to '{new_email}'")
+                            messages.success(self.request, _("Your email has been updated. Please verify your new email."), extra_tags='success transient', fail_silently=True)
+                        else:
+                            logger.debug(f"[ProfileUpdateView] Email cleared from '{old_email}' to empty")
+                            messages.warning(self.request, _("Your email has been removed from your profile."), extra_tags='warning transient', fail_silently=True)
+                        changes_detected = True
 
                 if not changes_detected:
                     logger.debug(f"[ProfileUpdateView] No changes detected for user {user.id}")
