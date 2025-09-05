@@ -22,7 +22,7 @@ from allauth.account.utils import get_adapter
 from extensions.mixins import RateLimitMixin, RequireGetMixin
 from extensions.utils import create_and_send_verification_code
 from .forms import RegisterForm, ProfileImageForm, ProfileInfoForm, EmailVerificationForm, ProfilePasswordChangeForm
-from .models import User, EmailVerificationCode, LoginCode
+from .models import User, EmailVerificationCode, AuditoCode
 
 # Create your views here.
 
@@ -1123,7 +1123,7 @@ class SendLoginCodeView(View):
         if user_id:
             try:
                 user = User.objects.get(id=user_id)
-                existing_code = LoginCode.objects.filter(user=user, is_used=False).first()
+                existing_code = AuditoCode.objects.filter(user=user, is_used=False).first()
                 
                 if existing_code and existing_code.is_valid():
                     expires_at = int(existing_code.expires_at.timestamp() * 1000)
@@ -1188,7 +1188,7 @@ class SendLoginCodeView(View):
                     self._add_error_message(conn, user_key, _("No user found with this username."))
                     return render(request, self.template_name)
 
-            existing_code = LoginCode.objects.filter(user=user, is_used=False).first()
+            existing_code = AuditoCode.objects.filter(user=user, is_used=False).first()
             if existing_code and existing_code.is_valid():
                 expires_at = int(existing_code.expires_at.timestamp() * 1000)
                 logger.debug(f"[SendLoginCodeView] Valid login code already exists for user {user.id}, expires at {expires_at}")
@@ -1205,10 +1205,10 @@ class SendLoginCodeView(View):
                 logger.debug(f"[SendLoginCodeView] Existing code message added to Redis: {message_id}")
                 return redirect('accounts:verify_login_code')
 
-            LoginCode.objects.filter(user=user, is_used=False).delete()
+            AuditoCode.objects.filter(user=user, is_used=False).delete()
             logger.debug(f"[SendLoginCodeView] Deleted expired login codes for user {user.id}")
 
-            login_code = LoginCode.objects.create(user=user)
+            login_code = AuditoCode.objects.create(user=user)
             logger.debug(f"[SendLoginCodeView] Created login code for user {user.id}: {login_code.code}")
 
             try:
@@ -1334,7 +1334,7 @@ class VerifyLoginCodeView(View):
             
         try:
             user = User.objects.get(id=user_id)
-            existing_code = LoginCode.objects.filter(user=user, is_used=False).first()
+            existing_code = AuditoCode.objects.filter(user=user, is_used=False).first()
             
             if not existing_code or not existing_code.is_valid():
                 self._add_error_message(conn, user_key, _("Login code has expired. Please request a new one."))
@@ -1389,7 +1389,7 @@ class VerifyLoginCodeView(View):
             return render(request, self.template_name, {'user_email': user.email})
 
         try:
-            login_code = LoginCode.objects.get(
+            login_code = AuditoCode.objects.get(
                 user=user,
                 code=entered_code,
                 is_used=False
@@ -1424,7 +1424,7 @@ class VerifyLoginCodeView(View):
             else:
                 self._add_error_message(conn, user_key, _("The login code has expired. Please request a new one."))
                 return redirect('accounts:send_login_code')
-        except LoginCode.DoesNotExist:
+        except AuditoCode.DoesNotExist:
             self._add_error_message(conn, user_key, _("The entered code is invalid."))
             return render(request, self.template_name, {'user_email': user.email})
         except Exception as e:
@@ -1471,10 +1471,10 @@ class ResendLoginCodeView(View):
             return JsonResponse({'success': False, 'message': _('Error processing request.')}, status=400)
 
         try:
-            LoginCode.objects.filter(user=user, is_used=False).delete()
+            AuditoCode.objects.filter(user=user, is_used=False).delete()
             logger.debug(f"[ResendLoginCodeView] Deleted unused login codes for user {user.id}")
 
-            login_code = LoginCode.objects.create(user=user)
+            login_code = AuditoCode.objects.create(user=user)
             logger.debug(f"[ResendLoginCodeView] Created new login code for user {user.id}: {login_code.code}")
 
             send_mail(

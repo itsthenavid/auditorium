@@ -115,7 +115,7 @@ class EmailVerificationCode(models.Model):
         return f"Verification code for {self.user.username} - {self.code}"
 
 
-class LoginCode(models.Model):
+class AuditoCode(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     code = models.CharField(max_length=15, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -135,7 +135,7 @@ class LoginCode(models.Model):
         characters = string.ascii_uppercase + string.digits
         while True:
             code = ''.join(random.choice(characters) for _ in range(15))
-            if not LoginCode.objects.filter(code=code).exists():
+            if not AuditoCode.objects.filter(code=code).exists():
                 return code
     
     def is_valid(self):
