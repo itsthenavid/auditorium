@@ -1035,7 +1035,7 @@ class GetMessagesView(LoginRequiredMixin, View):
             return JsonResponse({'error': 'Failed to load notifications'}, status=500)
 
 
-class SendLoginCodeView(View):
+class SendAuditoCodeView(View):
     """
     Handles the first step of login code authentication.
     Accepts a username or email, validates it, generates a login code, and sends it via email.
@@ -1061,7 +1061,7 @@ class SendLoginCodeView(View):
                 try:
                     parts = msg_data.decode('utf-8', errors='ignore').split('|')
                     if len(parts) != 3:
-                        logger.error(f"[SendLoginCodeView] Invalid message format in {user_key} for msg_id {msg_id.decode('utf-8', errors='ignore')}: {msg_data}")
+                        logger.error(f"[SendAuditoCodeView] Invalid message format in {user_key} for msg_id {msg_id.decode('utf-8', errors='ignore')}: {msg_data}")
                         conn.hdel(user_key, msg_id)
                         continue
                     tags = parts[1]
@@ -1069,21 +1069,21 @@ class SendLoginCodeView(View):
                     # Modified: Force clear messages with force_clear_tags (e.g., code-verification)
                     if force_clear_tags and any(tag in tags for tag in force_clear_tags):
                         conn.hdel(user_key, msg_id)
-                        logger.debug(f"[SendLoginCodeView] Force deleted message {msg_id.decode('utf-8', errors='ignore')} with tags {tags} from {user_key}")
+                        logger.debug(f"[SendAuditoCodeView] Force deleted message {msg_id.decode('utf-8', errors='ignore')} with tags {tags} from {user_key}")
                         continue
                     if expires_at < time.time() * 1000:
                         conn.hdel(user_key, msg_id)
-                        logger.debug(f"[SendLoginCodeView] Deleted expired message {msg_id.decode('utf-8', errors='ignore')} from {user_key}")
+                        logger.debug(f"[SendAuditoCodeView] Deleted expired message {msg_id.decode('utf-8', errors='ignore')} from {user_key}")
                         continue
                     if exclude_tags and any(tag in tags for tag in exclude_tags):
                         continue
                     conn.hdel(user_key, msg_id)
-                    logger.debug(f"[SendLoginCodeView] Deleted message {msg_id.decode('utf-8', errors='ignore')} from {user_key}")
+                    logger.debug(f"[SendAuditoCodeView] Deleted message {msg_id.decode('utf-8', errors='ignore')} from {user_key}")
                 except (ValueError, IndexError) as e:
-                    logger.error(f"[SendLoginCodeView] Invalid message format in {user_key} for msg_id {msg_id.decode('utf-8', errors='ignore')}: {str(e)}")
+                    logger.error(f"[SendAuditoCodeView] Invalid message format in {user_key} for msg_id {msg_id.decode('utf-8', errors='ignore')}: {str(e)}")
                     conn.hdel(user_key, msg_id)
         except Exception as e:
-            logger.error(f"[SendLoginCodeView] Error clearing old messages from {user_key}: {str(e)}")
+            logger.error(f"[SendAuditoCodeView] Error clearing old messages from {user_key}: {str(e)}")
             messages.error(self.request, _("An unexpected error occurred. Please try again or contact support."), extra_tags='error transient')
 
     def _add_error_message(self, conn, user_key, message_text, error_details=""):
@@ -1097,14 +1097,14 @@ class SendLoginCodeView(View):
             conn.hset(user_key, message_id, message_data)
             conn.expire(user_key, 5 * 60)
             messages.error(self.request, message_text, extra_tags='persistent error')
-            logger.error(f"[SendLoginCodeView] Error message added: {message_text}, Details: {error_details}")
+            logger.error(f"[SendAuditoCodeView] Error message added: {message_text}, Details: {error_details}")
         except Exception as e:
-            logger.error(f"[SendLoginCodeView] Error adding error message to {user_key}: {str(e)}")
+            logger.error(f"[SendAuditoCodeView] Error adding error message to {user_key}: {str(e)}")
             messages.error(self.request, message_text, extra_tags='persistent error')
 
     def get(self, request):
         """Check for existing valid login code or render the form for entering username or email."""
-        logger.debug("[SendLoginCodeView] Handling GET request")
+        logger.debug("[SendAuditoCodeView] Handling GET request")
         # Use session_key for anonymous users to ensure unique Redis key
         if not request.user.is_authenticated:
             if not request.session.session_key:
@@ -1116,7 +1116,7 @@ class SendLoginCodeView(View):
         conn = get_redis_connection('default')
         
         if request.user.is_authenticated:
-            logger.debug(f"[SendLoginCodeView] User {request.user.id} is already authenticated, redirecting to profile")
+            logger.debug(f"[SendAuditoCodeView] User {request.user.id} is already authenticated, redirecting to profile")
             return HttpResponseRedirect(reverse_lazy('accounts:profile_view'))
         
         user_id = request.session.get('login_user_id')
@@ -1127,7 +1127,7 @@ class SendLoginCodeView(View):
                 
                 if existing_code and existing_code.is_valid():
                     expires_at = int(existing_code.expires_at.timestamp() * 1000)
-                    logger.debug(f"[SendLoginCodeView] Existing valid login code found for user {user.id}, expires at {expires_at}")
+                    logger.debug(f"[SendAuditoCodeView] Existing valid login code found for user {user.id}, expires at {expires_at}")
                     
                     # Modified: Force clear old code-verification messages
                     self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'code-verification'], force_clear_tags=['code-verification'])
@@ -1137,22 +1137,22 @@ class SendLoginCodeView(View):
                     conn.hset(user_key, message_id, message_data)
                     conn.expire(user_key, int((expires_at - time.time() * 1000) / 1000))
                     messages.info(self.request, message_text, extra_tags=f'persistent info code-verification {expires_at}')
-                    logger.debug(f"[SendLoginCodeView] Message added to Redis: {message_id}, data: {message_data}")
+                    logger.debug(f"[SendAuditoCodeView] Message added to Redis: {message_id}, data: {message_data}")
                     
                     return redirect('accounts:verify_login_code')
                 else:
                     if existing_code:
                         existing_code.delete()
-                        logger.debug(f"[SendLoginCodeView] Deleted expired login code for user {user.id}")
+                        logger.debug(f"[SendAuditoCodeView] Deleted expired login code for user {user.id}")
             except User.DoesNotExist:
                 del request.session['login_user_id']
-                logger.debug("[SendLoginCodeView] Invalid user_id in session, cleared")
+                logger.debug("[SendAuditoCodeView] Invalid user_id in session, cleared")
         
         return render(request, self.template_name)
 
     def post(self, request):
         """Process username or email, generate and send a login code."""
-        logger.debug("[SendLoginCodeView] Handling POST request")
+        logger.debug("[SendAuditoCodeView] Handling POST request")
         # Use session_key for anonymous users
         if not request.user.is_authenticated:
             if not request.session.session_key:
@@ -1173,7 +1173,7 @@ class SendLoginCodeView(View):
             if self._is_valid_email(identifier):
                 try:
                     user = User.objects.get(email=identifier)
-                    logger.debug(f"[SendLoginCodeView] Found user by email: {identifier}")
+                    logger.debug(f"[SendAuditoCodeView] Found user by email: {identifier}")
                 except User.DoesNotExist:
                     self._add_error_message(conn, user_key, _("No user found with this email."))
                     return render(request, self.template_name)
@@ -1183,7 +1183,7 @@ class SendLoginCodeView(View):
                     if not user.email:
                         self._add_error_message(conn, user_key, _("This user has not registered an email."))
                         return render(request, self.template_name)
-                    logger.debug(f"[SendLoginCodeView] Found user by username: {identifier}")
+                    logger.debug(f"[SendAuditoCodeView] Found user by username: {identifier}")
                 except User.DoesNotExist:
                     self._add_error_message(conn, user_key, _("No user found with this username."))
                     return render(request, self.template_name)
@@ -1191,7 +1191,7 @@ class SendLoginCodeView(View):
             existing_code = AuditoCode.objects.filter(user=user, is_used=False).first()
             if existing_code and existing_code.is_valid():
                 expires_at = int(existing_code.expires_at.timestamp() * 1000)
-                logger.debug(f"[SendLoginCodeView] Valid login code already exists for user {user.id}, expires at {expires_at}")
+                logger.debug(f"[SendAuditoCodeView] Valid login code already exists for user {user.id}, expires at {expires_at}")
                 
                 request.session['login_user_id'] = user.id
                 # Modified: Force clear old code-verification messages
@@ -1202,14 +1202,14 @@ class SendLoginCodeView(View):
                 conn.hset(user_key, message_id, message_data)
                 conn.expire(user_key, int((expires_at - time.time() * 1000) / 1000))
                 messages.info(request, message_text, extra_tags=f'persistent info code-verification {expires_at}')
-                logger.debug(f"[SendLoginCodeView] Existing code message added to Redis: {message_id}")
+                logger.debug(f"[SendAuditoCodeView] Existing code message added to Redis: {message_id}")
                 return redirect('accounts:verify_login_code')
 
             AuditoCode.objects.filter(user=user, is_used=False).delete()
-            logger.debug(f"[SendLoginCodeView] Deleted expired login codes for user {user.id}")
+            logger.debug(f"[SendAuditoCodeView] Deleted expired login codes for user {user.id}")
 
             login_code = AuditoCode.objects.create(user=user)
-            logger.debug(f"[SendLoginCodeView] Created login code for user {user.id}: {login_code.code}")
+            logger.debug(f"[SendAuditoCodeView] Created login code for user {user.id}: {login_code.code}")
 
             try:
                 send_mail(
@@ -1224,7 +1224,7 @@ class SendLoginCodeView(View):
                     recipient_list=[user.email],
                     fail_silently=False,
                 )
-                logger.debug(f"[SendLoginCodeView] Login code sent to {user.email}")
+                logger.debug(f"[SendAuditoCodeView] Login code sent to {user.email}")
 
                 request.session['login_user_id'] = user.id
                 expires_at = int(login_code.expires_at.timestamp() * 1000)
@@ -1236,14 +1236,14 @@ class SendLoginCodeView(View):
                 conn.hset(user_key, message_id, message_data)
                 conn.expire(user_key, int((expires_at - time.time() * 1000) / 1000))
                 messages.info(request, message_text, extra_tags=f'persistent info code-verification {expires_at}')
-                logger.debug(f"[SendLoginCodeView] Success message added to Redis: {message_id}")
+                logger.debug(f"[SendAuditoCodeView] Success message added to Redis: {message_id}")
                 return redirect('accounts:verify_login_code')
             except Exception as e:
-                logger.error(f"[SendLoginCodeView] Error sending login code to {user.email}: {str(e)}")
+                logger.error(f"[SendAuditoCodeView] Error sending login code to {user.email}: {str(e)}")
                 self._add_error_message(conn, user_key, _("Error sending login code. Please try again."), str(e))
                 return render(request, self.template_name)
         except Exception as e:
-            logger.error(f"[SendLoginCodeView] Unexpected error in POST: {str(e)}\n{traceback.format_exc()}")
+            logger.error(f"[SendAuditoCodeView] Unexpected error in POST: {str(e)}\n{traceback.format_exc()}")
             try:
                 conn = get_redis_connection('default')
                 self._add_error_message(conn, user_key, _("An unexpected error occurred. Please try again or contact support."), str(e))
@@ -1252,7 +1252,7 @@ class SendLoginCodeView(View):
             return render(request, self.template_name)
 
 
-class VerifyLoginCodeView(View):
+class VerifyAuditoCodeView(View):
     """
     Handles the second step of login code authentication.
     Validates the submitted login code and logs in the user if valid.
@@ -1273,7 +1273,7 @@ class VerifyLoginCodeView(View):
                 try:
                     parts = msg_data.decode('utf-8', errors='ignore').split('|')
                     if len(parts) != 3:
-                        logger.error(f"[VerifyLoginCodeView] Invalid message format in {user_key} for msg_id {msg_id.decode('utf-8', errors='ignore')}: {msg_data}")
+                        logger.error(f"[VerifyAuditoCodeView] Invalid message format in {user_key} for msg_id {msg_id.decode('utf-8', errors='ignore')}: {msg_data}")
                         conn.hdel(user_key, msg_id)
                         continue
                     tags = parts[1]
@@ -1281,21 +1281,21 @@ class VerifyLoginCodeView(View):
                     # Modified: Force clear messages with force_clear_tags (e.g., code-verification)
                     if force_clear_tags and any(tag in tags for tag in force_clear_tags):
                         conn.hdel(user_key, msg_id)
-                        logger.debug(f"[VerifyLoginCodeView] Force deleted message {msg_id.decode('utf-8', errors='ignore')} with tags {tags} from {user_key}")
+                        logger.debug(f"[VerifyAuditoCodeView] Force deleted message {msg_id.decode('utf-8', errors='ignore')} with tags {tags} from {user_key}")
                         continue
                     if expires_at < time.time() * 1000:
                         conn.hdel(user_key, msg_id)
-                        logger.debug(f"[VerifyLoginCodeView] Deleted expired message {msg_id.decode('utf-8', errors='ignore')} from {user_key}")
+                        logger.debug(f"[VerifyAuditoCodeView] Deleted expired message {msg_id.decode('utf-8', errors='ignore')} from {user_key}")
                         continue
                     if exclude_tags and any(tag in tags for tag in exclude_tags):
                         continue
                     conn.hdel(user_key, msg_id)
-                    logger.debug(f"[VerifyLoginCodeView] Deleted message {msg_id.decode('utf-8', errors='ignore')} from {user_key}")
+                    logger.debug(f"[VerifyAuditoCodeView] Deleted message {msg_id.decode('utf-8', errors='ignore')} from {user_key}")
                 except (ValueError, IndexError) as e:
-                    logger.error(f"[VerifyLoginCodeView] Invalid message format in {user_key} for msg_id {msg_id.decode('utf-8', errors='ignore')}: {str(e)}")
+                    logger.error(f"[VerifyAuditoCodeView] Invalid message format in {user_key} for msg_id {msg_id.decode('utf-8', errors='ignore')}: {str(e)}")
                     conn.hdel(user_key, msg_id)
         except Exception as e:
-            logger.error(f"[VerifyLoginCodeView] Error clearing old messages from {user_key}: {str(e)}")
+            logger.error(f"[VerifyAuditoCodeView] Error clearing old messages from {user_key}: {str(e)}")
             messages.error(self.request, _("An unexpected error occurred. Please try again or contact support."), extra_tags='error transient')
 
     def _add_error_message(self, conn, user_key, message_text, error_details=""):
@@ -1309,14 +1309,14 @@ class VerifyLoginCodeView(View):
             conn.hset(user_key, message_id, message_data)
             conn.expire(user_key, 5 * 60)
             messages.error(self.request, message_text, extra_tags='persistent error')
-            logger.error(f"[VerifyLoginCodeView] Error message added: {message_text}, Details: {error_details}")
+            logger.error(f"[VerifyAuditoCodeView] Error message added: {message_text}, Details: {error_details}")
         except Exception as e:
-            logger.error(f"[VerifyLoginCodeView] Error adding error message to {user_key}: {str(e)}")
+            logger.error(f"[VerifyAuditoCodeView] Error adding error message to {user_key}: {str(e)}")
             messages.error(self.request, message_text, extra_tags='persistent error')
 
     def get(self, request):
         """Render the form for entering the login code."""
-        logger.debug("[VerifyLoginCodeView] Handling GET request")
+        logger.debug("[VerifyAuditoCodeView] Handling GET request")
         # Use session_key for anonymous users
         if not request.user.is_authenticated:
             if not request.session.session_key:
@@ -1341,7 +1341,7 @@ class VerifyLoginCodeView(View):
                 return redirect('accounts:send_login_code')
             
             expires_at = int(existing_code.expires_at.timestamp() * 1000)
-            logger.debug(f"[VerifyLoginCodeView] Valid login code found for user {user.id}, expires at {expires_at}")
+            logger.debug(f"[VerifyAuditoCodeView] Valid login code found for user {user.id}, expires at {expires_at}")
             
             # Modified: Force clear old code-verification messages
             self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'code-verification'], force_clear_tags=['code-verification'])
@@ -1352,7 +1352,7 @@ class VerifyLoginCodeView(View):
             conn.expire(user_key, int((expires_at - time.time() * 1000) / 1000))
             messages.info(request, message_text, extra_tags=f'persistent info code-verification {expires_at}')
             
-            logger.debug(f"[VerifyLoginCodeView] User found for ID {user_id}")
+            logger.debug(f"[VerifyAuditoCodeView] User found for ID {user_id}")
             return render(request, self.template_name, {'user_email': user.email})
         except User.DoesNotExist:
             self._add_error_message(conn, user_key, _("Error processing request. Please try again."))
@@ -1360,7 +1360,7 @@ class VerifyLoginCodeView(View):
 
     def post(self, request):
         """Validate the submitted login code and log in the user if valid."""
-        logger.debug("[VerifyLoginCodeView] Handling POST request")
+        logger.debug("[VerifyAuditoCodeView] Handling POST request")
         # Use session_key for anonymous users
         if not request.user.is_authenticated:
             if not request.session.session_key:
@@ -1378,7 +1378,7 @@ class VerifyLoginCodeView(View):
 
         try:
             user = User.objects.get(id=user_id)
-            logger.debug(f"[VerifyLoginCodeView] User found for ID {user_id}")
+            logger.debug(f"[VerifyAuditoCodeView] User found for ID {user_id}")
         except User.DoesNotExist:
             self._add_error_message(conn, user_key, _("Error processing request. Please try again."))
             return redirect('accounts:send_login_code')
@@ -1394,24 +1394,24 @@ class VerifyLoginCodeView(View):
                 code=entered_code,
                 is_used=False
             )
-            logger.debug(f"[VerifyLoginCodeView] Login code found for user {user.id}: {entered_code}")
+            logger.debug(f"[VerifyAuditoCodeView] Login code found for user {user.id}: {entered_code}")
 
             if login_code.is_valid():
                 login_code.is_used = True
                 login_code.save()
-                logger.debug(f"[VerifyLoginCodeView] Login code marked as used for user {user.id}")
+                logger.debug(f"[VerifyAuditoCodeView] Login code marked as used for user {user.id}")
 
                 login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-                logger.debug(f"[VerifyLoginCodeView] User {user.id} logged in successfully")
+                logger.debug(f"[VerifyAuditoCodeView] User {user.id} logged in successfully")
 
                 # Delete old session-based Redis key after successful login
                 old_key = f"persistent_messages:{request.session.session_key}"
                 conn.delete(old_key)
-                logger.debug(f"[VerifyLoginCodeView] Deleted old Redis key {old_key} after login")
+                logger.debug(f"[VerifyAuditoCodeView] Deleted old Redis key {old_key} after login")
 
                 if 'login_user_id' in request.session:
                     del request.session['login_user_id']
-                    logger.debug("[VerifyLoginCodeView] Cleared login_user_id from session")
+                    logger.debug("[VerifyAuditoCodeView] Cleared login_user_id from session")
 
                 self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'code-verification'])
                 message_id = f"msg-success-{user.id}-{int(time.time())}"
@@ -1428,12 +1428,12 @@ class VerifyLoginCodeView(View):
             self._add_error_message(conn, user_key, _("The entered code is invalid."))
             return render(request, self.template_name, {'user_email': user.email})
         except Exception as e:
-            logger.error(f"[VerifyLoginCodeView] Unexpected error in POST: {str(e)}\n{traceback.format_exc()}")
+            logger.error(f"[VerifyAuditoCodeView] Unexpected error in POST: {str(e)}\n{traceback.format_exc()}")
             self._add_error_message(conn, user_key, _("An unexpected error occurred. Please try again or contact support."), str(e))
             return render(request, self.template_name, {'user_email': user.email})
 
 
-class ResendLoginCodeView(View):
+class ResendAuditoCodeView(View):
     """
     Handles resending a login code to the user's email.
     Deletes old codes, generates a new one, and sends it via email.
@@ -1441,12 +1441,12 @@ class ResendLoginCodeView(View):
     """
     def get(self, request):
         """Handle GET requests by redirecting to the send login code view."""
-        logger.debug("[ResendLoginCodeView] GET request redirected to send_login_code")
+        logger.debug("[ResendAuditoCodeView] GET request redirected to send_login_code")
         return redirect('accounts:send_login_code')
 
     def post(self, request):
         """Generate and send a new login code to the user's email."""
-        logger.debug("[ResendLoginCodeView] Handling POST request")
+        logger.debug("[ResendAuditoCodeView] Handling POST request")
         # Use session_key for anonymous users
         if not request.user.is_authenticated:
             if not request.session.session_key:
@@ -1459,23 +1459,23 @@ class ResendLoginCodeView(View):
 
         user_id = request.session.get('login_user_id')
         if not user_id:
-            logger.error("[ResendLoginCodeView] No user_id in session")
+            logger.error("[ResendAuditoCodeView] No user_id in session")
             return JsonResponse({'success': False, 'message': _('Error processing request.')}, status=400)
 
         try:
             user = User.objects.get(id=user_id)
-            logger.debug(f"[ResendLoginCodeView] User found for ID {user_id}")
+            logger.debug(f"[ResendAuditoCodeView] User found for ID {user_id}")
         except User.DoesNotExist:
-            logger.error(f"[ResendLoginCodeView] User not found for ID {user_id}")
+            logger.error(f"[ResendAuditoCodeView] User not found for ID {user_id}")
             self._add_error_message(conn, user_key, _("Error processing request."))
             return JsonResponse({'success': False, 'message': _('Error processing request.')}, status=400)
 
         try:
             AuditoCode.objects.filter(user=user, is_used=False).delete()
-            logger.debug(f"[ResendLoginCodeView] Deleted unused login codes for user {user.id}")
+            logger.debug(f"[ResendAuditoCodeView] Deleted unused login codes for user {user.id}")
 
             login_code = AuditoCode.objects.create(user=user)
-            logger.debug(f"[ResendLoginCodeView] Created new login code for user {user.id}: {login_code.code}")
+            logger.debug(f"[ResendAuditoCodeView] Created new login code for user {user.id}: {login_code.code}")
 
             send_mail(
                 subject=_('Your New Login Code'),
@@ -1488,7 +1488,7 @@ class ResendLoginCodeView(View):
                 recipient_list=[user.email],
                 fail_silently=False,
             )
-            logger.debug(f"[ResendLoginCodeView] New login code sent to {user.email}")
+            logger.debug(f"[ResendAuditoCodeView] New login code sent to {user.email}")
 
             # Modified: Force clear old code-verification messages
             self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'code-verification'], force_clear_tags=['code-verification'])
@@ -1502,9 +1502,9 @@ class ResendLoginCodeView(View):
             conn.expire(user_key, int((expires_at - time.time() * 1000) / 1000))
             messages.info(request, message_text_timer, extra_tags=f'persistent info code-verification {expires_at}')
             
-            logger.debug(f"[ResendLoginCodeView] Success message added to Redis: {message_id_timer}")
+            logger.debug(f"[ResendAuditoCodeView] Success message added to Redis: {message_id_timer}")
             return JsonResponse({'success': True, 'message': message_text_success}, status=200)
         except Exception as e:
-            logger.error(f"[ResendLoginCodeView] Error sending new login code: {str(e)}\n{traceback.format_exc()}")
+            logger.error(f"[ResendAuditoCodeView] Error sending new login code: {str(e)}\n{traceback.format_exc()}")
             self._add_error_message(conn, user_key, _("Error sending new login code."), str(e))
             return JsonResponse({'success': False, 'message': _('Error sending new login code.')}, status=500)

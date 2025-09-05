@@ -17,8 +17,8 @@ urlpatterns = [
     path('verify-email/', views.VerifyEmailView.as_view(), name='verify_email'),
     path('email/', views.VerifyEmailView.as_view(), name='verify_email'),
     path('verify-email/<str:key>/', views.EmailVerifyLinkView.as_view(), name='email_verify_link'),
-    path('audito-code/', views.SendLoginCodeView.as_view(), name='send_login_code'),
-    path('audito-code/verify/', views.VerifyLoginCodeView.as_view(), name='verify_login_code'),
-    path('audito-code/resend/', views.ResendLoginCodeView.as_view(), name='resend_login_code'),
+    path('audito-code/', views.SendAuditoCodeView.as_view(), name='send_audito_code'),
+    path('audito-code/verify/', views.VerifyAuditoCodeView.as_view(), name='verify_audito_code'),
+    path('audito-code/resend/', views.ResendAuditoCodeView.as_view(), name='resend_audito_code'),
     path('api/persistent-messages/', api.persistent_messages, name='persistent_messages'),
 ]
