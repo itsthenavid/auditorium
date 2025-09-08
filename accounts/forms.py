@@ -5,7 +5,7 @@ import logging
 
 from allauth.account.forms import SignupForm
 
-from .models import User
+from .models import User, AuditoCode
 
 # Create your forms here.
 
@@ -283,9 +283,41 @@ class ProfileInfoForm(forms.ModelForm):
         return user
 
 
+class LoginCodeForm(forms.Form):
+    code = forms.CharField(
+        max_length=15,
+        min_length=15,
+        label=_("Verification Code"),
+        help_text=_("Enter the 15-character code sent to your email.")
+    )
+
+    def __init__(self, user, code_type='login', *args, **kwargs):
+        self.user = user
+        self.code_type = code_type
+        super().__init__(*args, **kwargs)
+
+    def clean_code(self):
+        code = self.cleaned_data.get('code').upper()
+        if len(code) != 15 or not code.isalnum():
+            raise forms.ValidationError(_("The code must be exactly 15 alphanumeric characters."))
+        try:
+            audito_code = AuditoCode.objects.get(
+                user=self.user,
+                code=code,
+                is_used=False,
+                type=self.code_type
+            )
+            if not audito_code.is_valid():
+                raise forms.ValidationError(_("The code has expired or is invalid. Please request a new one."))
+        except AuditoCode.DoesNotExist:
+            raise forms.ValidationError(_("Invalid code."))
+        return code
+
+
 class ProfilePasswordChangeForm(forms.Form):
     """
-    
+    Form for changing user password via current password or verification code.
+    Validates password requirements and ensures proper error handling.
     """
     current_password = forms.CharField(
         label=_("Current Password"),
@@ -293,8 +325,19 @@ class ProfilePasswordChangeForm(forms.Form):
             'class': 'form-control',
             'placeholder': _('Enter your current password')
         }),
-        required=True,
+        required=False,
         help_text=_("Enter your current password to verify your identity.")
+    )
+    code = forms.CharField(
+        label=_("Verification Code"),
+        max_length=15,
+        required=False,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': _('Enter the 15-character code sent to your email'),
+            'autocomplete': 'off'
+        }),
+        help_text=_("Enter the code sent to your email (if using code verification).")
     )
     new_password = forms.CharField(
         label=_("New Password"),
@@ -321,47 +364,92 @@ class ProfilePasswordChangeForm(forms.Form):
         super().__init__(*args, **kwargs)
 
     def clean_current_password(self):
+        """Validate the current password if provided."""
         current_password = self.cleaned_data.get('current_password')
         if current_password and not self.user.check_password(current_password):
-            raise forms.ValidationError(_("Current password is incorrect."))
+            logger.warning(f"[ProfilePasswordChangeForm] Incorrect current password for user {self.user.id}")
+            raise forms.ValidationError(_("Current password is incorrect. Please try again."))
         return current_password
 
+    def clean_code(self):
+        """Validate the verification code if provided."""
+        code = self.cleaned_data.get('code')
+        if code:
+            code = code.upper()
+            try:
+                audito_code = AuditoCode.objects.get(
+                    user=self.user,
+                    code=code,
+                    is_used=False,
+                    type='password'
+                )
+                if not audito_code.is_valid():
+                    logger.warning(f"[ProfilePasswordChangeForm] Expired code {code} for user {self.user.id}")
+                    raise forms.ValidationError(_("The verification code has expired. Please request a new one."))
+            except AuditoCode.DoesNotExist:
+                logger.warning(f"[ProfilePasswordChangeForm] Invalid code {code} for user {self.user.id}")
+                raise forms.ValidationError(_("Invalid verification code. Please check and try again."))
+        return code
+
     def clean_new_password(self):
+        """Validate the new password requirements."""
         new_password = self.cleaned_data.get('new_password')
         if new_password:
             if len(new_password) < 8:
+                logger.warning(f"[ProfilePasswordChangeForm] New password too short for user {self.user.id}")
                 raise forms.ValidationError(_("Password must be at least 8 characters long."))
-            
-            has_letter = any(c.isalpha() for c in new_password)
-            has_digit = any(c.isdigit() for c in new_password)
-            
-            if not has_letter:
+            if not any(c.isalpha() for c in new_password):
+                logger.warning(f"[ProfilePasswordChangeForm] New password lacks letters for user {self.user.id}")
                 raise forms.ValidationError(_("Password must contain at least one letter."))
-            if not has_digit:
+            if not any(c.isdigit() for c in new_password):
+                logger.warning(f"[ProfilePasswordChangeForm] New password lacks numbers for user {self.user.id}")
                 raise forms.ValidationError(_("Password must contain at least one number."))
-                
         return new_password
 
     def clean(self):
+        """Validate the combination of fields for password change."""
         cleaned_data = super().clean()
+        current_password = cleaned_data.get('current_password')
+        code = cleaned_data.get('code')
         new_password = cleaned_data.get('new_password')
         confirm_password = cleaned_data.get('confirm_password')
-        current_password = cleaned_data.get('current_password')
 
-        if new_password and confirm_password:
-            if new_password != confirm_password:
-                raise forms.ValidationError(_("The new passwords do not match."))
+        logger.debug(f"[ProfilePasswordChangeForm] Cleaning form for user {self.user.id}: current_password={bool(current_password)}, code={bool(code)}")
 
-        if new_password and current_password:
-            if new_password == current_password:
-                raise forms.ValidationError(_("New password cannot be the same as the current password."))
+        # Check if neither current_password nor code is provided
+        if not current_password and not code:
+            logger.warning(f"[ProfilePasswordChangeForm] Neither current password nor code provided for user {self.user.id}")
+            raise forms.ValidationError(_("Please provide either your current password or a verification code."))
+
+        # Check if both current_password and code are provided
+        if current_password and code:
+            logger.warning(f"[ProfilePasswordChangeForm] Both current password and code provided for user {self.user.id}")
+            raise forms.ValidationError(_("Please provide only one of current password or verification code, not both."))
+
+        # Check if new_password matches confirm_password
+        if new_password and confirm_password and new_password != confirm_password:
+            logger.warning(f"[ProfilePasswordChangeForm] Passwords do not match for user {self.user.id}")
+            raise forms.ValidationError(_("The new password and confirmation do not match."))
+
+        # Check if new_password is the same as current_password
+        if current_password and new_password and current_password == new_password:
+            logger.warning(f"[ProfilePasswordChangeForm] New password same as current for user {self.user.id}")
+            raise forms.ValidationError(_("The new password cannot be the same as the current password."))
 
         return cleaned_data
 
     def save(self):
+        """Save the new password and mark AuditoCode as used if applicable."""
         new_password = self.cleaned_data['new_password']
+        code = self.cleaned_data.get('code')
+        if code:
+            audito_code = AuditoCode.objects.get(user=self.user, code=code.upper(), type='password')
+            audito_code.is_used = True
+            audito_code.save()
+            logger.info(f"[ProfilePasswordChangeForm] Code {code} marked as used for user {self.user.id}")
         self.user.set_password(new_password)
         self.user.save()
+        logger.info(f"[ProfilePasswordChangeForm] Password changed successfully for user {self.user.id}")
         return self.user
 
 
@@ -377,19 +465,4 @@ class EmailVerificationForm(forms.Form):
         code = self.cleaned_data.get('code')
         if not code.isdigit():
             raise forms.ValidationError(_("The verification code must be exactly 10 digits."))
-        return code
-
-
-class LoginCodeForm(forms.Form):
-    code = forms.CharField(
-        max_length=15,
-        min_length=15,
-        label=_("Login Code"),
-        help_text=_("Enter the 15-character login code sent to your email.")
-    )
-
-    def clean_code(self):
-        code = self.cleaned_data.get('code').upper()
-        if len(code) != 15 or not code.isalnum():
-            raise forms.ValidationError(_("The login code must be exactly 15 alphanumeric characters."))
         return code
