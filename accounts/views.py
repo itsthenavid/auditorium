@@ -1,5 +1,5 @@
 from django.http import HttpResponseRedirect, JsonResponse
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import UpdateView, TemplateView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
@@ -441,21 +441,23 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
                     
                     if new_email != old_email:
                         if new_email:
-                            message_text = _("Your email has been updated. Please verify your new email (remaining: <span class='timer'></span>).")
-                            message_id = f"msg-email-success-{self.request.user.id}-{int(time.time())}"
-                            expires_at = int((time.time() + 5 * 60) * 1000)
-                            message_data = f"{message_text}|persistent success email-verification|{expires_at}"
-                            conn.hset(user_key, message_id, message_data)
-                            conn.expire(user_key, 5 * 60)
-                            messages.success(self.request, message_text, extra_tags=f'persistent success email-verification {expires_at}')
+                            # Success message for email update
+                            message_text = _("Your email has been successfully updated.")
+                            message_data = f"{message_text}|persistent success profile"
+                            messages.success(self.request, message_text, extra_tags='success profile')
+                            
+                            # Warning message with verification link
+                            verification_url = reverse('accounts:verify_email')
+                            message_text = _(
+                                'Your email has been changed, so we un-verified it. '
+                                'You can verify your new email <a href="%(url)s">here</a>.'
+                            ) % {'url': verification_url}
+                            message_data = f"{message_text}|warning email-verification"
+                            messages.warning(self.request, message_text, extra_tags='warning email-verification')
+                            logger.debug(f"[ProfileUpdateView] Email changed from '{old_email}' to '{new_email}'")
                         else:
-                            message_text = _("Your email has been removed from your profile.")
-                            message_id = f"msg-email-removed-{self.request.user.id}-{int(time.time())}"
-                            expires_at = int((time.time() + 5 * 60) * 1000)
-                            message_data = f"{message_text}|persistent warning profile|{expires_at}"
-                            conn.hset(user_key, message_id, message_data)
-                            conn.expire(user_key, 5 * 60)
-                            messages.warning(self.request, message_text, extra_tags='persistent warning profile')
+                            message_text = _("Your email has been removed from your profile. This account is now un-verified. Please add an email and then, verify your account.")
+                            messages.warning(self.request, message_text, extra_tags='warning profile')
                         changes_detected = True
 
                 if not changes_detected:
@@ -662,7 +664,7 @@ class EmailVerifyLinkView(RequireGetMixin, View):
             return HttpResponseRedirect(reverse_lazy('accounts:profile_view'))
         elif request.user.email == "" or request.user.email is None:
             logger.debug(f"[EmailVerifyLinkView] User {request.user.id} has no email, redirecting to verify email")
-            messages.warning(request, _("You have not entered an email yet. Please enter your email to verify it."), extra_tags='warning')
+            messages.error(request, _("You have not entered an email yet. Please enter your email to verify it."), extra_tags='error')
             return HttpResponseRedirect(reverse_lazy('accounts:profile_edit'))
         
         return super().dispatch(request, *args, **kwargs)
@@ -768,7 +770,7 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
             return HttpResponseRedirect(reverse_lazy('accounts:profile_view'))
         elif request.user.email == "" or request.user.email is None:
             logger.debug(f"[EmailVerifyLinkView] User {request.user.id} has no email, redirecting to verify email")
-            messages.warning(request, _("You have not entered an email yet. Please enter your email to verify it."), extra_tags='warning')
+            messages.error(request, _("You have not entered an email yet. Please enter your email to verify it."), extra_tags='error')
             return HttpResponseRedirect(reverse_lazy('accounts:profile_edit'))
         
         return super().dispatch(request, *args, **kwargs)
