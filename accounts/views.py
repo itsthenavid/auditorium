@@ -695,12 +695,8 @@ class EmailVerifyLinkView(RequireGetMixin, View):
                     return redirect('accounts:verify_email')
                 confirmation.confirm(self.request)
                 self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'email-verification'])
-                message_id = f"msg-email-success-{request.user.id}-{int(now().timestamp())}"
                 message_text = _("Your email has been verified successfully. You're awesome!")
-                message_data = f"{message_text}|persistent success|{int(now().timestamp() + 5 * 60 * 1000)}"
-                conn.hset(user_key, message_id, message_data)
-                conn.expire(user_key, 5 * 60)
-                messages.success(self.request, message_text, extra_tags='persistent success')
+                messages.success(self.request, message_text, extra_tags='success')
                 logger.debug(f"[EmailVerifyLinkView] Email verified for user {request.user.id}")
                 return redirect('accounts:profile_view')
             self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit', 'retry-attempt', 'email-verification'])
@@ -1009,12 +1005,8 @@ class VerifyEmailView(RateLimitMixin, LoginRequiredMixin, View):
                         user.save()
                         evc.delete()
                         self._clear_old_messages(conn, user_key, exclude_tags=['rate-limit'])
-                        message_id = f"msg-email-success-{user.id}-{int(now().timestamp())}"
                         message_text = _("Your email has been verified successfully. You're awesome!")
-                        message_data = f"{message_text}|persistent success|{int(now().timestamp() + 5 * 60 * 1000)}"
-                        conn.hset(user_key, message_id, message_data)
-                        conn.expire(user_key, 5 * 60)
-                        messages.success(self.request, message_text, extra_tags='persistent success')
+                        messages.success(self.request, message_text, extra_tags='success')
                         logger.debug(f"[VerifyEmailView] User {user.id}: Email verified successfully")
                         return HttpResponseRedirect(reverse_lazy('accounts:profile_view'))
                 else:
