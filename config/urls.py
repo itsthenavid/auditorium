@@ -25,6 +25,7 @@ urlpatterns = i18n_patterns(
     # Include the pages app URLs
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('allauth.urls')),
+    path('managements/', include('managements.urls')),
     path('', include('pages.urls')),
 )
 

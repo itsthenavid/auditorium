@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # Developer installed apps
     "accounts.apps.AccountsConfig",
     "pages.apps.PagesConfig",
+    "managements.apps.ManagementsConfig",
     "extensions",
     # Third-party installed apps
     "allauth",
