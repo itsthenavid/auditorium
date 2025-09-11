@@ -32,6 +32,15 @@ class Settings(models.Model):
         choices=THEME_CHOICES,
         default=THEME_CHOICES[0][0],
     )
+    font_size = models.PositiveSmallIntegerField(
+        _("Font Size"),
+        default=16,
+        help_text=_("Font size in pixels (12-24)"),
+    )
+    enable_notifications = models.BooleanField(
+        verbose_name=_("Enable Notifications"),
+        default=True,
+    )
 
     def __str__(self):
         return self.language
