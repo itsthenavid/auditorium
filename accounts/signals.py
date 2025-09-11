@@ -5,6 +5,9 @@ from django.db.models.signals import pre_save, post_save
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
+from django.contrib.auth.signals import user_logged_in
+from django.utils import translation
+
 from django_redis import get_redis_connection
 from allauth.account.models import EmailAddress
 
@@ -79,3 +82,12 @@ def handle_email_verification(sender, instance, created, **kwargs):
 
     except Exception as e:
         logger.error(f"[handle_email_verification] Error for user {getattr(instance.user, 'id', 'unknown')}: {str(e)}", exc_info=True)
+
+@receiver(user_logged_in)
+def set_user_language(sender, request, user, **kwargs):
+    try:
+        user_lang = user.settings.language
+        translation.activate(user_lang)
+        request.session['django_language'] = user_lang
+    except AttributeError:
+        pass

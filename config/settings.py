@@ -68,6 +68,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # Third-party middleware
     "allauth.account.middleware.AccountMiddleware",
+    # Developer-written middleware
+    'extensions.middleware.UserLanguageMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -89,6 +91,7 @@ TEMPLATES = [
                 'django.template.context_processors.i18n',
                 # Developer-written context processors
                 'extensions.context_processors.direction_context',
+                'extensions.context_processors.user_settings',
             ],
         },
     },
