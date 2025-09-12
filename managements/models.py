@@ -41,6 +41,10 @@ class Settings(models.Model):
         verbose_name=_("Enable Notifications"),
         default=True,
     )
+    enable_particles = models.BooleanField(
+        verbose_name=_("Enable Particles Effect"),
+        default=False,
+    )
 
     def __str__(self):
         return self.language
