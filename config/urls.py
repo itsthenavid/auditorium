@@ -27,6 +27,8 @@ urlpatterns = i18n_patterns(
     path('accounts/', include('allauth.urls')),
     path('managements/', include('managements.urls')),
     path('', include('pages.urls')),
+    path('', include('core.urls')),
+    path('tinymce/', include('tinymce.urls')),
     path('i18n/', include('django.conf.urls.i18n')),
     prefix_default_language=False,
 )

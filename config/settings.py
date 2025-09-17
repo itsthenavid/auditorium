@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "accounts.apps.AccountsConfig",
     "pages.apps.PagesConfig",
     "managements.apps.ManagementsConfig",
+    "core.apps.CoreConfig",
     "extensions",
     # Third-party installed apps
     "allauth",
@@ -54,6 +55,8 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_bootstrap5",
     "django_redis",
+    "tinymce",
+    "widget_tweaks",
 ]
 
 MIDDLEWARE = [
@@ -286,3 +289,133 @@ RATELIMIT_USE_CACHE = 'default'
 # https://docs.djangoproject.com/en/5.1/ref/contrib/messages/
 
 MESSAGE_STORAGE_FORMAT = 'json'
+
+# TinyMCE settings
+# https://django-tinymce.readthedocs.io/en/latest/
+
+TINYMCE_DEFAULT_CONFIG = {
+    "height": 600,
+    "width": "100%",
+    "menubar": "file edit view insert format tools table help",
+    "plugins": (
+        "advlist autolink lists link image charmap print preview anchor "
+        "searchreplace visualblocks visualchars code fullscreen "
+        "insertdatetime media nonbreaking save table directionality "
+        "emoticons template paste textpattern codesample hr pagebreak "
+        "wordcount imagetools contextmenu colorpicker textcolor "
+        "autosave spellchecker"
+    ),
+    "toolbar": (
+        "undo redo | bold italic underline strikethrough | "
+        "fontselect fontsizeselect formatselect | "
+        "alignleft aligncenter alignright alignjustify | "
+        "outdent indent | numlist bullist | forecolor backcolor | "
+        "link image media codesample | "
+        "ltr rtl | blockquote subscript superscript removeformat | "
+        "table | fullscreen preview print | code help | spellchecker"
+    ),
+    "contextmenu": "link image table",
+    "custom_undo_redo_levels": 20,
+    "image_advtab": True,
+    "table_default_attributes": {
+        "border": "1",
+        "class": "table table-bordered"
+    },
+    "table_default_styles": {
+        "borderCollapse": "collapse",
+        "width": "100%"
+    },
+    "templates": [
+        {"title": "Test template 1", "description": "Some HTML", "content": "<p>Test 1</p>"},
+        {"title": "Test template 2", "description": "More HTML", "content": "<p>Test 2</p>"},
+    ],
+    "directionality": "auto",
+    "language": "en",
+    "skin": "oxide",
+    "content_css": "/static/css/tinymce-content.css",
+    "paste_data_images": True,
+    "paste_as_text": False,
+    "paste_auto_cleanup_on_paste": True,
+    "paste_remove_styles": False,
+    "paste_remove_styles_if_webkit": False,
+    "autosave_ask_before_unload": True,
+    "autosave_interval": "30s",
+    "autosave_prefix": "{path}{query}-{id}-",
+    "autosave_restore_when_empty": False,
+    "autosave_retention": "2m",
+    "style_formats": [
+        {"title": "Headings", "items": [
+            {"title": "Heading 1", "block": "h1"},
+            {"title": "Heading 2", "block": "h2"},
+            {"title": "Heading 3", "block": "h3"},
+            {"title": "Heading 4", "block": "h4"},
+            {"title": "Heading 5", "block": "h5"},
+            {"title": "Heading 6", "block": "h6"}
+        ]},
+        {"title": "Inline", "items": [
+            {"title": "Bold", "inline": "strong"},
+            {"title": "Italic", "inline": "em"},
+            {"title": "Underline", "inline": "u"},
+            {"title": "Strikethrough", "inline": "s"},
+            {"title": "Superscript", "inline": "sup"},
+            {"title": "Subscript", "inline": "sub"},
+            {"title": "Code", "inline": "code"}
+        ]},
+        {"title": "Blocks", "items": [
+            {"title": "Paragraph", "block": "p"},
+            {"title": "Blockquote", "block": "blockquote"},
+            {"title": "Div", "block": "div"},
+            {"title": "Preformatted", "block": "pre"}
+        ]},
+        {"title": "Alignment", "items": [
+            {"title": "Left", "block": "div", "styles": {"text-align": "left"}},
+            {"title": "Center", "block": "div", "styles": {"text-align": "center"}},
+            {"title": "Right", "block": "div", "styles": {"text-align": "right"}},
+            {"title": "Justify", "block": "div", "styles": {"text-align": "justify"}}
+        ]},
+    ],
+    "imagetools_toolbar": "rotateleft rotateright | flipv fliph | editimage imageoptions",
+    "textpattern_patterns": [
+        {"start": "# ", "format": "h1"},
+        {"start": "## ", "format": "h2"},
+        {"start": "### ", "format": "h3"},
+        {"start": "1. ", "cmd": "InsertOrderedList"},
+        {"start": "* ", "cmd": "InsertUnorderedList"},
+        {"start": "> ", "format": "blockquote"}
+    ],
+    "valid_elements": "*[*]",
+    "extended_valid_elements": "script[type|src]",
+    "custom_elements": "~custom-element",
+    "images_upload_url": "/post/tinymce/upload/",
+    "automatic_uploads": True,
+    "file_picker_types": "media",
+    "file_picker_callback": """
+function(callback, value, meta) {
+  const input = document.createElement('input');
+  input.setAttribute('type', 'file');
+  input.setAttribute('accept', 'video/*,audio/*');
+  input.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+    fetch('/post/tinymce/upload/', {
+      method: 'POST',
+      body: formData,
+      credentials: 'include',
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.location) {
+        callback(data.location);
+      } else {
+        alert('Upload failed: ' + (data.error || 'Unknown error'));
+      }
+    })
+    .catch(err => {
+      alert('Error: ' + err);
+    });
+  });
+  input.click();
+}
+""",
+}
